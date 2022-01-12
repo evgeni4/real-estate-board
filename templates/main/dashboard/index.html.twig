@@ -1,20 +1,214 @@
-{% extends 'main/base.html.twig' %}
+{% extends 'main/base_dashboard.html.twig' %}
 
 {% block title %}Hello DashboardController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/media/maks/07ef7599-8ed4-401a-8754-8b4c95a971fe/maks/WWW/jobs/board-real-estate/src/Controller/Main/DashboardController.php'|file_link(0) }}">src/Controller/Main/DashboardController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/media/maks/07ef7599-8ed4-401a-8754-8b4c95a971fe/maks/WWW/jobs/board-real-estate/templates/main/dashboard/index.html.twig'|file_link(0) }}">templates/main/dashboard/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <div class="dasboard-wrapper fl-wrap no-pag">
+            <div class="dashboard-stats-container fl-wrap">
+                <div class="row">
+                    <!--dashboard-stats-->
+                    <div class="col-md-3">
+                        <div class="dashboard-stats fl-wrap">
+                            <i class="fal fa-map-marked"></i>
+                            <h4>Active Listings</h4>
+                            <div class="dashboard-stats-count">124</div>
+                        </div>
+                    </div>
+                    <!-- dashboard-stats end -->
+                    <!--dashboard-stats-->
+                    <div class="col-md-3">
+                        <div class="dashboard-stats fl-wrap">
+                            <i class="fal fa-chart-bar"></i>
+                            <h4>Listing Views</h4>
+                            <div class="dashboard-stats-count">1056<span>(<strong>+356</strong> this week)</span></div>
+                        </div>
+                    </div>
+                    <!-- dashboard-stats end -->
+                    <!--dashboard-stats-->
+                    <div class="col-md-3">
+                        <div class="dashboard-stats fl-wrap">
+                            <i class="fal fa-comments-alt"></i>
+                            <h4>Your Reviews</h4>
+                            <div class="dashboard-stats-count">357<span>(<strong>+12</strong> this week)</span></div>
+                        </div>
+                    </div>
+                    <!-- dashboard-stats end -->
+                    <!--dashboard-stats-->
+                    <div class="col-md-3">
+                        <div class="dashboard-stats fl-wrap">
+                            <i class="fal fa-heart"></i>
+                            <h4>Times Bookmarked</h4>
+                            <div class="dashboard-stats-count">2329<span>(<strong>+234</strong> this week)</span></div>
+                        </div>
+                    </div>
+                    <!-- dashboard-stats end -->
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="notification success-notif  fl-wrap">
+                        <p>Your listing <a href="dashboard.html#">Family house in Brooklyn</a> has been approved!</p>
+                        <a class="notification-close" href="dashboard.html#"><i class="fal fa-times"></i></a>
+                    </div>
+                    <div class="dashboard-widget-title fl-wrap">Your  Statistic</div>
+                    <div class="dasboard-content fl-wrap">
+                        <!-- chart-wra-->
+                        <div class="chart-wrap   fl-wrap">
+                            <div class="chart-header fl-wrap">
+                                <div class="listsearch-input-item">
+                                    <select data-placeholder="Week" class="chosen-select no-search-select" >
+                                        <option>Week</option>
+                                        <option>Month</option>
+                                        <option>Year</option>
+                                    </select>
+                                </div>
+                                <div id="myChartLegend"></div>
+                            </div>
+                            <canvas id="canvas-chart"></canvas>
+                        </div>
+                        <!--chart-wrap end-->
+                    </div>
+                    <div class="dashboard-widget-title fl-wrap">Last Activites</div>
+                    <div class="dashboard-list-box  fl-wrap">
+                        <!-- dashboard-list end-->
+                        <div class="dashboard-list fl-wrap">
+                            <div class="dashboard-message">
+                                <span class="close-dashboard-item color-bg"><i class="fal fa-times"></i></span>
+                                <div class="main-dashboard-message-icon color-bg"><i class="far fa-check"></i></div>
+                                <div class="main-dashboard-message-text">
+                                    <p>Your listing <a href="dashboard.html#">Urban Appartmes</a> has been approved! </p>
+                                </div>
+                                <div class="main-dashboard-message-time"><i class="fal fa-calendar-week"></i> 28 may 2020</div>
+                            </div>
+                        </div>
+                        <!-- dashboard-list end-->
+                        <!-- dashboard-list end-->
+                        <div class="dashboard-list fl-wrap">
+                            <div class="dashboard-message">
+                                <span class="close-dashboard-item color-bg"><i class="fal fa-times"></i></span>
+                                <div class="main-dashboard-message-icon color-bg"><i class="fal fa-comment-alt"></i></div>
+                                <div class="main-dashboard-message-text">
+                                    <p> Someone left a review on <a href="dashboard.html#">Park Central</a> listing!</p>
+                                </div>
+                                <div class="main-dashboard-message-time"><i class="fal fa-calendar-week"></i> 28 may 2020</div>
+                            </div>
+                        </div>
+                        <!-- dashboard-list end-->
+                        <!-- dashboard-list end-->
+                        <div class="dashboard-list fl-wrap">
+                            <div class="dashboard-message">
+                                <span class="close-dashboard-item color-bg"><i class="fal fa-times"></i></span>
+                                <div class="main-dashboard-message-icon color-bg"><i class="far fa-heart"></i></div>
+                                <div class="main-dashboard-message-text">
+                                    <p><a href="dashboard.html#">Fider Mamby</a> bookmarked your <a href="dashboard.html#">Holiday Home</a> listing!</p>
+                                </div>
+                                <div class="main-dashboard-message-time"><i class="fal fa-calendar-week"></i> 28 may 2020</div>
+                            </div>
+                        </div>
+                        <!-- dashboard-list end-->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!--box-widget-->
+                    <div class="dasboard-widget fl-wrap">
+                        <div class="dasboard-widget-title fl-wrap">
+                            <h5><i class="fas fa-comment-alt"></i>Last Messages</h5>
+                        </div>
+                        <div class="chat-contacts fl-wrap">
+                            <!-- chat-contacts-item-->
+                            <a class="chat-contacts-item" href="dashboard.html#">
+                                <div class="dashboard-message-avatar">
+                                    <img src="images/avatar/2.jpg" alt="">
+                                    <div class="message-counter">2</div>
+                                </div>
+                                <div class="chat-contacts-item-text">
+                                    <h4>Mark Rose</h4>
+                                    <span>27 Dec 2018 </span>
+                                    <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed, ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed dolor.</p>
+                                </div>
+                            </a>
+                            <!-- chat-contacts-item -->
+                            <!-- chat-contacts-item-->
+                            <a class="chat-contacts-item" href="dashboard.html#">
+                                <div class="dashboard-message-avatar">
+                                    <img src="images/avatar/1.jpg" alt="">
+                                    <div class="message-counter">1</div>
+                                </div>
+                                <div class="chat-contacts-item-text">
+                                    <h4>Adam Koncy</h4>
+                                    <span>27 Dec 2018 </span>
+                                    <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed, ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed dolor.</p>
+                                </div>
+                            </a>
+                            <!-- chat-contacts-item -->
+                            <!-- chat-contacts-item-->
+                            <a class="chat-contacts-item chat-contacts-item_active" href="dashboard.html#">
+                                <div class="dashboard-message-avatar">
+                                    <img src="images/avatar/3.jpg" alt="">
+                                    <div class="message-counter">3</div>
+                                </div>
+                                <div class="chat-contacts-item-text">
+                                    <h4>Andy Smith</h4>
+                                    <span>27 Dec 2018 </span>
+                                    <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed, ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed dolor.</p>
+                                </div>
+                            </a>
+                            <!-- chat-contacts-item -->
+                            <!-- chat-contacts-item-->
+                            <a class="chat-contacts-item" href="dashboard.html#">
+                                <div class="dashboard-message-avatar">
+                                    <img src="images/avatar/5.jpg" alt="">
+                                    <div class="message-counter">4</div>
+                                </div>
+                                <div class="chat-contacts-item-text">
+                                    <h4>Joe Frick</h4>
+                                    <span>27 Dec 2018 </span>
+                                    <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed, ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed dolor.</p>
+                                </div>
+                            </a>
+                            <!-- chat-contacts-item -->
+                            <!-- chat-contacts-item-->
+                            <a class="chat-contacts-item" href="dashboard.html#">
+                                <div class="dashboard-message-avatar">
+                                    <img src="images/avatar/4.jpg" alt="">
+                                </div>
+                                <div class="chat-contacts-item-text">
+                                    <h4>Alise Goovy</h4>
+                                    <span>27 Dec 2018 </span>
+                                    <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed, ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed dolor.</p>
+                                </div>
+                            </a>
+                            <!-- chat-contacts-item -->
+                            <!-- chat-contacts-item-->
+                            <a class="chat-contacts-item" href="dashboard.html#">
+                                <div class="dashboard-message-avatar">
+                                    <img src="images/avatar/6.jpg" alt="">
+                                </div>
+                                <div class="chat-contacts-item-text">
+                                    <h4>Cristiano Olando</h4>
+                                    <span>27 Dec 2018 </span>
+                                    <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed, ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed dolor.</p>
+                                </div>
+                            </a>
+                            <!-- chat-contacts-item -->
+                        </div>
+                    </div>
+                    <!--box-widget end -->
+                    <!--box-widget-->
+                    <div class="box-widget fl-wrap">
+                        <div class="banner-widget fl-wrap">
+                            <div class="bg-wrap bg-parallax-wrap-gradien">
+                                <div class="bg  "  data-bg="images/all/blog/1.jpg"></div>
+                            </div>
+                            <div class="banner-widget_content">
+                                <h5>Participate in our loyalty program. Refer a friend and get a discount.</h5>
+                                <a href="dashboard.html#" class="btn float-btn color-bg small-btn">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--box-widget end -->
+                </div>
+            </div>
+        </div>
 {% endblock %}

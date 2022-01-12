@@ -13,7 +13,7 @@ class ProfileController extends AbstractController
     #[Route('/', name: 'main_profile')]
     public function index(): Response
     {
-        return $this->render('main/profile/index.html.twig', [
+        return $this->render('main/pages/profile/index.html.twig', [
             'controller_name' => 'ProfileController',
         ]);
     }
@@ -22,6 +22,6 @@ class ProfileController extends AbstractController
     public function edit(Request $request): Response
     {
         //$breadcrumbs->addRouteItem("",'');
-        return $this->render('main/profile/edit.html.twig');
+        return $this->render('main/pages/profile/edit.html.twig');
     }
 }

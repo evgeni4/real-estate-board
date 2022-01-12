@@ -1,20 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-    {{ include('main/_embed/_flash_message/_flash_message.html.twig') }}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/color.css') }}">
+        <!--=============== favicons ===============-->
+        <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+{{ include('main/_embed/_flash_message/_flash_message.html.twig') }}
+<!--loader-->
+<div class="loader-wrap">
+    <div class="loader-inner">
+        <svg>
+            <defs>
+                <filter id="goo">
+                    <fegaussianblur in="SourceGraphic" stdDeviation="2" result="blur"/>
+                    <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 5 -2" result="gooey"/>
+                    <fecomposite in="SourceGraphic" in2="gooey" operator="atop"/>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+</div>
+<!--loader end-->
+<!-- main -->
+<div id="main">
+    <!-- header -->
+    {{ include('main/_embed/_main_header/_header.html.twig') }}
+    <!-- header end  -->
+    <!-- wrapper  -->
+    <div id="wrapper">
         {% block body %}{% endblock %}
-    </body>
+        <!-- footer -->
+        {{ include('main/_embed/_main_footer/_footer.html.twig') }}
+        <!-- footer end -->
+    </div>
+    <!-- wrapper end -->
+</div>
+<!-- Main end -->
+<!--=============== scripts  ===============-->
+{% block javascripts %}
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwJSRi0zFjDemECmFl9JtRj1FY7TiTRRo&libraries=places"></script>
+    <script src="{{ asset('assets/js/map-plugins.js') }}"></script>
+    <script src="{{ asset('assets/js/map-listing.js') }}"></script>
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
 </html>

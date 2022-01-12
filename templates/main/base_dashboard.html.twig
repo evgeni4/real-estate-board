@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/color.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/dashboard-style.css') }}">
+        <!--=============== favicons ===============-->
+        <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+{{ include('main/_embed/_flash_message/_flash_message.html.twig') }}
+<!--loader-->
+<div class="loader-wrap">
+    <div class="loader-inner">
+        <svg>
+            <defs>
+                <filter id="goo">
+                    <fegaussianblur in="SourceGraphic" stdDeviation="2" result="blur"/>
+                    <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 5 -2" result="gooey"/>
+                    <fecomposite in="SourceGraphic" in2="gooey" operator="atop"/>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+</div>
+<!--loader end-->
+<!-- main -->
+<div id="main">
+    <!-- header -->
+    {{ include('main/_embed/_main_header/_header.html.twig') }}
+    <!-- header end  -->
+    <!-- wrapper  -->
+    <div id="wrapper">
+        <!-- dashbard-menu-wrap -->
+        <div class="dashbard-menu-overlay"></div>
+        <div class="dashbard-menu-wrap">
+            <div class="dashbard-menu-close"><i class="fal fa-times"></i></div>
+            <div class="dashbard-menu-container">
+                <!-- user-profile-menu-->
+                <div class="user-profile-menu">
+                    <h3>Main</h3>
+                    <ul class="no-list-style">
+                        <li><a href="dashboard.html" class="user-profile-act"><i class="fal fa-chart-line"></i>Dashboard</a></li>
+                        <li><a href="dashboard-myprofile.html"><i class="fal fa-user-edit"></i> Edit profile</a></li>
+                        <li><a href="dashboard-messages.html"><i class="fal fa-envelope"></i> Messages <span>3</span></a></li>
+                        <li><a href="dashboard-agents.html"><i class="fal fa-users"></i> Agents List</a></li>
+                        <li>
+                            <a href="dashboard.html#" class="submenu-link"><i class="fal fa-plus"></i>Submenu</a>
+                            <ul  class="no-list-style">
+                                <li><a href="dashboard.html#"><i class="fal fa-th-list"></i> Submenu 2 </a></li>
+                                <li><a href="dashboard.html#"> <i class="fal fa-calendar-check"></i> Submenu 2</a></li>
+                                <li><a href="dashboard.html#"><i class="fal fa-comments-alt"></i>Submenu 2</a></li>
+                                <li><a href="dashboard.html#"><i class="fal fa-file-plus"></i> Submenu 2</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- user-profile-menu end-->
+                <!-- user-profile-menu-->
+                <div class="user-profile-menu">
+                    <h3>Listings</h3>
+                    <ul  class="no-list-style">
+                        <li><a href="dashboard-listing-table.html"><i class="fal fa-th-list"></i> My listigs  </a></li>
+                        <li><a href="dashboard-bookings.html"> <i class="fal fa-calendar-check"></i> Bookings <span>2</span></a></li>
+                        <li><a href="dashboard-review.html"><i class="fal fa-comments-alt"></i> Reviews </a></li>
+                        <li><a href="dashboard-add-listing.html"><i class="fal fa-file-plus"></i> Add New</a></li>
+                    </ul>
+                </div>
+                <!-- user-profile-menu end-->
+            </div>
+            <div class="dashbard-menu-footer"> &#169;  Homeradar 2022 .  All rights reserved.</div>
+        </div>
+        <!-- dashbard-menu-wrap end  -->
+        <!-- content -->
+        <div class="dashboard-content">
+            <div class="dashboard-menu-btn color-bg"><span><i class="fas fa-bars"></i></span>Dasboard Menu</div>
+            <div class="container dasboard-container">
+                <!-- dashboard-title -->
+                <div class="dashboard-title fl-wrap">
+                    <div class="dashboard-title-item"><span>Dashboard</span></div>
+                    <div class="dashbard-menu-header">
+                        <div class="dashbard-menu-avatar fl-wrap">
+                            <img src="{{ asset('assets/images/avatar/5.jpg') }}" alt="">
+                            <h4>Welcome, <span>Alica Noory</span></h4>
+                        </div>
+                        <a href="{{ path('app_logout') }}" class="log-out-btn   tolt" data-microtip-position="bottom"  data-tooltip="Log Out"><i class="far fa-power-off"></i></a>
+                    </div>
+                    <!--Tariff Plan menu-->
+                    <div class="tfp-det-container">
+                        <div   class="tfp-btn"><span>Your Tariff Plan : </span> <strong>Extended</strong></div>
+                        <div class="tfp-det">
+                            <p>You Are on <a href="#">Extended</a> . Use link bellow to view details or upgrade. </p>
+                            <a href="dashboard.html#" class="tfp-det-btn color-bg">Details</a>
+                        </div>
+                    </div>
+                    <!--Tariff Plan menu end-->
+                </div>
+                <!-- dashboard-title end -->
+                {% block body %}{% endblock %}
+            </div>
+            <!-- footer -->
+            {{ include('main/_embed/_main_footer_dashboard/_footer_dashboard.html.twig') }}
+            <!-- footer end -->
+        </div>
+        <!-- content end -->
+        <div class="dashbard-bg gray-bg"></div>
+    </div>
+    <!-- wrapper end -->
+</div>
+<!-- Main end -->
+<!--=============== scripts  ===============-->
+{% block javascripts %}
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+{#    {{ encore_entry_script_tags('app') }}#}
+{% endblock %}
+</body>
+</html>

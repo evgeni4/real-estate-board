@@ -62,7 +62,7 @@ security:
     access_control:
         - { path: ^/admin/login }
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/dashboard, roles: ROLE_USER }
+        - { path: ^/dashboard, roles: [ROLE_USER,ROLE_ADMIN] }
 
 when@test:
     security:
