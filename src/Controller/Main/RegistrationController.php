@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Main;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Form\Main\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use App\Service\User\UserServiceInterface;
@@ -25,7 +25,7 @@ class RegistrationController extends AbstractController
     {}
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -35,7 +35,6 @@ class RegistrationController extends AbstractController
 
             $this->userService->add($user);
 
-            // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('robot@real-estate-board.eu', 'Robot'))
@@ -48,7 +47,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('main/registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

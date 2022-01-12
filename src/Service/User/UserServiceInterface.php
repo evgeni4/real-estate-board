@@ -13,4 +13,9 @@ interface UserServiceInterface
     public function delete(User $user): ?bool;
 
     public function currentUser(): ?User;
+
+    public function resetPassword(User $user): ?bool;
+
+    public function PasswordHasher(User $user,$plainPassword  ): void;
+
 }

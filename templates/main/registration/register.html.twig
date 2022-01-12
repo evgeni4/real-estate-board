@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'main/base.html.twig' %}
 
 {% block title %}Register{% endblock %}
 
@@ -16,4 +16,6 @@
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+    <br>
+    <a href="{{ path('connect_facebook_start') }}">Facebook login</a>
 {% endblock %}

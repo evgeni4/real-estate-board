@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'main/base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
 
@@ -23,9 +23,7 @@
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
-
-
-         See https://symfony.com/doc/current/security/remember_me.html
+    <a href="{{ path('app_forgot_password_request') }}">forgot password</a>
 
         <div class="checkbox mb-3">
             <label>
