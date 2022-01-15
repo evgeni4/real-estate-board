@@ -1,11 +1,48 @@
 {% extends 'main/base.html.twig' %}
-
-{% block title %}Password Reset Email Sent{% endblock %}
-
+{% block title %}{% endblock %}
 {% block body %}
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-mg-12">
+                <div class="main-register-holder tabs-act main-static ">
+                    <div class="main-register-wrapper fl-wrap">
+                        <div class="main-register-header color-bg">
+                            <div class="main-register-logo fl-wrap">
+                                <img src="{{ asset('assets/images/white-logo.png') }}" alt="logo">
+                            </div>
+                            <div class="main-register-bg">
+                                <div class="mrb_pin"></div>
+                                <div class="mrb_pin mrb_pin2"></div>
+                            </div>
+                            <div class="mrb_dec"></div>
+                            <div class="mrb_dec mrb_dec2"></div>
+                        </div>
+                        <div class="main-register">
+                            <div class="m-title">
+                                <h4>{% trans %}reset.password.label{% endtrans %}</h4>
+                            </div>
+                            <!--tabs -->
+                            <div class="tabs-container">
+                                <div class="tab">
+                                    <!--tab -->
+                                    <div id="tab-1" class="tab-content first-tab">
+                                        <div class="custom-form">
+                                            <p>
+                                                {% trans %}check.email.message.label{% endtrans %}
+                                                {% trans %}check.email.message.sm.label{% endtrans %}{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+                                            </p>
+                                            <p>{% trans %}check.email.message.md.label{% endtrans %} <a href="{{ path('app_forgot_password_request') }}" class="add-list color-bg">{% trans %}try.again.label{% endtrans %}</a>.</p>
+                                        </div>
+                                    </div>
+                                    <!--tab end -->
+                                </div>
+                                <!--tabs end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

@@ -1,22 +1,58 @@
 {% extends 'main/base.html.twig' %}
-
-{% block title %}Reset your password{% endblock %}
-
+{% block title %}{% endblock %}
 {% block body %}
-    {% for flashError in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-mg-12">
+                <div class="main-register-holder tabs-act main-static ">
+                    <div class="main-register-wrapper fl-wrap">
+                        <div class="main-register-header color-bg">
+                            <div class="main-register-logo fl-wrap">
+                                <img src="{{ asset('assets/images/white-logo.png') }}" alt="logo">
+                            </div>
+                            <div class="main-register-bg">
+                                <div class="mrb_pin"></div>
+                                <div class="mrb_pin mrb_pin2"></div>
+                            </div>
+                            <div class="mrb_dec"></div>
+                            <div class="mrb_dec mrb_dec2"></div>
+                        </div>
+                        <div class="main-register">
+                            <div class="m-title">
+                                <h4>{% trans %}reset.password.label{% endtrans %}</h4>
+                            </div>
+                            <!--tabs -->
+                            <div class="tabs-container">
+                                <div class="tab">
+                                    <!--tab -->
+                                    <div id="tab-1" class="tab-content first-tab">
+                                        {% for flashError in app.flashes('reset_password_error') %}
+                                            <div class="notification warning  fl-wrap " style="padding: 10px!important;margin-bottom: 10px;">
+                                                <p>{{ flashError }}</p>
+                                                <a class="notification-close" href="#" mb-checked="1" data-tip=""><i class="fal fa-times"></i></a>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="custom-form">
+                                            {{ form_start(requestForm) }}
+                                            {{ form_row(requestForm.email) }}
+                                            <div>
+                                                <small>{% trans %}enter.email.message.label{% endtrans %}</small>
+                                            </div>
 
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address and we will send you a
-                link to reset your password.
-            </small>
+                                            <button class="log_btn color-bg">{% trans %}send.label{% endtrans %}</button>
+                                            {{ form_end(requestForm) }}
+                                         </div>
+                                    </div>
+                                    <!--tab end -->
+                                </div>
+                                <!--tabs end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
+    </div>
 {% endblock %}
+
+

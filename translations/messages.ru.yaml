@@ -1,0 +1,49 @@
+yes.label: да
+no.label: не
+or.label: или
+and.label: и
+send.label: Отправить
+try.again.label: попробуй снова
+characters.label: символы
+#end default
+language.currency.heading: Язык / Валюта
+language.heading: Язык
+currency.heading: Валюта
+#user register fields
+logout.label: Выйти
+sign.in.label: Войти
+remember me.me.label: Запомнить меня
+sign.up.label: Регистрация
+password.label: Пароль
+new.password.label: Новый пароль
+confirm.password.label: Подтвердите пароль
+not.match.password.label: Поля пароля не совпадают!
+forgot.password.label: Забыли пароль?
+agree.message.label: Вы должны согласиться с нашими условиями.
+agree.label: Я согласен(на) с
+reset.password.label: Сбросить пароль
+enter.email.label: Пожалуйста, введите адрес электронной почты!
+enter.password.label: Пожалуйста, введите пароль!
+enter.email.message.label: Введите свой адрес электронной почты, и мы вышлем вам ссылку для сброса пароля.
+password.length.label: Ваш пароль должен быть не меньше
+#end user register fields
+wishlist.compare.heading: Ваш список желаний / Сравнить
+wishlist.label: Список желаний
+compare.label: Сравнивать
+clear.all.label: Очистить все
+add.listing.label: Добавить объявление
+settings.label: Настройки
+welcome.label: Добро пожаловать,
+edit.profile.label: Редактировать профиль
+messages.label: Сообщения
+agents.list.label: Список агентов
+listings.label: Мои объявления
+all.properties.label: Все объявления
+bookings.label: Бронирование
+reviews.label: Отзывы
+facebook.login.help: Для более быстрого входа или регистрации используйте свою учетную запись в социальной сети.
+#messages
+check.email.message.label: Если учетная запись, соответствующая вашему адресу электронной почты, существует, значит, только что было отправлено электронное письмо, содержащее ссылку, которую вы можете использовать для сброса пароля.
+check.email.message.sm.label: Срок действия этой ссылки истекает через
+check.email.message.md.label: Если вы не получили письмо, проверьте папку со спамом или
+#end mes

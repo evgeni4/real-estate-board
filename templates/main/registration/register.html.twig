@@ -6,16 +6,72 @@
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.password) }}
-{#        {{ form_row(registrationForm.agreeTerms) }}#}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-    <br>
-    <a href="{{ path('connect_facebook_start') }}">Facebook login</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-mg-12">
+                <div class="main-register-holder tabs-act main-static ">
+                    <div class="main-register-wrapper fl-wrap">
+                        <div class="main-register-header color-bg">
+                            <div class="main-register-logo fl-wrap">
+                                <img src="{{ asset('assets/images/white-logo.png') }}" alt="logo">
+                            </div>
+                            <div class="main-register-bg">
+                                <div class="mrb_pin"></div>
+                                <div class="mrb_pin mrb_pin2"></div>
+                            </div>
+                            <div class="mrb_dec"></div>
+                            <div class="mrb_dec mrb_dec2"></div>
+                        </div>
+                        <div class="main-register">
+                            <div class="m-title">
+                                <h4>{% trans %}sign.up.label{% endtrans %}</h4>
+                            </div>
+                            <!--tabs -->
+                            <div class="tabs-container">
+                                <div class="tab">
+                                    <!--tab -->
+                                    <turbo-frame id="new_message">
+                                        <div class="tab">
+                                            <div id="tab-2" class="tab-content first-tab">
+                                                <div class="custom-form">
+                                                    {{ form_start(registrationForm) }}
+                                                    {{ form_row(registrationForm.email) }}
+                                                    <div class="pass-input-wrap fl-wrap">
+                                                        {{ form_label(registrationForm.password.first) }}
+                                                        {{ form_widget(registrationForm.password.first) }}
+                                                        <span class="eye"><i class="fal fa-eye"></i> </span>
+                                                    </div>
+                                                    <div class="pass-input-wrap fl-wrap">
+                                                        {{ form_label(registrationForm.password.second) }}
+                                                        {{ form_widget(registrationForm.password.second) }}
+                                                        <span class="eye"><i class="fal fa-eye"></i> </span>
+                                                    </div>
+                                                    <div class="filter-tags ft-list">
+                                                        {{ form_label(registrationForm.agreeTerms) }}
+                                                        {{ form_widget(registrationForm.agreeTerms) }}
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <button type="submit"
+                                                            class="log_btn color-bg"> {% trans %}sign.up.label{% endtrans %} </button>
+                                                    {{ form_end(registrationForm) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </turbo-frame>
+                                    >
+                                    <!--tab end -->
+                                </div>
+                                <!--tabs end -->
+                                <div class="log-separator fl-wrap"><span>{% trans %}or.label{% endtrans %}</span></div>
+                                <div class="soc-log fl-wrap">
+                                    <p>{% trans %}facebook.login.help{% endtrans %}</p>
+                                    <a href="" class="facebook-log"> Facebook</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

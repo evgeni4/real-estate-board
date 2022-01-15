@@ -1,39 +1,79 @@
 {% extends 'main/base.html.twig' %}
-
-{% block title %}Log in!{% endblock %}
-
+{% block title %}{% endblock %}
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-mg-12">
+                <div class="main-register-holder tabs-act main-static ">
+                    <div class="main-register-wrapper fl-wrap">
+                        <div class="main-register-header color-bg">
+                            <div class="main-register-logo fl-wrap">
+                                <img src="{{ asset('assets/images/white-logo.png') }}" alt="logo">
+                            </div>
+                            <div class="main-register-bg">
+                                <div class="mrb_pin"></div>
+                                <div class="mrb_pin mrb_pin2"></div>
+                            </div>
+                            <div class="mrb_dec"></div>
+                            <div class="mrb_dec mrb_dec2"></div>
+                        </div>
+                        <div class="main-register">
+                            <div class="m-title">
+                            <h4>{% trans %}sign.in.label{% endtrans %}</h4>
+                        </div>
+                            <!--tabs -->
+                            <div class="tabs-container">
+                                <div class="tab">
+                                    <!--tab -->
+                                    <div id="tab-1" class="tab-content first-tab">
+                                        {% if error %}
+                                            <div class="notification warning  fl-wrap " style="padding: 10px!important;margin-bottom: 10px;">
+                                                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                                                <a class="notification-close" href="#" mb-checked="1" data-tip=""><i class="fal fa-times"></i></a>
+                                            </div>
+                                        {% endif %}
+                                        <div class="custom-form">
+                                            <form method="post" >
+                                                <label>Email * <span class="dec-icon"><i class="fal fa-user"></i></span></label>
+                                                <input name="email" type="text" onclick="this.select()" value="{{ last_username }}" >
+                                                <div class="pass-input-wrap fl-wrap">
+                                                    <label>{% trans %}password.label{% endtrans %}  * <span class="dec-icon"><i class="fal fa-key"></i></span></label>
+                                                    <input type="password" name="password" id="inputPassword"  autocomplete="off" onclick="this.select()" >
+                                                    <span class="eye"><i class="fal fa-eye"></i> </span>
+                                                </div>
+                                                <input type="hidden" name="_csrf_token"
+                                                       value="{{ csrf_token('authenticate') }}"
+                                                >
+                                                <div class="lost_password">
+                                                    <a href="{{ path('app_forgot_password_request') }}" mb-checked="1" data-tip="">{% trans %}forgot.password.label{% endtrans %}</a>
+                                                </div>
+                                                <div class="filter-tags">
+                                                    <input id="check-a3" type="checkbox" name="_remember_me">
+                                                    <label for="check-a3">{% trans %}remember me.me.label{% endtrans %}</label>
+                                                </div>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                                <div class="clearfix"></div>
+                                                <button type="submit" class="log_btn color-bg"> {% trans %}sign.in.label{% endtrans %} </button><div class="services-item">
+                                                </div>
+                                            </form>
+                                            <div class="lost_password"><a href="{{ path('app_register') }}">{% trans %}sign.up.label{% endtrans %}</a></div>
+                                        </div>
+                                    </div>
+                                    <!--tab end -->
+                                </div>
+                                <!--tabs end -->
+
+                                <div class="log-separator fl-wrap"><span>{% trans %}or.label{% endtrans %}</span></div>
+                                <div class="soc-log fl-wrap">
+                                    <p>{% trans %}facebook.login.help{% endtrans %}</p>
+                                    <a href="{{ path('connect_facebook_start') }}" class="facebook-log"> Facebook</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-    <a href="{{ path('app_forgot_password_request') }}">forgot password</a>
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    </div>
 {% endblock %}
+

@@ -1,0 +1,23 @@
+<div class="header-opt-modal-item lang-item fl-wrap">
+    <h4>{% trans %}language.heading{% endtrans %}: <span>{{ app.request.locale|upper }}</span></h4>
+    <div class="header-opt-modal-list fl-wrap">
+        <ul>
+            {% for locale in locales %}
+                <li><a href="{{ path('change_language', {'locale': locale}) }}" class="{{ locale == app.request.locale?'current-lan':''}}" data-lantext="{{ locale|upper }}">{{ locale|locale_name(locale)|capitalize }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="header-opt-modal-item currency-item fl-wrap">
+    <h4>{% trans %}currency.heading{% endtrans %}: <span>{{ app.request.defaultCurrencylocale }}</span></h4>
+    <div class="header-opt-modal-list fl-wrap">
+        <ul>
+            {% for currency in currencies %}
+                {% set locale = app.request.locale~'_'~app.request.locale|upper %}
+                <li><a href="{{ path('change_currency', {'currency': currency}) }}" class="{{ currency == app.request.defaultCurrencylocale?'current-lan':''}}" data-lantext="{{ currency|upper }}">
+                        {{ currency|upper|currency_name(locale)|capitalize }}
+                    </a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

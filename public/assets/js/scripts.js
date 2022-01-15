@@ -564,20 +564,20 @@ initIsotope();
     csselem();
     // Mob Menu------------------
     function headerModalOpt() {
-        $(".lang-item .header-opt-modal-list li a").on('click', function (e) {
-            e.preventDefault();
-            var thdatlantext = $(this).data("lantext");
-            $(".lang-item li a").removeClass("current-lan");
-            $(this).addClass("current-lan");
-            $(".lang-item h4 span  ").text(thdatlantext);
-        });
-        $(".currency-item .header-opt-modal-list li a").on('click', function (e) {
-            e.preventDefault();
-            var thdatlantext = $(this).data("lantext");
-            $(".currency-item li a").removeClass("current-lan");
-            $(this).addClass("current-lan");
-            $(".currency-item h4 span  ").text(thdatlantext);
-        });
+        // $(".lang-item .header-opt-modal-list li a").on('click', function (e) {
+        //     e.preventDefault();
+        //     var thdatlantext = $(this).data("lantext");
+        //     $(".lang-item li a").removeClass("current-lan");
+        //     $(this).addClass("current-lan");
+        //     $(".lang-item h4 span  ").text(thdatlantext);
+        // });
+        // $(".currency-item .header-opt-modal-list li a").on('click', function (e) {
+        //     e.preventDefault();
+        //     var thdatlantext = $(this).data("lantext");
+        //     $(".currency-item li a").removeClass("current-lan");
+        //     $(this).addClass("current-lan");
+        //     $(".currency-item h4 span  ").text(thdatlantext);
+        // });
         $(".header-opt-modal-item h4").on("click", function () {
             $(this).toggleClass("lang-cur-act");
             $(this).parents(".header-opt-modal-item").find(".header-opt-modal-list").toggleClass("vis_homd");

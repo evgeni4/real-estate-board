@@ -97,6 +97,15 @@
     "guzzlehttp/psr7": {
         "version": "2.1.0"
     },
+    "knplabs/knp-menu": {
+        "version": "v3.3.0"
+    },
+    "knplabs/knp-menu-bundle": {
+        "version": "v3.2.0"
+    },
+    "knplabs/knp-time-bundle": {
+        "version": "1.17.0"
+    },
     "knpuniversity/oauth2-client-bundle": {
         "version": "2.9",
         "recipe": {
@@ -144,6 +153,30 @@
     },
     "phar-io/version": {
         "version": "3.1.0"
+    },
+    "php-translation/common": {
+        "version": "3.1.0"
+    },
+    "php-translation/extractor": {
+        "version": "2.0.3"
+    },
+    "php-translation/symfony-bundle": {
+        "version": "0.12",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.10",
+            "ref": "5c712c2758c3cccb964713f0061493b8ce2dd430"
+        },
+        "files": [
+            "config/packages/dev/php_translation.yaml",
+            "config/packages/php_translation.yaml",
+            "config/routes/dev/php_translation.yaml",
+            "config/routes/php_translation.yaml"
+        ]
+    },
+    "php-translation/symfony-storage": {
+        "version": "2.3.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -595,6 +628,9 @@
             "templates/base.html.twig"
         ]
     },
+    "symfony/ux-turbo": {
+        "version": "v2.0.1"
+    },
     "symfony/validator": {
         "version": "5.4",
         "recipe": {
@@ -631,6 +667,28 @@
             "config/routes/dev/web_profiler.yaml"
         ]
     },
+    "symfony/webpack-encore-bundle": {
+        "version": "1.13",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.9",
+            "ref": "d2d1e09675fff3fa4193aa9950a7c39934524a25"
+        },
+        "files": [
+            "assets/app.js",
+            "assets/bootstrap.js",
+            "assets/controllers.json",
+            "assets/controllers/hello_controller.js",
+            "assets/styles/app.css",
+            "config/packages/assets.yaml",
+            "config/packages/prod/webpack_encore.yaml",
+            "config/packages/test/webpack_encore.yaml",
+            "config/packages/webpack_encore.yaml",
+            "package.json",
+            "webpack.config.js"
+        ]
+    },
     "symfony/yaml": {
         "version": "v5.4.2"
     },
@@ -662,6 +720,9 @@
         "version": "v3.3.7"
     },
     "twig/inky-extra": {
+        "version": "v3.3.5"
+    },
+    "twig/intl-extra": {
         "version": "v3.3.5"
     },
     "twig/twig": {

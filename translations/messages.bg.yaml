@@ -1,0 +1,51 @@
+yes.label: да
+no.label: не
+or.label: или
+and.label: и
+send.label: Изпрати
+try.again.label: опитай пак
+characters.label: символи
+#end default
+language.currency.heading: Език / Валута
+language.heading: Език
+currency.heading: Валута
+#user register fields
+logout.label: Излез
+sign.in.label: Вход
+sign.up.label: Регистрация
+password.label: Парола
+new.password.label: Нова парола
+confirm.password.label: Потвърди парола
+not.match.password.label: Полетата за парола не съвпадат!
+remember me.me.label: Запомни ме
+forgot.password.label: Забравена парола?
+agree.message.label: Трябва да се съгласите с нашите условия.
+agree.label: Съгласен(на) съм с
+reset.password.label: Reset your password
+enter.email.label: Моля, въведете своя имейл!
+enter.password.label: Моля, въведете парола!
+enter.email.message.label: Въведете вашия имейл адрес и ние ще ви изпратим връзка за нулиране на вашата парола.
+password.length.label: Вашата парола трябва да бъде поне
+#end user register fields
+wishlist.compare.heading: Вашият списък с желания / Сравнете
+wishlist.label: Списък с желания
+compare.label: Сравнете
+clear.all.label: Изчисти всичко
+add.listing.label: Добавяне на обява
+settings.label: Настройки
+welcome.label: Добре дошли,
+edit.profile.label: Редактирай профил
+messages.label: Съобщения
+agents.list.label: Списък с агенти
+listings.label: Моите обяви
+listings.all.label: Моите обяви
+all.properties.label: Всички имоти
+bookings.label: Резервации
+reviews.label: Отзиви
+facebook.login.help: За по-бързо влизане или регистрация използвайте вашия социален акаунт.
+#messages
+check.email.message.label: Ако съществува акаунт, съответстващ на вашия имейл, току-що е изпратен имейл, който съдържа връзка, която можете да използвате, за да нулирате паролата си.
+check.email.message.sm.label: Тази връзка ще изтече след
+check.email.message.md.label: Ако не получите имейл, моля, проверете папката за спам или
+#end mes
+

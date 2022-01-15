@@ -18,22 +18,31 @@
     <!-- header-search button end  -->
     <!--  add new  btn -->
     <div class="add-list_wrap">
-        <a href="dashboard-add-listing.html" class="add-list color-bg"><i class="fal fa-plus"></i> <span>Add Listing</span></a>
+        <a href="" class="add-list color-bg"><i class="fal fa-plus"></i> <span>{% trans %}add.listing.label{% endtrans %}</span></a>
     </div>
     <!--  add new  btn end -->
     <!--  header-opt_btn -->
-    <div class="header-opt_btn tolt" data-microtip-position="bottom"  data-tooltip="Language / Currency">
+    <div class="header-opt_btn tolt" data-microtip-position="bottom"  data-tooltip="{% trans %}language.currency.heading{% endtrans %}">
         <span><i class="fal fa-globe"></i></span>
     </div>
     <!--  header-opt_btn end -->
     <!--  cart-btn   -->
-    <div class="cart-btn  tolt show-header-modal" data-microtip-position="bottom"  data-tooltip="Your Wishlist / Compare">
+    <div class="cart-btn  tolt show-header-modal" data-microtip-position="bottom"  data-tooltip="{% trans %}wishlist.compare.heading{% endtrans %}">
         <i class="fal fa-bell"></i>
         <span class="cart-btn_counter color-bg">5</span>
     </div>
     <!--  cart-btn end -->
     <!--  login btn -->
-    <div class="show-reg-form modal-open"><i class="fas fa-user"></i><span>Sign In</span></div>
+    {% if app.user %}
+        <div class="show-reg-form dasbdord-submenu-open"><img src="{{ asset('assets/images/avatar/5.jpg') }}" alt=""></div>
+        <div class="dashboard-submenu">
+            <div class="dashboard-submenu-title fl-wrap">{% trans %}welcome.label{% endtrans %} <span>{{ app.user.firstName }}</span></div>
+            {{ knp_menu_render('smallMenu',{'currentClass': 'active'}) }}
+            <a href="{{ path('app_logout') }}" class="color-bg db_log-out"><i class="far fa-power-off"></i> {% trans %}logout.label{% endtrans %}</a>
+        </div>
+        {% else %}
+            <div class="show-reg-form"><a href="{{ path('app_login') }}"><i class="fas fa-user"></i><span>{% trans %}sign.in.label{% endtrans %}</span></a></div>
+    {% endif %}
     <!--  login btn  end -->
     <!--  navigation -->
     <div class="nav-holder main-menu">
@@ -146,8 +155,8 @@
     <!-- wishlist-wrap-->
     <div class="header-modal novis_wishlist tabs-act">
         <ul class="tabs-menu fl-wrap no-list-style">
-            <li class="current"><a href="listing3.html#tab-wish">  Wishlist <span>- 3</span></a></li>
-            <li><a href="listing3.html#tab-compare">  Compare <span>- 2</span></a></li>
+            <li class="current"><a href="#tab-wish">  {% trans %}wishlist.label{% endtrans %} <span>- 3</span></a></li>
+            <li><a href="#tab-compare">  {% trans %}compare.label{% endtrans %} <span>- 2</span></a></li>
         </ul>
         <!--tabs -->
         <div class="tabs-container">
@@ -160,32 +169,12 @@
                         <div class="widget-posts  fl-wrap">
                             <ul class="no-list-style">
                                 <li>
-                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/all/small/1.jpg" alt=""></a>
+                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="{{ asset('assets/images/all/small/1.jpg') }}" alt=""></a>
                                     </div>
                                     <div class="widget-posts-descr">
                                         <h4><a href="listing-single.html">Affordable Urban Room</a></h4>
                                         <div class="geodir-category-location fl-wrap"><a href="listing3.html#"><i class="fas fa-map-marker-alt"></i> 40 Journal Square  , NJ, USA</a></div>
                                         <div class="widget-posts-descr-price"><span>Price: </span> $ 1500 / per month</div>
-                                        <div class="clear-wishlist"><i class="fal fa-trash-alt"></i></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/all/small/2.jpg" alt=""></a>
-                                    </div>
-                                    <div class="widget-posts-descr">
-                                        <h4><a href="listing-single.html">Family House</a></h4>
-                                        <div class="geodir-category-location fl-wrap"><a href="listing3.html#"><i class="fas fa-map-marker-alt"></i> 34-42 Montgomery St , NY, USA</a></div>
-                                        <div class="widget-posts-descr-price"><span>Price: </span> $ 50.000</div>
-                                        <div class="clear-wishlist"><i class="fal fa-trash-alt"></i></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="images/all/small/3.jpg" alt=""></a>
-                                    </div>
-                                    <div class="widget-posts-descr">
-                                        <h4><a href="listing-single.html">Apartment to Rent</a></h4>
-                                        <div class="geodir-category-location fl-wrap"><a href="listing3.html#"><i class="fas fa-map-marker-alt"></i>75 Prince St, NY, USA</a></div>
-                                        <div class="widget-posts-descr-price"><span>Price: </span> $100 / per night</div>
                                         <div class="clear-wishlist"><i class="fal fa-trash-alt"></i></div>
                                     </div>
                                 </li>
@@ -195,7 +184,7 @@
                     </div>
                     <!-- header-modal-container end-->
                     <div class="header-modal-top fl-wrap">
-                        <div class="clear_wishlist color-bg"><i class="fal fa-trash-alt"></i> Clear all</div>
+                        <div class="clear_wishlist color-bg"><i class="fal fa-trash-alt"></i>{% trans %}clear.all.label{% endtrans %}</div>
                     </div>
                 </div>
                 <!--tab end -->
@@ -208,22 +197,12 @@
                             <div class="widget-posts  fl-wrap">
                                 <ul class="no-list-style">
                                     <li>
-                                        <div class="widget-posts-img"><a href="listing-single.html"><img src="images/all/small/4.jpg" alt=""></a>
+                                        <div class="widget-posts-img"><a href="listing-single.html"><img src="{{ asset('assets/images/all/small/4.jpg') }}" alt=""></a>
                                         </div>
                                         <div class="widget-posts-descr">
                                             <h4><a href="listing-single.html">Gorgeous house for sale</a></h4>
                                             <div class="geodir-category-location fl-wrap"><a href="listing3.html#"><i class="fas fa-map-marker-alt"></i>  70 Bright St New York, USA </a></div>
                                             <div class="widget-posts-descr-price"><span>Price: </span> $ 52.100</div>
-                                            <div class="clear-wishlist"><i class="fal fa-trash-alt"></i></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="widget-posts-img"><a href="listing-single.html"><img src="images/all/small/5.jpg" alt=""></a>
-                                        </div>
-                                        <div class="widget-posts-descr">
-                                            <h4><a href="listing-single.html">Family Apartments</a></h4>
-                                            <div class="geodir-category-location fl-wrap"><a href="listing3.html#"><i class="fas fa-map-marker-alt"></i> W 85th St, New York, USA </a></div>
-                                            <div class="widget-posts-descr-price"><span>Price: </span> $ 72.400</div>
                                             <div class="clear-wishlist"><i class="fal fa-trash-alt"></i></div>
                                         </div>
                                     </li>
@@ -233,7 +212,7 @@
                         </div>
                         <!-- header-modal-container end-->
                         <div class="header-modal-top fl-wrap">
-                            <a class="clear_wishlist color-bg" href="compare.html"><i class="fal fa-random"></i> Compare</a>
+                            <a class="clear_wishlist color-bg" href="compare.html"><i class="fal fa-random"></i> {% trans %}compare.label{% endtrans %}</a>
                         </div>
                     </div>
                 </div>
@@ -246,28 +225,7 @@
     <!--header-opt-modal-->
     <div class="header-opt-modal novis_header-mod">
         <div class="header-opt-modal-container hopmc_init">
-            <div class="header-opt-modal-item lang-item fl-wrap">
-                <h4>Language: <span>EN</span></h4>
-                <div class="header-opt-modal-list fl-wrap">
-                    <ul>
-                        <li><a href="listing3.html#" class="current-lan" data-lantext="EN">English</a></li>
-                        <li><a href="listing3.html#" data-lantext="FR">Franais</a></li>
-                        <li><a href="listing3.html#" data-lantext="ES">Espaol</a></li>
-                        <li><a href="listing3.html#" data-lantext="DE">Deutsch</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="header-opt-modal-item currency-item fl-wrap">
-                <h4>Currency: <span>USD</span></h4>
-                <div class="header-opt-modal-list fl-wrap">
-                    <ul>
-                        <li><a href="listing3.html#" class="current-lan" data-lantext="USD">USD</a></li>
-                        <li><a href="listing3.html#" data-lantext="EUR">EUR</a></li>
-                        <li><a href="listing3.html#" data-lantext="GBP">GBP</a></li>
-                        <li><a href="listing3.html#" data-lantext="RUR">RUR</a></li>
-                    </ul>
-                </div>
-            </div>
+            {{ render(controller('App\\Controller\\Main\\LocalesController::showLocalesLanguage')) }}
         </div>
     </div>
     <!--header-opt-modal end -->

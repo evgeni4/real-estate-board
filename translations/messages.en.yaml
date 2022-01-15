@@ -1,0 +1,57 @@
+yes.label: yes
+no.label: no
+or.label: or
+and.label: and
+send.label: Send
+try.again.label: try again
+characters.label: characters
+#end default
+language.currency.heading: Language / Currency
+language.heading: Language
+currency.heading: Currency
+#user register fields
+logout.label: Log Out
+sign.in.label: Sign In
+sign.up.label: Registration
+password.label: Password
+new.password.label: New password
+confirm.password.label: Confirm-Password
+not.match.password.label: Password fields do not match!
+remember me.me.label: Remember me
+forgot.password.label: Lost Your Password?
+agree.message.label: You should agree to our terms.
+agree.label: I agree to the
+reset.password.label: Reset password
+enter.email.label: Please enter your email!
+enter.password.label: Please enter a password!
+enter.email.message.label: Enter your email address and we will send you a link to reset your password.
+password.length.label: Your password should be at least
+#end user register fields
+wishlist.compare.heading: Your Wishlist / Compare
+wishlist.label: Wishlist
+compare.label: Compare
+clear.all.label: Clear all
+add.listing.label: Add Listing
+settings.label: Settings
+welcome.label: Welcome ,
+edit.profile.label: Edit profile
+messages.label: Messages
+agents.list.label: Agents List
+listings.label: My listigs
+all.properties.label: All properties
+bookings.label: Bookings
+reviews.label: Reviews
+facebook.login.help: For faster login or register use your social account.
+#messages
+check.email.message.label: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+check.email.message.sm.label: This link will expire in
+check.email.message.md.label: If you don't receive an email please check your spam folder or
+#end messages
+
+
+
+
+
+
+
+
