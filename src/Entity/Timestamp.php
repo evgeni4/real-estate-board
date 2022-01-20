@@ -9,11 +9,11 @@ trait Timestamp
 {
     #[ORM\Column(type:"datetime")]
 
-    private DateTime $createdAt;
+    private  $createdAt;
 
     public function __construct()
     {
-        $this->createdAt=new DateTime('now');
+        $this->createdAt=new \DateTime('now');
     }
     /**
      * @return DateTime

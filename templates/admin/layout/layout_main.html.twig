@@ -5,38 +5,41 @@
 {% endblock %}
 
 {% block layout_body %}
-    <body >
-    <div id="wrapper">
-
+    <body data-sidebar="dark">
+    <div id="layout-wrapper">
+        {{ include('admin/_embed/_main/_topbar.html.twig') }}
         {{ include('admin/_embed/_main/_sidebar.html.twig') }}
-
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-
-                {{ include('admin/_embed/_main/_topbar.html.twig') }}
-
+        <div class="main-content">
+            <div class="page-content">
                 <div class="container-fluid">
-                    {% include 'admin/_embed/_utils/_flash_message.html.twig' %}
-
-                    {% block body %}{% endblock %}
+                    <!-- start page title -->
+                    <div class="row">
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <div class="page-title-right" style="color: #0b0b0b!important;">
+                                        <h5>{{ wo_render_breadcrumbs() }}</h5>
+                                    </div>
+                                </div>
+                                {% include 'admin/_embed/_utils/_flash_message.html.twig' %}
+                            </div>
+                        </div>
+                        {% block body %}{% endblock %}
+                    </div>
                 </div>
             </div>
-
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; RankedChoice</span>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            {{ 'now'|date('Y') }} © Skote.
+                        </div>
                     </div>
                 </div>
             </footer>
-
         </div>
-
     </div>
-
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
 
     {% block javascripts %}{% endblock %}
     </body>

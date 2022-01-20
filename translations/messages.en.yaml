@@ -9,13 +9,16 @@ characters.label: characters
 language.currency.heading: Language / Currency
 language.heading: Language
 currency.heading: Currency
-#user register fields
+#user fields
 logout.label: Log Out
 sign.in.label: Sign In
 sign.up.label: Registration
 password.label: Password
 new.password.label: New password
 confirm.password.label: Confirm-Password
+current.password.label: Current Password
+password.changed.label: Password changed successfully!
+password.old.label: The current password is incorrect!
 not.match.password.label: Password fields do not match!
 remember me.me.label: Remember me
 forgot.password.label: Lost Your Password?
@@ -26,6 +29,21 @@ enter.email.label: Please enter your email!
 enter.password.label: Please enter a password!
 enter.email.message.label: Enter your email address and we will send you a link to reset your password.
 password.length.label: Your password should be at least
+change.avatar.label: Change Avatar
+new.photo.label: Upload new photo
+new.cover.label: Change cover
+personal.info.label: Personal info
+first.name.label: First name
+last.name.label: Last name
+phone.label: Phone
+agency.label: Agency
+enter.phone.label: Please enter a phone number!
+invalid.phone.format.label: Invalid phone format!
+about.me.label: About Me
+profile.changed.label: Profile changed successfully!
+save.changes.label: Save changes
+
+
 #end user register fields
 wishlist.compare.heading: Your Wishlist / Compare
 wishlist.label: Wishlist
@@ -47,6 +65,17 @@ check.email.message.label: If an account matching your email exists, then an ema
 check.email.message.sm.label: This link will expire in
 check.email.message.md.label: If you don't receive an email please check your spam folder or
 #end messages
+#admin fields messages
+view.site.label: Go to the site
+system.label: System
+catalog.label: Catalog
+properties.label: Properties
+categories.label: Categories
+amenities.label: Amenities
+add.label: Add
+edit.label: Edit
+settings.changed.label: Settings changed successfully!
+#end admin fields messages
 
 
 

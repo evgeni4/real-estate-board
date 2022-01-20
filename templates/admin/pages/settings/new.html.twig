@@ -1,0 +1,19 @@
+{% extends 'admin/layout/layout_main.html.twig' %}
+{% block title_detailed %}{% endblock %}
+{% block body %}
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_row(form.translations) }}
+                </div>
+                <button type="submit" class="btn btn-primary">{% trans %}send.label{% endtrans %}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

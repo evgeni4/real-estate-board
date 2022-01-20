@@ -1,11 +1,8 @@
 {% for label,messages in app.flashes(['success','warning','info']) %}
     {% for message in messages %}
         <div class="notification {{ label }}  fl-wrap">
-            <p>{{ label|capitalize }} <a href="#"> {{ message }}</p>
+            <p> <a href="#"> {{ message }}</p>
             <a class="notification-close" href="#"><i class="fal fa-times"></i></a>
-        </div>
-        <div class="alert alert-{{ label }} text-center">
-            {{ message }}
         </div>
     {% endfor %}
 {% endfor %}

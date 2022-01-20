@@ -18,6 +18,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -27,7 +28,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator,private UserRepository $userRepository)
+    public function __construct(private TranslatorInterface $translator,UrlGeneratorInterface $urlGenerator,private UserRepository $userRepository)
     {
         $this->urlGenerator = $urlGenerator;
     }
@@ -39,10 +40,10 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         $request->getSession()->set(Security::LAST_USERNAME, $email);
         $password = $request->request->get('password', '');
         if ($email == '') {
-            throw new CustomUserMessageAuthenticationException("Email required!");
+            throw new CustomUserMessageAuthenticationException($this->translator->trans('enter.email.label'));
         }
         if ($password == '') {
-            throw new CustomUserMessageAuthenticationException("Password required!");
+            throw new CustomUserMessageAuthenticationException($this->translator->trans('enter.password.label'));
         }
         $request->getSession()->set(Security::LAST_USERNAME, $email);
         $user = $this->userRepository->findOneBy(['email' => $email]);

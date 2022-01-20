@@ -1,4 +1,13 @@
 {
+    "a2lix/auto-form-bundle": {
+        "version": "0.4.0"
+    },
+    "a2lix/translation-form-bundle": {
+        "version": "3.2.0"
+    },
+    "brick/math": {
+        "version": "0.9.3"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
     },
@@ -97,6 +106,18 @@
     "guzzlehttp/psr7": {
         "version": "2.1.0"
     },
+    "imagine/imagine": {
+        "version": "1.2.4"
+    },
+    "jms/metadata": {
+        "version": "2.6.1"
+    },
+    "jms/serializer": {
+        "version": "3.17.1"
+    },
+    "knplabs/doctrine-behaviors": {
+        "version": "2.6.0"
+    },
     "knplabs/knp-menu": {
         "version": "v3.3.0"
     },
@@ -141,6 +162,9 @@
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"
+    },
+    "nette/utils": {
+        "version": "v3.2.6"
     },
     "nikic/php-parser": {
         "version": "v4.13.2"
@@ -249,6 +273,12 @@
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
+    "ramsey/collection": {
+        "version": "1.2.2"
+    },
+    "ramsey/uuid": {
+        "version": "4.2.3"
+    },
     "sebastian/cli-parser": {
         "version": "1.0.1"
     },
@@ -308,6 +338,36 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "sonata-project/block-bundle": {
+        "version": "4.9.1"
+    },
+    "sonata-project/cache": {
+        "version": "2.2.0"
+    },
+    "sonata-project/doctrine-extensions": {
+        "version": "1.16.0"
+    },
+    "sonata-project/exporter": {
+        "version": "2.10.1"
+    },
+    "sonata-project/form-extensions": {
+        "version": "1.12",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.4",
+            "ref": "9c8a1e8ce2b1f215015ed16652c4ed18eb5867fd"
+        },
+        "files": [
+            "config/packages/sonata_form.yaml"
+        ]
+    },
+    "sonata-project/seo-bundle": {
+        "version": "3.0.0"
+    },
+    "sonata-project/twig-extensions": {
+        "version": "1.9.1"
     },
     "symfony/asset": {
         "version": "v5.4.0"

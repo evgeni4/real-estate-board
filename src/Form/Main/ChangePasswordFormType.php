@@ -21,6 +21,7 @@ class ChangePasswordFormType extends AbstractType
         $builder
             ->add('password', RepeatedType::class, [
                 'required'=>false,
+                'mapped'=>false,
                 'type' => PasswordType::class,
                 'first_options' => [
                     'label_html' => true,
@@ -58,6 +59,17 @@ class ChangePasswordFormType extends AbstractType
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 //'mapped' => false,
+            ])
+            ->add('current_password',PasswordType::class,[
+                'label_html' => true,
+                'label'=>$this->translator->trans('current.password.label').'  * <span class="dec-icon"><i class="fal fa-key"></i></span>',
+                'required'=>false,
+                'mapped'=>false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => $this->translator->trans('enter.password.label'),
+                    ])
+                ],
             ])
         ;
     }

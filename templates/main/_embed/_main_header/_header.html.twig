@@ -33,8 +33,16 @@
     </div>
     <!--  cart-btn end -->
     <!--  login btn -->
-    {% if app.user %}
-        <div class="show-reg-form dasbdord-submenu-open"><img src="{{ asset('assets/images/avatar/5.jpg') }}" alt=""></div>
+    {% if app.user %} 
+        <div class="show-reg-form dasbdord-submenu-open">
+           {% set avatars = app.user.userImages().getValues() %}
+            {% if avatars|length %}
+                {% set avatar = avatars[0] %}
+                <img src="{{ asset('assets/images/avatar-'~app.user.id~'/'~avatar.fileNameMiddle) }}" alt="{{ avatar.fileNameMiddle  }}">
+            {% else %}
+                <i class="fas fa-user" style="font-size: 20px;"></i>
+            {% endif %}
+        </div>
         <div class="dashboard-submenu">
             <div class="dashboard-submenu-title fl-wrap">{% trans %}welcome.label{% endtrans %} <span>{{ app.user.firstName }}</span></div>
             {{ knp_menu_render('smallMenu',{'currentClass': 'active'}) }}

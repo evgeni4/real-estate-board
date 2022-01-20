@@ -5,6 +5,7 @@ namespace App\Menu\UserMenu;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class Builder
 {
@@ -55,7 +56,7 @@ class Builder
             ->setAttributes(['class'=>''])
             ->setLinkAttribute('class', 'submenu-link')
             ->setChildrenAttribute('class','nav-group-items');
-         $userMenu['settings.label']->addChild('edit.profile.label', ['uri' => '#'])
+         $userMenu['settings.label']->addChild('edit.profile.label', ['route' => 'main_profile'])
             ->setExtra('icon', 'fal fa-user-edit');
 //        Edit profile
          $userMenu->addChild('messages.label', ['uri' => '#'])
@@ -74,7 +75,38 @@ class Builder
             ->setAttributes(['class', 'nav-item'])
             ->setLinkAttribute('class', 'nav-link');
 //      Submenu
-
         return $userMenu;
     }
+    public function adminMenu(RequestStack $requestStack): \Knp\Menu\ItemInterface
+    {
+        $adminMenu = $this->factory->createItem('root');
+        $adminMenu->setChildrenAttributes(array('class' => 'metismenu list-unstyled', 'id' => 'side-menu'));
+        $adminMenu->addChild('view.site.label', ['route' => 'app_home'])
+            ->setExtra('icon', 'bx bx-link-external')
+            ->setLinkAttributes(array('target' => '_blank'));
+
+        $adminMenu->addChild('Dashboard', ['route' => 'admin_dashboard'])
+            ->setExtra('icon', 'bx bx-home-circle');
+
+        $adminMenu->addChild('catalog.label', ['uri' => '#'])
+            ->setLinkAttribute('class', 'has-arrow waves-effect')
+            ->setExtra('icon', 'fa fa-tags');
+        $adminMenu['catalog.label']->addChild('properties.label', ['uri' => '#'])
+            ->setExtra('icon', 'fa fa-arrow-right');
+        $adminMenu['catalog.label']->addChild('categories.label', ['uri' => '#'])
+            ->setExtra('icon', 'fa fa-arrow-right');
+        $adminMenu['catalog.label']->addChild('amenities.label', ['uri' => '#'])
+            ->setExtra('icon', 'fa fa-arrow-right');
+
+
+
+        $adminMenu->addChild( 'system.label', ['uri' => '#'])
+            ->setLinkAttribute('class', 'has-arrow waves-effect')
+            ->setExtra('icon', 'fa fa-cog');
+
+        $adminMenu['system.label']->addChild('settings.label', ['route' => 'admin_settings_show'])
+            ->setExtra('icon', 'fa fa-arrow-right');
+        return $adminMenu;
+    }
+
 }

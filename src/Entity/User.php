@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -11,12 +13,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @UniqueEntity(fields={"email"}, message="alreadyUsed.label")
+ * @UniqueEntity(fields={"phone"}, message="alreadyUsedPhone.label")
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`users`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use Timestamp;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -49,6 +51,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $lastName;
+
+    #[ORM\Column(type: 'string', length: 25, unique: true, nullable: true)]
+    private $phone;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $AboutMe;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $Agency;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserImage::class, cascade: ['persist','remove'] ,orphanRemoval: true)]
+    private $userImages;
+    #[ORM\Column(type:"datetime")]
+
+    private  $createdAt;
+    public function __construct()
+    {
+        $this->createdAt=new \DateTime('now');
+        $this->userImages = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -203,4 +226,83 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getAboutMe(): ?string
+    {
+        return $this->AboutMe;
+    }
+
+    public function setAboutMe(?string $AboutMe): self
+    {
+        $this->AboutMe = $AboutMe;
+
+        return $this;
+    }
+
+    public function getAgency(): ?string
+    {
+        return $this->Agency;
+    }
+
+    public function setAgency(?string $Agency): self
+    {
+        $this->Agency = $Agency;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserImage[]
+     */
+    public function getUserImages(): Collection
+    {
+        return $this->userImages;
+    }
+
+    public function addUserImage(UserImage $userImage): self
+    {
+        if (!$this->userImages->contains($userImage)) {
+            $this->userImages[] = $userImage;
+            $userImage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserImage(UserImage $userImage): self
+    {
+        if ($this->userImages->removeElement($userImage)) {
+            // set the owning side to null (unless already changed)
+            if ($userImage->getUser() === $this) {
+                $userImage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
 }
