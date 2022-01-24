@@ -1,94 +1,122 @@
 {% extends 'main/base_dashboard.html.twig' %}
 {% block body %}
-    <div class="dasboard-wrapper fl-wrap no-pag">
-        <div class="row">
-            <div class="col-md-7">
-                {{ form_start(form) }}
-                <div class="dasboard-widget-title fl-wrap">
-                    <h5><i class="fas fa-user-circle"></i>{% trans %}change.avatar.label{% endtrans %}</h5>
-                </div>
-                <div class="dasboard-widget-box nopad-dash-widget-box fl-wrap">
-                    <div class="edit-profile-photo">
-                        {% set avatars = app.user.userImages().getValues() %}
-                        {% if avatars|length %}
-                            {% set avatar = avatars[0] %}
-                            <img src="{{ asset('assets/images/avatar-'~app.user.id~'/'~avatar.fileNameMiddle ) }}" alt="{{ avatar.fileNameMiddle  }}">
 
-                        {% endif %}
-                        <div class="change-photo-btn">
-                            <div class="photoUpload">
-                                {{ form_row(form.newImage) }}
-{#                                <span>{% trans %}new.photo.label{% endtrans %}</span>#}
-{#                                <input type="file" class="upload">#}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-wrap bg-parallax-wrap-gradien">
-                        <div class="bg"  data-bg="{{ asset('assets/images/cover/3.jpg') }}"></div>
-                    </div>
-                    <div class="change-photo-btn cpb-2  ">
-                        <div class="photoUpload color-bg">
-                            <span> <i class="far fa-camera"></i> {% trans %}new.cover.label{% endtrans %} </span>
-                            <input type="file" class="upload">
-                        </div>
-                    </div>
-                </div>
-                <div class="dasboard-widget-title fl-wrap">
-                    <h5><i class="fas fa-key"></i>{% trans %}personal.info.label{% endtrans %}</h5>
-                </div>
-                <div class="dasboard-widget-box fl-wrap">
-                    <div class="custom-form">
-                        <label></label>
-                        {{ form_row(form.firstName) }}
-                        {{ form_row(form.lastName) }}
-                        {{ form_row(form.phone) }}
-                        {{ form_row(form.agency) }}
-                        {{ form_row(form.aboutMe) }}
-                        <button class="btn color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button>
-                    </div>
-                </div>
-                {{ form_end(form) }}
+    <div class="dasboard-wrapper fl-wrap no-pag">
+        <div class="dasboard-scrollnav-wrap scroll-to-fixed-fixed scroll-init2 fl-wrap">
+            <ul>
+                <li><a href="#sec1" class="act-scrlink">{% trans %}personal.info.label{% endtrans %}</a></li>
+                <li><a href="#sec2">{% trans %}image.cover.label{% endtrans %}</a></li>
+                <li><a href="#sec3">{% trans %}reset.password.label{% endtrans %}</a></li>
+            </ul>
+            <div class="progress-indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 34 34">
+                    <circle cx="16" cy="16" r="15.9155" class="progress-bar__background"/>
+                    <circle cx="16" cy="16" r="15.9155" class="progress-bar__progress js-progress-bar"/>
+                </svg>
             </div>
-            <div class="col-md-5">
-                <div class="dasboard-widget-title dbt-mm fl-wrap">
-                    <h5><i class="fas fa-key"></i>{% trans %}reset.password.label{% endtrans %}</h5>
-                </div>
-                <div class="dasboard-widget-box fl-wrap">
-                    <div class="custom-form">
-                        {{ form_start(formChangePassword) }}
-                        <div class="pass-input-wrap fl-wrap">
-                            {{ form_row(formChangePassword.current_password) }}
-                            <span class="eye"><i class="far fa-eye" aria-hidden="true"></i> </span>
-                        </div>
-                        <div class="pass-input-wrap fl-wrap">
-                           {{ form_row(formChangePassword.password.first) }}
-                            <span class="eye"><i class="far fa-eye" aria-hidden="true"></i> </span>
-                        </div>
-                        <div class="pass-input-wrap fl-wrap">
-                           {{ form_row(formChangePassword.password.second) }}
-                            <span class="eye"><i class="far fa-eye" aria-hidden="true"></i> </span>
-                        </div>
-                        <button type="submit" class="btn color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button>
-                        {{ form_end(formChangePassword) }}
+        </div>
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title fl-wrap" id="sec1">
+            <h5><i class="fas fa-info"></i>{% trans %}personal.info.label{% endtrans %}</h5>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        {{ form_start(form) }}
+        <div class="dasboard-widget-box fl-wrap">
+            <div class="custom-form">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ form_row(form.firstName) }}
                     </div>
-                </div>
-                <div class="dasboard-widget-title fl-wrap" style="margin-top: 30px;">
-                    <h5><i class="fas fa-share-alt"></i>Your Socials</h5>
-                </div>
-                <div class="dasboard-widget-box fl-wrap">
-                    <div class="custom-form">
-                        <label>Facebook  <span class="dec-icon"><i class="fab fa-facebook"></i></span></label>
-                        <input type="text" placeholder="https://www.facebook.com/" value=""/>
-                        <label>Twitter <span class="dec-icon"><i class="fab fa-twitter"></i></span></label>
-                        <input type="text" placeholder="https://twitter.com/" value=""/>
-                        <label>Instagram<span class="dec-icon"><i class="fab fa-instagram"></i>  </span></label>
-                        <input type="text" placeholder="https://www.instagram.com/" value=""/>
-                        <label>Vkontakte<span class="dec-icon"><i class="fab fa-vk"></i>  </span></label>
-                        <input type="text" placeholder="https://vk.com/" value=""/>
-                        <button class="btn    color-bg  float-btn">Save Changes</button>
+                    <div class="col-sm-6">
+                        {{ form_row(form.lastName) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_row(form.phone) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_row(form.agency) }}
+                    </div>
+                    <div class="col-sm-12">
+                        {{ form_row(form.aboutMe) }}
                     </div>
                 </div>
             </div>
         </div>
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec2">
+            <h5><i class="fas fa-image"></i>{% trans %}image.cover.label{% endtrans %}</h5>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        <div class="dasboard-widget-box   fl-wrap">
+            <div class="custom-form">
+                <div class="row">
+                    <div class="dasboard-widget-box nopad-dash-widget-box fl-wrap">
+                        <div class="edit-profile-photo">
+                            {% set avatars = app.user.userImages().getValues() %}
+                            {% if avatars|length %}
+                                {% set avatar = avatars[0] %}
+                                <img src="{{ asset('assets/images/avatar-'~app.user.id~'/'~avatar.fileNameMiddle ) }}" alt="{{ avatar.fileNameMiddle  }}">
+                            {% endif %}
+                            <div class="change-photo-btn">
+                                <div class="photoUpload">
+                                    {{ form_row(form.newImage) }}
+                                    <span>{% trans %}new.photo.label{% endtrans %}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-wrap bg-parallax-wrap-gradien">
+                            {% set cover = app.user.cover.getValues() %}
+                            {% if cover|length %}
+                                {% set cover = cover[0].cover %}
+                                <div class="bg"  data-bg="{{ asset('assets/images/avatar-'~app.user.id~'/'~cover) }}"></div>
+                            {% else %}
+                                <div class="bg"  data-bg="{{ asset('assets/images/cover/3.jpg') }}"></div>
+                            {% endif %}
+                        </div>
+                        <div class="change-photo-btn cpb-2" style="color: white!important;">
+                            <div class="photoUpload color-bg">
+                                <span> <i class="far fa-camera"></i> {% trans %}new.cover.label{% endtrans %} </span>
+                                {{ form_row(form.newImageCover) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
+        <div class="custom-form"> <button class="btn  color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button></div>
+        {{ form_end(form) }}
+        <!-- dasboard-widget-box  end-->
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec3">
+            <h5><i class="fas fa-key"></i>{% trans %}reset.password.label{% endtrans %}</h5>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        {{ form_start(formChangePassword) }}
+        <div class="dasboard-widget-box   fl-wrap">
+            <div class="custom-form">
+                <div class="row">
+                    <div class="col-sm-4 pass-input-wrap">
+                        {{ form_row(formChangePassword.current_password) }}
+                        <span class="eye"><i class="far fa-eye" aria-hidden="true"></i> </span>
+                    </div>
+                    <div class="col-sm-4 pass-input-wrap">
+                        {{ form_row(formChangePassword.password.first) }}
+                        <span class="eye"><i class="far fa-eye" aria-hidden="true"></i> </span>
+                    </div>
+                    <div class="col-sm-4 pass-input-wrap">
+                        {{ form_row(formChangePassword.password.second) }}
+                        <span class="eye"><i class="far fa-eye" aria-hidden="true"></i> </span>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-form"> <button class="btn  color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button></div>
+        </div>
+        {{ form_end(formChangePassword) }}
+        <!-- dasboard-widget-box  end-->
     </div>
+    <div class="limit-box fl-wrap"></div>
 {% endblock %}

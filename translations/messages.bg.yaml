@@ -42,6 +42,8 @@ invalid.phone.format.label: Невалиден формат на телефон�
 about.me.label: За мен
 profile.changed.label: Профилът е променен успешно!
 save.changes.label: Запазите промените
+view.profile.label: Преглед на профила
+image.cover.label: Изображение / Корица
 
 #end user fields
 wishlist.compare.heading: Вашият списък с желания / Сравнете

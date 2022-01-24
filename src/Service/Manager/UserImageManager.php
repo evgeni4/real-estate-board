@@ -2,6 +2,7 @@
 
 namespace App\Service\Manager;
 
+use App\Entity\UserCovers;
 use App\Entity\UserImage;
 use App\Service\File\FileSystem\FileSystemWorker;
 use App\Service\File\ImageResizer;
@@ -70,6 +71,39 @@ class UserImageManager
         $this->systemWorker->remove($bigFilePath);
         $user = $userImage->getUser();
         $user->removeUserImage($userImage);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @param string $userCoverDir
+     * @param string $tempImageCoverFileName
+     * @return UserCovers
+     */
+    public function saveImageCoverForUser(string $userCoverDir, string $tempImageCoverFileName)
+    {
+        $uploadsCoverTempDir = $this->container->getParameter('uploads_temp_dir');
+        if (!$tempImageCoverFileName) {
+            return null;
+        }
+        $this->systemWorker->createFolderIfNotExist($userCoverDir);
+        $fileNameId = uniqid();
+        $imageBigParam = [
+            'width' => 1200,
+            'height' => null,
+            'newFolder' => $userCoverDir,
+            'newFileName' => sprintf('%s_%s.jpeg', $fileNameId, 'big')
+        ];
+         $imageBig = $this->imageResizer->resizeImageAndSave($uploadsCoverTempDir, $tempImageCoverFileName, $imageBigParam);;
+        $userCovers = new UserCovers();
+        $userCovers->setCover($imageBig);
+        return $userCovers;
+    }
+    public function removeCoverFromUser(UserCovers $userCover, string $userImageDir)
+    {
+        $cover = $userImageDir . '/' . $userCover->getCover();
+        $this->systemWorker->remove($cover);
+        $user = $userCover->getUserCover();
+        $user->removeCover($userCover);
         $this->entityManager->flush();
     }
 }

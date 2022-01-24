@@ -4976,9 +4976,23 @@ section.single-par2  .scroll-down-wrap{
 	margin:1px 0 0 10px;
 }
 .leave-rating input[type="radio"] {
-    display: none;
+	display: none;
 }
-.leave-rating label {
+.leave-rating .form-check{
+	width:25px!important;
+	letter-spacing: 0px;
+	float: left;
+}
+.leave-rating label i:hover:before  ,
+.leave-rating label i.selected:before {
+	font-weight:900;
+}
+.leave-rating:hover input[type="radio"]:checked~label i:before ,
+.leave-rating input[type="radio"]:checked~label i:before  ,
+.leave-rating label i:hover~label i:before{
+	font-weight:900!important;
+}
+.leave-rating label , .leave-rating label i {
     font-size: 14px;
     float: right;
     letter-spacing: 4px;

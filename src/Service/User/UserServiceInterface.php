@@ -18,4 +18,6 @@ interface UserServiceInterface
 
     public function PasswordHasher(User $user,$plainPassword  ): void;
 
+    public function findById($uuid ):?User;
+
 }

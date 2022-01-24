@@ -42,7 +42,8 @@ invalid.phone.format.label: Неверный формат телефона!
 about.me.label: Обо мне
 profile.changed.label: Профиль успешно изменен!
 save.changes.label: Сохранить изменения
-
+view.profile.label: Просмотреть профиль
+image.cover.label: Изображение / Обложка
 #end user  fields
 wishlist.compare.heading: Ваш список желаний / Сравнить
 wishlist.label: Список желаний

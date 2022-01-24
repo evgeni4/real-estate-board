@@ -39,4 +39,17 @@ class UserManager
         $user->addUserImage($userImage);
         return $user;
     }
+
+    public function updateUserImageCover(User $user, string $tempImageCoverFileName = null): User
+    {
+        $uploadsTempDir = $this->container->getParameter('uploads_temp_dir');
+        if (!$tempImageCoverFileName) {
+            return $user;
+        }
+        $userDir = $this->getUserImageDir($user);
+        $userImageCover = $this->userImageManager->saveImageCoverForUser($userDir, $tempImageCoverFileName);
+        $userImageCover->setUserCover($user);
+        $user->addCover($userImageCover);
+        return $user;
+    }
 }

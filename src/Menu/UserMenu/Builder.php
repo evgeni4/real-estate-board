@@ -2,6 +2,7 @@
 
 namespace App\Menu\UserMenu;
 
+use App\Service\User\UserServiceInterface;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -11,8 +12,9 @@ class Builder
 {
     /**
      * @param FactoryInterface $factory
+     * @param UserServiceInterface $userService
      */
-    public function __construct(public FactoryInterface $factory)
+    public function __construct(public FactoryInterface $factory, public UserServiceInterface $userService)
     {
     }
     public function userSmallMenu(RequestStack $requestStack): ItemInterface
@@ -21,8 +23,8 @@ class Builder
          $smallMenu->addChild('Dashboard', ['route' => 'main_dashboard'])
             ->setExtra('icon', 'fal fa-chart-line');
 //        Dashboard
-         $smallMenu->addChild('add.listing.label', ['uri' => '#'])
-            ->setExtra('icon', 'fal fa-file-plus');
+//         $smallMenu->addChild('add.listing.label', ['uri' => '#'])
+//            ->setExtra('icon', 'fal fa-file-plus');
 //        add.listing.label
 //         $smallMenu->addChild('settings.label', ['uri' => '#'])
 //            ->setExtra('icon', 'fal fa-user-edit');
@@ -48,7 +50,7 @@ class Builder
               ->setExtra('count', '34');
              $userMenu['listings.label']->addChild('reviews.label', ['route' => 'main_dashboard'])
               ->setExtra('icon', 'fal fa-comments-alt');
-             $userMenu['listings.label']->addChild('add.listing.label', ['route' => 'main_dashboard'])
+             $userMenu['listings.label']->addChild('add.listing.label', ['route' => 'main_add_listing'])
               ->setExtra('icon', 'fal fa-file-plus');
 //        listings.label
         $userMenu->addChild('settings.label', ['uri' => '#'])
@@ -58,6 +60,9 @@ class Builder
             ->setChildrenAttribute('class','nav-group-items');
          $userMenu['settings.label']->addChild('edit.profile.label', ['route' => 'main_profile'])
             ->setExtra('icon', 'fal fa-user-edit');
+        $userMenu['settings.label']->addChild('view.profile.label', ['route' => 'main_profile_show','routeParameters'=>['uuid'=>$this->userService->currentUser()->getUuid()]])
+            ->setExtra('icon', 'fas fa-eye')
+            ->setLinkAttributes(array('target' => '_blank'));
 //        Edit profile
          $userMenu->addChild('messages.label', ['uri' => '#'])
             ->setExtra('icon', 'fal fa-envelope')->setExtra('count', '5');

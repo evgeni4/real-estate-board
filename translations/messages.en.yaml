@@ -42,7 +42,8 @@ invalid.phone.format.label: Invalid phone format!
 about.me.label: About Me
 profile.changed.label: Profile changed successfully!
 save.changes.label: Save changes
-
+view.profile.label: View profile
+image.cover.label: Image / Cover
 
 #end user register fields
 wishlist.compare.heading: Your Wishlist / Compare

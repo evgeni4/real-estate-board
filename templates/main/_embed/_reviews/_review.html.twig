@@ -1,0 +1,74 @@
+
+<div class="list-single-main-item fl-wrap" id="sec6">
+    <div class="list-single-main-item-title">
+        <h3>Reviews <span>{{ reviews?reviews['count']: 0 }}</span></h3>
+    </div>
+    <div class="list-single-main-item_content fl-wrap">
+        <div class="reviews-comments-wrap fl-wrap">
+            <div class="review-total">
+                <span class="review-number blue-bg">{{ reviews?reviews['rating']: 0 }}</span>
+                {% if reviews %}
+                {% set raiting = reviews['rating'] %}
+                <div class="listing-rating card-popup-rainingvis"
+                     data-starrating2="
+{{ raiting <= 1.99 ? 1 : raiting <= 2.99 ? 2 : raiting <= 3.99 ? 3 : raiting <= 4.99 ? 4: raiting == 5?5:0 }}
+">
+                    {% endif %}
+                    <span class="re_stars-title">
+                                                                        {% if reviews %}
+                                                                            {% set raiting = reviews['rating'] %}
+                                                                            {{ raiting <= 1.99 ? 'Very Bad' : raiting <= 2.99 ? 'Fair' : raiting <= 3.99 ? 'Average' : raiting <= 4.99 ? 'Good': raiting == 5?'Excellent':false }}
+                                                                        {% endif %}
+                                                                    </span>
+                </div>
+            </div>
+            {% for review in comments %}
+                {% set author = review.author %}
+                <!-- reviews-comments-item -->
+                <div class="reviews-comments-item">
+                    <div class="review-comments-avatar">
+                        {% set avatars =  author.userImages().getValues() %}
+                        {% if avatars|length %}
+                            {% set avatar = avatars[0] %}
+                            <img src="{{ asset('assets/images/avatar-'~author.id~'/'~avatar.fileNameMiddle) }}"
+                                 alt="">
+                        {% else %}
+                            <i class="fas fa-user"
+                               style="font-size: 20px;"></i>
+                        {% endif %}
+                    </div>
+                    <div class="reviews-comments-item-text smpar">
+                        <div class="box-widget-menu-btn smact"><i
+                                    class="far fa-ellipsis-h"></i></div>
+                        <div class="show-more-snopt-tooltip bxwt">
+                            <a href="agent-single.html#"> <i
+                                        class="fas fa-reply"></i> Reply</a>
+                            <a href="agent-single.html#"> <i
+                                        class="fas fa-exclamation-triangle"></i>
+                                Report </a>
+                        </div>
+                        <h4>
+                            <a href="{{ path('main_profile_show',{'uuid':author.uuid}) }}">{{ author.firstName|capitalize }} {{ author.lastName|capitalize }}</a>
+                        </h4>
+                        <div class="listing-rating card-popup-rainingvis" data-starrating2="{{ review.rating }}">
+                                                                            <span class="re_stars-title">
+                                                                                 {% set raitingUser = review.rating %}
+                                                                                {{ raitingUser ==1 ? 'Very Bad' : raitingUser ==2 ? 'Fair' : raitingUser==3 ? 'Average' : raitingUser ==4 ? 'Good': raitingUser == 5?'Excellent':false }}
+                                                                            </span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p>{{ review.text }}</p>
+                        <div class="reviews-comments-item-date"><span
+                                    class="reviews-comments-item-date-item"><i
+                                        class="far fa-calendar-check"></i>{{ review.createdAt|date('d-m-Y') }}</span>
+                        </div>
+                    </div>
+                </div>
+                <!--reviews-comments-item end-->
+            {% endfor %}
+            <div class="pagination">
+                {{ knp_pagination_render(comments) }}
+            </div>
+        </div>
+    </div>
+</div>

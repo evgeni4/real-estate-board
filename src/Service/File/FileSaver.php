@@ -36,4 +36,19 @@ class FileSaver
         return $fileName;
     }
 
+    public function saveUploadedCoverFileIntoTemp(UploadedFile $uploadedFile): ?string
+    {
+        $uploadsCoverTempDir = $this->serviceContainer->getParameter('uploads_temp_dir');
+        $originalFileNameCover = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $saveFileNameCover = $this->slugger->slug($originalFileNameCover);
+        $fileNameCover = sprintf('%s-%s.%s', $saveFileNameCover, uniqid(), $uploadedFile->guessExtension());
+        $this->fileSystemWorker->createFolderIfNotExist($uploadsCoverTempDir);
+        try {
+            $uploadedFile->move($uploadsCoverTempDir, $fileNameCover);
+        } catch (\Exception $exception) {
+            return null;
+        }
+        return $fileNameCover;
+    }
+
 }

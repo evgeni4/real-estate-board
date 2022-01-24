@@ -69,4 +69,9 @@ class UserService implements UserServiceInterface
             )
         );
     }
+
+    public function findById($uuid): ?User
+    {
+        return $this->userRepository->findOneBy(['uuid'=>$uuid]);
+    }
 }

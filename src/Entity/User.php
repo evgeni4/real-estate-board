@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -24,6 +25,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[ORM\Column(type: 'uuid', nullable: true)]
+    private $uuid;
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     /**
      * @Assert\NotBlank()
@@ -63,13 +66,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserImage::class, cascade: ['persist','remove'] ,orphanRemoval: true)]
     private $userImages;
+
+    #[ORM\OneToMany(mappedBy: 'userCover', targetEntity: UserCovers::class, cascade: ['persist','remove'] ,orphanRemoval: true)]
+
+    private $cover;
+    
     #[ORM\Column(type:"datetime")]
 
     private  $createdAt;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reviews::class)]
+    private $reviews;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Reviews::class)]
+    private $authorReview;
     public function __construct()
     {
         $this->createdAt=new \DateTime('now');
         $this->userImages = new ArrayCollection();
+        $this->cover = new ArrayCollection();
+        $this->uuid = Uuid::v4();
+        $this->reviews = new ArrayCollection();
+        $this->authorReview = new ArrayCollection();
     }
 
 
@@ -304,5 +322,115 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|UserCovers[]
+     */
+    public function getCover(): Collection
+    {
+        return $this->cover;
+    }
+
+    public function addCover(UserCovers $cover): self
+    {
+        if (!$this->cover->contains($cover)) {
+            $this->cover[] = $cover;
+            $cover->setUserCover($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCover(UserCovers $cover): self
+    {
+        if ($this->cover->removeElement($cover)) {
+            // set the owning side to null (unless already changed)
+            if ($cover->getUserCover() === $this) {
+                $cover->setUserCover(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid($uuid): self
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reviews[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Reviews $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Reviews $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getUser() === $this) {
+                $review->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reviews[]
+     */
+    public function getAuthorReview(): Collection
+    {
+        return $this->authorReview;
+    }
+
+    public function addAuthorReview(Reviews $authorReview): self
+    {
+        if (!$this->authorReview->contains($authorReview)) {
+            $this->authorReview[] = $authorReview;
+            $authorReview->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthorReview(Reviews $authorReview): self
+    {
+        if ($this->authorReview->removeElement($authorReview)) {
+            // set the owning side to null (unless already changed)
+            if ($authorReview->getAuthor() === $this) {
+                $authorReview->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
+
+
+
+
 
 }
