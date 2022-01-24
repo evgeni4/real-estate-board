@@ -13,10 +13,13 @@
     border-color: #3270FC;
 }
 
-.gradient-bg, .api-btn:hover, #subscribe-button:hover, .notification.success, .dashboard-list:hover, .onoffswitch-inner:after, .add-room-item:hover, .btn:hover, .add-list:hover, .clear_wishlist:hover, .log_btn:hover, .testim-link:hover, .footer-social li a:hover, .main-search-button:hover, .slsw_vis, .vishf, .vis-hiddenfilter2, .dashboard-menu-btn:hover, .soc-log a:hover {
+.gradient-bg, .api-btn:hover, #subscribe-button:hover, .dashboard-list:hover, .onoffswitch-inner:after, .add-room-item:hover, .btn:hover, .add-list:hover, .clear_wishlist:hover, .log_btn:hover, .testim-link:hover, .footer-social li a:hover, .main-search-button:hover, .slsw_vis, .vishf, .vis-hiddenfilter2, .dashboard-menu-btn:hover, .soc-log a:hover {
     background: linear-gradient(to right, #3C6AFD, #57C7FA);
 }
-
+.notification.success{
+    background: rgb(31,36,0);
+    background: linear-gradient(90deg, rgba(31,36,0,1) 0%, rgba(45,121,9,0.8799894957983193) 0%, rgba(0,194,255,1) 100%);
+}
 .green-color, .verified-badge, .header-opt-modal-list li a:before, .card-verified, .pricing-content li:before, .dashboard-stats-count span strong {
     color: #40B69E;
 }

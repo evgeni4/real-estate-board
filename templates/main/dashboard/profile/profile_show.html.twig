@@ -1,8 +1,15 @@
 {% extends 'main/base.html.twig' %}
 
 {% block body %}
-    <!-- wrapper  -->
-    <div id="wrapper">
+    <!-- breadcrumbs-->
+    <div class="breadcrumbs fw-breadcrumbs sp-brd fl-wrap   top-smpar  ">
+        <div class="container">
+            <div class="breadcrumbs-list">
+                {{ wo_render_breadcrumbs() }}
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumbs end -->
         <!-- content -->
         <div class="content">
             <!-- col-list-wrap -->
@@ -13,8 +20,8 @@
                             <div class="card-info smpar fl-wrap">
                                 <div class="box-widget-menu-btn smact"><i class="far fa-ellipsis-h"></i></div>
                                 <div class="show-more-snopt-tooltip bxwt">
-                                    <a href="#"> <i class="fas fa-comment-alt"></i> Write a review</a>
-                                    <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a>
+{#                                    <a href="#"> <i class="fas fa-comment-alt"></i> Write a review</a>#}
+{#                                    <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a>#}
                                 </div>
                                 <div class="bg-wrap bg-parallax-wrap-gradien">
                                     {% set cover = user.cover.getValues() %}
@@ -42,61 +49,40 @@
                                     <div class="agent_card-title fl-wrap">
                                         <h4> {{ user.firstName|capitalize }} {{ user.lastName|capitalize }}</h4>
                                         <div class="geodir-category-location fl-wrap">
-                                            <h5><a href="">RealEstate Agent</a></h5>
-                                            {% if reviews %}
-                                                {% set raiting = reviews['rating'] %}
-                                            <div class="listing-rating card-popup-rainingvis" data-starrating2="
-{{ raiting <= 1.99 ? 1 : raiting <= 2.99 ? 2 : raiting <= 3.99 ? 3 : raiting <= 4.99 ? 4: raiting == 5?5:0 }}
-"><span
-                                                        class="re_stars-title">
-                                                    {% if reviews %}
-                                                        {% set raiting = reviews['rating'] %}
-                                                        {{ raiting <= 1.99 ? 'Very Bad' : raiting <= 2.99 ? 'Fair' : raiting <= 3.99 ? 'Average' : raiting <= 4.99 ? 'Good': raiting == 5?'Excellent':false }}
-                                                    {% endif %}
+                                            <h5><a href="">{% trans %}real.estate.agent.label{% endtrans %}</a></h5>
+                                            <div class="listing-rating card-popup-rainingvis"
+                                                 data-starrating2="{{ reviewsFromAgent['stars-rating'] }}"><span class="re_stars-title">
+                                                    {{ reviewsFromAgent['stars-title'] }}
                                                 </span></div>
-                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="list-single-stats">
                                         <ul class="no-list-style">
-                                            <li><span class="viewed-counter"><i
-                                                            class="fas fa-eye"></i> Viewed -  156 </span></li>
-                                            <li><span class="bookmark-counter"><i class="fas fa-comment-alt"></i> Reviews -  {{ reviews?reviews['count']:0 }} </span>
+{#                                            <li><span class="viewed-counter"><i class="fas fa-eye"></i> {% trans %}viewed.label{% endtrans %} -  156 </span></li>#}
+                                            <li><span class="bookmark-counter"><i class="fas fa-comment-alt"></i> {% trans %}reviews.label{% endtrans %} -  {{ reviewsFromAgent['count'] }} </span>
                                             </li>
-                                            <li><span class="bookmark-counter"><i class="fas fa-sitemap"></i> Listings -  6 </span>
+                                            <li><span class="bookmark-counter"><i class="fas fa-sitemap"></i> {% trans %}listings.label{% endtrans %} -  6 </span>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="card-verified tolt" data-microtip-position="left"
-                                         data-tooltip="Verified"><i class="fal fa-user-check"></i></div>
+                                         data-tooltip="{% trans %}verified.label{% endtrans %}"><i class="fal fa-user-check"></i></div>
                                 </div>
                             </div>
                             <div class="list-single-main-container fl-wrap">
                                 <!-- list-single-main-item -->
                                 <div class="list-single-main-item fl-wrap">
                                     <div class="list-single-main-item-title">
-                                        <h3>About This Agent</h3>
+                                        <h3>{% trans %}about.this.agent.label{% endtrans %}</h3>
                                     </div>
                                     <div class="list-single-main-item_content fl-wrap">
-                                        <p>Vivamus vel lacus lacinia, condimentum nunc non, iaculis diam. Proin in
-                                            mollis augue, eget fermentum quam. Donec semper purus ut ante tempus
-                                            gravida. Quisque et ante orci. Sed venenatis turpis mi, non varius justo
-                                            scelerisque id. Maecenas fermentum nunc sed maximus efficitur. Pellentesque
-                                            nec turpis viverra, cursus ex porta, porttitor odio. In gravida ante nec
-                                            eleifend commodo. Cras gravida interdum nisl, vel venenatis nisl consectetur
-                                            ut. Duis in erat quis dui imperdiet pretium et eu purus. Fusce purus ex,
-                                            placerat et eros quis, lacinia tempor ligula. </p>
-                                        <p>Placerat in egestas erat imperdiet sed euismod. Erat pellentesque adipiscing
-                                            commodo elit at imperdiet dui accumsan sit. Quam viverra orci sagittis eu
-                                            volutpat odio facilisis. Sit amet massa vitae tortor condimentum lacinia.
-                                            Lacus vestibulum sed arcu non odio. Sodales ut eu sem integer vitae justo.
-                                            Amet tellus cras adipiscing enim eu turpis egestas.</p>
+                                        <p>{{ user.aboutMe }}</p>
                                         <div class="list-single-tags fl-wrap tags-stylwrap" style="margin-top: 20px;">
-                                            <span>Service Areas:</span>
-                                            <a href="agent-single.html#">London</a>
-                                            <a href="agent-single.html#">NewYork</a>
-                                            <a href="agent-single.html#">Rome</a>
-                                            <a href="agent-single.html#">Dubai</a>
+{#                                            <span>Service Areas:</span>#}
+{#                                            <a href="agent-single.html#">London</a>#}
+{#                                            <a href="agent-single.html#">NewYork</a>#}
+{#                                            <a href="agent-single.html#">Rome</a>#}
+{#                                            <a href="agent-single.html#">Dubai</a>#}
                                         </div>
                                     </div>
                                 </div>
@@ -106,8 +92,8 @@
                             <div class="content-tabs-wrap tabs-act fl-wrap">
                                 <div class="content-tabs fl-wrap">
                                     <ul class="tabs-menu fl-wrap no-list-style">
-                                        <li class="current"><a href="#tab-listing"> Listing </a></li>
-                                        <li><a href="#tab-reviews">Reviews</a></li>
+                                        <li class="current"><a href="#tab-listing"> {% trans %}listings.label{% endtrans %} </a></li>
+                                        <li><a href="#tab-reviews">{% trans %}reviews.label{% endtrans %}</a></li>
                                     </ul>
                                 </div>
                                 <!--tabs -->
@@ -390,53 +376,100 @@
                                     <div class="tab">
                                         <div id="tab-reviews" class="tab-content first-tab">
                                             <div class="list-single-main-container fl-wrap" style="margin-top: 30px;">
-                                                <!-- list-single-main-item -->
-{#                                                {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviews',{#}
-{#                                                  'uuid':user.uuid#}
-{#                                                })) }}#}
-                                                {{ include('main/_embed/_reviews/_review.html.twig') }}
+{#                                                <turbo-frame id="new_message">#}
 
-                                                <!-- list-single-main-item end -->
-                                                <!-- list-single-main-item -->
-                                                {#    , {'attr':{'class':'add-comment custom-form'}} #}
-                                                <turbo-frame id="new_message">
-                                                {{ form_start(form , {'attr':{'class':'add-comment custom-form'}}) }}
-                                                <div class="list-single-main-item fl-wrap" id="sec5">
-                                                    <div class="list-single-main-item-title fl-wrap">
-                                                        <h3>Add Your Review</h3>
+                                                <div class="list-single-main-item fl-wrap" id="sec6">
+                                                    <div class="list-single-main-item-title">
+                                                        <h3>{% trans %}reviews.label{% endtrans %} <span>{{ reviewsFromAgent['count'] }}</span></h3>
                                                     </div>
-                                                    <!-- Add Review Box -->
-                                                    <div id="add-review" class="add-review-box">
-                                                        <div class="leave-rating-wrap">
-                                                            <span class="leave-rating-title">Your rating  for this listing : </span>
-                                                            <div class="leave-rating">
-                                                                {{ form_row(form.rating) }}
+                                                    <div class="list-single-main-item_content fl-wrap">
+                                                        <div class="reviews-comments-wrap fl-wrap">
+                                                            <div class="review-total">
+                                                                <span class="review-number blue-bg">{{ reviewsFromAgent['stars-rating'] }}</span>
+                                                                <div class="listing-rating card-popup-rainingvis"
+                                                                     data-starrating2="{{ reviewsFromAgent['stars-rating'] }}">
+                                                                    <span class="re_stars-title">{{ reviewsFromAgent['stars-title'] }}</span>
+                                                                </div>
                                                             </div>
-                                                            <div class="count-radio-wrapper">
-                                                                <span id="count-checked-radio">Your Rating</span>
-                                                            </div>
+                                                                {% for review in comments %}
+                                                                    {% set author = review.author %}
+                                                                    {% set avatars =  author.userImages().getValues() %}
+                                                                    {% set author = review.author %}
+                                                                    <!-- reviews-comments-item -->
+                                                                    <div class="reviews-comments-item ">
+                                                                        <div class="review-comments-avatar">
+                                                                            {% set avatars =  author.userImages().getValues() %}
+                                                                            {% if avatars|length %}
+                                                                                {% set avatar = avatars[0] %}
+                                                                                <img src="{{ asset('assets/images/avatar-'~author.id~'/'~avatar.fileNameMiddle) }}"
+                                                                                     alt="">
+                                                                            {% else %}
+                                                                                <i class="fas fa-user"
+                                                                                   style="font-size: 20px;"></i>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <div class="reviews-comments-item-text smpar">
+                                                                            <h4>
+                                                                                <a href="{{ path('main_profile_show',{'uuid':author.uuid}) }}">{{ author.firstName|capitalize }} {{ author.lastName|capitalize }}</a>
+                                                                            </h4>
+                                                                            {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewsFromAuthor',{
+                                                                                'uuid':user.uuid,
+                                                                                'reviews':review
+                                                                            })) }}
+                                                                            <div class="clearfix"></div>
+                                                                            <p>{{ review.text }}</p>
+                                                                            <div class="reviews-comments-item-date">
+                                                       <span class="reviews-comments-item-date-item">
+                                               <i class="far fa-calendar-check"></i>{{ review.createdAt|date('d-m-Y') }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--reviews-comments-item end-->
+                                                                {% endfor %}
+                                                                <div class="pagination">
+                                                                    {{ knp_pagination_render(comments) }}
+                                                                </div>
                                                         </div>
-                                                        <!-- Review Comment -->
-
-                                                        <fieldset>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    {{ form_row(form.name) }}
+                                                    </div>
+                                                </div>
+                                                    {{ form_start(form , {'attr':{'class':'add-comment custom-form'}}) }}
+                                                    <div class="list-single-main-item fl-wrap" id="sec5">
+                                                        <div class="list-single-main-item-title fl-wrap">
+                                                            <h3>{% trans %}add.review.label{% endtrans %}</h3>
+                                                        </div>
+                                                        <!-- Add Review Box -->
+                                                        <div id="add-review" class="add-review-box">
+                                                            <div class="leave-rating-wrap">
+                                                                <span class="leave-rating-title">{% trans %}your.rating.for.this.agent.label{% endtrans %} : </span>
+                                                                <div class="leave-rating">
+                                                                    {{ form_row(form.rating) }}
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    {{ form_row(form.email) }}
+                                                                <div class="count-radio-wrapper">
+                                                                    <span id="count-checked-radio">{% trans %}your.rating.label{% endtrans %}</span>
                                                                 </div>
                                                             </div>
-                                                            {{ form_row(form.text) }}
-                                                        </fieldset>
-                                                        <button class="btn big-btn color-bg float-btn">Submit Review <i
-                                                                    class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                                                        </button>
+                                                            <!-- Review Comment -->
+                                                            <fieldset>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        {{ form_row(form.name) }}
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        {{ form_row(form.email) }}
+                                                                    </div>
+                                                                </div>
+                                                                {{ form_row(form.text) }}
+                                                            </fieldset>
+                                                            <button class="btn big-btn color-bg float-btn">{% trans %}send.label{% endtrans %}
+                                                                <i
+                                                                        class="fa fa-paper-plane-o"
+                                                                        aria-hidden="true"></i>
+                                                            </button>
 
+                                                        </div>
+                                                        <!-- Add Review Box / End -->
                                                     </div>
-                                                    <!-- Add Review Box / End -->
-                                                </div>
-                                                {{ form_end(form) }}
+                                                    {{ form_end(form) }}
                                                 </turbo-frame>
                                                 <!-- list-single-main-item end -->
                                             </div>
@@ -454,37 +487,20 @@
                             <!--box-widget-->
                             <div class="box-widget bwt-first fl-wrap">
                                 <div class="box-widget-title fl-wrap box-widget-title-color color-bg no-top-margin">
-                                    Agent Contacts
+                                   {% trans %}agent.contacts.label{% endtrans %}
                                 </div>
                                 <div class="box-widget-content fl-wrap">
                                     <div class="contats-list clm fl-wrap">
                                         <ul class="no-list-style">
-                                            <li><span><i class="fal fa-phone"></i> Phone :</span> <a
-                                                        href="agent-single.html#">+7(123)987654</a></li>
-                                            <li><span><i class="fal fa-envelope"></i> Mail :</span> <a
-                                                        href="agent-single.html#">MaversRealEstate@domain.com</a></li>
-                                            <li><span><i class="fal fa-map-marker"></i> Adress :</span> <a
-                                                        href="agent-single.html#"> 70 Bright St New York, USA</a></li>
-                                            <li><span><i class="fal fa-browser"></i> Website :</span> <a
-                                                        href="agent-single.html#">themeforest.net</a></li>
+                                            <li><span><i class="fal fa-phone"></i> {% trans %}phone.label{% endtrans %} :</span> <a
+                                                        href="#">{{ user.phone }}</a></li>
+                                            <li><span><i class="fal fa-envelope"></i> Email :</span> <a
+                                                        href="#">{{ user.email }}</a></li>
+                                            {% if  user.agency  %}
+                                                <li><span><i class="fal fa-home"></i> {% trans %}agency.label{% endtrans %} :</span>
+                                                    <a href="#"> {{ user.agency }}</a></li>
+                                            {% endif %}
                                         </ul>
-                                    </div>
-                                    <div class="profile-widget-footer fl-wrap">
-                                        <div class="card-info-content_social ">
-                                            <ul>
-                                                <li><a href="agent-single.html#" target="_blank"><i
-                                                                class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="agent-single.html#" target="_blank"><i
-                                                                class="fab fa-twitter"></i></a></li>
-                                                <li><a href="agent-single.html#" target="_blank"><i
-                                                                class="fab fa-instagram"></i></a></li>
-                                                <li><a href="agent-single.html#" target="_blank"><i
-                                                                class="fab fa-vk"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <a href="agent-single.html#sec-contact" class="custom-scroll-link tolt csls"
-                                           data-microtip-position="left" data-tooltip="Write Message"><i
-                                                    class="fal fa-paper-plane"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -493,7 +509,7 @@
                             <div class="box-widget fl-wrap">
                                 <div class="box-widget-fixed-init fl-wrap" id="sec-contact">
                                     <div class="box-widget-title fl-wrap box-widget-title-color color-bg no-top-margin">
-                                        Get In Touch
+                                       {% trans %}get.in.touch.label{% endtrans %}
                                     </div>
                                     <div class="box-widget-content fl-wrap">
                                         <div class="custom-form">
@@ -557,108 +573,5 @@
             </div>
         </div>
         <!-- subscribe-wrap end -->
-        <!-- footer -->
-        <footer class="main-footer fl-wrap">
-            <div class="footer-inner fl-wrap">
-                <div class="container">
-                    <div class="row">
-                        <!-- footer widget-->
-                        <div class="col-md-3">
-                            <div class="footer-widget fl-wrap">
-                                <div class="footer-widget-logo fl-wrap">
-                                    <img src="images/logo.png" alt="">
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque.
-                                    Nulla finibus lobortis pulvinar.</p>
-                                <div class="fw_hours fl-wrap">
-                                    <span>Monday - Friday:<strong> 8am - 6pm</strong></span>
-                                    <span>Saturday - Sunday:<strong> 9am - 3pm</strong></span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- footer widget end-->
-                        <!-- footer widget-->
-                        <div class="col-md-3">
-                            <div class="footer-widget fl-wrap">
-                                <div class="footer-widget-title fl-wrap">
-                                    <h4>Helpful links</h4>
-                                </div>
-                                <ul class="footer-list fl-wrap">
-                                    <li><a href="about.html">About Our Company</a></li>
-                                    <li><a href="blog.html">Our last News</a></li>
-                                    <li><a href="pricing.html">Pricing Plans</a></li>
-                                    <li><a href="contacts.html">Contacts</a></li>
-                                    <li><a href="help.html">Help Center</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- footer widget end-->
-                        <!-- footer widget-->
-                        <div class="col-md-3">
-                            <div class="footer-widget fl-wrap">
-                                <div class="footer-widget-title fl-wrap">
-                                    <h4>Contacts Info</h4>
-                                </div>
-                                <ul class="footer-contacts fl-wrap">
-                                    <li><span><i class="fal fa-envelope"></i> Mail :</span><a href="agent-single.html#"
-                                                                                              target="_blank">yourmail@domain.com</a>
-                                    </li>
-                                    <li><span><i class="fal fa-map-marker"></i> Adress :</span><a
-                                                href="agent-single.html#" target="_blank">USA 27TH Brooklyn NY</a></li>
-                                    <li><span><i class="fal fa-phone"></i> Phone :</span><a href="agent-single.html#">+7(111)123456789</a>
-                                    </li>
-                                </ul>
-                                <div class="footer-social fl-wrap">
-                                    <ul>
-                                        <li><a href="agent-single.html#" target="_blank"><i
-                                                        class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="agent-single.html#" target="_blank"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li><a href="agent-single.html#" target="_blank"><i
-                                                        class="fab fa-instagram"></i></a></li>
-                                        <li><a href="agent-single.html#" target="_blank"><i class="fab fa-vk"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- footer widget end-->
-                        <!-- footer widget-->
-                        <div class="col-md-3">
-                            <div class="footer-widget fl-wrap">
-                                <div class="footer-widget-title fl-wrap">
-                                    <h4>Download our API</h4>
-                                </div>
-                                <p>Start working with Homeradar that can provide everything you need </p>
-                                <div class="api-links fl-wrap">
-                                    <a href="agent-single.html#" class="api-btn color-bg"><i class="fab fa-apple"></i>
-                                        App Store</a>
-                                    <a href="agent-single.html#" class="api-btn color-bg"><i
-                                                class="fab fa-google-play"></i> Play Market</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- footer widget end-->
-                    </div>
-                </div>
-            </div>
-            <!--sub-footer-->
-            <div class="sub-footer gray-bg fl-wrap">
-                <div class="container">
-                    <div class="copyright"> &#169; Homeradar 2022 . All rights reserved.</div>
-                    <div class="subfooter-nav">
-                        <ul class="no-list-style">
-                            <li><a href="agent-single.html#">Terms of use</a></li>
-                            <li><a href="agent-single.html#">Privacy Policy</a></li>
-                            <li><a href="agent-single.html#">Blog</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!--sub-footer end -->
-        </footer>
-        <!-- footer end -->
-    </div>
-    <!-- wrapper end -->
 {% endblock %}
 

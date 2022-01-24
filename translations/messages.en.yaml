@@ -44,6 +44,24 @@ profile.changed.label: Profile changed successfully!
 save.changes.label: Save changes
 view.profile.label: View profile
 image.cover.label: Image / Cover
+real.estate.agent.label: Real Estate Agent
+about.this.agent.label: About Me
+very.bad.label: Very Bad
+fair.label: Fair
+average.label: Average
+good.label: Good
+excellent.label: Excellent
+viewed.label: Viewed
+verified.label: Verified
+add.review.label: Add Your Review
+your.review.label: Your Review
+your.rating.for.this.agent.label: Your rating  for this agent
+your.rating.label: Your Rating
+agent.contacts.label: Agent Contacts
+get.in.touch.label: Get in touch
+
+
+
 
 #end user register fields
 wishlist.compare.heading: Your Wishlist / Compare
@@ -56,7 +74,7 @@ welcome.label: Welcome ,
 edit.profile.label: Edit profile
 messages.label: Messages
 agents.list.label: Agents List
-listings.label: My listigs
+listings.label: listigs
 all.properties.label: All properties
 bookings.label: Bookings
 reviews.label: Reviews
@@ -65,6 +83,7 @@ facebook.login.help: For faster login or register use your social account.
 check.email.message.label: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
 check.email.message.sm.label: This link will expire in
 check.email.message.md.label: If you don't receive an email please check your spam folder or
+review.added.label: Review added successfully!
 #end messages
 #admin fields messages
 view.site.label: Go to the site
@@ -76,6 +95,7 @@ amenities.label: Amenities
 add.label: Add
 edit.label: Edit
 settings.changed.label: Settings changed successfully!
+
 #end admin fields messages
 
 

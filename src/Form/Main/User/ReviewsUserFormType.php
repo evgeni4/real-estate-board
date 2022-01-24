@@ -35,15 +35,15 @@ class ReviewsUserFormType extends AbstractType
                 'required'=>false,
                 'mapped'=>false,
                 'label_html'=>true,
-                'label'=>$this->translator->trans('first.name.label').'* <span class="dec-icon"><i class="fas fa-envelope"></i></span></label>',
+                'label'=>'Email * <span class="dec-icon"><i class="fas fa-envelope"></i></span></label>',
                 'constraints' => [
                     new NotBlank(),
                 ],
             ])
             ->add('text', TextareaType::class, [
                 'required'=>false,
-                'label'=>'Your comment',
-                'attr'=>['placeholder'=>'Your comment'],
+                'label'=> $this->translator->trans('your.review.label'),
+                'attr'=>['placeholder'=>$this->translator->trans('your.review.label')],
                 'constraints'=>[
                     new NotBlank(),
                     new Length(
@@ -69,7 +69,7 @@ class ReviewsUserFormType extends AbstractType
                 'label_html' => true,
                 'choice_label' => function ($choices, $key, $value) {
                     if ($choices) {
-                        return '<i class="fal fa-star"></i>' ;
+                        return "<span class='rating fal fa-star' id='star$key' onclick=add(this,'" . $key . "')></span>";
                     }
                 },
                 'choice_attr' => function ($choices, $key, $value) {
@@ -87,15 +87,15 @@ class ReviewsUserFormType extends AbstractType
     {
         switch ($key) {
             case 5:
-                return 'Excellent';
+                return $this->translator->trans('excellent.label');
             case 4:
-                return 'Good';
+                return $this->translator->trans('good.label');
             case 3:
-                return 'Average';
+                return $this->translator->trans('average.label');
             case 2:
-                return 'Fair';
+                return $this->translator->trans('fair.label');
             case 1:
-                return 'Very Bad';
+                return $this->translator->trans('very.bad.label');
         }
     }
 

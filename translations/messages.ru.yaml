@@ -44,6 +44,31 @@ profile.changed.label: Профиль успешно изменен!
 save.changes.label: Сохранить изменения
 view.profile.label: Просмотреть профиль
 image.cover.label: Изображение / Обложка
+real.estate.agent.label: Агент по недвижимости
+about.this.agent.label: Обо мне
+very.bad.label: Очень плохой
+fair.label: Справедливый
+average.label: Средний
+good.label: Хорошо
+excellent.label: Отлично
+viewed.label: Просмотрено
+verified.label: Подтвержден
+add.review.label: Добавьте свой отзыв
+your.review.label: Ваш отзыв
+your.rating.for.this.agent.label: Ваш оценка для этого агента
+your.rating.label: Ваш оценка
+agent.contacts.label: Контакты агента
+get.in.touch.label: Связаться
+
+
+
+
+
+
+
+
+
+
 #end user  fields
 wishlist.compare.heading: Ваш список желаний / Сравнить
 wishlist.label: Список желаний
@@ -55,7 +80,7 @@ welcome.label: Добро пожаловать,
 edit.profile.label: Редактировать профиль
 messages.label: Сообщения
 agents.list.label: Список агентов
-listings.label: Мои объявления
+listings.label: Объявления
 all.properties.label: Все объявления
 bookings.label: Бронирование
 reviews.label: Отзывы
@@ -64,6 +89,7 @@ facebook.login.help: Для более быстрого входа или рег
 check.email.message.label: Если учетная запись, соответствующая вашему адресу электронной почты, существует, значит, только что было отправлено электронное письмо, содержащее ссылку, которую вы можете использовать для сброса пароля.
 check.email.message.sm.label: Срок действия этой ссылки истекает через
 check.email.message.md.label: Если вы не получили письмо, проверьте папку со спамом или
+review.added.label: Отзыв успешно добавлен!
 #end mes
 #admin fields messages
 view.site.label: Перейти на сайт

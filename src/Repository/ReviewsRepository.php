@@ -6,6 +6,7 @@ use App\Entity\Reviews;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -49,6 +50,16 @@ class ReviewsRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function insert(Reviews $reviews): bool
+    {
+        try {
+            $this->_em->persist($reviews);
+            $this->_em->flush();
+            return true;
+        }catch (OptimisticLockException $exception){
+            return false;
+        }
+    }
     /**
      * @throws NonUniqueResultException
      */
@@ -65,4 +76,6 @@ class ReviewsRepository extends ServiceEntityRepository
             ->setParameter('user', $user);
         return $qd->getQuery()->getOneOrNullResult();
     }
+
+
 }

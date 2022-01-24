@@ -35,8 +35,11 @@ class AgentProfileController extends AbstractController
     public function show(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         $author = $this->userService->currentUser();
-        $reviews = $this->reviewsService->getReviewsFromUser($user);
+        $reviewsFromAgent = $this->reviewsService->getReviewsFromUser($user);
         $query = $this->reviewsService->getCommentsFromUser($user);
+        $this->breadcrumbs->addRouteItem('Home','app_home');
+        $this->breadcrumbs->addRouteItem('Agents','app_home');
+        $this->breadcrumbs->addItem('Agent');
         $review = new Reviews();
         $form = $this->createForm(ReviewsUserFormType::class, $review);
         $form->handleRequest($request);
@@ -44,27 +47,34 @@ class AgentProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $review->setUser($user);
             $review->setAuthor($author);
-            $entityManager->persist($review);
-            $entityManager->flush();
+           $this->reviewsService->add($review);
+           $this->addFlash('success',$this->translator->trans('review.added.label'));
             return $this->redirectToRoute('main_profile_show', ['uuid' => $user->getUuid()]);
         }
         $comments = $this->paginator->paginate($query, $request->query->getInt('page', 1), 2);
         return $this->renderForm('main/dashboard/profile/profile_show.html.twig', [
             'user' => $user,
-            'reviews' => $reviews,
             'comments' => $comments,
+            'reviewsFromAgent' => $reviewsFromAgent,
             'form' => $form,
         ]);
     }
 
-    public function reviews($uuid): Response
+    /**
+     * @param $uuid
+     * @param $reviews
+     * @param Request $request
+     * @return Response
+     */
+    public function reviewsFromAuthor($uuid, $reviews, Request $request): Response
     {
         $user = $this->userService->findById($uuid);
-        $reviews = $this->reviewsService->getReviewsFromUser($user);
+        $reviewsFromAuthor = $this->reviewsService->ratingFromAuthor($reviews);
+
         return $this->render('main/_embed/_reviews/_review.html.twig',
         [
-            'reviews' => $reviews,
             'user' => $user,
+            'reviewsFromAuthor' => $reviewsFromAuthor,
         ]);
     }
 }

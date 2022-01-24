@@ -4211,17 +4211,23 @@ section.single-par2  .scroll-down-wrap{
 .sp-brd .breadcrumbs-list {
 	top:0;
 }
-.breadcrumbs-list a , .breadcrumbs-list span {
+
+.breadcrumbs-list a , .breadcrumbs-list span,
+.breadcrumbs-list .breadcrumb li{
 	float:left;
-	margin-right:15px;
-	padding-right:15px;
+	margin-right:5px;
+	padding-right:5px;
 	position:relative;
 	font-size:13px;
 	font-weight:600;
     color: #7d93b2;
 }
-.breadcrumbs-list a:hover{
-	color: #144273;
+.breadcrumbs-list .breadcrumb li a span{
+	color: #7d93b2!important;
+}
+.breadcrumbs-list a:hover,
+.breadcrumbs-list .breadcrumb li a span:hover{
+	color: #144273!important;
 }
 .breadcrumbs-list a:before {
     content: '';

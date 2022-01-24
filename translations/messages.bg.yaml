@@ -44,6 +44,22 @@ profile.changed.label: Профилът е променен успешно!
 save.changes.label: Запазите промените
 view.profile.label: Преглед на профила
 image.cover.label: Изображение / Корица
+real.estate.agent.label: Агент по недвижими имоти
+about.this.agent.label: За мен
+very.bad.label: Много лошо
+fair.label: Справедлив
+average.label: Средно
+good.label: Добър
+excellent.label: Отлично
+viewed.label: Прегледано
+verified.label: Потвърден
+add.review.label: Добавете своя отзив
+your.review.label: Вашия отзив
+your.rating.for.this.agent.label: Вашата оценка за този агент
+your.rating.label: Вашата оценка
+agent.contacts.label: Контакти на агента
+get.in.touch.label: Свържете се
+
 
 #end user fields
 wishlist.compare.heading: Вашият списък с желания / Сравнете
@@ -56,7 +72,7 @@ welcome.label: Добре дошли,
 edit.profile.label: Редактирай профил
 messages.label: Съобщения
 agents.list.label: Списък с агенти
-listings.label: Моите обяви
+listings.label: Обяви
 listings.all.label: Моите обяви
 all.properties.label: Всички имоти
 bookings.label: Резервации
@@ -66,6 +82,7 @@ facebook.login.help: За по-бързо влизане или регистра
 check.email.message.label: Ако съществува акаунт, съответстващ на вашия имейл, току-що е изпратен имейл, който съдържа връзка, която можете да използвате, за да нулирате паролата си.
 check.email.message.sm.label: Тази връзка ще изтече след
 check.email.message.md.label: Ако не получите имейл, моля, проверете папката за спам или
+review.added.label: Отзива е добавена успешно!
 #end mes
 #admin fields messages
 view.site.label: Отидете на сайта
