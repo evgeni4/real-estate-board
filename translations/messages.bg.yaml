@@ -36,6 +36,7 @@ personal.info.label: Лична информация
 first.name.label: Име
 last.name.label: Фамилия
 phone.label: Телефон
+phone.fax.label: Факс
 agency.label: Агенция
 enter.phone.label: Моля, въведете телефонен номер!
 invalid.phone.format.label: Невалиден формат на телефона!
@@ -59,6 +60,9 @@ your.rating.for.this.agent.label: Вашата оценка за този аге
 your.rating.label: Вашата оценка
 agent.contacts.label: Контакти на агента
 get.in.touch.label: Свържете се
+contacts.label: Контакти
+errors.form.label: Грешка, полетата са попълнени неправилно!
+
 
 
 #end user fields
@@ -83,6 +87,9 @@ check.email.message.label: Ако съществува акаунт, съотв�
 check.email.message.sm.label: Тази връзка ще изтече след
 check.email.message.md.label: Ако не получите имейл, моля, проверете папката за спам или
 review.added.label: Отзива е добавена успешно!
+complete.your.profile.label: Влезте или попълнете своя профил!
+cannot.comments.your.profile.label: Не можете да оставяте коментари в профила си!
+min.message.reviews.label: Вашият коментар трябва да бъде поне
 #end mes
 #admin fields messages
 view.site.label: Отидете на сайта

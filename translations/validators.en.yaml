@@ -1,2 +1,3 @@
 alreadyUsed.label: There is already an account with this email!
 alreadyUsedPhone.label: The phone already exists!
+alreadyUsedPhone.fax.label: The fax already exists!

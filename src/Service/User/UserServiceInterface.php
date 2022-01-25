@@ -2,6 +2,7 @@
 
 namespace App\Service\User;
 
+use App\Entity\Phone;
 use App\Entity\User;
 
 interface UserServiceInterface

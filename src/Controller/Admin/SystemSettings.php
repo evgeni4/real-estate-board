@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
-#[Route("dashboard/settings")]
+#[Route("admin/settings")]
 class SystemSettings extends AbstractController
 {
     public function __construct(private TranslatorInterface $translator,private Breadcrumbs $breadcrumbs, private SettingsServiceInterface $settingsService)

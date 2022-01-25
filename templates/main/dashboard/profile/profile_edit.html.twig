@@ -1,48 +1,68 @@
 {% extends 'main/base_dashboard.html.twig' %}
 {% block body %}
 
-    <div class="dasboard-wrapper fl-wrap no-pag">
-        <div class="dasboard-scrollnav-wrap scroll-to-fixed-fixed scroll-init2 fl-wrap">
-            <ul>
-                <li><a href="#sec1" class="act-scrlink">{% trans %}personal.info.label{% endtrans %}</a></li>
-                <li><a href="#sec2">{% trans %}image.cover.label{% endtrans %}</a></li>
-                <li><a href="#sec3">{% trans %}reset.password.label{% endtrans %}</a></li>
-            </ul>
-            <div class="progress-indicator">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 34 34">
-                    <circle cx="16" cy="16" r="15.9155" class="progress-bar__background"/>
-                    <circle cx="16" cy="16" r="15.9155" class="progress-bar__progress js-progress-bar"/>
-                </svg>
-            </div>
+<div class="dasboard-wrapper fl-wrap no-pag">
+    <div class="dasboard-scrollnav-wrap scroll-to-fixed-fixed scroll-init2 fl-wrap">
+        <ul>
+            <li><a href="#sec1" class="act-scrlink">{% trans %}personal.info.label{% endtrans %}</a></li>
+            <li><a href="#sec4">{% trans %}contacts.label{% endtrans %}</a></li>
+            <li><a href="#sec2">{% trans %}image.cover.label{% endtrans %}</a></li>
+            <li><a href="#sec3">{% trans %}reset.password.label{% endtrans %}</a></li>
+        </ul>
+        <div class="progress-indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 34 34">
+                <circle cx="16" cy="16" r="15.9155" class="progress-bar__background"/>
+                <circle cx="16" cy="16" r="15.9155" class="progress-bar__progress js-progress-bar"/>
+            </svg>
         </div>
-        <!-- dasboard-widget-title -->
-        <div class="dasboard-widget-title fl-wrap" id="sec1">
-            <h5><i class="fas fa-info"></i>{% trans %}personal.info.label{% endtrans %}</h5>
-        </div>
-        <!-- dasboard-widget-title end -->
-        <!-- dasboard-widget-box  -->
-        {{ form_start(form) }}
-        <div class="dasboard-widget-box fl-wrap">
-            <div class="custom-form">
-                <div class="row">
-                    <div class="col-sm-6">
-                        {{ form_row(form.firstName) }}
-                    </div>
-                    <div class="col-sm-6">
-                        {{ form_row(form.lastName) }}
-                    </div>
-                    <div class="col-sm-6">
-                        {{ form_row(form.phone) }}
-                    </div>
-                    <div class="col-sm-6">
-                        {{ form_row(form.agency) }}
-                    </div>
-                    <div class="col-sm-12">
-                        {{ form_row(form.aboutMe) }}
-                    </div>
+    </div>
+    <!-- dasboard-widget-title -->
+    <div class="dasboard-widget-title fl-wrap" id="sec1">
+        <h5><i class="fas fa-info"></i>{% trans %}personal.info.label{% endtrans %}</h5>
+    </div>
+    <!-- dasboard-widget-title end -->
+    <!-- dasboard-widget-box  -->
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="dasboard-widget-box fl-wrap">
+        <div class="custom-form">
+            <div class="row">
+                <div class="col-sm-4">
+                    {{ form_row(form.firstName) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_row(form.lastName) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_row(form.agency) }}
+                </div>
+                <div class="col-sm-12">
+                    {{ form_row(form.aboutMe) }}
                 </div>
             </div>
         </div>
+    </div>
+    <!-- dasboard-widget-title -->
+    <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec4">
+        <h5><i class="fas fa-image"></i>{% trans %}contacts.label{% endtrans %}</h5>
+    </div>
+    <!-- dasboard-widget-title end -->
+    <!-- dasboard-widget-box  -->
+    <div class="dasboard-widget-box   fl-wrap">
+        <div class="custom-form">
+            <div class="row">
+                <div class="col-sm-4">
+                    {{ form_row(form.phone) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_row(form.otherPhone) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_row(form.fax) }}
+                </div>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
         <!-- dasboard-widget-title -->
         <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec2">
             <h5><i class="fas fa-image"></i>{% trans %}image.cover.label{% endtrans %}</h5>
@@ -57,7 +77,8 @@
                             {% set avatars = app.user.userImages().getValues() %}
                             {% if avatars|length %}
                                 {% set avatar = avatars[0] %}
-                                <img src="{{ asset('assets/images/avatar-'~app.user.id~'/'~avatar.fileNameMiddle ) }}" alt="{{ avatar.fileNameMiddle  }}">
+                                <img src="{{ asset('assets/images/avatar-'~app.user.id~'/'~avatar.fileNameMiddle ) }}"
+                                     alt="{{ avatar.fileNameMiddle }}">
                             {% endif %}
                             <div class="change-photo-btn">
                                 <div class="photoUpload">
@@ -70,9 +91,10 @@
                             {% set cover = app.user.cover.getValues() %}
                             {% if cover|length %}
                                 {% set cover = cover[0].cover %}
-                                <div class="bg"  data-bg="{{ asset('assets/images/avatar-'~app.user.id~'/'~cover) }}"></div>
+                                <div class="bg"
+                                     data-bg="{{ asset('assets/images/avatar-'~app.user.id~'/'~cover) }}"></div>
                             {% else %}
-                                <div class="bg"  data-bg="{{ asset('assets/images/cover/3.jpg') }}"></div>
+                                <div class="bg" data-bg="{{ asset('assets/images/cover/3.jpg') }}"></div>
                             {% endif %}
                         </div>
                         <div class="change-photo-btn cpb-2" style="color: white!important;">
@@ -86,7 +108,9 @@
             </div>
         </div>
         <!-- dasboard-widget-box  end-->
-        <div class="custom-form"> <button class="btn  color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button></div>
+        <div class="custom-form">
+            <button class="btn  color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button>
+        </div>
         {{ form_end(form) }}
         <!-- dasboard-widget-box  end-->
         <!-- dasboard-widget-title -->
@@ -113,10 +137,12 @@
                     </div>
                 </div>
             </div>
-            <div class="custom-form"> <button class="btn  color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button></div>
+            <div class="custom-form">
+                <button class="btn  color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button>
+            </div>
         </div>
         {{ form_end(formChangePassword) }}
         <!-- dasboard-widget-box  end-->
     </div>
     <div class="limit-box fl-wrap"></div>
-{% endblock %}
+    {% endblock %}

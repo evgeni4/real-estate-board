@@ -5,6 +5,8 @@ namespace App\Controller\Main;
 use App\Entity\User;
 use App\Form\Main\User\ChangePasswordFormType;
 use App\Form\Main\User\ResetPasswordRequestFormType;
+use App\Service\Admin\Settings\SettingsServiceInterface;
+use App\Service\Seo\SeoServiceInterface;
 use App\Service\User\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -16,6 +18,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
@@ -26,7 +29,14 @@ class ResetPasswordController extends AbstractController
     use ResetPasswordControllerTrait;
 
 
-    public function __construct(private UserServiceInterface $userService,private ResetPasswordHelperInterface $resetPasswordHelper,private EntityManagerInterface $entityManager)
+    public function __construct(
+        private UserServiceInterface $userService,
+        private ResetPasswordHelperInterface $resetPasswordHelper,
+        private EntityManagerInterface $entityManager,
+        public SettingsServiceInterface $settingsService,
+        public TranslatorInterface $translator,
+        public SeoServiceInterface      $seoService,
+    )
     {
 
     }
@@ -37,6 +47,15 @@ class ResetPasswordController extends AbstractController
     #[Route('', name: 'app_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer): Response
     {
+        $settings = $this->settingsService->findOneRecord();
+        $this->seoService->seo(
+            $this->translator->trans('reset.password.label'),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription(),
+            $settings->translate($request->getLocale())->getSiteName(),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription()
+        );
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
 
@@ -56,8 +75,17 @@ class ResetPasswordController extends AbstractController
      * Confirmation page after a user has requested a password reset.
      */
     #[Route('/check-email', name: 'app_check_email')]
-    public function checkEmail(): Response
+    public function checkEmail(Request $request,): Response
     {
+        $settings = $this->settingsService->findOneRecord();
+        $this->seoService->seo(
+            $this->translator->trans('reset.password.label'),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription(),
+            $settings->translate($request->getLocale())->getSiteName(),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription()
+        );
         if (null === ($resetToken = $this->getTokenObjectFromSession())) {
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
@@ -73,6 +101,15 @@ class ResetPasswordController extends AbstractController
     #[Route('/reset/{token}', name: 'app_reset_password')]
     public function reset(Request $request, UserPasswordHasherInterface $userPasswordHasher, string $token = null): Response
     {
+        $settings = $this->settingsService->findOneRecord();
+        $this->seoService->seo(
+            $this->translator->trans('reset.password.label'),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription(),
+            $settings->translate($request->getLocale())->getSiteName(),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription()
+        );
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
             // loaded in a browser and potentially leaking the token to 3rd party JavaScript.

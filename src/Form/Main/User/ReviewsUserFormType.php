@@ -26,7 +26,7 @@ class ReviewsUserFormType extends AbstractType
             ->add('name', TextType::class, [
                 'required'=>false,
                 'label_html'=>true,
-                'label'=>$this->translator->trans('first.name.label').'* <span class="dec-icon"><i class="fas fa-user"></i></span></label>',
+                'label'=>$this->translator->trans('first.name.label').' '.$this->translator->trans('and.label').' '.$this->translator->trans('last.name.label').'* <span class="dec-icon"><i class="fas fa-user"></i></span></label>',
                 'constraints' => [
                     new NotBlank(),
                 ],
@@ -49,7 +49,7 @@ class ReviewsUserFormType extends AbstractType
                     new Length(
                         [
                             'min'=>10,
-                            'minMessage'=>'Your password should be at least {{ limit }} characters',
+                            'minMessage'=>$this->translator->trans('min.message.reviews.label').' {{ limit }} '.$this->translator->trans('characters.label').'!',
                             'max'=>500
 
                         ]

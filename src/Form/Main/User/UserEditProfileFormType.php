@@ -3,11 +3,14 @@
 namespace App\Form\Main\User;
 
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
@@ -52,15 +55,31 @@ class UserEditProfileFormType extends AbstractType
                             'message' => $this->translator->trans('enter.phone.label'),
                         ]),
                         new Regex('/[0-9]+$/', $this->translator->trans('invalid.phone.format.label'))
-//                        new Length([
-//                            'min' => 6,
-//                            'minMessage' => $this->translator->trans('password.length.label').' {{ limit }} '.$this->translator->trans('characters.label'),
-//                            // max length allowed by Symfony for security reasons
-//                            'max' => 4096,
-//                        ]),
                     ],
                     'label_html' => true,
                     'label' => $this->translator->trans('phone.label') . ' <span class="dec-icon"><i class="far fa-phone"></i> </span>'
+                ]
+            )
+            ->add('otherPhone', TextType::class,
+                [
+                    'required' => false,
+                    'attr' => ['placeholder' => '359 0888 123456'],
+                    'constraints' => [
+                        new Regex('/[0-9]+$/', $this->translator->trans('invalid.phone.format.label'))
+                    ],
+                    'label_html' => true,
+                    'label' => $this->translator->trans('phone.label') . ' <span class="dec-icon"><i class="far fa-phone"></i> </span>'
+                ]
+            )
+            ->add('fax', TextType::class,
+                [
+                    'required' => false,
+                    'attr' => ['placeholder' => '359 0888 123456'],
+                    'constraints' => [
+                        new Regex('/[0-9]+$/', $this->translator->trans('invalid.phone.format.label'))
+                    ],
+                    'label_html' => true,
+                    'label' => $this->translator->trans('phone.fax.label') . ' <span class="dec-icon"><i class="far fa-fax"></i> </span>'
                 ]
             )
             ->add('agency', TextType::class,
@@ -92,7 +111,7 @@ class UserEditProfileFormType extends AbstractType
                     'label' => false,
                     'mapped' => false
                 ]
-            );
+            ) ;
         //->add('password');
     }
 

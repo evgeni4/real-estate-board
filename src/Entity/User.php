@@ -15,6 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @UniqueEntity(fields={"email"}, message="alreadyUsed.label")
  * @UniqueEntity(fields={"phone"}, message="alreadyUsedPhone.label")
+ * @UniqueEntity(fields={"otherPhone"}, message="alreadyUsedPhone.label")
+ * @UniqueEntity(fields={"fax"}, message="alreadyUsedPhone.fax.label")
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`users`')]
@@ -50,13 +52,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $facebookId;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $firstName;
+    private ?string $firstName;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $lastName;
-
-    #[ORM\Column(type: 'string', length: 25, unique: true, nullable: true)]
-    private $phone;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $AboutMe;
@@ -80,6 +79,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Reviews::class)]
     private $authorReview;
+
+    #[ORM\Column(type: 'string', length: 100,unique: true, nullable: true)]
+    private $phone;
+
+    #[ORM\Column(type: 'string', length: 100, unique: true, nullable: true)]
+    private $otherPhone;
+
+    #[ORM\Column(type: 'string', length: 100, unique: true, nullable: true)]
+    private $fax;
+
+
     public function __construct()
     {
         $this->createdAt=new \DateTime('now');
@@ -241,18 +251,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(?string $phone): self
-    {
-        $this->phone = $phone;
 
         return $this;
     }
@@ -424,6 +422,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getOtherPhone(): ?string
+    {
+        return $this->otherPhone;
+    }
+
+    public function setOtherPhone(?string $otherPhone): self
+    {
+        $this->otherPhone = $otherPhone;
+
+        return $this;
+    }
+
+    public function getFax(): ?string
+    {
+        return $this->fax;
+    }
+
+    public function setFax(?string $fax): self
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+
+
+
 
 
 

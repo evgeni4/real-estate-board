@@ -15,14 +15,14 @@ class UserService implements UserServiceInterface
         private Security                       $security,
         private UserRepository                 $userRepository,
         private UserPasswordHasherInterface    $userPasswordHasher,
-        private ResetPasswordRequestRepository $passwordRequestRepository
+        private ResetPasswordRequestRepository $passwordRequestRepository,
     )
     {
     }
 
     public function add(User $user): ?bool
     {
-        $this->PasswordHasher($user,$user->getPassword());
+        $this->PasswordHasher($user, $user->getPassword());
         return $this->userRepository->insert($user);
     }
 
@@ -56,7 +56,7 @@ class UserService implements UserServiceInterface
      * @param User $user
      * @param string $plainPassword
      */
-    public function PasswordHasher(User $user, $plainPassword ):void
+    public function PasswordHasher(User $user, $plainPassword): void
     {
         $newPassword = trim($plainPassword);
         if (!$newPassword) {
@@ -72,6 +72,7 @@ class UserService implements UserServiceInterface
 
     public function findById($uuid): ?User
     {
-        return $this->userRepository->findOneBy(['uuid'=>$uuid]);
+        return $this->userRepository->findOneBy(['uuid' => $uuid]);
     }
+
 }

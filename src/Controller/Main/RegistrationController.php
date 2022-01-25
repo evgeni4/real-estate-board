@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\Main\User\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
+use App\Service\Admin\Settings\SettingsServiceInterface;
+use App\Service\Seo\SeoServiceInterface;
 use App\Service\User\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -14,18 +16,28 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
 
 
-    public function __construct(private EmailVerifier $emailVerifier, private UserServiceInterface $userService)
+    public function __construct(public TranslatorInterface $translator, public SeoServiceInterface     $seoService, public SettingsServiceInterface  $settingsService,private EmailVerifier $emailVerifier, private UserServiceInterface $userService)
     {}
 
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $settings = $this->settingsService->findOneRecord();
+        $this->seoService->seo(
+            $this->translator->trans('sign.up.label'),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription(),
+            $settings->translate($request->getLocale())->getSiteName(),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription()
+        );
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
 

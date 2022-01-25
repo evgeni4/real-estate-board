@@ -2,18 +2,38 @@
 
 namespace App\Controller\Main;
 
+use App\Service\Admin\Settings\SettingsServiceInterface;
+use App\Service\Seo\SeoServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
+    public function __construct(
+        public SeoServiceInterface      $seoService,
+        public SettingsServiceInterface $settingsService,
+        public TranslatorInterface $translator
+    )
+    {
+    }
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils,Request $request): Response
     {
+        $settings = $this->settingsService->findOneRecord();
+        $this->seoService->seo(
+            $this->translator->trans('sign.in.label'),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription(),
+            $settings->translate($request->getLocale())->getSiteName(),
+            $settings->translate($request->getLocale())->getMetaKeywords(),
+            $settings->translate($request->getLocale())->getMetaDescription()
+        );
          if ($this->getUser()) {
              return $this->redirectToRoute('app_home');
          }

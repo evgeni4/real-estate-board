@@ -7,7 +7,7 @@ use App\Entity\User;
 
 interface ReviewsServiceInterface
 {
-    public function add(Reviews $reviews): ?bool;
+    public function add(Reviews $reviews, User $user): ?bool;
 
     public function getReviewsFromUser($user): ?array;
 

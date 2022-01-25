@@ -36,6 +36,7 @@ personal.info.label: Personal info
 first.name.label: First name
 last.name.label: Last name
 phone.label: Phone
+phone.fax.label: Fax
 agency.label: Agency
 enter.phone.label: Please enter a phone number!
 invalid.phone.format.label: Invalid phone format!
@@ -59,8 +60,8 @@ your.rating.for.this.agent.label: Your rating  for this agent
 your.rating.label: Your Rating
 agent.contacts.label: Agent Contacts
 get.in.touch.label: Get in touch
-
-
+contacts.label: Contacts
+errors.form.label: Error, fields are incorrectly filled!
 
 
 #end user register fields
@@ -84,6 +85,10 @@ check.email.message.label: If an account matching your email exists, then an ema
 check.email.message.sm.label: This link will expire in
 check.email.message.md.label: If you don't receive an email please check your spam folder or
 review.added.label: Review added successfully!
+complete.your.profile.label: Sign in or fill out your profile!
+cannot.comments.your.profile.label: You cannot leave comments on your profile!
+min.message.reviews.label: Your comment should be at least
+
 #end messages
 #admin fields messages
 view.site.label: Go to the site

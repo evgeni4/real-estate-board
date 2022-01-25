@@ -1,2 +1,3 @@
 alreadyUsed.label: Аккаунт с этим адресом электронной почты уже существует!
 alreadyUsedPhone.label: Телефон уже существует!
+alreadyUsedPhone.fax.label: Факс уже существует!

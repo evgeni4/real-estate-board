@@ -94,8 +94,13 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwJSRi0zFjDemECmFl9JtRj1FY7TiTRRo&libraries=places"></script>
     <script src="{{ asset('assets/js/map-plugins.js') }}"></script>
     <script src="{{ asset('assets/js/map-listing.js') }}"></script>
-    {{ encore_entry_script_tags('app') }}
     <script src="{{ asset('assets/js/rating.js') }}"></script>
+    <script>
+        setTimeout(function () {
+            $('#flash-message').hide().fadeOut()
+        },5000);
+    </script>
+    {#    {{ encore_entry_script_tags('app') }}#}
 {% endblock %}
 </body>
 </html>

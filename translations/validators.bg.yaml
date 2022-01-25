@@ -1,2 +1,3 @@
 alreadyUsed.label: Вече има акаунт с този имейл!
 alreadyUsedPhone.label: Телефонът вече съществува!
+alreadyUsedPhone.fax.label: Факс вече съществува!

@@ -10,561 +10,579 @@
         </div>
     </div>
     <!-- breadcrumbs end -->
-        <!-- content -->
-        <div class="content">
-            <!-- col-list-wrap -->
-            <section class="gray-bg small-padding ">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card-info smpar fl-wrap">
-                                <div class="box-widget-menu-btn smact"><i class="far fa-ellipsis-h"></i></div>
-                                <div class="show-more-snopt-tooltip bxwt">
-{#                                    <a href="#"> <i class="fas fa-comment-alt"></i> Write a review</a>#}
-{#                                    <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a>#}
-                                </div>
-                                <div class="bg-wrap bg-parallax-wrap-gradien">
-                                    {% set cover = user.cover.getValues() %}
-                                    {% if cover|length %}
-                                        {% set cover = cover[0].cover %}
-                                        <div class="bg"
-                                             data-bg="{{ asset('assets/images/avatar-'~user.id~'/'~cover) }}"></div>
+    <!-- content -->
+    <div class="content">
+        <!-- col-list-wrap -->
+        <section class="gray-bg small-padding ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card-info smpar fl-wrap">
+                            <div class="box-widget-menu-btn smact"><i class="far fa-ellipsis-h"></i></div>
+                            <div class="show-more-snopt-tooltip bxwt">
+                                {#                                    <a href="#"> <i class="fas fa-comment-alt"></i> Write a review</a> #}
+                                {#                                    <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a> #}
+                            </div>
+                            <div class="bg-wrap bg-parallax-wrap-gradien">
+                                {% set cover = user.cover.getValues() %}
+                                {% if cover|length %}
+                                    {% set cover = cover[0].cover %}
+                                    <div class="bg"
+                                         data-bg="{{ asset('assets/images/avatar-'~user.id~'/'~cover) }}"></div>
 
-                                    {% else %}
-                                        <div class="bg" data-bg="{{ asset('assets/images/cover/3.jpg') }}"></div>
-                                    {% endif %}
-                                </div>
-                                <div class="card-info-media">
-                                    {% set avatars =  user.userImages().getValues() %}
-                                    {% if avatars|length %}
-                                        {% set avatar = avatars[0] %}
-                                        <div class="bg"
-                                             data-bg="{{ asset('assets/images/avatar-'~user.id~'/'~avatar.fileNameMiddle) }}"></div>
+                                {% else %}
+                                    <div class="bg" data-bg="{{ asset('assets/images/cover/3.jpg') }}"></div>
+                                {% endif %}
+                            </div>
+                            <div class="card-info-media">
+                                {% set avatars =  user.userImages().getValues() %}
+                                {% if avatars|length %}
+                                    {% set avatar = avatars[0] %}
+                                    <div class="bg"
+                                         data-bg="{{ asset('assets/images/avatar-'~user.id~'/'~avatar.fileNameMiddle) }}"></div>
 
-                                    {% else %}
-                                        <i class="fas fa-user" style="font-size: 20px;"></i>
-                                    {% endif %}
-                                </div>
-                                <div class="card-info-content">
-                                    <div class="agent_card-title fl-wrap">
-                                        <h4> {{ user.firstName|capitalize }} {{ user.lastName|capitalize }}</h4>
-                                        <div class="geodir-category-location fl-wrap">
-                                            <h5><a href="">{% trans %}real.estate.agent.label{% endtrans %}</a></h5>
-                                            <div class="listing-rating card-popup-rainingvis"
-                                                 data-starrating2="{{ reviewsFromAgent['stars-rating'] }}"><span class="re_stars-title">
-                                                    {{ reviewsFromAgent['stars-title'] }}
+                                {% else %}
+                                    <i class="fas fa-user" style="font-size: 20px;"></i>
+                                {% endif %}
+                            </div>
+                            <div class="card-info-content">
+                                <div class="agent_card-title fl-wrap">
+                                    <h4> {{ user.firstName|capitalize }} {{ user.lastName|capitalize }}</h4>
+                                    <div class="geodir-category-location fl-wrap">
+                                        <h5><a href="">{% trans %}real.estate.agent.label{% endtrans %}</a></h5>
+                                        <div class="listing-rating card-popup-rainingvis"
+                                             data-starrating2="{{ reviewsFromAgent?reviewsFromAgent['stars-rating']:0 }}"><span
+                                                    class="re_stars-title">
+                                                    {{ reviewsFromAgent?reviewsFromAgent['stars-title']:'' }}
                                                 </span></div>
-                                        </div>
-                                    </div>
-                                    <div class="list-single-stats">
-                                        <ul class="no-list-style">
-{#                                            <li><span class="viewed-counter"><i class="fas fa-eye"></i> {% trans %}viewed.label{% endtrans %} -  156 </span></li>#}
-                                            <li><span class="bookmark-counter"><i class="fas fa-comment-alt"></i> {% trans %}reviews.label{% endtrans %} -  {{ reviewsFromAgent['count'] }} </span>
-                                            </li>
-                                            <li><span class="bookmark-counter"><i class="fas fa-sitemap"></i> {% trans %}listings.label{% endtrans %} -  6 </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="card-verified tolt" data-microtip-position="left"
-                                         data-tooltip="{% trans %}verified.label{% endtrans %}"><i class="fal fa-user-check"></i></div>
-                                </div>
-                            </div>
-                            <div class="list-single-main-container fl-wrap">
-                                <!-- list-single-main-item -->
-                                <div class="list-single-main-item fl-wrap">
-                                    <div class="list-single-main-item-title">
-                                        <h3>{% trans %}about.this.agent.label{% endtrans %}</h3>
-                                    </div>
-                                    <div class="list-single-main-item_content fl-wrap">
-                                        <p>{{ user.aboutMe }}</p>
-                                        <div class="list-single-tags fl-wrap tags-stylwrap" style="margin-top: 20px;">
-{#                                            <span>Service Areas:</span>#}
-{#                                            <a href="agent-single.html#">London</a>#}
-{#                                            <a href="agent-single.html#">NewYork</a>#}
-{#                                            <a href="agent-single.html#">Rome</a>#}
-{#                                            <a href="agent-single.html#">Dubai</a>#}
-                                        </div>
                                     </div>
                                 </div>
-                                <!-- list-single-main-item end -->
-                            </div>
-                            <!-- content-tabs-wrap -->
-                            <div class="content-tabs-wrap tabs-act fl-wrap">
-                                <div class="content-tabs fl-wrap">
-                                    <ul class="tabs-menu fl-wrap no-list-style">
-                                        <li class="current"><a href="#tab-listing"> {% trans %}listings.label{% endtrans %} </a></li>
-                                        <li><a href="#tab-reviews">{% trans %}reviews.label{% endtrans %}</a></li>
+                                <div class="list-single-stats">
+                                    <ul class="no-list-style">
+                                        {#                                            <li><span class="viewed-counter"><i class="fas fa-eye"></i> {% trans %}viewed.label{% endtrans %} -  156 </span></li> #}
+                                        <li><span class="bookmark-counter"><i
+                                                        class="fas fa-comment-alt"></i> {% trans %}reviews.label{% endtrans %} -  {{ reviewsFromAgent?reviewsFromAgent['count']:0 }} </span>
+                                        </li>
+                                        <li><span class="bookmark-counter"><i
+                                                        class="fas fa-sitemap"></i> {% trans %}listings.label{% endtrans %} -  6 </span>
+                                        </li>
                                     </ul>
                                 </div>
-                                <!--tabs -->
-                                <div class="tabs-container">
-                                    <!--tab -->
-                                    <div class="tab">
-                                        <div id="tab-listing" class="tab-content">
-                                            <!-- listing-item-wrap-->
-                                            <div class="listing-item-container one-column-grid-wrap  box-list_ic fl-wrap">
-                                                <!-- listing-item -->
-                                                <div class="listing-item">
-                                                    <article class="geodir-category-listing fl-wrap">
-                                                        <div class="geodir-category-img fl-wrap">
-                                                            <a href="listing-single.html"
-                                                               class="geodir-category-img_item">
-                                                                <img src="images/all/3.jpg" alt="">
-                                                                <div class="overlay"></div>
-                                                            </a>
-                                                            <div class="geodir-category-location">
-                                                                <a href="agent-single.html#"
-                                                                   class="single-map-item tolt"
-                                                                   data-newlatitude="40.72956781"
-                                                                   data-newlongitude="-73.99726866"
-                                                                   data-microtip-position="top-left"
-                                                                   data-tooltip="On the map"><i
-                                                                            class="fas fa-map-marker-alt"></i> <span>  70 Bright St New York, USA</span></a>
-                                                            </div>
-                                                            <ul class="list-single-opt_header_cat">
-                                                                <li><a href="agent-single.html#"
-                                                                       class="cat-opt blue-bg">Sale</a></li>
-                                                                <li><a href="agent-single.html#"
-                                                                       class="cat-opt color-bg">Apartment</a></li>
-                                                            </ul>
-                                                            <a href="agent-single.html#" class="geodir_save-btn tolt"
-                                                               data-microtip-position="left"
-                                                               data-tooltip="Save"><span><i
-                                                                            class="fal fa-heart"></i></span></a>
-                                                            <a href="agent-single.html#" class="compare-btn tolt"
-                                                               data-microtip-position="left"
-                                                               data-tooltip="Compare"><span><i
-                                                                            class="fal fa-random"></i></span></a>
-                                                            <div class="geodir-category-listing_media-list">
-                                                                <span><i class="fas fa-camera"></i> 8</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="geodir-category-content fl-wrap">
-                                                            <h3 class="title-sin_item"><a href="listing-single.html">Gorgeous
-                                                                    House For Sale</a></h3>
-                                                            <div class="geodir-category-content_price">$ 600,000</div>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Maecenas in pulvinar neque. Nulla finibus lobortis
-                                                                pulvinar. Donec a consectetur nulla.</p>
-                                                            <div class="geodir-category-content-details">
-                                                                <ul>
-                                                                    <li><i class="fal fa-bed"></i><span>3</span></li>
-                                                                    <li><i class="fal fa-bath"></i><span>2</span></li>
-                                                                    <li><i class="fal fa-cube"></i><span>450 ft2</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="geodir-category-footer fl-wrap">
-                                                                <a href="agent-single.html" class="gcf-company"><img
-                                                                            src="images/avatar/2.jpg" alt=""><span>By Liza Rose</span></a>
-                                                                <div class="listing-rating card-popup-rainingvis tolt"
-                                                                     data-microtip-position="top" data-tooltip="Good"
-                                                                     data-starrating2="4"></div>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <!-- listing-item end-->
-                                                <!-- listing-item -->
-                                                <div class="listing-item">
-                                                    <article class="geodir-category-listing fl-wrap">
-                                                        <div class="geodir-category-img fl-wrap">
-                                                            <a href="listing-single.html"
-                                                               class="geodir-category-img_item">
-                                                                <img src="images/all/1.jpg" alt="">
-                                                                <div class="overlay"></div>
-                                                            </a>
-                                                            <div class="geodir-category-location">
-                                                                <a href="agent-single.html#"
-                                                                   class="single-map-item tolt"
-                                                                   data-newlatitude="40.88496706"
-                                                                   data-newlongitude="-73.88191222"
-                                                                   data-microtip-position="top-left"
-                                                                   data-tooltip="On the map"><i
-                                                                            class="fas fa-map-marker-alt"></i> <span>  40 Journal Square  , NJ, USA</span></a>
-                                                            </div>
-                                                            <ul class="list-single-opt_header_cat">
-                                                                <li><a href="agent-single.html#"
-                                                                       class="cat-opt blue-bg">Sale</a></li>
-                                                                <li><a href="agent-single.html#"
-                                                                       class="cat-opt color-bg">Apartment</a></li>
-                                                            </ul>
-                                                            <a href="agent-single.html#" class="geodir_save-btn tolt"
-                                                               data-microtip-position="left"
-                                                               data-tooltip="Save"><span><i
-                                                                            class="fal fa-heart"></i></span></a>
-                                                            <a href="agent-single.html#" class="compare-btn tolt"
-                                                               data-microtip-position="left"
-                                                               data-tooltip="Compare"><span><i
-                                                                            class="fal fa-random"></i></span></a>
-                                                            <div class="geodir-category-listing_media-list">
-                                                                <span><i class="fas fa-camera"></i> 47</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="geodir-category-content fl-wrap">
-                                                            <h3 class="title-sin_item"><a href="listing-single.html">Luxury
-                                                                    Family Home</a></h3>
-                                                            <div class="geodir-category-content_price">$ 320,000</div>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Maecenas in pulvinar neque. Nulla finibus lobortis
-                                                                pulvinar. Donec a consectetur nulla.</p>
-                                                            <div class="geodir-category-content-details">
-                                                                <ul>
-                                                                    <li><i class="fal fa-bed"></i><span>4</span></li>
-                                                                    <li><i class="fal fa-bath"></i><span>2</span></li>
-                                                                    <li><i class="fal fa-cube"></i><span>460 ft2</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="geodir-category-footer fl-wrap">
-                                                                <a href="agent-single.html" class="gcf-company"><img
-                                                                            src="images/avatar/1.jpg" alt=""><span>By Anna Lips</span></a>
-                                                                <div class="listing-rating card-popup-rainingvis tolt"
-                                                                     data-microtip-position="top"
-                                                                     data-tooltip="Excellent"
-                                                                     data-starrating2="5"></div>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <!-- listing-item end-->
-                                                <!-- listing-item -->
-                                                <div class="listing-item">
-                                                    <article class="geodir-category-listing fl-wrap">
-                                                        <div class="geodir-category-img fl-wrap">
-                                                            <a href="listing-single.html"
-                                                               class="geodir-category-img_item">
-                                                                <img src="images/all/9.jpg" alt="">
-                                                                <div class="overlay"></div>
-                                                            </a>
-                                                            <div class="geodir-category-location">
-                                                                <a href="agent-single.html#"
-                                                                   class="single-map-item tolt"
-                                                                   data-newlatitude="40.94982541"
-                                                                   data-newlongitude="-73.84357452"
-                                                                   data-microtip-position="top-left"
-                                                                   data-tooltip="On the map"><i
-                                                                            class="fas fa-map-marker-alt"></i> <span> 34-42 Montgomery St , NY, USA</span></a>
-                                                            </div>
-                                                            <ul class="list-single-opt_header_cat">
-                                                                <li><a href="agent-single.html#"
-                                                                       class="cat-opt blue-bg">Rent</a></li>
-                                                                <li><a href="agent-single.html#"
-                                                                       class="cat-opt color-bg">House</a></li>
-                                                            </ul>
-                                                            <a href="agent-single.html#" class="geodir_save-btn tolt"
-                                                               data-microtip-position="left"
-                                                               data-tooltip="Save"><span><i
-                                                                            class="fal fa-heart"></i></span></a>
-                                                            <a href="agent-single.html#" class="compare-btn tolt"
-                                                               data-microtip-position="left"
-                                                               data-tooltip="Compare"><span><i
-                                                                            class="fal fa-random"></i></span></a>
-                                                            <div class="geodir-category-listing_media-list">
-                                                                <span><i class="fas fa-camera"></i> 4</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="geodir-category-content fl-wrap">
-                                                            <h3 class="title-sin_item"><a href="listing-single.html">Family
-                                                                    House for Rent</a></h3>
-                                                            <div class="geodir-category-content_price">$ 700 / per
-                                                                month
-                                                            </div>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Maecenas in pulvinar neque. Nulla finibus lobortis
-                                                                pulvinar. Donec a consectetur nulla.</p>
-                                                            <div class="geodir-category-content-details">
-                                                                <ul>
-                                                                    <li><i class="fal fa-bed"></i><span>2</span></li>
-                                                                    <li><i class="fal fa-bath"></i><span>1</span></li>
-                                                                    <li><i class="fal fa-cube"></i><span>220 ft2</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="geodir-category-footer fl-wrap">
-                                                                <a href="agent-single.html" class="gcf-company"><img
-                                                                            src="images/avatar/3.jpg" alt=""><span>By Mark Frosty</span></a>
-                                                                <div class="listing-rating card-popup-rainingvis tolt"
-                                                                     data-microtip-position="top" data-tooltip="Good"
-                                                                     data-starrating2="4"></div>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <!-- listing-item end-->
-                                                <!-- listing-item -->
-                                                <div class="listing-item">
-                                                    <article class="geodir-category-listing fl-wrap">
-                                                        <div class="geodir-category-img fl-wrap">
-                                                            <a href="listing-single.html"
-                                                               class="geodir-category-img_item">
-                                                                <img src="images/all/6.jpg" alt="">
-                                                                <div class="overlay"></div>
-                                                            </a>
-                                                            <div class="geodir-category-location">
-                                                                <a href="agent-single.html#"
-                                                                   class="single-map-item tolt"
-                                                                   data-newlatitude="40.72228267"
-                                                                   data-newlongitude="-73.99246214"
-                                                                   data-microtip-position="top-left"
-                                                                   data-tooltip="On the map"><i
-                                                                            class="fas fa-map-marker-alt"></i> <span> W 85th St, New York, USA</span></a>
-                                                            </div>
-                                                            <ul class="list-single-opt_header_cat">
-                                                                <li><a href="agent-single.html#"
-                                                                       class="cat-opt blue-bg">Sale</a></li>
-                                                                <li><a href="agent-single.html#"
-                                                                       class="cat-opt color-bg">Apartment</a></li>
-                                                            </ul>
-                                                            <a href="agent-single.html#" class="geodir_save-btn tolt"
-                                                               data-microtip-position="left"
-                                                               data-tooltip="Save"><span><i
-                                                                            class="fal fa-heart"></i></span></a>
-                                                            <a href="agent-single.html#" class="compare-btn tolt"
-                                                               data-microtip-position="left"
-                                                               data-tooltip="Compare"><span><i
-                                                                            class="fal fa-random"></i></span></a>
-                                                            <div class="geodir-category-listing_media-list">
-                                                                <span><i class="fas fa-camera"></i> 13</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="geodir-category-content fl-wrap">
-                                                            <h3 class="title-sin_item"><a href="listing-single.html">Contemporary
-                                                                    Apartment</a></h3>
-                                                            <div class="geodir-category-content_price">$ 1,600,000</div>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Maecenas in pulvinar neque. Nulla finibus lobortis
-                                                                pulvinar. Donec a consectetur nulla.</p>
-                                                            <div class="geodir-category-content-details">
-                                                                <ul>
-                                                                    <li><i class="fal fa-bed"></i><span>4</span></li>
-                                                                    <li><i class="fal fa-bath"></i><span>1</span></li>
-                                                                    <li><i class="fal fa-cube"></i><span>550 ft2</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="geodir-category-footer fl-wrap">
-                                                                <a href="agent-single.html" class="gcf-company"><img
-                                                                            src="images/avatar/4.jpg" alt=""><span>By Bill Trust</span></a>
-                                                                <div class="listing-rating card-popup-rainingvis tolt"
-                                                                     data-microtip-position="top" data-tooltip="Excellent
-                                                                            " data-starrating2="5"></div>
-                                                            </div>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <!-- listing-item end-->
-                                            </div>
-                                            <!-- listing-item-wrap end-->
-                                            <!-- pagination-->
-                                            <div class="pagination">
-                                                <a href="agent-single.html#" class="prevposts-link">
-                                                    <i class="fa fa-caret-left"></i></a>
-                                                <a href="agent-single.html#">1</a>
-                                                <a href="agent-single.html#" class="current-page">2</a>
-                                                <a href="agent-single.html#">3</a>
-                                                <a href="agent-single.html#">4</a>
-                                                <a href="agent-single.html#" class="nextposts-link">
-                                                    <i class="fa fa-caret-right"></i>
-                                                </a>
-                                            </div>
-                                            <!-- pagination end-->
-                                        </div>
+                                <div class="card-verified tolt" data-microtip-position="left"
+                                     data-tooltip="{% trans %}verified.label{% endtrans %}"><i
+                                            class="fal fa-user-check"></i></div>
+                            </div>
+                        </div>
+                        <div class="list-single-main-container fl-wrap">
+                            <!-- list-single-main-item -->
+                            <div class="list-single-main-item fl-wrap">
+                                <div class="list-single-main-item-title">
+                                    <h3>{% trans %}about.this.agent.label{% endtrans %}</h3>
+                                </div>
+                                <div class="list-single-main-item_content fl-wrap">
+                                    <p>{{ user.aboutMe }}</p>
+                                    <div class="list-single-tags fl-wrap tags-stylwrap" style="margin-top: 20px;">
+                                        {#                                            <span>Service Areas:</span> #}
+                                        {#                                            <a href="agent-single.html#">London</a> #}
+                                        {#                                            <a href="agent-single.html#">NewYork</a> #}
+                                        {#                                            <a href="agent-single.html#">Rome</a> #}
+                                        {#                                            <a href="agent-single.html#">Dubai</a> #}
                                     </div>
-                                    <!--tab  end-->
-                                    <!--tab -->
-                                    <div class="tab">
-                                        <div id="tab-reviews" class="tab-content first-tab">
-                                            <div class="list-single-main-container fl-wrap" style="margin-top: 30px;">
-{#                                                <turbo-frame id="new_message">#}
-
-                                                <div class="list-single-main-item fl-wrap" id="sec6">
-                                                    <div class="list-single-main-item-title">
-                                                        <h3>{% trans %}reviews.label{% endtrans %} <span>{{ reviewsFromAgent['count'] }}</span></h3>
+                                </div>
+                            </div>
+                            <!-- list-single-main-item end -->
+                        </div>
+                        <!-- content-tabs-wrap -->
+                        <div class="content-tabs-wrap tabs-act fl-wrap">
+                            <div class="content-tabs fl-wrap">
+                                <ul class="tabs-menu fl-wrap no-list-style">
+                                    <li class="current"><a
+                                                href="#tab-listing"> {% trans %}listings.label{% endtrans %} </a></li>
+                                    <li><a href="#tab-reviews">{% trans %}reviews.label{% endtrans %}</a></li>
+                                </ul>
+                            </div>
+                            <!--tabs -->
+                            <div class="tabs-container">
+                                <!--tab -->
+                                <div class="tab">
+                                    <div id="tab-listing" class="tab-content">
+                                        <!-- listing-item-wrap-->
+                                        <div class="listing-item-container one-column-grid-wrap  box-list_ic fl-wrap">
+                                            <!-- listing-item -->
+                                            <div class="listing-item">
+                                                <article class="geodir-category-listing fl-wrap">
+                                                    <div class="geodir-category-img fl-wrap">
+                                                        <a href="listing-single.html"
+                                                           class="geodir-category-img_item">
+                                                            <img src="images/all/3.jpg" alt="">
+                                                            <div class="overlay"></div>
+                                                        </a>
+                                                        <div class="geodir-category-location">
+                                                            <a href="agent-single.html#"
+                                                               class="single-map-item tolt"
+                                                               data-newlatitude="40.72956781"
+                                                               data-newlongitude="-73.99726866"
+                                                               data-microtip-position="top-left"
+                                                               data-tooltip="On the map"><i
+                                                                        class="fas fa-map-marker-alt"></i> <span>  70 Bright St New York, USA</span></a>
+                                                        </div>
+                                                        <ul class="list-single-opt_header_cat">
+                                                            <li><a href="agent-single.html#"
+                                                                   class="cat-opt blue-bg">Sale</a></li>
+                                                            <li><a href="agent-single.html#"
+                                                                   class="cat-opt color-bg">Apartment</a></li>
+                                                        </ul>
+                                                        <a href="agent-single.html#" class="geodir_save-btn tolt"
+                                                           data-microtip-position="left"
+                                                           data-tooltip="Save"><span><i
+                                                                        class="fal fa-heart"></i></span></a>
+                                                        <a href="agent-single.html#" class="compare-btn tolt"
+                                                           data-microtip-position="left"
+                                                           data-tooltip="Compare"><span><i
+                                                                        class="fal fa-random"></i></span></a>
+                                                        <div class="geodir-category-listing_media-list">
+                                                            <span><i class="fas fa-camera"></i> 8</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="list-single-main-item_content fl-wrap">
-                                                        <div class="reviews-comments-wrap fl-wrap">
-                                                            <div class="review-total">
-                                                                <span class="review-number blue-bg">{{ reviewsFromAgent['stars-rating'] }}</span>
-                                                                <div class="listing-rating card-popup-rainingvis"
-                                                                     data-starrating2="{{ reviewsFromAgent['stars-rating'] }}">
-                                                                    <span class="re_stars-title">{{ reviewsFromAgent['stars-title'] }}</span>
-                                                                </div>
+                                                    <div class="geodir-category-content fl-wrap">
+                                                        <h3 class="title-sin_item"><a href="listing-single.html">Gorgeous
+                                                                House For Sale</a></h3>
+                                                        <div class="geodir-category-content_price">$ 600,000</div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                            Maecenas in pulvinar neque. Nulla finibus lobortis
+                                                            pulvinar. Donec a consectetur nulla.</p>
+                                                        <div class="geodir-category-content-details">
+                                                            <ul>
+                                                                <li><i class="fal fa-bed"></i><span>3</span></li>
+                                                                <li><i class="fal fa-bath"></i><span>2</span></li>
+                                                                <li><i class="fal fa-cube"></i><span>450 ft2</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="geodir-category-footer fl-wrap">
+                                                            <a href="agent-single.html" class="gcf-company"><img
+                                                                        src="images/avatar/2.jpg" alt=""><span>By Liza Rose</span></a>
+                                                            <div class="listing-rating card-popup-rainingvis tolt"
+                                                                 data-microtip-position="top" data-tooltip="Good"
+                                                                 data-starrating2="4"></div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <!-- listing-item end-->
+                                            <!-- listing-item -->
+                                            <div class="listing-item">
+                                                <article class="geodir-category-listing fl-wrap">
+                                                    <div class="geodir-category-img fl-wrap">
+                                                        <a href="listing-single.html"
+                                                           class="geodir-category-img_item">
+                                                            <img src="images/all/1.jpg" alt="">
+                                                            <div class="overlay"></div>
+                                                        </a>
+                                                        <div class="geodir-category-location">
+                                                            <a href="agent-single.html#"
+                                                               class="single-map-item tolt"
+                                                               data-newlatitude="40.88496706"
+                                                               data-newlongitude="-73.88191222"
+                                                               data-microtip-position="top-left"
+                                                               data-tooltip="On the map"><i
+                                                                        class="fas fa-map-marker-alt"></i> <span>  40 Journal Square  , NJ, USA</span></a>
+                                                        </div>
+                                                        <ul class="list-single-opt_header_cat">
+                                                            <li><a href="agent-single.html#"
+                                                                   class="cat-opt blue-bg">Sale</a></li>
+                                                            <li><a href="agent-single.html#"
+                                                                   class="cat-opt color-bg">Apartment</a></li>
+                                                        </ul>
+                                                        <a href="agent-single.html#" class="geodir_save-btn tolt"
+                                                           data-microtip-position="left"
+                                                           data-tooltip="Save"><span><i
+                                                                        class="fal fa-heart"></i></span></a>
+                                                        <a href="agent-single.html#" class="compare-btn tolt"
+                                                           data-microtip-position="left"
+                                                           data-tooltip="Compare"><span><i
+                                                                        class="fal fa-random"></i></span></a>
+                                                        <div class="geodir-category-listing_media-list">
+                                                            <span><i class="fas fa-camera"></i> 47</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="geodir-category-content fl-wrap">
+                                                        <h3 class="title-sin_item"><a href="listing-single.html">Luxury
+                                                                Family Home</a></h3>
+                                                        <div class="geodir-category-content_price">$ 320,000</div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                            Maecenas in pulvinar neque. Nulla finibus lobortis
+                                                            pulvinar. Donec a consectetur nulla.</p>
+                                                        <div class="geodir-category-content-details">
+                                                            <ul>
+                                                                <li><i class="fal fa-bed"></i><span>4</span></li>
+                                                                <li><i class="fal fa-bath"></i><span>2</span></li>
+                                                                <li><i class="fal fa-cube"></i><span>460 ft2</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="geodir-category-footer fl-wrap">
+                                                            <a href="agent-single.html" class="gcf-company"><img
+                                                                        src="images/avatar/1.jpg" alt=""><span>By Anna Lips</span></a>
+                                                            <div class="listing-rating card-popup-rainingvis tolt"
+                                                                 data-microtip-position="top"
+                                                                 data-tooltip="Excellent"
+                                                                 data-starrating2="5"></div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <!-- listing-item end-->
+                                            <!-- listing-item -->
+                                            <div class="listing-item">
+                                                <article class="geodir-category-listing fl-wrap">
+                                                    <div class="geodir-category-img fl-wrap">
+                                                        <a href="listing-single.html"
+                                                           class="geodir-category-img_item">
+                                                            <img src="images/all/9.jpg" alt="">
+                                                            <div class="overlay"></div>
+                                                        </a>
+                                                        <div class="geodir-category-location">
+                                                            <a href="agent-single.html#"
+                                                               class="single-map-item tolt"
+                                                               data-newlatitude="40.94982541"
+                                                               data-newlongitude="-73.84357452"
+                                                               data-microtip-position="top-left"
+                                                               data-tooltip="On the map"><i
+                                                                        class="fas fa-map-marker-alt"></i> <span> 34-42 Montgomery St , NY, USA</span></a>
+                                                        </div>
+                                                        <ul class="list-single-opt_header_cat">
+                                                            <li><a href="agent-single.html#"
+                                                                   class="cat-opt blue-bg">Rent</a></li>
+                                                            <li><a href="agent-single.html#"
+                                                                   class="cat-opt color-bg">House</a></li>
+                                                        </ul>
+                                                        <a href="agent-single.html#" class="geodir_save-btn tolt"
+                                                           data-microtip-position="left"
+                                                           data-tooltip="Save"><span><i
+                                                                        class="fal fa-heart"></i></span></a>
+                                                        <a href="agent-single.html#" class="compare-btn tolt"
+                                                           data-microtip-position="left"
+                                                           data-tooltip="Compare"><span><i
+                                                                        class="fal fa-random"></i></span></a>
+                                                        <div class="geodir-category-listing_media-list">
+                                                            <span><i class="fas fa-camera"></i> 4</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="geodir-category-content fl-wrap">
+                                                        <h3 class="title-sin_item"><a href="listing-single.html">Family
+                                                                House for Rent</a></h3>
+                                                        <div class="geodir-category-content_price">$ 700 / per
+                                                            month
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                            Maecenas in pulvinar neque. Nulla finibus lobortis
+                                                            pulvinar. Donec a consectetur nulla.</p>
+                                                        <div class="geodir-category-content-details">
+                                                            <ul>
+                                                                <li><i class="fal fa-bed"></i><span>2</span></li>
+                                                                <li><i class="fal fa-bath"></i><span>1</span></li>
+                                                                <li><i class="fal fa-cube"></i><span>220 ft2</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="geodir-category-footer fl-wrap">
+                                                            <a href="agent-single.html" class="gcf-company"><img
+                                                                        src="images/avatar/3.jpg" alt=""><span>By Mark Frosty</span></a>
+                                                            <div class="listing-rating card-popup-rainingvis tolt"
+                                                                 data-microtip-position="top" data-tooltip="Good"
+                                                                 data-starrating2="4"></div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <!-- listing-item end-->
+                                            <!-- listing-item -->
+                                            <div class="listing-item">
+                                                <article class="geodir-category-listing fl-wrap">
+                                                    <div class="geodir-category-img fl-wrap">
+                                                        <a href="listing-single.html"
+                                                           class="geodir-category-img_item">
+                                                            <img src="images/all/6.jpg" alt="">
+                                                            <div class="overlay"></div>
+                                                        </a>
+                                                        <div class="geodir-category-location">
+                                                            <a href="agent-single.html#"
+                                                               class="single-map-item tolt"
+                                                               data-newlatitude="40.72228267"
+                                                               data-newlongitude="-73.99246214"
+                                                               data-microtip-position="top-left"
+                                                               data-tooltip="On the map"><i
+                                                                        class="fas fa-map-marker-alt"></i> <span> W 85th St, New York, USA</span></a>
+                                                        </div>
+                                                        <ul class="list-single-opt_header_cat">
+                                                            <li><a href="agent-single.html#"
+                                                                   class="cat-opt blue-bg">Sale</a></li>
+                                                            <li><a href="agent-single.html#"
+                                                                   class="cat-opt color-bg">Apartment</a></li>
+                                                        </ul>
+                                                        <a href="agent-single.html#" class="geodir_save-btn tolt"
+                                                           data-microtip-position="left"
+                                                           data-tooltip="Save"><span><i
+                                                                        class="fal fa-heart"></i></span></a>
+                                                        <a href="agent-single.html#" class="compare-btn tolt"
+                                                           data-microtip-position="left"
+                                                           data-tooltip="Compare"><span><i
+                                                                        class="fal fa-random"></i></span></a>
+                                                        <div class="geodir-category-listing_media-list">
+                                                            <span><i class="fas fa-camera"></i> 13</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="geodir-category-content fl-wrap">
+                                                        <h3 class="title-sin_item"><a href="listing-single.html">Contemporary
+                                                                Apartment</a></h3>
+                                                        <div class="geodir-category-content_price">$ 1,600,000</div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                            Maecenas in pulvinar neque. Nulla finibus lobortis
+                                                            pulvinar. Donec a consectetur nulla.</p>
+                                                        <div class="geodir-category-content-details">
+                                                            <ul>
+                                                                <li><i class="fal fa-bed"></i><span>4</span></li>
+                                                                <li><i class="fal fa-bath"></i><span>1</span></li>
+                                                                <li><i class="fal fa-cube"></i><span>550 ft2</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="geodir-category-footer fl-wrap">
+                                                            <a href="agent-single.html" class="gcf-company"><img
+                                                                        src="images/avatar/4.jpg" alt=""><span>By Bill Trust</span></a>
+                                                            <div class="listing-rating card-popup-rainingvis tolt"
+                                                                 data-microtip-position="top" data-tooltip="Excellent
+                                                                            " data-starrating2="5"></div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            <!-- listing-item end-->
+                                        </div>
+                                        <!-- listing-item-wrap end-->
+                                        <!-- pagination-->
+                                        <div class="pagination">
+                                            <a href="agent-single.html#" class="prevposts-link">
+                                                <i class="fa fa-caret-left"></i></a>
+                                            <a href="agent-single.html#">1</a>
+                                            <a href="agent-single.html#" class="current-page">2</a>
+                                            <a href="agent-single.html#">3</a>
+                                            <a href="agent-single.html#">4</a>
+                                            <a href="agent-single.html#" class="nextposts-link">
+                                                <i class="fa fa-caret-right"></i>
+                                            </a>
+                                        </div>
+                                        <!-- pagination end-->
+                                    </div>
+                                </div>
+                                <!--tab  end-->
+                                <!--tab -->
+                                <div class="tab">
+                                    <div id="tab-reviews" class="tab-content first-tab">
+                                        <div class="list-single-main-container fl-wrap" style="margin-top: 30px;">
+                                            {#                                                <turbo-frame id="new_message"> #}
+
+                                            <div class="list-single-main-item fl-wrap" id="sec6">
+                                                <div class="list-single-main-item-title">
+                                                    <h3>{% trans %}reviews.label{% endtrans %}
+                                                        <span>{{ reviewsFromAgent?reviewsFromAgent['count']:0 }}</span>
+                                                    </h3>
+                                                </div>
+                                                <div class="list-single-main-item_content fl-wrap">
+                                                    <div class="reviews-comments-wrap fl-wrap">
+                                                        <div class="review-total">
+                                                            <span class="review-number blue-bg">{{ reviewsFromAgent?reviewsFromAgent['stars-rating']:0 }}</span>
+                                                            <div class="listing-rating card-popup-rainingvis"
+                                                                 data-starrating2="{{ reviewsFromAgent?reviewsFromAgent['stars-rating']:0 }}">
+                                                                <span class="re_stars-title">{{ reviewsFromAgent?reviewsFromAgent['stars-title']:'' }}</span>
                                                             </div>
-                                                                {% for review in comments %}
-                                                                    {% set author = review.author %}
+                                                        </div>
+                                                        {% for review in comments %}
+                                                            {% set author = review.author %}
+                                                            {% set avatars =  author.userImages().getValues() %}
+                                                            {% set author = review.author %}
+                                                            <!-- reviews-comments-item -->
+                                                            <div class="reviews-comments-item ">
+                                                                <div class="review-comments-avatar">
                                                                     {% set avatars =  author.userImages().getValues() %}
-                                                                    {% set author = review.author %}
-                                                                    <!-- reviews-comments-item -->
-                                                                    <div class="reviews-comments-item ">
-                                                                        <div class="review-comments-avatar">
-                                                                            {% set avatars =  author.userImages().getValues() %}
-                                                                            {% if avatars|length %}
-                                                                                {% set avatar = avatars[0] %}
-                                                                                <img src="{{ asset('assets/images/avatar-'~author.id~'/'~avatar.fileNameMiddle) }}"
-                                                                                     alt="">
-                                                                            {% else %}
-                                                                                <i class="fas fa-user"
-                                                                                   style="font-size: 20px;"></i>
-                                                                            {% endif %}
-                                                                        </div>
-                                                                        <div class="reviews-comments-item-text smpar">
-                                                                            <h4>
-                                                                                <a href="{{ path('main_profile_show',{'uuid':author.uuid}) }}">{{ author.firstName|capitalize }} {{ author.lastName|capitalize }}</a>
-                                                                            </h4>
-                                                                            {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewsFromAuthor',{
-                                                                                'uuid':user.uuid,
-                                                                                'reviews':review
-                                                                            })) }}
-                                                                            <div class="clearfix"></div>
-                                                                            <p>{{ review.text }}</p>
-                                                                            <div class="reviews-comments-item-date">
+                                                                    {% if avatars|length %}
+                                                                        {% set avatar = avatars[0] %}
+                                                                        <img src="{{ asset('assets/images/avatar-'~author.id~'/'~avatar.fileNameMiddle) }}"
+                                                                             alt="">
+                                                                    {% else %}
+                                                                        <i class="fas fa-user"
+                                                                           style="font-size: 20px;"></i>
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="reviews-comments-item-text smpar">
+                                                                    <h4>
+                                                                        <a href="{{ path('main_profile_show',{'uuid':author.uuid}) }}">{{ author.firstName?author.firstName|capitalize:review.name|capitalize }} {{ author.lastName|capitalize }}</a>
+                                                                    </h4>
+                                                                    {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewsFromAuthor',{
+                                                                        'uuid':user.uuid,
+                                                                        'reviews':review
+                                                                    })) }}
+                                                                    <div class="clearfix"></div>
+                                                                    <p>{{ review.text }}</p>
+                                                                    <div class="reviews-comments-item-date">
                                                        <span class="reviews-comments-item-date-item">
                                                <i class="far fa-calendar-check"></i>{{ review.createdAt|date('d-m-Y') }}</span>
-                                                                            </div>
-                                                                        </div>
                                                                     </div>
-                                                                    <!--reviews-comments-item end-->
-                                                                {% endfor %}
-                                                                <div class="pagination">
-                                                                    {{ knp_pagination_render(comments) }}
                                                                 </div>
+                                                            </div>
+                                                            <!--reviews-comments-item end-->
+                                                        {% endfor %}
+                                                        <div class="pagination">
+                                                            {{ knp_pagination_render(comments) }}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                    {{ form_start(form , {'attr':{'class':'add-comment custom-form'}}) }}
-                                                    <div class="list-single-main-item fl-wrap" id="sec5">
-                                                        <div class="list-single-main-item-title fl-wrap">
-                                                            <h3>{% trans %}add.review.label{% endtrans %}</h3>
+                                            </div>
+                                                {{ form_start(form , {'attr':{'class':'add-comment custom-form'}}) }}
+                                                <div class="list-single-main-item fl-wrap" id="sec5">
+                                                    <div class="list-single-main-item-title fl-wrap">
+                                                        <h3>{% trans %}add.review.label{% endtrans %}</h3>
+                                                    </div>
+                                                    <!-- Add Review Box -->
+                                                    <div id="add-review" class="add-review-box">
+                                                        <div class="leave-rating-wrap">
+                                                            <span class="leave-rating-title">{% trans %}your.rating.for.this.agent.label{% endtrans %} : </span>
+                                                            <div class="leave-rating">
+                                                                {{ form_row(form.rating) }}
+                                                            </div>
+                                                            <div class="count-radio-wrapper">
+                                                                <span id="count-checked-radio">{% trans %}your.rating.label{% endtrans %}</span>
+                                                            </div>
                                                         </div>
-                                                        <!-- Add Review Box -->
-                                                        <div id="add-review" class="add-review-box">
-                                                            <div class="leave-rating-wrap">
-                                                                <span class="leave-rating-title">{% trans %}your.rating.for.this.agent.label{% endtrans %} : </span>
-                                                                <div class="leave-rating">
-                                                                    {{ form_row(form.rating) }}
+                                                        <!-- Review Comment -->
+                                                        <fieldset>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    {{ form_row(form.name,{'attr':{'value': app.user?app.user.firstName~' '~app.user.lastName:''}}) }}
                                                                 </div>
-                                                                <div class="count-radio-wrapper">
-                                                                    <span id="count-checked-radio">{% trans %}your.rating.label{% endtrans %}</span>
+                                                                <div class="col-md-6">
+                                                                    {{ form_row(form.email,{'attr':{'value': app.user?app.user.email:''}}) }}
                                                                 </div>
                                                             </div>
-                                                            <!-- Review Comment -->
-                                                            <fieldset>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        {{ form_row(form.name) }}
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        {{ form_row(form.email) }}
-                                                                    </div>
-                                                                </div>
-                                                                {{ form_row(form.text) }}
-                                                            </fieldset>
-                                                            <button class="btn big-btn color-bg float-btn">{% trans %}send.label{% endtrans %}
-                                                                <i
-                                                                        class="fa fa-paper-plane-o"
-                                                                        aria-hidden="true"></i>
-                                                            </button>
+                                                            {{ form_row(form.text) }}
+                                                        </fieldset>
+                                                        <button class="btn big-btn color-bg float-btn">{% trans %}send.label{% endtrans %}
+                                                            <i
+                                                                    class="fa fa-paper-plane-o"
+                                                                    aria-hidden="true"></i>
+                                                        </button>
 
-                                                        </div>
-                                                        <!-- Add Review Box / End -->
                                                     </div>
-                                                    {{ form_end(form) }}
-                                                </turbo-frame>
-                                                <!-- list-single-main-item end -->
-                                            </div>
+                                                    <!-- Add Review Box / End -->
+                                                </div>
+                                                {{ form_end(form) }}
+                                            <!-- list-single-main-item end -->
                                         </div>
                                     </div>
-                                    <!--tab end-->
                                 </div>
-                                <!--tabs end-->
+                                <!--tab end-->
                             </div>
-                            <!-- content-tabs-wrap end -->
+                            <!--tabs end-->
                         </div>
-                        <!-- col-md 8 end -->
-                        <!--  sidebar-->
-                        <div class="col-md-4">
-                            <!--box-widget-->
-                            <div class="box-widget bwt-first fl-wrap">
+                        <!-- content-tabs-wrap end -->
+                    </div>
+                    <!-- col-md 8 end -->
+                    <!--  sidebar-->
+                    <div class="col-md-4">
+                        <!--box-widget-->
+                        <div class="box-widget bwt-first fl-wrap">
+                            <div class="box-widget-title fl-wrap box-widget-title-color color-bg no-top-margin">
+                                {% trans %}agent.contacts.label{% endtrans %}
+                            </div>
+                            <div class="box-widget-content fl-wrap">
+                                <div class="contats-list clm fl-wrap">
+                                    <ul class="no-list-style">
+                                        <li><span><i class="fal fa-envelope"></i> Email :</span> <a
+                                                    href="#">{{ user.email }}</a></li>
+                                        <li>
+                                            <span><i class="fal fa-phone"></i> {% trans %}phone.label{% endtrans %} :</span>
+                                            <a
+                                                    href="#">{{ user.phone }}</a></li>
+                                        {% if user.otherPhone %}
+                                            <li><span><i class="fal fa-phone"></i> {% trans %}phone.label{% endtrans %} :</span>
+                                                <a
+                                                        href="#">{{ user.otherPhone }}</a></li>
+                                        {% endif %}
+                                        {% if user.fax %}
+                                            <li>
+                                                <span><i class="fal fa-fax"></i> {% trans %}phone.fax.label{% endtrans %} :</span>
+                                                <a
+                                                        href="#">{{ user.fax }}</a></li>
+                                        {% endif %}
+                                        {% if  user.agency %}
+                                            <li><span><i class="fal fa-home"></i> {% trans %}agency.label{% endtrans %} :</span>
+                                                <a href="#"> {{ user.agency }}</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--box-widget end -->
+                        <!--box-widget-->
+                        <div class="box-widget fl-wrap">
+                            <div class="box-widget-fixed-init fl-wrap" id="sec-contact">
                                 <div class="box-widget-title fl-wrap box-widget-title-color color-bg no-top-margin">
-                                   {% trans %}agent.contacts.label{% endtrans %}
+                                    {% trans %}get.in.touch.label{% endtrans %}
                                 </div>
                                 <div class="box-widget-content fl-wrap">
-                                    <div class="contats-list clm fl-wrap">
-                                        <ul class="no-list-style">
-                                            <li><span><i class="fal fa-phone"></i> {% trans %}phone.label{% endtrans %} :</span> <a
-                                                        href="#">{{ user.phone }}</a></li>
-                                            <li><span><i class="fal fa-envelope"></i> Email :</span> <a
-                                                        href="#">{{ user.email }}</a></li>
-                                            {% if  user.agency  %}
-                                                <li><span><i class="fal fa-home"></i> {% trans %}agency.label{% endtrans %} :</span>
-                                                    <a href="#"> {{ user.agency }}</a></li>
-                                            {% endif %}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget end -->
-                            <!--box-widget-->
-                            <div class="box-widget fl-wrap">
-                                <div class="box-widget-fixed-init fl-wrap" id="sec-contact">
-                                    <div class="box-widget-title fl-wrap box-widget-title-color color-bg no-top-margin">
-                                       {% trans %}get.in.touch.label{% endtrans %}
-                                    </div>
-                                    <div class="box-widget-content fl-wrap">
-                                        <div class="custom-form">
-                                            <form method="post" name="contact-property-form">
-                                                <label>Your name* <span class="dec-icon"><i
-                                                                class="fas fa-user"></i></span></label>
-                                                <input name="phone" type="text" onClick="this.select()" value="">
-                                                <label>Your mail * <span class="dec-icon"><i
-                                                                class="fas fa-envelope"></i></span></label>
-                                                <input name="mail" type="text" onClick="this.select()" value="">
-                                                <textarea cols="40" rows="3" placeholder="Your Message:"
-                                                          style="height: 150px"></textarea>
-                                                <button type="submit" class="btn float-btn color-bg fw-btn"> Send
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget end -->
-                        </div>
-                        <!--   sidebar end-->
-                    </div>
-                </div>
-                <div class="limit-box fl-wrap"></div>
-            </section>
-        </div>
-        <!-- content end -->
-        <!-- subscribe-wrap -->
-        <div class="subscribe-wrap fl-wrap">
-            <div class="container">
-                <div class="subscribe-container fl-wrap color-bg">
-                    <div class="pwh_bg"></div>
-                    <div class="mrb_dec mrb_dec3"></div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="subscribe-header">
-                                <h4>newsletter</h4>
-                                <h3>Sign up for newsletter and get latest news and update</h3>
-                            </div>
-                        </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5">
-                            <div class="footer-widget fl-wrap">
-                                <div class="subscribe-widget fl-wrap">
-                                    <div class="subcribe-form">
-                                        <form id="subscribe">
-                                            <input class="enteremail fl-wrap" name="email" id="subscribe-email"
-                                                   placeholder="Enter Your Email" spellcheck="false" type="text">
-                                            <button type="submit" id="subscribe-button"
-                                                    class="subscribe-button color-bg"> Subscribe
+                                    <div class="custom-form">
+                                        <form method="post" name="contact-property-form">
+                                            <label>Your name* <span class="dec-icon"><i
+                                                            class="fas fa-user"></i></span></label>
+                                            <input name="phone" type="text" onClick="this.select()" value="">
+                                            <label>Your mail * <span class="dec-icon"><i
+                                                            class="fas fa-envelope"></i></span></label>
+                                            <input name="mail" type="text" onClick="this.select()" value="">
+                                            <textarea cols="40" rows="3" placeholder="Your Message:"
+                                                      style="height: 150px"></textarea>
+                                            <button type="submit" class="btn float-btn color-bg fw-btn"> Send
                                             </button>
-                                            <label for="subscribe-email" class="subscribe-message"></label>
                                         </form>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--box-widget end -->
+                    </div>
+                    <!--   sidebar end-->
+                </div>
+            </div>
+            <div class="limit-box fl-wrap"></div>
+        </section>
+    </div>
+    <!-- content end -->
+    <!-- subscribe-wrap -->
+    <div class="subscribe-wrap fl-wrap">
+        <div class="container">
+            <div class="subscribe-container fl-wrap color-bg">
+                <div class="pwh_bg"></div>
+                <div class="mrb_dec mrb_dec3"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="subscribe-header">
+                            <h4>newsletter</h4>
+                            <h3>Sign up for newsletter and get latest news and update</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <div class="footer-widget fl-wrap">
+                            <div class="subscribe-widget fl-wrap">
+                                <div class="subcribe-form">
+                                    <form id="subscribe">
+                                        <input class="enteremail fl-wrap" name="email" id="subscribe-email"
+                                               placeholder="Enter Your Email" spellcheck="false" type="text">
+                                        <button type="submit" id="subscribe-button"
+                                                class="subscribe-button color-bg"> Subscribe
+                                        </button>
+                                        <label for="subscribe-email" class="subscribe-message"></label>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -572,6 +590,7 @@
                 </div>
             </div>
         </div>
-        <!-- subscribe-wrap end -->
+    </div>
+    <!-- subscribe-wrap end -->
 {% endblock %}
 
