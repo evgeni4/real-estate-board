@@ -101,6 +101,7 @@ system.label: System
 catalog.label: Catalog
 properties.label: Properties
 categories.label: Categories
+type.label: Types
 categories.parent.label: Parent category
 amenities.label: Amenities
 add.label: Add
@@ -113,6 +114,9 @@ to_continue.label: Do you really want to continue?
 amenities.added.label: Amenities added successfully!
 amenities.edit.label: Amenities updated successfully!
 amenities.delete.label: Amenities deleted successfully!
+type.added.label: Type added successfully!
+type.edit.label: Type updated successfully!
+type.delete.label: Type deleted successfully!
 #end admin fields messages
 
 

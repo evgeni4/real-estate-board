@@ -103,6 +103,7 @@ system.label: Система
 catalog.label: Каталог
 properties.label: Имоти
 categories.label: Категории
+type.label: Тип сделка
 categories.parent.label: Родителска категория
 amenities.label: Удобства
 add.label: Добавете
@@ -115,5 +116,8 @@ to_continue.label: Наистина ли искате да продължите?
 amenities.added.label: Удобство е добавено успешно!
 amenities.edit.label: Удобство е актуализирано успешно!
 amenities.delete.label: Удобство е изтрито успешно!
+type.added.label: Типът е добавен успешно!
+type.edit.label: Типът е актуализиран успешно!
+type.delete.label: Типът е изтрит успешно!
 
 #end admin fields messages

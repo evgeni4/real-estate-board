@@ -107,6 +107,7 @@ system.label: Система
 catalog.label: Каталог
 properties.label: Недвижимость
 categories.label: Категории
+type.label: Типы
 categories.parent.label: Родительская категория
 amenities.label: Удобства
 add.label: Добавить
@@ -119,5 +120,8 @@ to_continue.label: Вы действительно хотите продолжи
 amenities.added.label: Удобство успешно добавлено!
 amenities.edit.label: Удобство успешно обновлено!
 amenities.delete.label: Удобство успешно удалено!
+type.added.label: Тип успешно добавлен!
+type.edit.label: Тип успешно обновлен!
+type.delete.label: Тип успешно удален!
 
 #end admin fields messages
