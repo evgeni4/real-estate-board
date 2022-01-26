@@ -16,6 +16,7 @@
         <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- App Css-->
         <link href="{{ asset('admin/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('admin/assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     {% endblock %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
@@ -42,9 +43,10 @@
 <script src="{{ asset('admin/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('admin/assets/js/pages/datatables.init.js') }}"></script>
 <script src="{{ asset('admin/assets/libs/select2/js/select2.min.js') }}"></script>
+<script src="{{ asset('admin/assets/js/pages/form-advanced.init.js') }}"></script>
 <script src="{{ asset('admin/assets/js/deleteForm.js') }}"></script>
 <!-- Datatable init js -->
-
+{{ encore_entry_script_tags('app') }}
     <!-- App js -->
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
 </html>

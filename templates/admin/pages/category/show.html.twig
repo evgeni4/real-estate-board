@@ -2,29 +2,31 @@
 {% block title_detailed %}{% endblock %}
 {% block body %}
     <div class="col-12">
-        {{ include('admin/amenities/_form_delete.html.twig') }}
+        {{ include('admin/pages/category/_form_delete.html.twig') }}
         <div class="card">
             <div class="card-body">
-                <div class="text-end mb-3" ><a href="{{ path('admin_amenities_new') }}" class="btn btn-primary ">{% trans %}add.label{% endtrans %}</a></div>
+                <div class="text-end mb-3" ><a href="{{ path('admin_category_new') }}" class="btn btn-primary ">{% trans %}add.label{% endtrans %}</a></div>
                 <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                     <tr>
                         <th>#ID</th>
-                        <th>{% trans %}amenities.label{% endtrans %}</th>
+                        <th>{% trans %}categories.label{% endtrans %}</th>
+                        <th>{% trans %}categories.parent.label{% endtrans %}</th>
                         <th>{% trans %}action.label{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% set locale = app.request.locale %}
-                    {% for amenities in amenitiesAll %}
+                    {% for category in categories %}
                         <tr>
-                            <td>{{ amenities.id }}</td>
-                            <td>{{amenities.translate(locale).title}}</td>
+                            <td>{{ category.id }}</td>
+                            <td>{{category.translate(locale).title}}</td>
+                            <td>{{category.parent?category.parent:'----------'}}</td>
                             <td>
-                                <a href="{{ path('admin_amenities_edit',{'uuid':amenities.uuid}) }}">
+                                <a href="{{ path('admin_category_edit',{'id':category.id}) }}">
                                     <button class="btn btn-primary"><i class="fa fa-pen"></i></button>
                                 </a>
-                                <a href="#" onclick="deleteProduct({{ amenities.id }})" class="action-remove" data-target="#deleteElement"
+                                <a href="#" onclick="deleteProduct({{ category.id }})" class="action-remove" data-target="#deleteElement"
                                    data-bs-toggle="modal" data-bs-target="#deleteElement">
                                     <button type="button" class="btn btn-danger waves-effect waves-light"><i
                                                 class="fa fa-trash"></i></button>

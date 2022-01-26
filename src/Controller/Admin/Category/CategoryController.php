@@ -29,7 +29,7 @@ class CategoryController extends AbstractController
     {
         $this->breadcrumbs->addItem($this->translator->trans('catalog.label'));
         $this->breadcrumbs->addItem($this->translator->trans('categories.label'));
-        return $this->render('admin/category/show.html.twig', [
+        return $this->render('admin/pages/category/show.html.twig', [
             'categories' => $this->categoryService->all(),
         ]);
     }
@@ -49,7 +49,7 @@ class CategoryController extends AbstractController
             $this->addFlash('success', $this->translator->trans('category.added.label'));
             return $this->redirectToRoute('admin_category_show');
         }
-        return $this->render('admin/category/new.html.twig',
+        return $this->render('admin/pages/category/new.html.twig',
             [
                 'form' => $form->createView()
             ]
@@ -69,7 +69,7 @@ class CategoryController extends AbstractController
             $this->addFlash('success', $this->translator->trans('category.edit.label'));
             return $this->redirectToRoute('admin_category_show');
         }
-        return $this->render('admin/category/edit.html.twig',
+        return $this->render('admin/pages/category/edit.html.twig',
             [
                 'form' => $form->createView()
             ]

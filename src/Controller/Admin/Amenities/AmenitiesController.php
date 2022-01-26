@@ -29,7 +29,7 @@ class AmenitiesController extends AbstractController
         $this->breadcrumbs->addItem($this->translator->trans('catalog.label'));
         $this->breadcrumbs->addItem($this->translator->trans('categories.label'));
         $amenities = $this->amenitiesService->all();
-        return $this->render('admin/amenities/show.html.twig', [
+        return $this->render('admin/pages/amenities/show.html.twig', [
             'amenitiesAll' => $amenities
         ]);
     }
@@ -48,9 +48,9 @@ class AmenitiesController extends AbstractController
             $this->addFlash('success', $this->translator->trans('amenities.added.label'));
             return $this->redirectToRoute('admin_amenities_show');
         }
-        return $this->render('admin/amenities/new.html.twig',
+        return $this->renderForm('admin/pages/amenities/new.html.twig',
             [
-                'form' => $form->createView()
+                'form' => $form
             ]);
     }
 
@@ -67,7 +67,7 @@ class AmenitiesController extends AbstractController
             $this->addFlash('success', $this->translator->trans('amenities.edit.label'));
             return $this->redirectToRoute('admin_amenities_show');
         }
-        return $this->render('admin/amenities/edit.html.twig',
+        return $this->render('admin/pages/amenities/edit.html.twig',
             [
                 'form' => $form->createView()
             ]);

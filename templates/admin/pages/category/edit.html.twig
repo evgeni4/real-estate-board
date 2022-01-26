@@ -6,9 +6,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="text-end ">
-                        <a href="{{ path('admin_amenities_show') }}" class="btn btn-primary ">{% trans %}back.label{% endtrans %}</a>
+                        <a href="{{ path('admin_category_show') }}" class="btn btn-primary ">{% trans %}back.label{% endtrans %}</a>
                     </div>
-                    {{ include('admin/amenities/_form.html.twig') }}
+                    {{ include('admin/pages/category/_form.html.twig') }}
                 </div>
                 <!-- end card body -->
             </div>
@@ -16,3 +16,4 @@
         </div>
     </div>
 {% endblock %}
+

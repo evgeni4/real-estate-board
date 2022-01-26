@@ -48,7 +48,7 @@ class CategoryFormType extends AbstractType
             ->add('parent',null,
                 [
                     'attr' => [
-                        'class' => 'select2 form-control select2-multiple',
+                        'class' => 'form-control select2',
                         'placeholder' => 'Choose an option'
                     ],
                     'group_by' => function(Category $category) use ($locale) {

@@ -48,8 +48,6 @@ class Builder
              $userMenu['listings.label']->addChild('bookings.label', ['route' => 'main_dashboard'])
               ->setExtra('icon', 'fal fa-calendar-check')
               ->setExtra('count', '34');
-             $userMenu['listings.label']->addChild('reviews.label', ['route' => 'main_dashboard'])
-              ->setExtra('icon', 'fal fa-comments-alt');
              $userMenu['listings.label']->addChild('add.listing.label', ['route' => 'main_add_listing'])
               ->setExtra('icon', 'fal fa-file-plus');
 //        listings.label
@@ -67,6 +65,11 @@ class Builder
          $userMenu->addChild('messages.label', ['uri' => '#'])
             ->setExtra('icon', 'fal fa-envelope')->setExtra('count', '5');
 //        Messages
+//        reviews
+
+        $userMenu->addChild('reviews.label', ['route' => 'main_reviews_show'])
+            ->setExtra('icon', 'fal fa-comments-alt');
+//        reviews
          $userMenu->addChild('agents.list.label', ['uri' => '#'])
             ->setExtra('icon', 'fal fa-users');
 //        Messages
