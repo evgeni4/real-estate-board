@@ -98,9 +98,9 @@ class Builder
             ->setExtra('icon', 'fa fa-tags');
         $adminMenu['catalog.label']->addChild('properties.label', ['uri' => '#'])
             ->setExtra('icon', 'fa fa-arrow-right');
-        $adminMenu['catalog.label']->addChild('categories.label', ['uri' => '#'])
+        $adminMenu['catalog.label']->addChild('categories.label', ['route' => 'admin_category_show'])
             ->setExtra('icon', 'fa fa-arrow-right');
-        $adminMenu['catalog.label']->addChild('amenities.label', ['uri' => '#'])
+        $adminMenu['catalog.label']->addChild('amenities.label', ['route' => 'admin_amenities_show'])
             ->setExtra('icon', 'fa fa-arrow-right');
 
 
@@ -111,6 +111,9 @@ class Builder
 
         $adminMenu['system.label']->addChild('settings.label', ['route' => 'admin_settings_show'])
             ->setExtra('icon', 'fa fa-arrow-right');
+
+        $adminMenu->addChild('logout.label', ['route' => 'admin_security_logout'])
+            ->setExtra('icon', 'bx bx-power-off text-danger');
         return $adminMenu;
     }
 

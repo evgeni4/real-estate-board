@@ -5,6 +5,11 @@ and.label: and
 send.label: Send
 try.again.label: try again
 characters.label: characters
+continue.label: Continue
+cancel.label: Cancel
+delete.label: Delete
+back.label: Back
+action.label: Action
 #end default
 language.currency.heading: Language / Currency
 language.heading: Language
@@ -96,11 +101,18 @@ system.label: System
 catalog.label: Catalog
 properties.label: Properties
 categories.label: Categories
+categories.parent.label: Parent category
 amenities.label: Amenities
 add.label: Add
 edit.label: Edit
 settings.changed.label: Settings changed successfully!
-
+category.added.label: Category added successfully!
+category.edit.label: Category updated successfully!
+category.delete.label: Category deleted successfully!
+to_continue.label: Do you really want to continue?
+amenities.added.label: Amenities added successfully!
+amenities.edit.label: Amenities updated successfully!
+amenities.delete.label: Amenities deleted successfully!
 #end admin fields messages
 
 

@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-#[Route("/dashboard")]
+#[Route("/admin/dashboard")]
 class LocalesAdminController extends AbstractController
 {
     #[Route("/language/{locale}", name: "admin_change_language")]

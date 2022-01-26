@@ -15,7 +15,11 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 #[Route("admin/settings")]
 class SystemSettings extends AbstractController
 {
-    public function __construct(private TranslatorInterface $translator,private Breadcrumbs $breadcrumbs, private SettingsServiceInterface $settingsService)
+    public function __construct(
+        private TranslatorInterface $translator,
+        private Breadcrumbs $breadcrumbs,
+        private SettingsServiceInterface $settingsService
+    )
     {
     }
 

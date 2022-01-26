@@ -5,6 +5,12 @@ and.label: и
 send.label: Отправить
 try.again.label: попробуй снова
 characters.label: символы
+continue.label: Продолжать
+cancel.label: Отмена
+delete.label: Удалить
+back.label: Назад
+action.label: Действие
+
 #end default
 language.currency.heading: Язык / Валюта
 language.heading: Язык
@@ -101,8 +107,17 @@ system.label: Система
 catalog.label: Каталог
 properties.label: Недвижимость
 categories.label: Категории
+categories.parent.label: Родительская категория
 amenities.label: Удобства
 add.label: Добавить
 edit.label: Редактировать
 settings.changed.label: Настройки успешно изменены!
+category.added.label: Категория успешно добавлена!
+category.edit.label: Категория успешно обновлена!
+category.delete.label: Категория успешно удалена!
+to_continue.label: Вы действительно хотите продолжить?
+amenities.added.label: Удобство успешно добавлено!
+amenities.edit.label: Удобство успешно обновлено!
+amenities.delete.label: Удобство успешно удалено!
+
 #end admin fields messages
