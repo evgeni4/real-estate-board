@@ -10,6 +10,8 @@ cancel.label: Cancel
 delete.label: Delete
 back.label: Back
 action.label: Action
+published.label: Published
+
 #end default
 language.currency.heading: Language / Currency
 language.heading: Language
@@ -85,6 +87,45 @@ all.properties.label: All properties
 bookings.label: Bookings
 reviews.label: Reviews
 facebook.login.help: For faster login or register use your social account.
+dashboard.menu.label: Dasboard Menu
+info.label: Info
+location.label: Location
+media.label: Images
+details.label: Details
+rooms.label: Rooms
+plans.label: Plans
+widgets.label: Widgets
+basic.information.label: Basic Information
+price.label: Price
+select.label: Select
+title.label: Title
+title.property.label: Title of your property
+keywords.label: Keywords
+keywords.maximum.label: Maximum 15 , should be separated by commas
+address.label: Address
+address.your.property.label: Address of your property
+longitude.label: Longitude
+map.longitude.label: Map Longitude
+latitude.label: Latitude
+map.latitude.label: Map Latitude
+drop.files.label: Click here or drop files to upload
+area.label: Area
+house.area.label: House Area
+bedrooms.label: Bedrooms
+house.bedrooms.label: House bedrooms
+bathrooms.label: Bathrooms
+house.bathrooms.label: House bathrooms
+accommodation.label: Accommodation
+size.accommodation.label: Size accommodation 5-12 ..
+yard.size.label: Yard size
+garage.label: Garage
+number.cars.label: Number of cars
+description.text.label: Description
+country.label: Country
+select.country.label: Select country
+state.label: State
+select.state.label: Select state
+city.label: City
 #messages
 check.email.message.label: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
 check.email.message.sm.label: This link will expire in

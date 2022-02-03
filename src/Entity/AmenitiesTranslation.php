@@ -13,10 +13,10 @@ class AmenitiesTranslation implements TranslationInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    protected ?string $title;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    protected ?string $title ;
 
     public function getId(): ?int
     {
@@ -28,7 +28,7 @@ class AmenitiesTranslation implements TranslationInterface
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 

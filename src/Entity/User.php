@@ -89,6 +89,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 100, unique: true, nullable: true)]
     private $fax;
 
+    #[ORM\OneToMany(mappedBy: 'agent', targetEntity: Property::class, cascade: ['persist','remove'] ,orphanRemoval: true)]
+    private $properties;
+
 
     public function __construct()
     {
@@ -98,6 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->uuid = Uuid::v4();
         $this->reviews = new ArrayCollection();
         $this->authorReview = new ArrayCollection();
+        $this->properties = new ArrayCollection();
     }
 
 
@@ -455,6 +459,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFax(?string $fax): self
     {
         $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Property[]
+     */
+    public function getProperties(): Collection
+    {
+        return $this->properties;
+    }
+
+    public function addProperty(Property $property): self
+    {
+        if (!$this->properties->contains($property)) {
+            $this->properties[] = $property;
+            $property->setAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProperty(Property $property): self
+    {
+        if ($this->properties->removeElement($property)) {
+            // set the owning side to null (unless already changed)
+            if ($property->getAgent() === $this) {
+                $property->setAgent(null);
+            }
+        }
 
         return $this;
     }

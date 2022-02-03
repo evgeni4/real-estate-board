@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AmenitiesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
@@ -22,9 +24,18 @@ class Amenities implements TranslatableInterface
     #[ORM\Column(type: 'boolean')]
     private ?bool $published = true;
 
+    #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyAmenities::class,cascade: ['persist','remove'])]
+    private $propertyAmenities;
+
     public function __construct()
     {
         $this->uuid = Uuid::v4();
+        $this->propertyAmenities = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->translate($this->currentLocale)->getTitle();
     }
 
     public function getId(): ?int
@@ -55,4 +66,35 @@ class Amenities implements TranslatableInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|PropertyAmenities[]
+     */
+    public function getPropertyAmenities(): Collection
+    {
+        return $this->propertyAmenities;
+    }
+
+    public function addPropertyAmenity(PropertyAmenities $propertyAmenity): self
+    {
+        if (!$this->propertyAmenities->contains($propertyAmenity)) {
+            $this->propertyAmenities[] = $propertyAmenity;
+            $propertyAmenity->setAmenity($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropertyAmenity(PropertyAmenities $propertyAmenity): self
+    {
+        if ($this->propertyAmenities->removeElement($propertyAmenity)) {
+            // set the owning side to null (unless already changed)
+            if ($propertyAmenity->getAmenity() === $this) {
+                $propertyAmenity->setAmenity(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

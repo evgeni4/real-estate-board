@@ -1,0 +1,418 @@
+{% import "@A2lixTranslationForm/macros.html.twig" as a2lixTranslations %}
+{% extends 'main/base_dashboard.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="dasboard-wrapper fl-wrap no-pag">
+        <div class="dasboard-scrollnav-wrap scroll-to-fixed-fixed scroll-init2 fl-wrap">
+            <ul>
+                <li><a href="#sec1" class="act-scrlink">{% trans %}info.label{% endtrans %}</a></li>
+                <li><a href="#sec2">{% trans %}location.label{% endtrans %}</a></li>
+                <li><a href="#sec3">{% trans %}media.label{% endtrans %}</a></li>
+                <li><a href="#sec4">{% trans %}details.label{% endtrans %}</a></li>
+                <li><a href="#sec5">{% trans %}rooms.label{% endtrans %}</a></li>
+                <li><a href="#sec6">{% trans %}plans.label{% endtrans %}</a></li>
+                <li><a href="#sec7">{% trans %}widgets.label{% endtrans %}</a></li>
+            </ul>
+            <div class="progress-indicator">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     viewBox="-1 -1 34 34">
+                    <circle cx="16" cy="16" r="15.9155"
+                            class="progress-bar__background"/>
+                    <circle cx="16" cy="16" r="15.9155"
+                            class="progress-bar__progress
+                                            js-progress-bar"/>
+                </svg>
+            </div>
+        </div>
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title fl-wrap" id="sec1">
+            <h5><i class="fas fa-info"></i>{% trans %}basic.information.label{% endtrans %}</h5>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        <div class="dasboard-widget-box fl-wrap">
+            <div class="custom-form">
+                <div class="row">
+                    <div class="col-sm-4 mb-2">
+                        {{ form_row(form.types) }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form_row(form.category) }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form_row(form.price) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ a2lixTranslations.partialTranslations(form.translations, ['title']) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ a2lixTranslations.partialTranslations(form.translations, ['keywords']) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec2">
+            <h5><i class="fas fa-street-view"></i>{% trans %}location.label{% endtrans %}</h5>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        <div class="dasboard-widget-box   fl-wrap">
+            <div class="custom-form">
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form_row(form.country) }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form_row(form.state) }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form_row(form.city) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form_row(form.address) }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form_row(form.latitude) }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ form_row(form.longitude) }}
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="map-container">
+                    <div id="singleMap" class="drag-map" data-latitude="26.7153424" data-longitude="-80.0533746"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec3">
+            <h5><i class="fas fa-image"></i>{% trans %}media.label{% endtrans %}</h5>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        <div class="dasboard-widget-box   fl-wrap">
+            <div class="custom-form">
+                <div class="clearfix"></div>
+                <div class="listsearch-input-item fl-wrap">
+                    <div class="fuzone">
+                        <div class="fu-text">
+                            <span><i class="far fa-cloud-upload-alt"></i> {% trans %}drop.files.label{% endtrans %}</span>
+                            <div class="photoUpload-files fl-wrap"></div>
+                        </div>
+                        <input type="file" class="upload" multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec4">
+            <h5><i class="fas fa-list"></i>{% trans %}details.label{% endtrans %}</h5>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        <div class="dasboard-widget-box   fl-wrap">
+            <div class="custom-form">
+                <div class="row">
+                    <div class="col-sm-4">{{ form_row(form.area) }}</div>
+                    <div class="col-sm-4">{{ form_row(form.yardSize) }}</div>
+                    <div class="col-sm-4"> {{ form_row(form.garage) }}</div>
+                    <div class="col-sm-4"> {{ form_row(form.bedrooms) }}</div>
+                    <div class="col-sm-4"> {{ form_row(form.bathrooms) }}</div>
+                    <div class="col-sm-4">{{ form_row(form.accommodation) }}</div>
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-12">
+                        {{ a2lixTranslations.partialTranslations(form.translations, ['description']) }}
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="add-list-tags fl-wrap mt-5 mb-5"><br>
+                    <label>{% trans %}amenities.label{% endtrans %}</label><br>
+                    <!-- Checkboxes -->
+                    <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                        {% for amenities in form.amenity %}
+                            <li>
+                                {{ form_errors(amenities) }}
+                                {{ form_row(amenities,{'attr':{'checked': amenities.vars.value in amenity?'checked':''}}) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- Checkboxes end -->
+                </div>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec5">
+            <h5><i class="fas fa-home-lg-alt"></i>Rooms</h5>
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
+                <label class="onoffswitch-label" for="myonoffswitch5">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        <div class="dasboard-widget-box   fl-wrap">
+            <div class="custom-form add_room-item-wrap">
+                <div class="add_room-container fl-wrap">
+                    <!-- add_room-item   -->
+                    <div class="add_room-item fl-wrap">
+                        <span class="remove-rp tolt" data-microtip-position="left" data-tooltip="Remove Room"><i
+                                    class="fal fa-times-circle"></i></span>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Room Title: <span class="dec-icon"><i
+                                                class="fal fa-layer-group"></i></span></label>
+                                <input type="text" placeholder="Standard Family Room" value=""/>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Additional Room: <span class="dec-icon"><i class="fal fa-layer-plus"></i></span></label>
+                                <input type="text" placeholder="Example: Sauna" value=""/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Room Details</label>
+                                <div class="listsearch-input-item">
+                                    <textarea cols="40" rows="3" style="height: 175px;margin-bottom: 10px"
+                                              placeholder="Datails" spellcheck="false"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Room Images</label>
+                                <div class="listsearch-input-item fl-wrap">
+                                    <div class="fuzone">
+                                        <div class="fu-text">
+                                            <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                            <div class="photoUpload-files fl-wrap"></div>
+                                        </div>
+                                        <input type="file" class="upload" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <label>Amenities: </label>
+                        <div class=" add-list-tags fl-wrap">
+                            <!-- Checkboxes -->
+                            <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                                <li>
+                                    <input id="check-2aaa5" type="checkbox" name="check" checked>
+                                    <label for="check-2aaa5">Air conditioner</label>
+                                </li>
+                                <li>
+                                    <input id="check-2bb5" type="checkbox" name="check" checked>
+                                    <label for="check-2bb5">Tv Inside</label>
+                                </li>
+                                <li>
+                                    <input id="check-2dd5" type="checkbox" name="check">
+                                    <label for="check-2dd5"> Ceramic bath</label>
+                                </li>
+                                <li>
+                                    <input id="check-2cc5" type="checkbox" name="check" checked>
+                                    <label for="check-2cc5">Microwave</label>
+                                </li>
+                            </ul>
+                            <!-- Checkboxes end -->
+                        </div>
+                    </div>
+                    <!--add_room-item end  -->
+                </div>
+                <a href="#" class="add-room-item">Add New <i class="fal fa-plus"></i> </a>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec6">
+            <h5><i class="fas fa-ruler-combined"></i>House Plans </h5>
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch22">
+                <label class="onoffswitch-label" for="myonoffswitch22">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        <div class="dasboard-widget-box   fl-wrap">
+            <div class="custom-form add_room-item-wrap">
+                <div class="add_room-container fl-wrap">
+                    <!-- add_room-item   -->
+                    <div class="add_room-item fl-wrap">
+                        <span class="remove-rp tolt" data-microtip-position="left" data-tooltip="Remove"><i
+                                    class="fal fa-times-circle"></i></span>
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label>Plan Title: <span class="dec-icon"><i
+                                                        class="far fa-ruler-horizontal"></i></span></label>
+                                        <input type="text" placeholder=" First Floor Plan " value=""/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Plan Optional info: <span class="dec-icon"><i
+                                                        class="far fa-ruler-horizontal"></i></span></label>
+                                        <input type="text" placeholder="Example: 286 sq ft" value=""/>
+                                    </div>
+                                </div>
+                                <label>Plan Details</label>
+                                <div class="listsearch-input-item">
+                                    <textarea cols="40" rows="3" style="height: 85px;" placeholder="Datails"
+                                              spellcheck="false"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <label>Upload Images</label>
+                                <div class="listsearch-input-item fl-wrap">
+                                    <div class="fuzone">
+                                        <div class="fu-text">
+                                            <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                            <div class="photoUpload-files fl-wrap"></div>
+                                        </div>
+                                        <input type="file" class="upload">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--add_room-item end  -->
+                </div>
+                <a href="#" class="add-room-item">Add New <i class="fal fa-plus"></i> </a>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
+        <!-- dasboard-widget-title -->
+        <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec7">
+            <h5><i class="fas fa-sliders-h"></i>Content Widgets</h5>
+        </div>
+        <!-- dasboard-widget-title end -->
+        <!-- dasboard-widget-box  -->
+        <div class="dasboard-widget-box   fl-wrap">
+            <div class="custom-form">
+                <div class="row">
+                    <!-- content-widget-switcher -->
+                    <div class="col-md-4">
+                        <div class="content-widget-switcher fl-wrap">
+                            <span class="content-widget-switcher-title">Video Presentation</span>
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                       id="myonoffswitchmc" checked>
+                                <label class="onoffswitch-label" for="myonoffswitchmc">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                            <div class="content-widget-switcher-item fl-wrap">
+                                <label>Video Youtube: <span class="dec-icon"><i
+                                                class="fab fa-youtube"></i></span></label>
+                                <input type="text" placeholder="Youtube Or Vimeo" value=""/>
+                                <label>Video VImeo: <span class="dec-icon"><i class="fab fa-vimeo-v"></i></span></label>
+                                <input type="text" placeholder="Youtube Or Vimeo" value=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- content-widget-switcher end-->
+                    <!-- content-widget-switcher -->
+                    <div class="col-md-4">
+                        <div class="content-widget-switcher fl-wrap">
+                            <span class="content-widget-switcher-title">Propertie Documents</span>
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                       id="myonoffswitchmc523" checked>
+                                <label class="onoffswitch-label" for="myonoffswitchmc523">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                            <div class="content-widget-switcher-item fl-wrap">
+                                <div class="fuzone">
+                                    <div class="fu-text">
+                                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
+                                        <div class="photoUpload-files fl-wrap"></div>
+                                    </div>
+                                    <input type="file" class="upload" multiple>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- content-widget-switcher end-->
+                    <!-- content-widget-switcher -->
+                    <div class="col-md-4">
+                        <div class="content-widget-switcher fl-wrap">
+                            <span class="content-widget-switcher-title">Mortgage Calculator</span>
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                       id="myonoffswitchmc423" checked>
+                                <label class="onoffswitch-label" for="myonoffswitchmc423">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
+                            <span class="content-widget-switcher-title">Google Map</span>
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                       id="myonoffswitchmc923">
+                                <label class="onoffswitch-label" for="myonoffswitchmc923">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
+                            <span class="content-widget-switcher-title">Contact Form</span>
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                       id="myonoffswitchmc`23">
+                                <label class="onoffswitch-label" for="myonoffswitchmc`23">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- content-widget-switcher end-->
+                </div>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
+        <!-- dasboard-widget-box-->
+        <div class="dasboard-widget-box   fl-wrap">
+            <div class="custom-form">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
+                            <span class="content-widget-switcher-title">{% trans %}published.label{% endtrans %}</span>
+                            <div class="onoffswitch">
+                                {{ form_row(form.published) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- dasboard-widget-box  end-->
+        <div class="custom-form">
+            <button type="submit" class="btn  color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button>
+        </div>
+    </div>
+
+    <div class="limit-box fl-wrap"></div>
+    {{ form_end(form) }}
+
+{% endblock %}

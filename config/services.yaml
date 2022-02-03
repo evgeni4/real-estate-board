@@ -11,6 +11,8 @@ parameters:
     uploads_dir: '%kernel.project_dir%/public/assets/images'
     uploads_temp_dir: '%uploads_dir%/temp'
     user_image_dir: '%uploads_dir%/avatar'
+    uploads_property_temp_dir: '%uploads_dir%/temp/property'
+    uploads_property: '%uploads_dir%/property'
 services:
     app.menu_builder:
         class: App\Menu\UserMenu\Builder

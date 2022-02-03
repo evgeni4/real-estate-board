@@ -53,7 +53,7 @@ class UserImageManager
         ];
         $imageSmall = $this->imageResizer->resizeImageAndSave($uploadsTempDir, $tempImageFileName, $imageSmallParam);
         $imageMiddle = $this->imageResizer->resizeImageAndSave($uploadsTempDir, $tempImageFileName, $imageMiddleParam);;
-        $imageBig = $this->imageResizer->resizeImageAndSave($uploadsTempDir, $tempImageFileName, $imageBigParam);;
+        $imageBig = $this->imageResizer->resizeImageAndSave($uploadsTempDir, $tempImageFileName, $imageBigParam);
         $userImage = new UserImage();
         $userImage->setFileNameSmall($imageSmall);
         $userImage->setFileNameMiddle($imageMiddle);

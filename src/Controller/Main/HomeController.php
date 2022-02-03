@@ -22,6 +22,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(Request $request): Response
     {
+        $random = time() . rand(10*45, 100*98);
         $settings = $this->settingsService->findOneRecord();
         $this->seoService->seo(
             $settings->translate($request->getLocale())->getSiteName(),

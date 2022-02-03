@@ -8,7 +8,7 @@ $(document).ready(function () {
         list.data('widget-counter', counter);
         var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
         newElem.appendTo(list);
-        newElem.append('<a id="deleteField" onClick="onClickRemove()" href="#" class="remove-tag remove-count " ><i class="fa fa-trash"></i></a>');
+        newElem.append('<a id="deleteField" onClick="onClickRemove()" href="#" class="remove-tag remove-count " ><i class="fal fa-times-circle"></i></a>');
 
         $('.remove-tag').click(function (e) {
             e.preventDefault();

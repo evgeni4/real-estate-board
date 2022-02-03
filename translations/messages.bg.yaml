@@ -10,7 +10,7 @@ cancel.label: Отмяна
 delete.label: Изтрий
 back.label: Обратно
 action.label: Действие
-
+published.label: Публикувано
 #end default
 language.currency.heading: Език / Валута
 language.heading: Език
@@ -88,6 +88,41 @@ all.properties.label: Всички имоти
 bookings.label: Резервации
 reviews.label: Отзиви
 facebook.login.help: За по-бързо влизане или регистрация използвайте вашия социален акаунт.
+dashboard.menu.label: Dasboard Меню
+info.label: Информация
+location.label: Карта
+media.label: Изображения
+details.label: Подробности
+rooms.label: Стаи
+plans.label: Планове
+widgets.label: Widgets
+basic.information.label: Основна информация
+price.label: Цена
+select.label: Изберете
+title.label: Заглавие
+title.property.label: Заглавие на вашия имот
+keywords.label: Ключови думи
+keywords.maximum.label: Максимум 15 , трябва да бъдат разделени със запетаи
+address.label: Адрес
+address.your.property.label: Адрес на вашия имот
+longitude.label: Географска дължина
+map.longitude.label: Географска дължина
+latitude.label: Географска ширина
+map.latitude.label: Географска ширина
+drop.files.label: Щракнете тук или пуснете файлове за качване
+area.label: Площ
+house.area.label: Площ на къщата
+bedrooms.label: Спални
+house.bedrooms.label: Спални в къщи
+bathrooms.label: Бани
+house.bathrooms.label: Бани в къщи
+accommodation.label: Настаняване
+size.accommodation.label: Размер за настаняване 5-12 ..
+yard.size.label: Размер на двора
+garage.label: Гараж
+number.cars.label: Брой автомобили
+description.text.label: Описание
+
 #messages
 check.email.message.label: Ако съществува акаунт, съответстващ на вашия имейл, току-що е изпратен имейл, който съдържа връзка, която можете да използвате, за да нулирате паролата си.
 check.email.message.sm.label: Тази връзка ще изтече след
@@ -96,6 +131,22 @@ review.added.label: Отзива е добавена успешно!
 complete.your.profile.label: Влезте или попълнете своя профил!
 cannot.comments.your.profile.label: Не можете да оставяте коментари в профила си!
 min.message.reviews.label: Вашият коментар трябва да бъде поне
+country.label: Държава
+select.country.label: Изберете държава
+state.label: Област
+select.state.label: Изберете област
+city.label: Населено място
+select.city.label: Изберете нас. място
+
+
+
+
+
+
+
+
+
+
 #end mes
 #admin fields messages
 view.site.label: Отидете на сайта

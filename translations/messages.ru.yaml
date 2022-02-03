@@ -10,7 +10,7 @@ cancel.label: Отмена
 delete.label: Удалить
 back.label: Назад
 action.label: Действие
-
+published.label: Опубликовано
 #end default
 language.currency.heading: Язык / Валюта
 language.heading: Язык
@@ -92,6 +92,49 @@ all.properties.label: Все объявления
 bookings.label: Бронирование
 reviews.label: Отзывы
 facebook.login.help: Для более быстрого входа или регистрации используйте свою учетную запись в социальной сети.
+dashboard.menu.label: Dasboard Меню
+info.label: Информация
+location.label: Карта
+media.label: Изображения
+details.label: Подробности
+rooms.label: Комнаты
+plans.label: Планы
+widgets.label: Виджеты
+basic.information.label: Основная информация
+price.label: Цена
+select.label: Выбирать
+title.label: Заголовок
+title.property.label: Название вашей недвижимости
+keywords.label: Ключевые слова
+keywords.maximum.label: Максимум 15 , должны быть разделены запятыми
+address.label: Адрес
+address.your.property.label: Адрес вашей недвижимости
+longitude.label: Долгота
+map.longitude.label: Долгота
+latitude.label: Широта
+map.latitude.label: Широта
+drop.files.label: Нажмите здесь или перетащите файлы для загрузки
+area.label: Площадь
+house.area.label: Площадь дома
+bedrooms.label: Спальни
+house.bedrooms.label: Спальни в доме
+bathrooms.label: Ванные комнаты
+house.bathrooms.label: Ванные комнаты в доме
+accommodation.label: Размещение
+size.accommodation.label: Размер размещения 5-12..
+yard.size.label: Размер двора
+garage.label: Гараж
+number.cars.label: Количество автомобилей
+description.text.label: Описание
+country.label: Страна
+select.country.label: Выберите страну
+state.label: Регион
+select.state.label: Выберите регион
+city.label: Населенный пункт
+select.city.label: Выберите нас. пункт
+
+
+
 #messages
 check.email.message.label: Если учетная запись, соответствующая вашему адресу электронной почты, существует, значит, только что было отправлено электронное письмо, содержащее ссылку, которую вы можете использовать для сброса пароля.
 check.email.message.sm.label: Срок действия этой ссылки истекает через

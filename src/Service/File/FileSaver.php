@@ -14,9 +14,9 @@ class FileSaver
     private string $uploads_temp_dir;
 
     public function __construct(
-        public SluggerInterface $slugger,
+        public SluggerInterface   $slugger,
         public ContainerInterface $serviceContainer,
-        public FileSystemWorker $fileSystemWorker
+        public FileSystemWorker   $fileSystemWorker
     )
     {
     }
@@ -49,6 +49,22 @@ class FileSaver
             return null;
         }
         return $fileNameCover;
+    }
+
+    public function saveUploadedPropertyFileIntoTemp(UploadedFile $uploadedFile): ?string
+    {
+        $uploadTempDir = $this->serviceContainer->getParameter('uploads_property_temp_dir');
+        $originalFileName = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $saveFileName = $this->slugger->slug($originalFileName);
+        $fileName = sprintf('%s-%s.%s', $saveFileName, uniqid(), $uploadedFile->guessExtension());
+        $this->fileSystemWorker->createFolderIfNotExist($uploadTempDir);
+        try {
+            $uploadedFile->move($uploadTempDir, $fileName);
+        }catch (\Exception $exception){
+            return null;
+        }
+
+        return $fileName;
     }
 
 }
