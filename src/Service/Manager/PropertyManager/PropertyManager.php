@@ -38,4 +38,40 @@ class PropertyManager
         }
         return $property;
     }
+
+    public function addPropertyWidget(Property $property, Form $form, Request $request): Property
+    {
+        if (array_key_exists('roomWidget', (array)$request->request->get('property_form'))) {
+            $widgets = $form['roomWidget']->getData();
+            $amenities = $request->request->get('property_form')['roomWidget'];
+            // dd($widgets);
+            foreach ($widgets as $key => $widget) {
+                $this->propertyManagerHelper->savePropertyAmenityWidget($property, $widget, $amenities[$key]);
+                $imageFile = $request->files->get('property_form')['roomWidget'][$key]['imageRoom'];
+                $dirImage = uniqid();
+                $tempImageFileName = $imageFile ? $this->fileSaver->saveUploadedPropertyWidgetFileIntoTemp($imageFile) : null;
+
+                $this->propertyManagerHelper->updatePropertyWidgetImage($property, $widget, $dirImage, $tempImageFileName);
+                $property->addPropertyRoomsWidget($widget);
+            }
+            return $property;
+        }
+        return $property;
+    }
+
+    public function addPropertyPlan(Property $property, Form $form, Request $request): Property
+    {
+        if (array_key_exists('propertyPlan', (array)$request->request->get('property_form'))) {
+            $plans = $form['propertyPlan']->getData();
+            foreach ($plans as $key=>$plan) {
+                $imageFile = $request->files->get('property_form')['propertyPlan'][$key]['imagePlan'];
+                $dirImage = uniqid();
+                $tempImageFileName = $imageFile ? $this->fileSaver->saveUploadedPropertyPlanFileIntoTemp($imageFile) : null;
+                $this->propertyManagerHelper->updatePropertyPlanImage($property, $plan, $dirImage, $tempImageFileName);
+            }
+            return $property;
+        }
+        return $property;
+    }
+
 }

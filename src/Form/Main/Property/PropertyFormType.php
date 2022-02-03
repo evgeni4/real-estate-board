@@ -223,23 +223,47 @@ class PropertyFormType extends AbstractType
             ->add('images', FileType::class,
                 [
                     'required' => false,
-                    'attr' => ['class' => 'upload','accept'=>'image/*'],
+                    'attr' => ['class' => 'upload', 'accept' => 'image/*'],
                     'label' => false,
                     'mapped' => false,
                     'multiple' => true
                 ]
             )
-            ->add('roomWidget',CollectionType::class,
-            [
-                'entry_type'=>PropertyRoomsWidgetFormType::class,
-                'required'=>false,
-                'mapped'=>false,
-                'prototype' => true,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'delete_empty' => true,
+            ->add('roomWidget', CollectionType::class,
+                [
+                    'entry_type' => PropertyRoomsWidgetFormType::class,
+                    'required' => false,
+                    'label'=>false,
+                    'mapped' => false,
+                    'prototype' => true,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'delete_empty' => true,
+                    'by_reference' => false
 
-            ])
+                ])
+            ->add('propertyPlan', CollectionType::class,
+                [
+                    'entry_type' => PropertyPlanFormType::class,
+                    'required' => false,
+                    'mapped' => false,
+                    'label'=>false,
+                    'prototype' => true,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'delete_empty' => true,
+                    'by_reference' => false
+
+                ])
+            ->add('video', TextType::class,
+                [
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => 'Youtube '.$this->translator->trans('or.label').' Vimeo',
+                    ],
+                    'label_html' => true,
+                    'label' => 'Video Youtube: <span class="dec-icon"><i class="fab fa-youtube"></i></span>',
+                ])
             ->add('published', CheckboxType::class, [
                 'required' => false,
                 'attr' => [
@@ -248,7 +272,53 @@ class PropertyFormType extends AbstractType
                 'label_attr' => ['class' => 'onoffswitch-label'],
                 'label_html' => true,
                 'label' => '<span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span>',
-            ]);
+            ])
+            ->add('roomWidgetStatus', CheckboxType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'onoffswitch-checkbox'
+                ],
+                'label_attr' => ['class' => 'onoffswitch-label'],
+                'label_html' => true,
+                'label' => '<span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span>',
+            ])
+            ->add('propertyPlanStatus', CheckboxType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'onoffswitch-checkbox'
+                ],
+                'label_attr' => ['class' => 'onoffswitch-label'],
+                'label_html' => true,
+                'label' => '<span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span>',
+            ])
+            ->add('videoPresentation', CheckboxType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'onoffswitch-checkbox'
+                ],
+                'label_attr' => ['class' => 'onoffswitch-label'],
+                'label_html' => true,
+                'label' => '<span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span>',
+            ])
+            ->add('googleMapStatus', CheckboxType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'onoffswitch-checkbox'
+                ],
+                'label_attr' => ['class' => 'onoffswitch-label'],
+                'label_html' => true,
+                'label' => '<span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span>',
+            ])
+            ->add('contactFormStatus', CheckboxType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'onoffswitch-checkbox'
+                ],
+                'label_attr' => ['class' => 'onoffswitch-label'],
+                'label_html' => true,
+                'label' => '<span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span>',
+            ])
+        ;
         $this->buildFormEventSelect->builderSelect($builder);
     }
 

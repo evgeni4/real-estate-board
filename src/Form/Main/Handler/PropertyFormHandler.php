@@ -25,9 +25,11 @@ class PropertyFormHandler
     {
         $user = $this->userService->currentUser();
         $property->setAgent($user);
-        $this->propertyManager->addPropertyImages($property,$form);
+        $this->propertyManager->addPropertyImages($property, $form);
         $this->propertyManager->addPropertyAmenity($property, $form);
-       $this->propertyService->add($property);
+        $this->propertyManager->addPropertyWidget($property, $form,$request);
+        $this->propertyManager->addPropertyPlan($property, $form,$request);
+        $this->propertyService->add($property);
         return $property;
     }
 }

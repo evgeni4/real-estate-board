@@ -26,7 +26,7 @@ class DashboardController extends AbstractController
     public function show(): Response
     {
         $this->breadcrumbs->addItem('Dashboard');
-         $this->seoService->seo('Dashboard', '', '', '', '', '');
+        $this->seoService->seo('Dashboard', '', '', '', '', '');
         $user = $this->userService->currentUser();
         if (empty($user->getFirstName()) || empty($user->getLastName()) || empty($user->getPhone())) {
             return $this->redirectToRoute('main_profile');

@@ -13,5 +13,5 @@ interface PropertyServiceInterface
 
     public function delete(Property $property): ?bool;
 
-    public function findAllByAgentListing(User $user): ?array;
+    public function findAllByAgentListing(): ?array;
 }

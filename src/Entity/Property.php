@@ -26,7 +26,7 @@ class Property implements TranslatableInterface
     private ?string $price;
 
     #[ORM\Column(type: 'boolean')]
-    private ?bool $published = true;
+    private ?bool $published = false;
 
     #[ORM\Column(type: 'float', nullable: true)]
     private ?float $area;
@@ -84,6 +84,29 @@ class Property implements TranslatableInterface
     #[ORM\OneToMany(mappedBy: 'property', targetEntity: PropertyImage::class, cascade: ['persist','remove'] ,orphanRemoval: true)]
     private $propertyImages;
 
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: PropertyRoomsWidget::class, cascade: ['persist','remove'] ,orphanRemoval: true)]
+    private $propertyRoomsWidgets;
+
+    #[ORM\Column(type: 'boolean')]
+    private $roomWidgetStatus = false;
+
+    #[ORM\OneToMany(mappedBy: 'propertyPlan', targetEntity: PropertyPlan::class, cascade: ['persist','remove'] ,orphanRemoval: true)]
+    private $propertyPlans;
+
+    #[ORM\Column(type: 'boolean')]
+    private $propertyPlanStatus = false;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $video;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $videoPresentation;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $contactFormStatus;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $googleMapStatus;
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -91,6 +114,8 @@ class Property implements TranslatableInterface
         $this->uuid = Uuid::v4();
         $this->propertyAmenities = new ArrayCollection();
         $this->propertyImages = new ArrayCollection();
+        $this->propertyRoomsWidgets = new ArrayCollection();
+        $this->propertyPlans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -397,6 +422,140 @@ class Property implements TranslatableInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|PropertyRoomsWidget[]
+     */
+    public function getPropertyRoomsWidgets(): Collection
+    {
+        return $this->propertyRoomsWidgets;
+    }
+
+    public function addPropertyRoomsWidget(PropertyRoomsWidget $propertyRoomsWidget): self
+    {
+        if (!$this->propertyRoomsWidgets->contains($propertyRoomsWidget)) {
+            $this->propertyRoomsWidgets[] = $propertyRoomsWidget;
+            $propertyRoomsWidget->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropertyRoomsWidget(PropertyRoomsWidget $propertyRoomsWidget): self
+    {
+        if ($this->propertyRoomsWidgets->removeElement($propertyRoomsWidget)) {
+            // set the owning side to null (unless already changed)
+            if ($propertyRoomsWidget->getProperty() === $this) {
+                $propertyRoomsWidget->setProperty(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRoomWidgetStatus(): ?bool
+    {
+        return $this->roomWidgetStatus;
+    }
+
+    public function setRoomWidgetStatus(bool $roomWidgetStatus): self
+    {
+        $this->roomWidgetStatus = $roomWidgetStatus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PropertyPlan[]
+     */
+    public function getPropertyPlans(): Collection
+    {
+        return $this->propertyPlans;
+    }
+
+    public function addPropertyPlan(PropertyPlan $propertyPlan): self
+    {
+        if (!$this->propertyPlans->contains($propertyPlan)) {
+            $this->propertyPlans[] = $propertyPlan;
+            $propertyPlan->setPropertyPlan($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropertyPlan(PropertyPlan $propertyPlan): self
+    {
+        if ($this->propertyPlans->removeElement($propertyPlan)) {
+            // set the owning side to null (unless already changed)
+            if ($propertyPlan->getPropertyPlan() === $this) {
+                $propertyPlan->setPropertyPlan(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPropertyPlanStatus(): ?bool
+    {
+        return $this->propertyPlanStatus;
+    }
+
+    public function setPropertyPlanStatus(bool $propertyPlanStatus): self
+    {
+        $this->propertyPlanStatus = $propertyPlanStatus;
+
+        return $this;
+    }
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
+    }
+
+    public function setVideo(?string $video): self
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    public function getVideoPresentation(): ?bool
+    {
+        return $this->videoPresentation;
+    }
+
+    public function setVideoPresentation(?bool $videoPresentation): self
+    {
+        $this->videoPresentation = $videoPresentation;
+
+        return $this;
+    }
+
+    public function getContactFormStatus(): ?bool
+    {
+        return $this->contactFormStatus;
+    }
+
+    public function setContactFormStatus(?bool $contactFormStatus): self
+    {
+        $this->contactFormStatus = $contactFormStatus;
+
+        return $this;
+    }
+
+    public function getGoogleMapStatus(): ?bool
+    {
+        return $this->googleMapStatus;
+    }
+
+    public function setGoogleMapStatus(?bool $googleMapStatus): self
+    {
+        $this->googleMapStatus = $googleMapStatus;
+
+        return $this;
+    }
+
+
 
 
 

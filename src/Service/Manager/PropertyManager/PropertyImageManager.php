@@ -3,6 +3,7 @@
 namespace App\Service\Manager\PropertyManager;
 
 use App\Entity\PropertyImage;
+use App\Entity\PropertyRoomsWidget;
 use App\Service\File\FileSystem\FileSystemWorker;
 use App\Service\File\ImageResizer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -48,5 +49,35 @@ class PropertyImageManager
         $propertyImage->setImageMd($imageMiddle);
         $propertyImage->setImageLg($imageBig);
         return $propertyImage;
+    }
+
+    public function saveImageForPropertyWidget(string $propertyWidgetDir, string $tempImageFileName): string
+    {
+        $uploadTempDir = $this->serviceContainer->getParameter('uploads_property_widget_temp_dir');
+        $this->systemWorker->createFolderIfNotExist($propertyWidgetDir);
+        $fileNameId = uniqid();
+        $imageSmallParam = [
+            'width' => 260,
+            'height' => null,
+            'newFolder' => $propertyWidgetDir,
+            'newFileName' => sprintf('%s_%s.jpeg', $fileNameId, 'small')
+        ];
+        $imageSmall = $this->imageResizer->resizeImageAndSave($uploadTempDir, $tempImageFileName, $imageSmallParam);
+        return $imageSmall;
+    }
+
+    public function saveImageForPropertyPlan(string $propertyPlanDir, string $tempImageFileName): string
+    {
+        $uploadTempDir = $this->serviceContainer->getParameter('uploads_property_plan_temp_dir');
+        $this->systemWorker->createFolderIfNotExist($propertyPlanDir);
+        $fileNameId = uniqid();
+        $imageSmallParam = [
+            'width' => 600,
+            'height' => null,
+            'newFolder' => $propertyPlanDir,
+            'newFileName' => sprintf('%s_%s.jpeg', $fileNameId, 'small')
+        ];
+        $imageSmall = $this->imageResizer->resizeImageAndSave($uploadTempDir, $tempImageFileName, $imageSmallParam);
+        return $imageSmall;
     }
 }

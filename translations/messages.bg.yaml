@@ -95,6 +95,7 @@ media.label: Изображения
 details.label: Подробности
 rooms.label: Стаи
 plans.label: Планове
+plans.house.label: План за къща
 widgets.label: Widgets
 basic.information.label: Основна информация
 price.label: Цена
@@ -122,6 +123,24 @@ yard.size.label: Размер на двора
 garage.label: Гараж
 number.cars.label: Брой автомобили
 description.text.label: Описание
+room.title.label: Заглавие на стаята
+room.title.placeholder.label: Стандартна фамилна стая
+room.additional.label: Допълнителна стая
+room.additional.placeholder.label: Пример :' Сауна
+room.details.label: Подробности за стаята
+room.details.placeholder.label: Подробности за стаята
+room.image.label: Изображение на стаята
+plan.title.label: Заглавие на плана
+plan.title.placeholder.label: План на първия етаж
+plan.details.label: Детали за плана
+plan.details.placeholder.label: Детали
+plan.area.label:  Площ информация по избор
+plan.area.placeholder.label: Пример:' 286 sq ft
+content.widget.label: Уиджети за съдържание
+video.presentation.label: Видео презентация
+google.map.label: Google карта
+contact.form.label: Форма за контакти
+
 
 #messages
 check.email.message.label: Ако съществува акаунт, съответстващ на вашия имейл, току-що е изпратен имейл, който съдържа връзка, която можете да използвате, за да нулирате паролата си.

@@ -17,18 +17,27 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
-#[Route('/dashboard')]
+#[Route('/dashboard/listing')]
 class ListingController extends AbstractController
 {
     public function __construct(
         private Breadcrumbs         $breadcrumbs,
         private TranslatorInterface $translator,
         private SeoServiceInterface $seoService,
-        private PropertyFormHandler $propertyFormHandler
+        private PropertyFormHandler $propertyFormHandler,
+        private PropertyServiceInterface $propertyService
     )
     {
     }
-
+    #[Route('/show', name: 'main_show_listing')]
+    public function show(): Response
+    {
+        $properties = $this->propertyService->findAllByAgentListing();
+        return $this->render('main/dashboard/listing/show.html.twig',
+        [
+            'properties'=>$properties
+        ]);
+    }
     #[Route('/add', name: 'main_add_listing')]
     public function add(Request $request): Response
     {
@@ -55,14 +64,7 @@ class ListingController extends AbstractController
         $test = $propertyAmenitiesRepository->findOneBy(['property' => $property]);
         $form = $this->createForm(PropertyFormType::class, $property);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            //$amenities = $form->get('amenity')->getData();
-            $amenities = $request->request->get('property_form')['amenity'] ?: null;
-            // dd($form->get('amenities')->getData());
-            // dd($request->request->all());
-            $demo = $test->setAmenity($amenities);
-            $property->addPropertyAmenity($demo);
-            $this->propertyService->edit($property);
+        if ($form->isSubmitted() && $form->isValid()) { 
             dd($property);
         }
         return $this->render('main/dashboard/listing/edit.html.twig',

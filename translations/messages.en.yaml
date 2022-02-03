@@ -94,6 +94,7 @@ media.label: Images
 details.label: Details
 rooms.label: Rooms
 plans.label: Plans
+plans.house.label: House Plans
 widgets.label: Widgets
 basic.information.label: Basic Information
 price.label: Price
@@ -126,6 +127,25 @@ select.country.label: Select country
 state.label: State
 select.state.label: Select state
 city.label: City
+room.title.label: Room Title
+room.title.placeholder.label: Standard Family Room
+room.additional.label: Additional Room
+room.additional.placeholder.label: Example :' Sauna
+room.details.label: Room Details
+room.details.placeholder.label: Room Details
+room.image.label: Room Image
+plan.title.label: Plan Title
+plan.title.placeholder.label: First Floor Plan
+plan.details.label: Plan Details
+plan.details.placeholder.label: Details
+plan.area.label: Area Optional info
+plan.area.placeholder.label: Example:' 286 sq ft
+content.widget.label: Content Widgets
+video.presentation.label: Video Presentation
+google.map.label: Google Map
+contact.form.label: Contact Form
+
+
 #messages
 check.email.message.label: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
 check.email.message.sm.label: This link will expire in

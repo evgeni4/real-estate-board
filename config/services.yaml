@@ -12,7 +12,11 @@ parameters:
     uploads_temp_dir: '%uploads_dir%/temp'
     user_image_dir: '%uploads_dir%/avatar'
     uploads_property_temp_dir: '%uploads_dir%/temp/property'
-    uploads_property: '%uploads_dir%/property'
+    uploads_property: '%uploads_dir%/properties/property'
+    uploads_property_widget_temp_dir: '%uploads_dir%/temp/property/widget'
+    uploads_widget_property: '%uploads_dir%/properties/widgets/widget'
+    uploads_property_plan_temp_dir: '%uploads_dir%/temp/property/plan'
+    uploads_plan_property: '%uploads_dir%/properties/plans/plan'
 services:
     app.menu_builder:
         class: App\Menu\UserMenu\Builder

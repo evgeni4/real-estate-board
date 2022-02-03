@@ -28,8 +28,9 @@ class PropertyService implements PropertyServiceInterface
         // TODO: Implement delete() method.
     }
 
-    public function findAllByAgentListing(User $user): ?array
+    public function findAllByAgentListing(): ?array
     {
+        $user = $this->userService->currentUser();
         return $this->propertyRepository->findBy(['agent'=>$user]);
     }
 }

@@ -43,7 +43,7 @@ class Builder
             ->setAttributes(['class'=>''])
             ->setLinkAttribute('class', 'submenu-link')
             ->setChildrenAttribute('class','nav-group-items');
-             $userMenu['listings.label']->addChild('all.properties.label', ['route' => 'main_dashboard'])
+             $userMenu['listings.label']->addChild('all.properties.label', ['route' => 'main_show_listing'])
               ->setExtra('icon', 'fal fa-th-list');
              $userMenu['listings.label']->addChild('bookings.label', ['route' => 'main_dashboard'])
               ->setExtra('icon', 'fal fa-calendar-check')

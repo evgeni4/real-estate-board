@@ -99,6 +99,7 @@ media.label: Изображения
 details.label: Подробности
 rooms.label: Комнаты
 plans.label: Планы
+plans.house.label: План дома
 widgets.label: Виджеты
 basic.information.label: Основная информация
 price.label: Цена
@@ -132,8 +133,23 @@ state.label: Регион
 select.state.label: Выберите регион
 city.label: Населенный пункт
 select.city.label: Выберите нас. пункт
-
-
+room.title.label: Название комнаты
+room.title.placeholder.label: Стандартный семейный номер
+room.additional.label: Дополнительная комната
+room.additional.placeholder.label: Пример :' Сауна
+room.details.label: Детали комнаты
+room.details.placeholder.label: Детали комнаты
+room.image.label: Изображение комнаты
+plan.title.label: Название плана
+plan.title.placeholder.label: План первого этажа
+plan.details.label: Детали плана
+plan.details.placeholder.label: Детали
+plan.area.label: Площадь Необязательная информация
+plan.area.placeholder.label: Пример:' 286 sq ft
+content.widget.label: Виджеты контента
+video.presentation.label: Видеопрезентация
+google.map.label: Google карта
+contact.form.label: Форма обратной связи
 
 #messages
 check.email.message.label: Если учетная запись, соответствующая вашему адресу электронной почты, существует, значит, только что было отправлено электронное письмо, содержащее ссылку, которую вы можете использовать для сброса пароля.

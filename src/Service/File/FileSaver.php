@@ -67,4 +67,36 @@ class FileSaver
         return $fileName;
     }
 
+    public function saveUploadedPropertyWidgetFileIntoTemp(UploadedFile $uploadedFile): ?string
+    {
+        $uploadWidgetTempDir = $this->serviceContainer->getParameter('uploads_property_widget_temp_dir');
+        $originalFileName = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $saveFileName = $this->slugger->slug($originalFileName);
+        $fileName = sprintf('%s-%s.%s', $saveFileName, uniqid(), $uploadedFile->guessExtension());
+        $this->fileSystemWorker->createFolderIfNotExist($uploadWidgetTempDir);
+        try {
+            $uploadedFile->move($uploadWidgetTempDir, $fileName);
+        }catch (\Exception $exception){
+            return null;
+        }
+
+        return $fileName;
+    }
+
+    public function saveUploadedPropertyPlanFileIntoTemp(UploadedFile $uploadedFile): ?string
+    {
+        $uploadWidgetTempDir = $this->serviceContainer->getParameter('uploads_property_plan_temp_dir');
+        $originalFileName = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $saveFileName = $this->slugger->slug($originalFileName);
+        $fileName = sprintf('%s-%s.%s', $saveFileName, uniqid(), $uploadedFile->guessExtension());
+        $this->fileSystemWorker->createFolderIfNotExist($uploadWidgetTempDir);
+        try {
+            $uploadedFile->move($uploadWidgetTempDir, $fileName);
+        }catch (\Exception $exception){
+            return null;
+        }
+
+        return $fileName;
+    }
+
 }

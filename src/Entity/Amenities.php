@@ -27,10 +27,18 @@ class Amenities implements TranslatableInterface
     #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyAmenities::class,cascade: ['persist','remove'])]
     private $propertyAmenities;
 
+    #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyRoomsWidget::class,cascade: ['persist','remove'])]
+    private $propertyRoomsWidgets;
+
+    #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyRoomsWidgetAmenities::class,cascade: ['persist','remove'])]
+    private $propertyRoomsWidgetAmenities;
+
     public function __construct()
     {
         $this->uuid = Uuid::v4();
         $this->propertyAmenities = new ArrayCollection();
+        $this->propertyRoomsWidgets = new ArrayCollection();
+        $this->propertyRoomsWidgetAmenities = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -91,6 +99,66 @@ class Amenities implements TranslatableInterface
             // set the owning side to null (unless already changed)
             if ($propertyAmenity->getAmenity() === $this) {
                 $propertyAmenity->setAmenity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PropertyRoomsWidget[]
+     */
+    public function getPropertyRoomsWidgets(): Collection
+    {
+        return $this->propertyRoomsWidgets;
+    }
+
+    public function addPropertyRoomsWidget(PropertyRoomsWidget $propertyRoomsWidget): self
+    {
+        if (!$this->propertyRoomsWidgets->contains($propertyRoomsWidget)) {
+            $this->propertyRoomsWidgets[] = $propertyRoomsWidget;
+            $propertyRoomsWidget->setAmenity($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropertyRoomsWidget(PropertyRoomsWidget $propertyRoomsWidget): self
+    {
+        if ($this->propertyRoomsWidgets->removeElement($propertyRoomsWidget)) {
+            // set the owning side to null (unless already changed)
+            if ($propertyRoomsWidget->getAmenity() === $this) {
+                $propertyRoomsWidget->setAmenity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PropertyRoomsWidgetAmenities[]
+     */
+    public function getPropertyRoomsWidgetAmenities(): Collection
+    {
+        return $this->propertyRoomsWidgetAmenities;
+    }
+
+    public function addPropertyRoomsWidgetAmenity(PropertyRoomsWidgetAmenities $propertyRoomsWidgetAmenity): self
+    {
+        if (!$this->propertyRoomsWidgetAmenities->contains($propertyRoomsWidgetAmenity)) {
+            $this->propertyRoomsWidgetAmenities[] = $propertyRoomsWidgetAmenity;
+            $propertyRoomsWidgetAmenity->setAmenity($this);
+        }
+
+        return $this;
+    }
+
+    public function removePropertyRoomsWidgetAmenity(PropertyRoomsWidgetAmenities $propertyRoomsWidgetAmenity): self
+    {
+        if ($this->propertyRoomsWidgetAmenities->removeElement($propertyRoomsWidgetAmenity)) {
+            // set the owning side to null (unless already changed)
+            if ($propertyRoomsWidgetAmenity->getAmenity() === $this) {
+                $propertyRoomsWidgetAmenity->setAmenity(null);
             }
         }
 

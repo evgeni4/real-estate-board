@@ -155,22 +155,18 @@
         <!-- dasboard-widget-box  end-->
         <!-- dasboard-widget-title -->
         <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec5">
-            <h5><i class="fas fa-home-lg-alt"></i>Rooms</h5>
+            <h5><i class="fas fa-home-lg-alt"></i>{% trans %}rooms.label{% endtrans %}</h5>
             <div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
-                <label class="onoffswitch-label" for="myonoffswitch5">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
+                 {{ form_row(form.roomWidgetStatus) }}
             </div>
         </div>
         <!-- dasboard-widget-title end -->
         <!-- dasboard-widget-box  -->
         <div class="dasboard-widget-box   fl-wrap">
-            <div class="custom-form add_room-item-wrap">
+            <div class="custom-form add_room-item-wrap ">
                 <div id="fields-list" class="add_room-container fl-wrap"
                     data-prototype="{{ form_widget(form.roomWidget.vars.prototype)|e }}"
-                    data-widget-tags="{{ '<div  class="row"></div>'|e }}"
+                    data-widget-tags="{{ '<div  class="row widget-row"></div>'|e }}"
                     data-widget-counter="{{ form.roomWidget|length }}">
                     {% for room in form.roomWidget %}
                             {{ form_errors(room) }}
@@ -178,7 +174,7 @@
                     {% endfor %}
                 </div>
                 <button   type="button" class="add-room-item add-field"
-                          data-list-selector="#attachment-fields-list">{% trans %}Add{% endtrans %}<i class="fal fa-plus"></i>
+                          data-list-selector="#attachment-fields-list">{% trans %}add.label{% endtrans %}<i class="fal fa-plus"></i>
                 </button>
 
             </div>
@@ -186,67 +182,33 @@
         <!-- dasboard-widget-box  end-->
         <!-- dasboard-widget-title -->
         <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec6">
-            <h5><i class="fas fa-ruler-combined"></i>House Plans </h5>
+            <h5><i class="fas fa-ruler-combined"></i>{% trans %}plans.house.label{% endtrans %}</h5>
             <div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch22">
-                <label class="onoffswitch-label" for="myonoffswitch22">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
+                 {{ form_row(form.propertyPlanStatus) }}
             </div>
         </div>
         <!-- dasboard-widget-title end -->
         <!-- dasboard-widget-box  -->
         <div class="dasboard-widget-box   fl-wrap">
             <div class="custom-form add_room-item-wrap">
-                <div class="add_room-container fl-wrap">
-                    <!-- add_room-item   -->
-                    <div class="add_room-item fl-wrap">
-                        <span class="remove-rp tolt" data-microtip-position="left" data-tooltip="Remove"><i
-                                    class="fal fa-times-circle"></i></span>
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <label>Plan Title: <span class="dec-icon"><i
-                                                        class="far fa-ruler-horizontal"></i></span></label>
-                                        <input type="text" placeholder=" First Floor Plan " value=""/>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label>Plan Optional info: <span class="dec-icon"><i
-                                                        class="far fa-ruler-horizontal"></i></span></label>
-                                        <input type="text" placeholder="Example: 286 sq ft" value=""/>
-                                    </div>
-                                </div>
-                                <label>Plan Details</label>
-                                <div class="listsearch-input-item">
-                                    <textarea cols="40" rows="3" style="height: 85px;" placeholder="Datails"
-                                              spellcheck="false"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-5">
-                                <label>Upload Images</label>
-                                <div class="listsearch-input-item fl-wrap">
-                                    <div class="fuzone">
-                                        <div class="fu-text">
-                                            <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
-                                            <div class="photoUpload-files fl-wrap"></div>
-                                        </div>
-                                        <input type="file" class="upload">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--add_room-item end  -->
+                <div id="fields-list-plan" class="add_room-container fl-wrap"
+                     data-prototype="{{ form_widget(form.propertyPlan.vars.prototype)|e }}"
+                     data-widget-tags="{{ '<div  class="row widget-row"></div>'|e }}"
+                     data-widget-counter="{{ form.propertyPlan|length }}">
+                    {% for plan in form.propertyPlan %}
+                        {{ form_errors(plan) }}
+                        {{ form_row(plan) }}
+                    {% endfor %}
                 </div>
-                <a href="#" class="add-room-item">Add New <i class="fal fa-plus"></i> </a>
+                <button   type="button" class="add-room-item add-field-plan"
+                          data-list-selector="#attachment-fields-list">{% trans %}add.label{% endtrans %}<i class="fal fa-plus"></i>
+                </button>
             </div>
         </div>
         <!-- dasboard-widget-box  end-->
         <!-- dasboard-widget-title -->
         <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec7">
-            <h5><i class="fas fa-sliders-h"></i>Content Widgets</h5>
+            <h5><i class="fas fa-sliders-h"></i>{% trans %}content.widget.label{% endtrans %}</h5>
         </div>
         <!-- dasboard-widget-title end -->
         <!-- dasboard-widget-box  -->
@@ -254,84 +216,41 @@
             <div class="custom-form">
                 <div class="row">
                     <!-- content-widget-switcher -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="content-widget-switcher fl-wrap">
-                            <span class="content-widget-switcher-title">Video Presentation</span>
+                            <span class="content-widget-switcher-title">{% trans %}video.presentation.label{% endtrans %}</span>
                             <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
-                                       id="myonoffswitchmc" checked>
-                                <label class="onoffswitch-label" for="myonoffswitchmc">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
+                                {{ form_row(form.videoPresentation) }}
                             </div>
                             <div class="content-widget-switcher-item fl-wrap">
-                                <label>Video Youtube: <span class="dec-icon"><i
-                                                class="fab fa-youtube"></i></span></label>
-                                <input type="text" placeholder="Youtube Or Vimeo" value=""/>
-                                <label>Video VImeo: <span class="dec-icon"><i class="fab fa-vimeo-v"></i></span></label>
-                                <input type="text" placeholder="Youtube Or Vimeo" value=""/>
+                                {{ form_row(form.video) }}
                             </div>
                         </div>
                     </div>
                     <!-- content-widget-switcher end-->
                     <!-- content-widget-switcher -->
-                    <div class="col-md-4">
-                        <div class="content-widget-switcher fl-wrap">
-                            <span class="content-widget-switcher-title">Propertie Documents</span>
+                    <div class="col-md-6">
+{#                        <div class="content-widget-switcher fl-wrap">#}
+{#                            <span class="content-widget-switcher-title">Mortgage Calculator</span>#}
+{#                            <div class="onoffswitch">#}
+{#                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"#}
+{#                                       id="myonoffswitchmc423" checked>#}
+{#                                <label class="onoffswitch-label" for="myonoffswitchmc423">#}
+{#                                    <span class="onoffswitch-inner"></span>#}
+{#                                    <span class="onoffswitch-switch"></span>#}
+{#                                </label>#}
+{#                            </div>#}
+{#                        </div>#}
+                        <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
+                            <span class="content-widget-switcher-title">{% trans %}google.map.label{% endtrans %}</span>
                             <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
-                                       id="myonoffswitchmc523" checked>
-                                <label class="onoffswitch-label" for="myonoffswitchmc523">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                            <div class="content-widget-switcher-item fl-wrap">
-                                <div class="fuzone">
-                                    <div class="fu-text">
-                                        <span><i class="far fa-cloud-upload-alt"></i> Click here or drop files to upload</span>
-                                        <div class="photoUpload-files fl-wrap"></div>
-                                    </div>
-                                    <input type="file" class="upload" multiple>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- content-widget-switcher end-->
-                    <!-- content-widget-switcher -->
-                    <div class="col-md-4">
-                        <div class="content-widget-switcher fl-wrap">
-                            <span class="content-widget-switcher-title">Mortgage Calculator</span>
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
-                                       id="myonoffswitchmc423" checked>
-                                <label class="onoffswitch-label" for="myonoffswitchmc423">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
+                                {{ form_row(form.googleMapStatus) }}
                             </div>
                         </div>
                         <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
-                            <span class="content-widget-switcher-title">Google Map</span>
+                            <span class="content-widget-switcher-title">{% trans %}contact.form.label{% endtrans %}</span>
                             <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
-                                       id="myonoffswitchmc923">
-                                <label class="onoffswitch-label" for="myonoffswitchmc923">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
-                            <span class="content-widget-switcher-title">Contact Form</span>
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
-                                       id="myonoffswitchmc`23">
-                                <label class="onoffswitch-label" for="myonoffswitchmc`23">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
+                                {{ form_row(form.contactFormStatus) }}
                             </div>
                         </div>
                     </div>
