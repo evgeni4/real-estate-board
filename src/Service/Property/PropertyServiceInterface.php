@@ -13,5 +13,7 @@ interface PropertyServiceInterface
 
     public function delete(Property $property): ?bool;
 
-    public function findAllByAgentListing(): ?array;
+    public function findAllByAgentListing(int $start, int $limit): ?array;
+
+    public function similarProperties(Property $property): ?array;
 }

@@ -2,9 +2,7 @@
 
 namespace App\Controller\Main\Dashboard;
 
-use App\Entity\Amenities;
 use App\Entity\Property;
-use App\Entity\PropertyAmenities;
 use App\Form\Main\Handler\PropertyFormHandler;
 use App\Form\Main\Property\PropertyFormType;
 use App\Repository\PropertyAmenitiesRepository;
@@ -21,23 +19,35 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class ListingController extends AbstractController
 {
     public function __construct(
-        private Breadcrumbs         $breadcrumbs,
-        private TranslatorInterface $translator,
-        private SeoServiceInterface $seoService,
-        private PropertyFormHandler $propertyFormHandler,
+        private Breadcrumbs              $breadcrumbs,
+        private TranslatorInterface      $translator,
+        private SeoServiceInterface      $seoService,
+        private PropertyFormHandler      $propertyFormHandler,
         private PropertyServiceInterface $propertyService
     )
     {
     }
+
     #[Route('/show', name: 'main_show_listing')]
     public function show(): Response
     {
-        $properties = $this->propertyService->findAllByAgentListing();
-        return $this->render('main/dashboard/listing/show.html.twig',
-        [
-            'properties'=>$properties
-        ]);
+        $this->seoService->seo('','','','','','');
+        $this->breadcrumbs->addItem($this->translator->trans('all.properties.label'));
+        $properties = $this->propertyService->findAllByAgentListing(0, 2);
+        return $this->render('main/dashboard/listing/show.html.twig');
     }
+
+
+
+    public function template(): Response
+    {
+        $properties = $this->propertyService->findAllByAgentListing(0, 2);
+        return $this->render('main/dashboard/listing/show/_show.html.twig',
+            [
+                'properties' => $properties
+            ]);
+    }
+
     #[Route('/add', name: 'main_add_listing')]
     public function add(Request $request): Response
     {
@@ -64,7 +74,7 @@ class ListingController extends AbstractController
         $test = $propertyAmenitiesRepository->findOneBy(['property' => $property]);
         $form = $this->createForm(PropertyFormType::class, $property);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) { 
+        if ($form->isSubmitted() && $form->isValid()) {
             dd($property);
         }
         return $this->render('main/dashboard/listing/edit.html.twig',

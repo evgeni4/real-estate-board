@@ -11,7 +11,9 @@ delete.label: Delete
 back.label: Back
 action.label: Action
 published.label: Published
-
+by.label: By
+date.label: Date
+save.label: Save
 #end default
 language.currency.heading: Language / Currency
 language.heading: Language
@@ -92,8 +94,10 @@ info.label: Info
 location.label: Location
 media.label: Images
 details.label: Details
+description.label: Description
 rooms.label: Rooms
 plans.label: Plans
+plan.label: Plan
 plans.house.label: House Plans
 widgets.label: Widgets
 basic.information.label: Basic Information
@@ -139,13 +143,20 @@ plan.title.placeholder.label: First Floor Plan
 plan.details.label: Plan Details
 plan.details.placeholder.label: Details
 plan.area.label: Area Optional info
-plan.area.placeholder.label: Example:' 286 sq ft
+plan.area.placeholder.label: Example:' 286 m2
 content.widget.label: Content Widgets
 video.presentation.label: Video Presentation
 google.map.label: Google Map
 contact.form.label: Contact Form
-
-
+view.label: View
+cars.label: cars
+features.label: Features
+video.label: Video
+photos.label: photos
+property.listing.label: Property Listing
+agent.label: Agent
+print.label: Print
+viewing.property.label: Viewing Property
 #messages
 check.email.message.label: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
 check.email.message.sm.label: This link will expire in
@@ -154,6 +165,11 @@ review.added.label: Review added successfully!
 complete.your.profile.label: Sign in or fill out your profile!
 cannot.comments.your.profile.label: You cannot leave comments on your profile!
 min.message.reviews.label: Your comment should be at least
+guest.label: Guest
+what.up.label: What Nearby? Schools, Gym...
+similar.properties.label: Similar Properties
+featured.properties.label: Featured properties
+
 
 #end messages
 #admin fields messages

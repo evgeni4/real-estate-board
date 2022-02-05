@@ -19,7 +19,7 @@
 var marker = new google.maps.Marker({
     position: myLatLng, 
     map: single_map, 
-    icon: 'images/marker-single.png',
+    icon: '/assets/images/marker-single.png',
     draggarble: false
 });
 if ($(".mapC_vis").length > 0) {

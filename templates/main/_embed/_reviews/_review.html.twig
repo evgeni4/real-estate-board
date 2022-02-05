@@ -1,3 +1,3 @@
-<div class="listing-rating card-popup-rainingvis" data-starrating2="{{ reviewsFromAuthor['stars-rating'] }}">
-    <span class="re_stars-title">{{ reviewsFromAuthor['stars-title'] }}</span>
+<div class="listing-rating card-popup-rainingvis" data-starrating2="{{ reviewsFromAuthor?reviewsFromAuthor['stars-rating']:0 }}">
+    <span class="re_stars-title">{{ reviewsFromAuthor?reviewsFromAuthor['stars-title']:'' }}</span>
 </div>

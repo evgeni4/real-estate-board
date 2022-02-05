@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -71,6 +72,16 @@ class PropertyRoomsWidgetFormType extends AbstractType
                 'expanded' => true,
 
             ])
+            ->add('area', IntegerType::class,
+                [
+                    'required' => false,
+                    'label_html' => true,
+                    'row_attr'=>['class'=>'col-sm-6'],
+                    'label' =>  $this->translator->trans('plan.area.label').'<span class="dec-icon"><i  class="far fa-ruler-horizontal"></i></span>',
+                    'attr' => [
+                        'placeholder' => $this->translator->trans('plan.area.placeholder.label')
+                    ],
+                ])
             ->add('imageRoom', FileType::class,
                 [
                     'required'=>false,

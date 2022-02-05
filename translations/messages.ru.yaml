@@ -11,6 +11,10 @@ delete.label: Удалить
 back.label: Назад
 action.label: Действие
 published.label: Опубликовано
+by.label: От
+date.label: Дата
+save.label: Сохранить
+
 #end default
 language.currency.heading: Язык / Валюта
 language.heading: Язык
@@ -97,8 +101,10 @@ info.label: Информация
 location.label: Карта
 media.label: Изображения
 details.label: Подробности
+description.label: Описание
 rooms.label: Комнаты
 plans.label: Планы
+plan.label: План
 plans.house.label: План дома
 widgets.label: Виджеты
 basic.information.label: Основная информация
@@ -145,12 +151,20 @@ plan.title.placeholder.label: План первого этажа
 plan.details.label: Детали плана
 plan.details.placeholder.label: Детали
 plan.area.label: Площадь Необязательная информация
-plan.area.placeholder.label: Пример:' 286 sq ft
+plan.area.placeholder.label: Пример:' 286 m2
 content.widget.label: Виджеты контента
 video.presentation.label: Видеопрезентация
 google.map.label: Google карта
 contact.form.label: Форма обратной связи
-
+view.label: Просмотр
+guest.label: Гость(и)
+cars.label: машины
+features.label: Характеристика
+video.label: Видео
+photos.label: фотографии
+property.listing.label: Список недвижимости
+print.label: Распечатать
+viewing.property.label: Просмотр объявлений
 #messages
 check.email.message.label: Если учетная запись, соответствующая вашему адресу электронной почты, существует, значит, только что было отправлено электронное письмо, содержащее ссылку, которую вы можете использовать для сброса пароля.
 check.email.message.sm.label: Срок действия этой ссылки истекает через
@@ -159,6 +173,10 @@ review.added.label: Отзыв успешно добавлен!
 complete.your.profile.label: Войдите в систему или заполните свой профиль!
 cannot.comments.your.profile.label: Вы не можете оставлять комментарии на свой профиль!
 min.message.reviews.label: Ваш комментарий должен быть не менее
+what.up.label: Что рядом? Школы, спортзал...
+similar.properties.label: Похожиая недвижимость
+featured.properties.label: Избранное
+agent.label: Агент
 #end mes
 #admin fields messages
 view.site.label: Перейти на сайт

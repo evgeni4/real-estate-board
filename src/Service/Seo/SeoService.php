@@ -26,4 +26,15 @@ class SeoService implements SeoServiceInterface
             ->addMeta('property', 'og:description', $ogDescription)
             ->addMeta('property', 'og:site_name', $ogSiteName);
     }
+
+    public function seoProperty($param, string $locale = null)
+    {
+        $settings = $this->settingsService->findOneRecord();
+        $this->seo->setTitle($param->translate($locale)->getTitle())
+            ->addMeta('name', 'keywords', $param->translate($locale)->getKeywords())
+            ->addMeta('name', 'description', substr($param->translate($locale)->getDescription(),0,25))
+            ->addMeta('property', 'og:title', $param->translate($locale)->getTitle())
+            ->addMeta('property', 'og:description', substr($param->translate($locale)->getDescription(),0,25))
+            ->addMeta('property', 'og:site_name', $settings->translate($locale)->getSiteName());
+    }
 }

@@ -1,0 +1,99 @@
+{% if properties %}
+    {% set locale = app.request.locale %}
+    <div class="list-single-main-item-title">
+        <h3>{% trans %}similar.properties.label{% endtrans %}</h3>
+    </div>
+    <div class="listing-carousel carousel ">
+        <!-- slick-slide-item -->
+        {% for property in properties %}
+            <div class="slick-slide-item">
+                <!-- listing-item -->
+                <div class="listing-item">
+                    <article class="geodir-category-listing fl-wrap">
+                        <div class="geodir-category-img fl-wrap">
+                            {% set images = property.propertyImages.getValues() %}
+                            {% set image = images %}
+                            <a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}"
+                               class="geodir-category-img_item">
+                                {% if images|length %}
+                                    {% set image = images[0] %}
+                                    <img src="{{ asset('assets/images/properties/property-'~image.slug~'/'~image.imageMd) }}"
+                                         alt="Property image">
+                                {% else %}
+                                    <img src="{{ asset('assets/images/no_image/noImage.png') }}" alt="Property image">
+                                {% endif %}
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="geodir-category-location">
+                                <a href="#" class="map-item"><i class="fas fa-map-marker-alt"></i>{{ property.address }}
+                                </a>
+                            </div>
+                            <ul class="list-single-opt_header_cat">
+                                <li><a href="#" class="cat-opt blue-bg">{{ property.types }}</a></li>
+                                <li><a href="#" class="cat-opt color-bg">{{ property.category }}</a>
+                                </li>
+                            </ul>
+                            <a href="#" class="geodir_save-btn tolt" data-microtip-position="left"
+                               data-tooltip="{% trans %}save.label{% endtrans %}">
+                                <span><i class="fal fa-heart"></i></span>
+                            </a>
+                            <a href="#" class="compare-btn tolt" data-microtip-position="left"
+                               data-tooltip="{% trans %}compare.label{% endtrans %}">
+                                <span><i class="fal fa-random"></i></span></a>
+                            <div class="geodir-category-listing_media-list">
+                                <span><i class="fas fa-camera"></i> {{ images|length }}</span>
+                            </div>
+                        </div>
+                        <div class="geodir-category-content fl-wrap">
+                            <h3>
+                                <a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}">{{ property.translate(locale).title }}</a>
+                            </h3>
+                            <div class="geodir-category-content_price">
+                                {{ render(controller('App\\Controller\\Main\\ListingController::convert',{
+                                    'price': property.price,
+                                    'code': app.request.defaultCurrencylocale
+                                })) }}
+                            </div>
+                            <p>{{ property.translate(locale).description }}</p>
+                            <div class="geodir-category-content-details">
+                                <ul>
+                                    {% if property.bedrooms %}
+                                        <li><i class="fal fa-bed"></i><span>{{ property.bedrooms }}</span></li>
+                                    {% endif %}
+                                    {% if property.bathrooms %}
+                                        <li><i class="fal fa-bath"></i><span>{{ property.bathrooms }}</span></li>
+                                    {% endif %}
+                                    {% if property.area %}
+                                        <li><i class="fal fa-cube"></i><span>{{ property.area }} m2</span></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <div class="geodir-category-footer fl-wrap">
+                                {% set agent = property.agent %}
+                                {% set avatars =  property.agent.userImages().getValues() %}
+                                <a href="{{ path('main_profile_show',{'uuid': property.agent.uuid}) }}"
+                                   class="gcf-company">
+                                    {% if avatars|length %}
+                                        {% set avatar = avatars[0] %}
+                                        <img src="{{ asset('assets/images/avatar-'~property.agent.id~'/'~avatar.fileNameMiddle) }}"
+                                             alt="Image user">
+                                    {% else %}
+                                        <i class="fas fa-user" style="font-size: 20px;"></i>
+                                    {% endif %}
+                                    <span>{% trans %}agent.label{% endtrans %}: {{ property.agent.firstName }} {{ property.agent.lastName }}</span>
+                                </a>
+                                {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewAgent',{
+                                    'user':agent,
+                                })) }}
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- listing-item end-->
+            </div>
+        {% endfor %}
+        <!-- slick-slide-item end-->
+    </div>
+    <div class="swiper-button-prev lc-wbtn lc-wbtn_prev"><i class="far fa-angle-left"></i></div>
+    <div class="swiper-button-next lc-wbtn lc-wbtn_next"><i class="far fa-angle-right"></i></div>
+{% endif %}

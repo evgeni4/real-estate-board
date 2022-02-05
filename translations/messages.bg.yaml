@@ -11,6 +11,10 @@ delete.label: Изтрий
 back.label: Обратно
 action.label: Действие
 published.label: Публикувано
+by.label: От
+date.label: Дата
+save.label: Запази
+
 #end default
 language.currency.heading: Език / Валута
 language.heading: Език
@@ -93,8 +97,10 @@ info.label: Информация
 location.label: Карта
 media.label: Изображения
 details.label: Подробности
+description.label: Описание
 rooms.label: Стаи
 plans.label: Планове
+plan.label: План
 plans.house.label: План за къща
 widgets.label: Widgets
 basic.information.label: Основна информация
@@ -135,13 +141,20 @@ plan.title.placeholder.label: План на първия етаж
 plan.details.label: Детали за плана
 plan.details.placeholder.label: Детали
 plan.area.label:  Площ информация по избор
-plan.area.placeholder.label: Пример:' 286 sq ft
+plan.area.placeholder.label: Пример:' 286 m2
 content.widget.label: Уиджети за съдържание
 video.presentation.label: Видео презентация
 google.map.label: Google карта
 contact.form.label: Форма за контакти
-
-
+view.label: Преглед
+guest.label: Гост(и)
+what.up.label: Какво има наблизо? Училища, фитнес зали...
+similar.properties.label: Подобни имоти
+featured.properties.label: Представени имоти
+property.listing.label: Списък на имоти
+agent.label: Агент
+print.label: Печат
+viewing.property.label: Разглеждане на имоти
 #messages
 check.email.message.label: Ако съществува акаунт, съответстващ на вашия имейл, току-що е изпратен имейл, който съдържа връзка, която можете да използвате, за да нулирате паролата си.
 check.email.message.sm.label: Тази връзка ще изтече след
@@ -156,10 +169,10 @@ state.label: Област
 select.state.label: Изберете област
 city.label: Населено място
 select.city.label: Изберете нас. място
-
-
-
-
+cars.label: автомобили
+features.label: Характеристика
+video.label: Видео
+photos.label: снимки
 
 
 

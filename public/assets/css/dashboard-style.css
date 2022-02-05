@@ -970,7 +970,8 @@
 }
 .dashboard-listings-item_img  a {
 	position: absolute;
-	width: 60px;
+	min-width: 60px;
+	padding: 0 10px;
 	height: 30px;
 	border-radius: 2px;
 	line-height: 30px;

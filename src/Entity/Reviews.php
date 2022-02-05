@@ -31,6 +31,9 @@ class Reviews
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'authorReview')]
     private $author;
 
+    #[ORM\ManyToOne(targetEntity: Property::class, inversedBy: 'reviews')]
+    private $property;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -92,6 +95,18 @@ class Reviews
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getProperty(): ?Property
+    {
+        return $this->property;
+    }
+
+    public function setProperty(?Property $property): self
+    {
+        $this->property = $property;
 
         return $this;
     }

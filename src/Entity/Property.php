@@ -107,6 +107,12 @@ class Property implements TranslatableInterface
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $googleMapStatus;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $viewed;
+
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Reviews::class)]
+    private $reviews;
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -116,6 +122,7 @@ class Property implements TranslatableInterface
         $this->propertyImages = new ArrayCollection();
         $this->propertyRoomsWidgets = new ArrayCollection();
         $this->propertyPlans = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -551,6 +558,48 @@ class Property implements TranslatableInterface
     public function setGoogleMapStatus(?bool $googleMapStatus): self
     {
         $this->googleMapStatus = $googleMapStatus;
+
+        return $this;
+    }
+
+    public function getViewed(): ?int
+    {
+        return $this->viewed;
+    }
+
+    public function setViewed(?int $viewed): self
+    {
+        $this->viewed = $viewed;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reviews[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Reviews $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Reviews $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getProperty() === $this) {
+                $review->setProperty(null);
+            }
+        }
 
         return $this;
     }

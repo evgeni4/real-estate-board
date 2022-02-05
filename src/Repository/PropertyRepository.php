@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Property;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -54,7 +55,7 @@ class PropertyRepository extends ServiceEntityRepository
             $this->_em->persist($property);
             $this->_em->flush();
             return true;
-        }catch (OptimisticLockException $exception){
+        } catch (OptimisticLockException $exception) {
             return false;
         }
     }
@@ -65,8 +66,32 @@ class PropertyRepository extends ServiceEntityRepository
             $this->_em->persist($property);
             $this->_em->flush();
             return true;
-        }catch (OptimisticLockException $exception){
+        } catch (OptimisticLockException $exception) {
             return false;
         }
+    }
+
+    public function findByAgentListing(User $user, int $start, int $limit)
+    {
+        $bd = $this->createQueryBuilder('p')
+            ->where('p.agent = :user')
+            ->setFirstResult($start)
+            ->setMaxResults($limit)
+            ->setParameters([
+                'user' => $user
+            ]);
+        return $bd->getQuery()->getResult();
+    }
+
+    public function getSimilarProperties(Property $property)
+    {
+        $db = $this->createQueryBuilder('p')
+            ->where('p.id != :id')
+            ->andWhere('p.types = :type')
+            ->andWhere('p.category = :category')
+            ->orderBy('p.createdAt','ASC')
+            ->setMaxResults(9)
+            ->setParameters(['id'=>$property->getId(),'type' => $property->getTypes(), 'category' => $property->getCategory()]);
+        return $db->getQuery()->getResult();
     }
 }

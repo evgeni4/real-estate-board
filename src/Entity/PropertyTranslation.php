@@ -22,7 +22,7 @@ class PropertyTranslation implements TranslationInterface
 
     #[ORM\Column(type: 'string', length: 255)]
     protected ?string $keywords;
-    #[ORM\Column(type: 'text', length: 255)]
+    #[ORM\Column(type: 'text')]
     protected ?string $description;
 
     public function getId(): ?int

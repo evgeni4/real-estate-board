@@ -1,0 +1,67 @@
+{% set properties = user.properties.getValues() %}
+{% if properties %}
+    {% for property in properties %}
+        {% set images = property.propertyImages.getValues() %}
+        <div class="listing-item">
+            <article class="geodir-category-listing fl-wrap">
+                <div class="geodir-category-img fl-wrap">
+                    <a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}"
+                       class="geodir-category-img_item">
+                        {% if images|length %}
+                            {% set image = images[0] %}
+                            <img src="{{ asset('assets/images/properties/property-'~image.slug~'/'~image.imageMd) }}"
+                                 alt="Property image">
+                        {% else %}
+                            <img src="{{ asset('assets/images/no_image/noImage.png') }}" alt="Property image">
+                        {% endif %}
+                        <div class="overlay"></div>
+                    </a>
+                    <div class="geodir-category-location">
+                        <a href="#"
+                           class="single-map-item tolt"
+                           data-newlatitude="{{ property.latitude }}"
+                           data-newlongitude="{{ property.longitude }}"
+                           data-microtip-position="top-left"
+                           data-tooltip="{% trans %}google.map.label{% endtrans %}">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>  {{ property.address }}</span></a>
+                    </div>
+                    <ul class="list-single-opt_header_cat">
+                        <li><a href="#" class="cat-opt blue-bg">{{ property.types }}</a></li>
+                        <li><a href="#" class="cat-opt color-bg">{{ property.category }}</a></li>
+                    </ul>
+                    <a href="#" class="geodir_save-btn tolt"data-microtip-position="left" data-tooltip="{% trans %}save.label{% endtrans %}"><span><i class="fal fa-heart"></i></span></a>
+                    <a href="#" class="compare-btn tolt" data-microtip-position="left" data-tooltip="{% trans %}compare.label{% endtrans %}"><span><i class="fal fa-random"></i></span></a>
+                    <div class="geodir-category-listing_media-list">
+                        <span><i class="fas fa-camera"></i> {{ images|length }}</span>
+                    </div>
+                </div>
+                <div class="geodir-category-content fl-wrap">
+                    <h3 class="title-sin_item"><a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}">{{ property.translate(locale).title }}</a></h3>
+                    <div class="geodir-category-content_price">
+                        {{ render(controller('App\\Controller\\Main\\ListingController::convert',{
+                            'price': property.price,
+                            'code': app.request.defaultCurrencylocale
+                        })) }}
+                    </div>
+                    <p>{{ property.translate(locale).description }}</p>
+                    <div class="geodir-category-content-details">
+                        <ul>
+                            <li><i class="fal fa-bed"></i><span>{{ property.bedrooms }}</span></li>
+                            <li><i class="fal fa-bath"></i><span>{{ property.bathrooms }}</span></li>
+                            <li><i class="fal fa-cube"></i><span>{{ property.area}} m2</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="geodir-category-footer fl-wrap">
+                        <a href="agent-single.html" class="gcf-company"><img
+                                    src="images/avatar/2.jpg" alt=""><span>By Liza Rose</span></a>
+                        <div class="listing-rating card-popup-rainingvis tolt"
+                             data-microtip-position="top" data-tooltip="Good"
+                             data-starrating2="4"></div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    {% endfor %}
+{% endif %}

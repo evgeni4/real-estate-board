@@ -33,6 +33,9 @@ class PropertyRoomsWidget  implements TranslatableInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $slug;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $area;
+
     public function __construct()
     {
         $this->propertyRoomsWidgetAmenities = new ArrayCollection();
@@ -120,6 +123,18 @@ class PropertyRoomsWidget  implements TranslatableInterface
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getArea(): ?int
+    {
+        return $this->area;
+    }
+
+    public function setArea(?int $area): self
+    {
+        $this->area = $area;
 
         return $this;
     }

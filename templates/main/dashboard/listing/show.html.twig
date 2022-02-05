@@ -1,87 +1,38 @@
 {% extends 'main/base_dashboard.html.twig' %}
  {% block body %}
-  <div class="dasboard-wrapper fl-wrap no-pag">
-   <div class="dasboard-listing-box fl-wrap">
-    <div class="dasboard-opt sl-opt fl-wrap">
-     <div class="dashboard-search-listing">
-      <input type="text" onclick="this.select()" placeholder="Search" value="">
-      <button type="submit"><i class="far fa-search"></i></button>
-     </div>
-     <a href="dashboard-add-listing.html" class="gradient-bg dashboard-addnew_btn">Add New <i class="fal fa-plus"></i></a>
-     <!-- price-opt-->
-     <div class="price-opt">
-      <span class="price-opt-title">Sort   by:</span>
-      <div class="listsearch-input-item">
-       <select data-placeholder="Lastes" class="chosen-select no-search-select" >
-        <option>Lastes</option>
-        <option>Oldes</option>
-        <option>Average rating</option>
-        <option>Name: A-Z</option>
-        <option>Name: Z-A</option>
-       </select>
-      </div>
-     </div>
-     <!-- price-opt end-->
-    </div>
-    <!-- dashboard-listings-wrap-->
-    <div class="dashboard-listings-wrap fl-wrap">
-     <div class="row">
-      {% set locale = app.request.locale  %}
-      {% for property  in properties %}
-
-{#       {{ dump(property) }}#}
-       <!-- dashboard-listings-item-->
-       <div class="col-md-6">
-        {{ property.id }}
-        <div class="dashboard-listings-item fl-wrap">
-         <div class="dashboard-listings-item_img">
-          <div class="bg-wrap">
-           {% set images = property.propertyImages.getValues() %}
-           {% if images|length %}
-            {% set image = images[0] %}
-            {{ image.imageSm }}
-            {{ image.slug }}
-            <div class="bg  "  data-bg="{{ asset('assets/images/properties/property-'~image.slug~'/'~image.imageMd ) }}"></div>
-            {% else %}
-             <div class="bg  "  data-bg="{{ asset('assets/images/no_image/noImage.jpeg' ) }}"></div>
-           {% endif %}
-          </div>
-          <div class="overlay"></div>
-          <a href="listing-single.html" class="color-bg">View</a>
+     <div class="dasboard-wrapper fl-wrap no-pag">
+         <div class="dasboard-listing-box fl-wrap">
+             <div class="dasboard-opt sl-opt fl-wrap">
+                 <div class="dashboard-search-listing">
+                     <input type="text" onclick="this.select()" placeholder="Search" value="">
+                     <button type="submit"><i class="far fa-search"></i></button>
+                 </div>
+                 <a href="dashboard-add-listing.html" class="gradient-bg dashboard-addnew_btn">Add New <i
+                             class="fal fa-plus"></i></a>
+                 <!-- price-opt-->
+                 <div class="price-opt">
+                     <span class="price-opt-title">Sort   by:</span>
+                     <div class="listsearch-input-item">
+                         <select data-placeholder="Lastes" class="chosen-select no-search-select">
+                             <option>Lastes</option>
+                             <option>Oldes</option>
+                             <option>Average rating</option>
+                             <option>Name: A-Z</option>
+                             <option>Name: Z-A</option>
+                         </select>
+                     </div>
+                 </div>
+                 <!-- price-opt end-->
+             </div>
+             <!-- dashboard-listings-wrap-->
+             <div class="dashboard-listings-wrap fl-wrap">
+                 <div id=" " class="row">
+                           {{ render(controller('App\\Controller\\Main\\Dashboard\\ListingController::template')) }}
+                 </div>
+             </div>
+             <!-- dashboard-listings-wrap end-->
          </div>
-         <div class="dashboard-listings-item_content">
-          <h4><a href="listing-single.html">{{ property.translate(locale).title}} {{ property.types }}</a></h4>
-          <div class="geodir-category-location">
-           <a href="dashboard-listing-table.html#"><i class="fas fa-map-marker-alt"></i> <span>  70 Bright St New York, USA</span></a>
-          </div>
-          <div class="clearfix"></div>
-          <div class="listing-rating card-popup-rainingvis tolt" data-microtip-position="right" data-tooltip="Good" data-starrating2="4"></div>
-          <div class="dashboard-listings-item_opt">
-           <span class="viewed-counter"><i class="fas fa-eye"></i> Viewed -  645 </span>
-           <ul>
-            <li><a href="dashboard-listing-table.html#" class="tolt" data-microtip-position="top-left"  data-tooltip="Edit"><i class="far fa-edit"></i></a></li>
-            <li><a href="dashboard-listing-table.html#" class="tolt" data-microtip-position="top-left"  data-tooltip="Disable"><i class="far fa-signal-alt-slash"></i></a></li>
-            <li><a href="dashboard-listing-table.html#" class="tolt" data-microtip-position="top-left"  data-tooltip="Delete"><i class="far fa-trash-alt"></i></a></li>
-           </ul>
-          </div>
-         </div>
-        </div>
-       </div>
-       <!-- dashboard-listings-item end-->
-      {% endfor %}
+         <!-- pagination-->
+         <!-- pagination end-->
      </div>
-    </div>
-    <!-- dashboard-listings-wrap end-->
-   </div>
-   <!-- pagination-->
-   <div class="pagination float-pagination">
-    <a href="dashboard-listing-table.html#" class="prevposts-link"><i class="fa fa-caret-left"></i></a>
-    <a href="dashboard-listing-table.html#" >1</a>
-    <a href="dashboard-listing-table.html#" class="current-page">2</a>
-    <a href="dashboard-listing-table.html#">3</a>
-    <a href="dashboard-listing-table.html#">4</a>
-    <a href="dashboard-listing-table.html#" class="nextposts-link"><i class="fa fa-caret-right"></i></a>
-   </div>
-   <!-- pagination end-->
-  </div>
  {% endblock %}

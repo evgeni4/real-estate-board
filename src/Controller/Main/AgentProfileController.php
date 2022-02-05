@@ -55,8 +55,8 @@ class AgentProfileController extends AbstractController
         $form = $this->createForm(ReviewsUserFormType::class, $review);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-           $this->reviewsService->add($review,$user);
-           return $this->redirectToRoute('main_profile_show', ['uuid' => $user->getUuid()]);
+            $this->reviewsService->add($review, $user);
+            return $this->redirectToRoute('main_profile_show', ['uuid' => $user->getUuid()]);
         }
         $comments = $this->paginator->paginate($query, $request->query->getInt('page', 1), 2);
         return $this->renderForm('main/dashboard/profile/profile_show.html.twig', [
@@ -77,13 +77,19 @@ class AgentProfileController extends AbstractController
     {
         $user = $this->userService->findById($uuid);
         $reviewsFromAuthor = $this->reviewsService->ratingFromAuthor($reviews);
-
         return $this->render('main/_embed/_reviews/_review.html.twig',
             [
                 'user' => $user,
                 'reviewsFromAuthor' => $reviewsFromAuthor,
             ]);
     }
+
+    public function reviewAgent($user): Response
+    {
+        $starsRating  = $this->reviewsService->getReviewsFromUser($user);
+        return $this->render('main/_embed/_reviews/_review_agent.html.twig',['starsRating'=>$starsRating]);
+    }
+
 
 
 }

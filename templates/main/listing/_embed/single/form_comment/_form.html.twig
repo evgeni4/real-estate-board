@@ -1,0 +1,31 @@
+<div class="list-single-main-item-title fl-wrap">
+    <h3>{% trans %}add.review.label{% endtrans %}</h3>
+</div>
+<!-- Add Review Box -->
+<div id="add-review" class="add-review-box">
+    {{ form_start(form , {'attr':{'class':'add-comment custom-form'}}) }}
+    <div class="leave-rating-wrap">
+        <span class="leave-rating-title">{% trans %}your.rating.for.this.agent.label{% endtrans %} : </span>
+        <div class="leave-rating">
+            {{ form_row(form.rating) }}
+        </div>
+        <div class="count-radio-wrapper">
+            <span id="count-checked-radio">{% trans %}your.rating.label{% endtrans %}</span>
+        </div>
+    </div>
+    <!-- Review Comment -->
+        <fieldset>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.name,{'attr':{'value': app.user?app.user.firstName~' '~app.user.lastName:''}}) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.email,{'attr':{'value': app.user?app.user.email:''}}) }}
+                </div>
+            </div>
+            {{ form_row(form.text) }}
+        </fieldset>
+    <button class="btn big-btn color-bg float-btn">{% trans %}send.label{% endtrans %} <i  class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+    {{ form_end(form) }}
+</div>
+<!-- Add Review Box / End -->
