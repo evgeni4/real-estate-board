@@ -16,22 +16,29 @@ class AmenitiesFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('translations',TranslationsType::class,
-            [
-                'required'=>false,
-                'label'=> false,
-                'fields'=>[
-                    'title'=>[
-                        'field_type'=>TextType::class,
-                        'constraints'=>[
-                            new NotBlank()
+            ->add('translations', TranslationsType::class,
+                [
+                    'required' => false,
+                    'label' => false,
+                    'fields' => [
+                        'title' => [
+                            'field_type' => TextType::class,
+                            'constraints' => [
+                                new NotBlank()
+                            ]
                         ]
                     ]
-                ]
-            ])
-            ->add('published',CheckboxType::class)
-        ;
+                ])
+            ->add('icon', TextType::class,
+                [
+                    'required' => false,
+                    'constraints' => [
+                        new NotBlank()
+                    ]
+                ])
+            ->add('published', CheckboxType::class);
     }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

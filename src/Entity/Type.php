@@ -28,15 +28,20 @@ class Type implements TranslatableInterface
     #[ORM\OneToMany(mappedBy: 'types', targetEntity: Property::class, cascade: ['persist','remove'])]
     private $properties;
 
+    #[ORM\OneToMany(mappedBy: 'type', targetEntity: PriceType::class, cascade: ['persist','remove'])]
+    private $priceTypes;
+
     public function __construct()
     {
         $this->uuid = Uuid::v4();
         $this->properties = new ArrayCollection();
+        $this->priceTypes = new ArrayCollection();
     }
-public function __toString(): string
-{
-   return $this->translate($this->currentLocale)->getTitle();
-}
+
+    public function __toString(): string
+    {
+        return $this->translate($this->currentLocale)->getTitle();
+    }
 
     public function getId(): ?int
     {
@@ -91,6 +96,36 @@ public function __toString(): string
             // set the owning side to null (unless already changed)
             if ($property->getTypes() === $this) {
                 $property->setTypes(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PriceType[]
+     */
+    public function getPriceTypes(): Collection
+    {
+        return $this->priceTypes;
+    }
+
+    public function addPriceType(PriceType $priceType): self
+    {
+        if (!$this->priceTypes->contains($priceType)) {
+            $this->priceTypes[] = $priceType;
+            $priceType->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removePriceType(PriceType $priceType): self
+    {
+        if ($this->priceTypes->removeElement($priceType)) {
+            // set the owning side to null (unless already changed)
+            if ($priceType->getType() === $this) {
+                $priceType->setType(null);
             }
         }
 

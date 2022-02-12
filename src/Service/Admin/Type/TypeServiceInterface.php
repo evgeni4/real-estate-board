@@ -2,6 +2,7 @@
 
 namespace App\Service\Admin\Type;
 
+use App\Entity\PriceType;
 use App\Entity\Type;
 
 interface TypeServiceInterface
@@ -13,4 +14,12 @@ interface TypeServiceInterface
     public function delete(Type $type): ?bool;
 
     public function all(): ?array;
+
+    public function addPeriod(PriceType $priceType): ?bool;
+
+    public function editPeriod(PriceType $priceType): ?bool;
+
+    public function deletePeriod(PriceType $priceType): ?bool;
+
+    public function allPeriod(): ?array;
 }

@@ -3,10 +3,13 @@
 namespace App\Form\Main\Property\BuildFormEventSelect;
 
 use App\Entity\City;
+use App\Entity\PriceType;
 use App\Entity\State;
 use App\Repository\CityRepository;
+use App\Repository\PriceTypeRepository;
 use App\Repository\StateRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
@@ -35,12 +38,12 @@ class BuildFormEventSelect
                         ->where('s.country = :id')
                         ->setParameter('id', $country_id)
                         ->orderBy('s.name', 'ASC');
-                    // echo "<pre>"; print_r(($sql->getQuery()->getArrayResult())); exit;
+                   // echo "<pre>"; print_r(($sql->getQuery()->getArrayResult())); exit;
                 },
                 'choice_label' => 'name',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'State is required',
+                        'message' => $this->translator->trans('select.state.label'),
                     ]),
                 ],
             ]);
@@ -79,12 +82,11 @@ class BuildFormEventSelect
                         ->where('c.state = :id')
                         ->setParameter('id', $state_id)
                         ->orderBy('c.name', 'ASC');
-                    // echo "<pre>"; print_r(($sql->getQuery()->getArrayResult())); exit;
                 },
                 'choice_label' => 'name',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'City is required',
+                        'message' => $this->translator->trans('select.city.label'),
                     ]),
                 ],
             ]);
@@ -107,5 +109,81 @@ class BuildFormEventSelect
             }
         );
         //**************** End City Form
+
+
+        $addPeriodForm = function (FormInterface $form, $type_id) {
+            $form->add('period', EntityType::class, [
+                'label' => $this->translator->trans('period.label'),
+                'placeholder' => $this->translator->trans('select.period.label'),
+                'required' => false,
+                'attr' => [
+                    'class' => 'c-form'
+                ],
+                'class' => PriceType::class,
+                'query_builder' => function (PriceTypeRepository $repository) use ($type_id) {
+                    return $repository->createQueryBuilder('pt')
+                        ->where('pt.type = :id')
+                        ->setParameter('id', $type_id) ;
+                },
+            ]);
+        };
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($addPeriodForm) {
+                $type = $event->getData()->getTypes();
+                $type_id = $type ? $type->getId() : null;
+                $addPeriodForm($event->getForm(), $type_id);
+            }
+        );
+
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) use ($addPeriodForm) {
+                $data = $event->getData();
+                $type_id = array_key_exists('types', $data) ? $data['types'] : null;
+                $addPeriodForm($event->getForm(), $type_id);
+            }
+        );
+
+//         $builder->get('types')->addEventListener(
+//             FormEvents::POST_SUBMIT,
+//             function (FormEvent $event) {
+//                 $form = $event->getForm();
+//                 $form->getParent()->add('period',EntityType::class,[
+//                     'class'=>PriceType::class,
+//                     'placeholder'=>'select',
+//                     'attr' => [
+//                         'class' => 'c-form'
+//                     ],
+//                     'choices'=>$form->getData()->getPriceTypes()
+//                 ]);
+//           });
+//         $builder->addEventListener(
+//             FormEvents::PRE_SET_DATA,
+//             function (FormEvent $event){
+//                 $form =$event->getForm();
+//                 $data = $event->getData();
+//                 $period = $data->getPeriod();
+//                 if ($period){
+//                     $form->add('period',EntityType::class,[
+//                         'class'=>PriceType::class,
+//                         'placeholder'=>'select',
+//                         'attr' => [
+//                             'class' => 'c-form'
+//                         ],
+//                         'choices'=>$period->getType()->getPriceTypes()
+//                     ]);
+//                 }else{
+//                     $form->add('period',EntityType::class,[
+//                         'class'=>PriceType::class,
+//                         'placeholder'=>'select',
+//                         'attr' => [
+//                             'class' => 'c-form'
+//                         ],
+//                         'choices'=>[]
+//                     ]);
+//                 }
+//             }
+//         );
     }
 }

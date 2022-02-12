@@ -35,7 +35,7 @@ class PropertyTranslation implements TranslationInterface
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -47,7 +47,7 @@ class PropertyTranslation implements TranslationInterface
         return $this->keywords;
     }
 
-    public function setKeywords(string $keywords): self
+    public function setKeywords(?string $keywords): self
     {
         $this->keywords = $keywords;
 

@@ -12,7 +12,6 @@
                     <article class="geodir-category-listing fl-wrap">
                         <div class="geodir-category-img fl-wrap">
                             {% set images = property.propertyImages.getValues() %}
-                            {% set image = images %}
                             <a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}"
                                class="geodir-category-img_item">
                                 {% if images|length %}
@@ -54,7 +53,8 @@
                                     'code': app.request.defaultCurrencylocale
                                 })) }}
                             </div>
-                            <p>{{ property.translate(locale).description }}</p>
+                            {% set desc = property.translate(locale).description %}
+                            <div class="desc">{{ desc|length > 50?desc|slice(0,50)~'...':desc }}</div>
                             <div class="geodir-category-content-details">
                                 <ul>
                                     {% if property.bedrooms %}

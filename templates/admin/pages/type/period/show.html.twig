@@ -1,0 +1,43 @@
+{% extends 'admin/layout/layout_main.html.twig' %}
+{% block title_detailed %}{% endblock %}
+{% block body %}
+    <div class="col-12">
+        {{ include('admin/pages/type/period/_form_delete.html.twig') }}
+        <div class="card">
+            <div class="card-body">
+                <div class="text-end mb-3" ><a href="{{ path('admin_type_period_new') }}" class="btn btn-primary ">{% trans %}add.label{% endtrans %}</a></div>
+                <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                    <tr>
+                        <th>#ID</th>
+                        <th>{% trans %}type.label{% endtrans %}</th>
+                        <th>{% trans %}category.label{% endtrans %}</th>
+                        <th>{% trans %}action.label{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% set locale = app.request.locale %}
+                    {% for typesPeriod in typesPeriods %}
+                        <tr>
+                            <td>{{ typesPeriod.id }}</td>
+                            <td>{{typesPeriod.type.translate(locale).title}}</td>
+                            <td>{{typesPeriod.translate(locale).title}}</td>
+                            <td>
+                                <a href="{{ path('admin_type_period_edit',{'id':typesPeriod.id}) }}">
+                                    <button class="btn btn-primary"><i class="fa fa-pen"></i></button>
+                                </a>
+                                <a href="#" onclick="deleteProduct({{ typesPeriod.id }})" class="action-remove" data-target="#deleteElement"
+                                   data-bs-toggle="modal" data-bs-target="#deleteElement">
+                                    <button type="button" class="btn btn-danger waves-effect waves-light"><i
+                                                class="fa fa-trash"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

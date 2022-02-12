@@ -57,7 +57,7 @@ class PropertyImageManager
         $this->systemWorker->createFolderIfNotExist($propertyWidgetDir);
         $fileNameId = uniqid();
         $imageSmallParam = [
-            'width' => 260,
+            'width' => 600,
             'height' => null,
             'newFolder' => $propertyWidgetDir,
             'newFileName' => sprintf('%s_%s.jpeg', $fileNameId, 'small')

@@ -2,13 +2,23 @@
 
 namespace App\Controller\Main\Dashboard;
 
+use App\Entity\Amenities;
 use App\Entity\Property;
+use App\Entity\PropertyAmenities;
+use App\Entity\PropertyImage;
+use App\Entity\PropertyPlan;
+use App\Entity\PropertyRoomsWidget;
 use App\Form\Main\Handler\PropertyFormHandler;
 use App\Form\Main\Property\PropertyFormType;
 use App\Repository\PropertyAmenitiesRepository;
+use App\Service\Manager\PropertyManager\PropertyManager;
+use App\Service\Manager\PropertyManager\PropertyManagerHelper;
 use App\Service\Property\PropertyServiceInterface;
 use App\Service\Seo\SeoServiceInterface;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,17 +41,16 @@ class ListingController extends AbstractController
     #[Route('/show', name: 'main_show_listing')]
     public function show(): Response
     {
-        $this->seoService->seo('','','','','','');
+        $this->seoService->seo('', '', '', '', '', '');
         $this->breadcrumbs->addItem($this->translator->trans('all.properties.label'));
-        $properties = $this->propertyService->findAllByAgentListing(0, 2);
+        $properties = $this->propertyService->findAllByAgentListing();
         return $this->render('main/dashboard/listing/show.html.twig');
     }
 
 
-
     public function template(): Response
     {
-        $properties = $this->propertyService->findAllByAgentListing(0, 2);
+        $properties = $this->propertyService->findAllByAgentListing();
         return $this->render('main/dashboard/listing/show/_show.html.twig',
             [
                 'properties' => $properties
@@ -58,7 +67,7 @@ class ListingController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $property = $this->propertyFormHandler->processAddPropertyForm($property, $form, $request);
-            $this->addFlash('success', 'ok added');
+            $this->addFlash('success', $this->translator->trans('add.listing.message.label'));
             return $this->redirectToRoute('main_add_listing');
         }
         return $this->render('main/dashboard/listing/new.html.twig',
@@ -67,20 +76,72 @@ class ListingController extends AbstractController
             ]);
     }
 
-    #[Route('/edit/{id}', name: 'main_edit_listing')]
-    public function edit(Request $request, Property $property, PropertyAmenitiesRepository $propertyAmenitiesRepository): Response
+    #[Route('/edit/{uuid}', name: 'main_edit_listing')]
+    public function edit(Request $request, Property $property): Response
     {
-        $amenity = $property->getPropertyAmenities()->getValues()[0]->getAmenity();
-        $test = $propertyAmenitiesRepository->findOneBy(['property' => $property]);
         $form = $this->createForm(PropertyFormType::class, $property);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($property);
+            $property = $this->propertyFormHandler->processUpdatePropertyForm($property, $form, $request);
+            $this->addFlash('success', $this->translator->trans('update.listing.message.label'));
+            return $this->redirectToRoute('main_edit_listing', ['uuid' => $property->getUuid()]);
         }
         return $this->render('main/dashboard/listing/edit.html.twig',
             [
                 'form' => $form->createView(),
-                'amenity' => $amenity
+                'property' => $property,
             ]);
     }
+
+    #[Route('/disable/{uuid}', name: 'main_disable_listing')]
+    public function disable( Property $property,Request $request): Response
+    {
+        if ($property) {
+            $property = $property->getPublished() ? $property->setPublished(false) : $property->setPublished(true);
+            $this->propertyService->edit($property);
+            $this->addFlash('success', $this->translator->trans('property.disable.label'));
+            return $this->redirectToRoute('main_show_listing');
+        }
+        return $this->render('main/dashboard/listing/show.html.twig');
+    }
+
+    #[Route('/image-delete/{id}', name: 'main_image_listing_delete')]
+    public function deleteImage(PropertyImage $propertyImage, PropertyManagerHelper $propertyManagerHelper): Response
+    {
+        $property = $propertyImage->getProperty();
+        $propertyImageDir = $propertyManagerHelper->getPropertyImageDir($propertyImage->getSlug());
+        $propertyManagerHelper->removeImageFromProperty($propertyImage, $propertyImageDir);
+        $this->addFlash('success', $this->translator->trans('image.listing.delete.label'));
+        return $this->redirectToRoute('main_edit_listing', ['uuid' => $property->getUuid()]);
+    }
+
+    #[Route('/amenity/{ids}/{id}', name: 'main_amenity_show_hide')]
+    public function amenity($ids,Property $property ,Request $request, PropertyManagerHelper $propertyManagerHelper, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($request->isXmlHttpRequest()){
+            $propertyManagerHelper->updateCheckedPropertyAmenity($ids,$property);
+            $entityManager->flush();
+        }
+        return new JsonResponse(['message'=>'ok',200]);
+    }
+
+    #[Route('/delete-widget/{id}', name: 'main_delete_widget')]
+     public function deleteWidget(PropertyRoomsWidget $propertyRoomsWidget,PropertyManagerHelper $propertyManagerHelper): Response
+     {
+         $property = $propertyRoomsWidget->getProperty();
+         $propertyWidgetImageDir = $propertyManagerHelper->getPropertyWidgetImageDir($propertyRoomsWidget->getSlug());
+         $propertyManagerHelper->removeImageFromPropertyWidget($propertyRoomsWidget,$propertyWidgetImageDir);
+         $this->addFlash('success', $this->translator->trans('image.listing.delete.label'));
+         return $this->redirectToRoute('main_edit_listing', ['uuid' => $property->getUuid()]);
+     }
+    #[Route('/delete-plan/{id}', name: 'main_delete_plan')]
+          public function plan(PropertyPlan $propertyPlan,PropertyManagerHelper $propertyManagerHelper): Response
+          {
+              $property = $propertyPlan->getPropertyPlan();
+              $propertyPlanImageDir = $propertyManagerHelper->getPropertyPlanImageDir($propertyPlan->getSlug());
+              $propertyManagerHelper->removePropertyPlan($propertyPlan, $property,$propertyPlanImageDir);
+              $this->addFlash('success', $this->translator->trans('image.listing.delete.label'));
+              return $this->redirectToRoute('main_edit_listing', ['uuid' => $property->getUuid()]);
+          }
 }

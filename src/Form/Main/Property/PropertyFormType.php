@@ -6,10 +6,12 @@ use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use App\Entity\Amenities;
 use App\Entity\Category;
 use App\Entity\Country;
+use App\Entity\PriceType;
 use App\Entity\Property;
 use App\Entity\PropertyRoomsWidget;
 use App\Entity\Type;
 use App\Form\Main\Property\BuildFormEventSelect\BuildFormEventSelect;
+use App\Repository\AmenitiesRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -20,6 +22,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -32,6 +36,7 @@ class PropertyFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $amenities = $options['data']->getPropertyAmenities()->getValues();
         $builder
             ->add('translations', TranslationsType::class,
                 [
@@ -86,6 +91,11 @@ class PropertyFormType extends AbstractType
                     'attr' => [
                         'placeholder' => $this->translator->trans('price.label')
                     ],
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => $this->translator->trans('price.label'),
+                        ]),
+                    ],
                 ]
             )
             ->add('country', EntityType::class, [
@@ -98,15 +108,9 @@ class PropertyFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Country is required',
+                        'message' => $this->translator->trans('select.country.label'),
                     ]),
                 ],
-            ])
-            ->add('state', ChoiceType::class, [
-                'choices' => [],
-            ])
-            ->add('city', ChoiceType::class, [
-                'choices' => [],
             ])
             ->add('types', EntityType::class,
                 [
@@ -117,6 +121,11 @@ class PropertyFormType extends AbstractType
                         'class' => 'chosen-select no-search-select'
                     ],
                     'class' => Type::class,
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => '',
+                        ]),
+                    ],
                 ])
             ->add('category', EntityType::class,
                 [
@@ -126,6 +135,11 @@ class PropertyFormType extends AbstractType
                     'placeholder' => $this->translator->trans('select.label'),
                     'attr' => [
                         'class' => 'chosen-select no-search-select'
+                    ],
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => '',
+                        ]),
                     ],
                 ])
             ->add('area', TextType::class,
@@ -182,8 +196,32 @@ class PropertyFormType extends AbstractType
                         'placeholder' => $this->translator->trans('number.cars.label')
                     ],
                 ])
+            ->add('floors', IntegerType::class,
+                [
+                    'required' => false,
+                    'label_html' => true,
+                    'label' => $this->translator->trans('floors.label') . '<span class="dec-icon"><i class="far fa-grin-squint-tears"></i></span>',
+                    'attr' => [
+                        'placeholder' => $this->translator->trans('floors.label')
+                    ],
+                ])
             ->add('amenity', EntityType::class, [
                 'class' => Amenities::class,
+                'choice_attr' => function ($value, $key, $index) use ($amenities) {
+                    $selected = false;
+                    if ($amenities) {
+                        foreach ($amenities as $key => $amenity) {
+                            $item = $amenity->getProperty()->getPropertyAmenities()->getValues()[$key]->getChecked();
+                            if ($amenity->getAmenity()->getId() == $value->getId() && $item == true) {
+                                $selected = true;
+                            }
+//                            if ($amenity->getAmenity()->getId()==$value->getId()){
+//                                $selected = true;
+//                            }
+                        }
+                    }
+                    return ['checked' => $selected];
+                },
                 'label' => false,
                 'required' => false,
                 'mapped' => false,
@@ -229,25 +267,24 @@ class PropertyFormType extends AbstractType
                     'multiple' => true
                 ]
             )
-            ->add('roomWidget', CollectionType::class,
+            ->add('propertyRoomsWidgets', CollectionType::class,
                 [
                     'entry_type' => PropertyRoomsWidgetFormType::class,
                     'required' => false,
-                    'label'=>false,
-                    'mapped' => false,
+                    'entry_options' => [
+                        'label' => '',
+
+                    ],
                     'prototype' => true,
                     'allow_add' => true,
-                    'allow_delete' => true,
-                    'delete_empty' => true,
                     'by_reference' => false
 
                 ])
-            ->add('propertyPlan', CollectionType::class,
+            ->add('propertyPlans', CollectionType::class,
                 [
                     'entry_type' => PropertyPlanFormType::class,
                     'required' => false,
-                    'mapped' => false,
-                    'label'=>false,
+                    'label' => false,
                     'prototype' => true,
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -259,7 +296,7 @@ class PropertyFormType extends AbstractType
                 [
                     'required' => false,
                     'attr' => [
-                        'placeholder' => 'Youtube '.$this->translator->trans('or.label').' Vimeo',
+                        'placeholder' => 'Youtube ' . $this->translator->trans('or.label') . ' Vimeo',
                     ],
                     'label_html' => true,
                     'label' => 'Video Youtube: <span class="dec-icon"><i class="fab fa-youtube"></i></span>',
@@ -317,8 +354,8 @@ class PropertyFormType extends AbstractType
                 'label_attr' => ['class' => 'onoffswitch-label'],
                 'label_html' => true,
                 'label' => '<span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span>',
-            ])
-        ;
+            ]);
+
         $this->buildFormEventSelect->builderSelect($builder);
     }
 

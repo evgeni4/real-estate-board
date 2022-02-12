@@ -19,7 +19,7 @@ class PropertyAmenitiesFormType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'expanded' => true,
-
+                'mapped'=>false
             ])
         ;
     }

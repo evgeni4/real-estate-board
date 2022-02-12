@@ -8,6 +8,7 @@ characters.label: символи
 continue.label: Продължи
 cancel.label: Отмяна
 delete.label: Изтрий
+disable.label: Деактивирайте
 back.label: Обратно
 action.label: Действие
 published.label: Публикувано
@@ -81,6 +82,9 @@ wishlist.label: Списък с желания
 compare.label: Сравнете
 clear.all.label: Изчисти всичко
 add.listing.label: Добавяне на обява
+add.listing.message.label: Обявата е добавена успешно!
+update.listing.message.label: Обявата е актуализирана успешно!
+image.listing.delete.label: Изображението е изтрито успешно!
 settings.label: Настройки
 welcome.label: Добре дошли,
 edit.profile.label: Редактирай профил
@@ -127,6 +131,7 @@ accommodation.label: Настаняване
 size.accommodation.label: Размер за настаняване 5-12 ..
 yard.size.label: Размер на двора
 garage.label: Гараж
+floors.label: Етажи
 number.cars.label: Брой автомобили
 description.text.label: Описание
 room.title.label: Заглавие на стаята
@@ -173,9 +178,9 @@ cars.label: автомобили
 features.label: Характеристика
 video.label: Видео
 photos.label: снимки
-
-
-
+your.location.label: Твоето местоположение
+enable.scrollinglabel: Активиране на превъртане
+property.disable.label: Обявата е актуализирана успешно!
 
 
 
@@ -187,6 +192,9 @@ catalog.label: Каталог
 properties.label: Имоти
 categories.label: Категории
 type.label: Тип сделка
+type.all.label: Всички тип сделка
+period.label: Период
+select.period.label: Изберете период
 categories.parent.label: Родителска категория
 amenities.label: Удобства
 add.label: Добавете

@@ -20,6 +20,9 @@ class PropertyRoomsWidgetAmenities
     #[ORM\ManyToOne(targetEntity: Amenities::class,cascade: ['persist','remove'], inversedBy: 'propertyRoomsWidgetAmenities')]
     private $amenity;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $checked = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class PropertyRoomsWidgetAmenities
     public function setAmenity(?Amenities $amenity): self
     {
         $this->amenity = $amenity;
+
+        return $this;
+    }
+
+    public function getChecked(): ?bool
+    {
+        return $this->checked;
+    }
+
+    public function setChecked(?bool $checked): self
+    {
+        $this->checked = $checked;
 
         return $this;
     }

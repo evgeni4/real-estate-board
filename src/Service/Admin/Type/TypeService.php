@@ -2,12 +2,14 @@
 
 namespace App\Service\Admin\Type;
 
+use App\Entity\PriceType;
 use App\Entity\Type;
+use App\Repository\PriceTypeRepository;
 use App\Repository\TypeRepository;
 
 class TypeService implements TypeServiceInterface
 {
-    public function __construct(private TypeRepository $typeRepository)
+    public function __construct(private TypeRepository $typeRepository, private  PriceTypeRepository $priceTypeRepository)
     {
     }
 
@@ -29,5 +31,25 @@ class TypeService implements TypeServiceInterface
     public function all(): ?array
     {
         return $this->typeRepository->findAll();
+    }
+
+    public function addPeriod(PriceType $priceType): ?bool
+    {
+        return $this->priceTypeRepository->insert($priceType);
+    }
+
+    public function editPeriod(PriceType $priceType): ?bool
+    {
+        return $this->priceTypeRepository->update($priceType);
+    }
+
+    public function deletePeriod(PriceType $priceType): ?bool
+    {
+        return $this->priceTypeRepository->delete($priceType);
+    }
+
+    public function allPeriod(): ?array
+    {
+        return $this->priceTypeRepository->findAll();
     }
 }

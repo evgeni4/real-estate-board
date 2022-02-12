@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Property;
 use App\Entity\Reviews;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -77,5 +78,20 @@ class ReviewsRepository extends ServiceEntityRepository
         return $qd->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function reviewsFromProperty(Property $property)
 
+    {
+        $qd = $this->createQueryBuilder('r')
+            ->addSelect(' 
+            COUNT(r.rating) as count,
+            ROUND(AVG( r.rating),2)  as rating
+            ')
+            ->where('r.property = :property')
+            ->groupBy('r.property')
+            ->setParameter('property', $property);
+        return $qd->getQuery()->getOneOrNullResult();
+    }
 }

@@ -15,11 +15,19 @@ class PropertyAmenities
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-    #[ORM\ManyToOne(targetEntity: Property::class,cascade: ['persist','remove'], inversedBy: 'propertyAmenities')]
+    #[ORM\ManyToOne(targetEntity: Property::class, cascade: ['persist', 'remove'], inversedBy: 'propertyAmenities')]
     private $property;
 
-    #[ORM\ManyToOne(targetEntity: Amenities::class, cascade: ['persist','remove'], inversedBy: 'propertyAmenities')]
+    #[ORM\ManyToOne(targetEntity: Amenities::class, cascade: ['persist', 'remove'], inversedBy: 'propertyAmenities')]
     private ?Amenities $amenity;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $checked;
+
+    public function __construct()
+    {
+        $this->checked= true;
+    }
 
 //amenity
     public function getId(): ?int
@@ -47,6 +55,18 @@ class PropertyAmenities
     public function setAmenity(?Amenities $amenity): self
     {
         $this->amenity = $amenity;
+
+        return $this;
+    }
+
+    public function getChecked(): ?bool
+    {
+        return $this->checked;
+    }
+
+    public function setChecked(bool $checked): self
+    {
+        $this->checked = $checked;
 
         return $this;
     }

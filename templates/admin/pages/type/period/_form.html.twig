@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+<div class="mb-3">
+    {{ form_row(form.translations) }}
+</div>
+<div class="mb-3">
+        {{ form_row(form.type) }}
+</div>
+<div>
+    <button type="submit" class="btn btn-primary w-md">{% trans %}send.label{% endtrans %}</button>
+</div>
+{{ form_end(form) }}

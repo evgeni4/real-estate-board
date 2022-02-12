@@ -2,8 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Amenities;
+use App\Entity\Property;
 use App\Entity\PropertyAmenities;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +22,7 @@ class PropertyAmenitiesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PropertyAmenities::class);
     }
+
 
     // /**
     //  * @return PropertyAmenities[] Returns an array of PropertyAmenities objects
@@ -47,4 +52,18 @@ class PropertyAmenitiesRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findOne(Property $property, Amenities $amenities)
+    {
+        return $this->createQueryBuilder('pa')
+            ->where('pa.property = :property')
+            ->andWhere('pa.amenity = :amenity')
+            ->setParameters(['property' => $property, 'amenity' => $amenities])
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

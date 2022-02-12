@@ -27,7 +27,7 @@ class AmenitiesController extends AbstractController
     public function show(): Response
     {
         $this->breadcrumbs->addItem($this->translator->trans('catalog.label'));
-        $this->breadcrumbs->addItem($this->translator->trans('categories.label'));
+        $this->breadcrumbs->addItem($this->translator->trans('amenities.label'));
         $amenities = $this->amenitiesService->all();
         return $this->render('admin/pages/amenities/show.html.twig', [
             'amenitiesAll' => $amenities
@@ -35,8 +35,9 @@ class AmenitiesController extends AbstractController
     }
 
     #[Route('/new', name: 'admin_amenities_new')]
-    public function new(Request $request): Response
+    public function new(Request $request ): Response
     {
+
         $this->breadcrumbs->addItem($this->translator->trans('catalog.label'));
         $this->breadcrumbs->addItem($this->translator->trans('amenities.label'));
         $this->breadcrumbs->addItem($this->translator->trans('add.label'));
@@ -50,7 +51,7 @@ class AmenitiesController extends AbstractController
         }
         return $this->renderForm('admin/pages/amenities/new.html.twig',
             [
-                'form' => $form
+                'form' => $form,
             ]);
     }
 
@@ -58,7 +59,7 @@ class AmenitiesController extends AbstractController
     public function edit(Amenities $amenities, Request $request): Response
     {
         $this->breadcrumbs->addItem($this->translator->trans('catalog.label'));
-        $this->breadcrumbs->addItem($this->translator->trans('categories.label'));
+        $this->breadcrumbs->addItem($this->translator->trans('amenities.label'));
         $this->breadcrumbs->addItem($this->translator->trans('edit.label'));
         $form = $this->createForm(AmenitiesFormType::class, $amenities);
         $form->handleRequest($request);

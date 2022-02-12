@@ -4,7 +4,7 @@
           <!-- dashboard-listings-item-->
           <div id="content" class="col-md-6">
               {{ property.id }}
-              <div class="dashboard-listings-item fl-wrap">
+              <div class="dashboard-listings-item fl-wrap {{ property.published?'':'item_content-disable' }}">
                   <div class="dashboard-listings-item_img">
                       <div class="bg-wrap">
                           {% set images = property.propertyImages.getValues() %}
@@ -12,34 +12,36 @@
                               {% set image = images[0] %}
                               {{ image.imageSm }}
                               {{ image.slug }}
-                              <div class="bg  "
-                                   data-bg="{{ asset('assets/images/properties/property-'~image.slug~'/'~image.imageMd ) }}"></div>
+                              <div class="bg  "  data-bg="{{ asset('assets/images/properties/property-'~image.slug~'/'~image.imageMd ) }}"></div>
                           {% else %}
-                              <div class="bg  " data-bg="{{ asset('assets/images/no_image/noImage.jpeg' ) }}"></div>
+                              <div class="bg  " data-bg="{{ asset('assets/images/no_image/noImage.png' ) }}"></div>
                           {% endif %}
                       </div>
                       <div class="overlay"></div>
                       <a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}" target="_blank" class="color-bg">{% trans %}view.label{% endtrans %}</a>
                   </div>
                   <div class="dashboard-listings-item_content">
-                      <h4><a href="listing-single.html">{{ property.translate(locale).title }} {{ property.types }}</a>
+                      <h4><a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}" target="_blank">{{ property.translate(locale).title }} {{ property.types }}</a>
                       </h4>
                       <div class="geodir-category-location">
-                          <a href="dashboard-listing-table.html#"><i class="fas fa-map-marker-alt"></i>
+                          <a href="#"><i class="fas fa-map-marker-alt"></i>
                               <span> {{ property.address }}</span></a>
                       </div>
                       <div class="clearfix"></div>
-                      <div class="listing-rating card-popup-rainingvis tolt" data-microtip-position="right"
-                           data-tooltip="Good" data-starrating2="4"></div>
+                      {{ render(controller('App\\Controller\\Main\\ListingController::reviewsFromProperty',
+                          { 'property':property })) }}
                       <div class="dashboard-listings-item_opt">
                           <span class="viewed-counter"><i class="fas fa-eye"></i> {% trans %}viewed.label{% endtrans %} -  {{ property.viewed?property.viewed:0 }} </span>
-                          <ul>
-                              <li><a href="dashboard-listing-table.html#" class="tolt" data-microtip-position="top-left"
-                                     data-tooltip="Edit"><i class="far fa-edit"></i></a></li>
-                              <li><a href="dashboard-listing-table.html#" class="tolt" data-microtip-position="top-left"
-                                     data-tooltip="Disable"><i class="far fa-signal-alt-slash"></i></a></li>
-                              <li><a href="dashboard-listing-table.html#" class="tolt" data-microtip-position="top-left"
-                                     data-tooltip="Delete"><i class="far fa-trash-alt"></i></a></li>
+                          <ul >
+                              <li class="">
+                                  <a href="{{ path('main_edit_listing',{'uuid':property.uuid}) }}" class="tolt" data-microtip-position="top-left"
+                                     data-tooltip="{% trans %}edit.label{% endtrans %}"><i class="far fa-edit"></i></a></li>
+                              <li>
+                                  <a href="{{ path('main_disable_listing',{'uuid':property.uuid}) }}" class="tolt" data-microtip-position="top-left"
+                                     data-tooltip="{% trans %}disable.label{% endtrans %}">
+                                      <i class="far fa-{{ property.published?'eye':'eye-slash' }}"></i></a></li>
+                              <li><a href="#" class="tolt" data-microtip-position="top-left"
+                                     data-tooltip="{% trans %}delete.label{% endtrans %}"><i class="far fa-trash-alt"></i></a></li>
                           </ul>
                       </div>
                   </div>

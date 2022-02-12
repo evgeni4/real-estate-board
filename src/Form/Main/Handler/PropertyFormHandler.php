@@ -32,4 +32,14 @@ class PropertyFormHandler
         $this->propertyService->add($property);
         return $property;
     }
+
+    public function processUpdatePropertyForm(Property $property,Form $form , Request $request): Property
+    {
+        $this->propertyManager->addPropertyImages($property, $form);
+        $this->propertyManager->updatePropertyAmenity($property, $form);
+        $this->propertyManager->updatePropertyWidget($property, $form,$request);
+        $this->propertyManager->addPropertyPlan($property, $form,$request);
+        $this->propertyService->edit($property);
+        return $property;
+    }
 }

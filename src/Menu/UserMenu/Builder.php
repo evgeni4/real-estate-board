@@ -99,12 +99,23 @@ class Builder
         $adminMenu->addChild('catalog.label', ['uri' => '#'])
             ->setLinkAttribute('class', 'has-arrow waves-effect')
             ->setExtra('icon', 'fa fa-tags');
+
         $adminMenu['catalog.label']->addChild('properties.label', ['uri' => '#'])
             ->setExtra('icon', 'fa fa-arrow-right');
-        $adminMenu['catalog.label']->addChild('type.label', ['route' => 'admin_type_show'])
-            ->setExtra('icon', 'fa fa-arrow-right');
+
         $adminMenu['catalog.label']->addChild('categories.label', ['route' => 'admin_category_show'])
             ->setExtra('icon', 'fa fa-arrow-right');
+
+        $adminMenu['catalog.label']->addChild('type.label', ['uri' => '#'])
+            ->setLinkAttribute('class', 'has-arrow waves-effect')
+            ->setExtra('icon', 'fa fa-tags');
+
+        $adminMenu['catalog.label']['type.label']->addChild('type.all.label', ['route' => 'admin_type_show'])
+            ->setExtra('icon', 'fa fa-arrow-right');
+
+        $adminMenu['catalog.label']['type.label']->addChild('period.label', ['route' => 'admin_type_period_show'])
+            ->setExtra('icon', 'fa fa-arrow-right');
+
         $adminMenu['catalog.label']->addChild('amenities.label', ['route' => 'admin_amenities_show'])
             ->setExtra('icon', 'fa fa-arrow-right');
 

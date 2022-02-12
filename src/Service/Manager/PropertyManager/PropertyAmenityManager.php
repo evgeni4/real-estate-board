@@ -11,6 +11,7 @@ class PropertyAmenityManager
     public function saveAmenityForProperty($item): PropertyAmenities
     {
         $amenityProperty = new PropertyAmenities();
+        $amenityProperty->setChecked(true);
         $amenityProperty->setAmenity($item);
         return $amenityProperty;
     }

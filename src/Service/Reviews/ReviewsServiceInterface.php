@@ -11,6 +11,8 @@ interface ReviewsServiceInterface
 
     public function getReviewsFromUser($user): ?array;
 
+    public function getReviewsFromProperty($property): ?array;
+
     public function getCommentsFromUser(User $user);
 
     public function ratingFromAuthor(Reviews $reviews): ?array;

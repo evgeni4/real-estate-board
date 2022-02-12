@@ -8,6 +8,7 @@ characters.label: символы
 continue.label: Продолжать
 cancel.label: Отмена
 delete.label: Удалить
+disable.label: Запретить
 back.label: Назад
 action.label: Действие
 published.label: Опубликовано
@@ -86,6 +87,9 @@ wishlist.label: Список желаний
 compare.label: Сравнивать
 clear.all.label: Очистить все
 add.listing.label: Добавить объявление
+add.listing.message.label: Объявление успешно добавлено!
+update.listing.message.label: Объявление успешно обновлено!
+image.listing.delete.label: Изображение успешно удалено!
 settings.label: Настройки
 welcome.label: Добро пожаловать,
 edit.profile.label: Редактировать профиль
@@ -131,6 +135,7 @@ accommodation.label: Размещение
 size.accommodation.label: Размер размещения 5-12..
 yard.size.label: Размер двора
 garage.label: Гараж
+floors.label: Этажи
 number.cars.label: Количество автомобилей
 description.text.label: Описание
 country.label: Страна
@@ -177,14 +182,22 @@ what.up.label: Что рядом? Школы, спортзал...
 similar.properties.label: Похожиая недвижимость
 featured.properties.label: Избранное
 agent.label: Агент
+your.location.label: Твое местонахождение
+enable.scrollinglabel: Включить прокрутку
+property.disable.label: Объявление обновлено успешно!
+
+
 #end mes
 #admin fields messages
 view.site.label: Перейти на сайт
 system.label: Система
 catalog.label: Каталог
 properties.label: Недвижимость
-categories.label: Категории
-type.label: Типы
+categories.label: Тип недвижимости
+type.label: Тип сделки
+type.all.label: Все типы
+period.label: Период
+select.period.label: Выберите период
 categories.parent.label: Родительская категория
 amenities.label: Удобства
 add.label: Добавить

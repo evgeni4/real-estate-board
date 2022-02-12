@@ -11,6 +11,7 @@ use App\Service\Currency\CurrencyServiceInterface;
 use App\Service\Property\PropertyServiceInterface;
 use App\Service\Reviews\ReviewsServiceInterface;
 use App\Service\Seo\SeoServiceInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,21 +34,27 @@ class ListingController extends AbstractController
     }
 
     #[Route('/all', name: 'main_listing_all')]
-    public function index(): Response
+    public function allProperty(EntityManagerInterface $entityManager): Response
     {
+
+        $properties = $this->propertyService->findAllProperties();
         return $this->render('main/listing/all/show.html.twig',
             [
+                'properties' => $properties
             ]);
     }
 
     #[Route('/single/{uuid}', name: 'main_listing_single')]
     public function single(Property $property, Request $request): Response
     {
+
+        $this->propertyService->viewed($request->getClientIp(), $property);
         $this->seoService->seoProperty($property, $request->getLocale());
         $this->breadcrumbs->addRouteItem("Home", 'app_home');
         $this->breadcrumbs->addRouteItem($property->getCategory(), 'app_home');
         $this->breadcrumbs->addRouteItem($property->getTypes(), 'app_home');
-        $reviewsFromAgent = $this->reviewsService->getReviewsFromUser($property->getAgent());
+
+        $reviewsFromProperty = $this->reviewsService->getReviewsFromProperty($property);
         $review = new Reviews();
         $form = $this->createForm(ReviewsUserFormType::class, $review);
         $form->handleRequest($request);
@@ -58,7 +65,7 @@ class ListingController extends AbstractController
         }
         return $this->render('main/listing/single/show.html.twig',
             [
-                'reviewsFromAgent' => $reviewsFromAgent,
+                'reviewsFromProperty' => $reviewsFromProperty,
                 'property' => $property,
                 'form' => $form->createView()
             ]);
@@ -72,7 +79,11 @@ class ListingController extends AbstractController
                 'properties' => $properties
             ]);
     }
-
+     public function reviewsFromProperty(Property $property): Response
+     {
+         $reviewsFromProperty = $this->reviewsService->getReviewsFromProperty($property);
+         return $this->render('main/listing/_embed/_reviews_property.item.html.twig',['reviewsFromProperty' => $reviewsFromProperty,]);
+     }
     public function convert(float $price, string $code): Response
     {
         $price = $this->currencyService->convertor($price, $code);

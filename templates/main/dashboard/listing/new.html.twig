@@ -34,13 +34,16 @@
         <div class="dasboard-widget-box fl-wrap">
             <div class="custom-form">
                 <div class="row">
-                    <div class="col-sm-4 mb-2">
+                    <div class="col-sm-3 mb-2">
                         {{ form_row(form.types) }}
                     </div>
-                    <div class="col-sm-4">
+                    <div id="period" class="col-sm-3">
+                        {{ form_row(form.period) }}
+                    </div>
+                    <div class="col-sm-3">
                         {{ form_row(form.category) }}
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         {{ form_row(form.price) }}
                     </div>
                 </div>
@@ -123,6 +126,7 @@
         <div class="dasboard-widget-box   fl-wrap">
             <div class="custom-form">
                 <div class="row">
+                    <div class="col-sm-4">{{ form_row(form.floors) }}</div>
                     <div class="col-sm-4">{{ form_row(form.area) }}</div>
                     <div class="col-sm-4">{{ form_row(form.yardSize) }}</div>
                     <div class="col-sm-4"> {{ form_row(form.garage) }}</div>
@@ -146,7 +150,6 @@
                                 {{ form_row(amenities) }}
                             </li>
                         {% endfor %}
-{#                        {{ form_row(form.amenity) }}#}
                     </ul>
                     <!-- Checkboxes end -->
                 </div>
@@ -165,10 +168,10 @@
         <div class="dasboard-widget-box   fl-wrap">
             <div class="custom-form add_room-item-wrap ">
                 <div id="fields-list" class="add_room-container fl-wrap"
-                    data-prototype="{{ form_widget(form.roomWidget.vars.prototype)|e }}"
+                    data-prototype="{{ form_widget(form.propertyRoomsWidgets.vars.prototype)|e }}"
                     data-widget-tags="{{ '<div  class="row widget-row"></div>'|e }}"
-                    data-widget-counter="{{ form.roomWidget|length }}">
-                    {% for room in form.roomWidget %}
+                    data-widget-counter="{{ form.propertyRoomsWidgets|length }}">
+                    {% for room in form.propertyRoomsWidgets %}
                             {{ form_errors(room) }}
                             {{ form_row(room) }}
                     {% endfor %}
@@ -192,10 +195,10 @@
         <div class="dasboard-widget-box   fl-wrap">
             <div class="custom-form add_room-item-wrap">
                 <div id="fields-list-plan" class="add_room-container fl-wrap"
-                     data-prototype="{{ form_widget(form.propertyPlan.vars.prototype)|e }}"
+                     data-prototype="{{ form_widget(form.propertyPlans.vars.prototype)|e }}"
                      data-widget-tags="{{ '<div  class="row widget-row"></div>'|e }}"
-                     data-widget-counter="{{ form.propertyPlan|length }}">
-                    {% for plan in form.propertyPlan %}
+                     data-widget-counter="{{ form.propertyPlans|length }}">
+                    {% for plan in form.propertyPlans %}
                         {{ form_errors(plan) }}
                         {{ form_row(plan) }}
                     {% endfor %}

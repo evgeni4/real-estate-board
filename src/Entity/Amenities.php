@@ -33,6 +33,11 @@ class Amenities implements TranslatableInterface
     #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyRoomsWidgetAmenities::class,cascade: ['persist','remove'])]
     private $propertyRoomsWidgetAmenities;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $icon;
+
+
+
     public function __construct()
     {
         $this->uuid = Uuid::v4();
@@ -164,5 +169,18 @@ class Amenities implements TranslatableInterface
 
         return $this;
     }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(?string $icon): self
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
 
 }

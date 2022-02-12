@@ -8,6 +8,7 @@ characters.label: characters
 continue.label: Continue
 cancel.label: Cancel
 delete.label: Delete
+disable.label: Disable
 back.label: Back
 action.label: Action
 published.label: Published
@@ -79,6 +80,9 @@ wishlist.label: Wishlist
 compare.label: Compare
 clear.all.label: Clear all
 add.listing.label: Add Listing
+add.listing.message.label: Ad added successfully!
+update.listing.message.label: Ad successfully updated!
+image.listing.delete.label: Image deleted successfully!
 settings.label: Settings
 welcome.label: Welcome ,
 edit.profile.label: Edit profile
@@ -124,6 +128,7 @@ accommodation.label: Accommodation
 size.accommodation.label: Size accommodation 5-12 ..
 yard.size.label: Yard size
 garage.label: Garage
+floors.label: Floors
 number.cars.label: Number of cars
 description.text.label: Description
 country.label: Country
@@ -169,8 +174,9 @@ guest.label: Guest
 what.up.label: What Nearby? Schools, Gym...
 similar.properties.label: Similar Properties
 featured.properties.label: Featured properties
-
-
+your.location.label: Your location
+enable.scrollinglabel: Enable Scrolling
+property.disable.label: Ad updated successfully!
 #end messages
 #admin fields messages
 view.site.label: Go to the site
@@ -179,6 +185,9 @@ catalog.label: Catalog
 properties.label: Properties
 categories.label: Categories
 type.label: Types
+type.all.label: All types
+period.label: Period
+select.period.label: Select period
 categories.parent.label: Parent category
 amenities.label: Amenities
 add.label: Add

@@ -17,7 +17,8 @@
                 </div>
                 <a class="print-btn tolt" href="javascript:window.print()" data-microtip-position="bottom"
                    data-tooltip="{% trans %}print.label{% endtrans %}"><i class="fas fa-print"></i></a>
-                <a class="compare-top-btn tolt" data-microtip-position="bottom" data-tooltip="{% trans %}compare.label{% endtrans %}" href="#"><i
+                <a class="compare-top-btn tolt" data-microtip-position="bottom"
+                   data-tooltip="{% trans %}compare.label{% endtrans %}" href="#"><i
                             class="fas fa-random"></i></a>
                 <div class="like-btn"><i class="fas fa-heart"></i>{% trans %}save.label{% endtrans %}</div>
             </div>
@@ -32,22 +33,28 @@
                             <div class="scroll-nav-wrap">
                                 <nav class="scroll-nav scroll-init fixed-column_menu-init">
                                     <ul class="no-list-style">
-                                        <li><a class="act-scrlink" href="l#sec1"><i   class="fal fa-info"></i> </a><span>{% trans %}details.label{% endtrans %}</span></li>
-                                        <li><a href="#sec2"><i class="fal fa-stars"></i></a><span>{% trans %}features.label{% endtrans %}</span>
+                                        <li><a class="act-scrlink" href="l#sec1"><i class="fal fa-info"></i>
+                                            </a><span>{% trans %}details.label{% endtrans %}</span></li>
+                                        <li><a href="#sec2"><i
+                                                        class="fal fa-stars"></i></a><span>{% trans %}features.label{% endtrans %}</span>
                                         </li>
                                         {% if property.roomWidgetStatus and property.propertyRoomsWidgets %}
-                                        <li><a href="#sec3"><i  class="fal fa-bed"></i></a><span>{% trans %}rooms.label{% endtrans %}</span>
-                                        {% endif %}
-                                        </li>
-                                        {% if property.videoPresentation and property.video %}
-                                            <li><a href="#sec4"><i class="fal fa-video"></i></a><span>{% trans %}video.label{% endtrans %}</span>
-                                            </li>
-                                        {% endif %}
-                                        {% if property.googleMapStatus%}
-                                        <li><a href="#sec5"><i class="fal fa-map-pin"></i></a><span>{% trans %}location.label{% endtrans %}</span>
+                                        <li><a href="#sec3"><i
+                                                        class="fal fa-bed"></i></a><span>{% trans %}rooms.label{% endtrans %}</span>
                                             {% endif %}
                                         </li>
-                                        <li><a href="#sec6"><i class="fal fa-comment-alt-lines"></i></a><span>{% trans %}reviews.label{% endtrans %}</span>
+                                        {% if property.videoPresentation and property.video %}
+                                            <li><a href="#sec4"><i
+                                                            class="fal fa-video"></i></a><span>{% trans %}video.label{% endtrans %}</span>
+                                            </li>
+                                        {% endif %}
+                                        {% if property.googleMapStatus %}
+                                        <li><a href="#sec5"><i
+                                                        class="fal fa-map-pin"></i></a><span>{% trans %}location.label{% endtrans %}</span>
+                                            {% endif %}
+                                        </li>
+                                        <li><a href="#sec6"><i
+                                                        class="fal fa-comment-alt-lines"></i></a><span>{% trans %}reviews.label{% endtrans %}</span>
                                         </li>
                                     </ul>
                                     <div class="progress-indicator">
@@ -86,13 +93,15 @@
                                                         class="fas fa-check"></i></span></h1>
                                         <div class="geodir-category-location fl-wrap">
                                             <a href="#"><i class="fas fa-map-marker-alt"></i> {{ property.address }}</a>
-                                            {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewAgent',{
-                                                'user':property.agent
-                                            })) }}
+                                            {{ render(controller('App\\Controller\\Main\\ListingController::reviewsFromProperty',
+                                                {
+                                                    'property':property
+                                                })) }}
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <a class="host-avatar-wrap" target="_blank" href="{{ path('main_profile_show',{'uuid':property.agent.uuid}) }}">
+                                        <a class="host-avatar-wrap" target="_blank"
+                                           href="{{ path('main_profile_show',{'uuid':property.agent.uuid}) }}">
                                             {% set avatars =  property.agent.userImages().getValues() %}
                                             <span> {{ property.agent.firstName }} {{ property.agent.lastName }}</span>
                                             {% if avatars|length %}
@@ -113,14 +122,17 @@
                                             'price': property.price,
                                             'code': app.request.defaultCurrencylocale
                                         })) }}
+                                        {{ property.period? '/  '~ property.period:'' }}
                                     </div>
                                     <div class="list-single-header-date">
                                         <span>{% trans %}date.label{% endtrans %}:</span>{{ property.createdAt|date('d.m.Y') }}
                                     </div>
                                     <div class="list-single-stats">
                                         <ul class="no-list-style">
-                                            <li><span class="viewed-counter"><i
-                                                            class="fas fa-eye"></i> {% trans %}viewed.label{% endtrans %} -  {{ property.viewed?property.viewed:0 }} </span>
+                                            <li><span class="viewed-counter">
+                                                    <i class="fas fa-eye"></i>
+                                                    {% trans %}viewed.label{% endtrans %} -  {{ property.viewed }}
+                                                </span>
                                             </li>
                                             <li><span class="bookmark-counter"><i class="fas fa-heart"></i> Bookmark -  24 </span>
                                             </li>
@@ -148,7 +160,8 @@
                                                 <!--  slick-slide-item end -->
                                             {% endfor %}
                                         {% else %}
-                                            <img src="{{ asset('assets/images/no_image/noImage.png') }}" alt="Property image">
+                                            <img src="{{ asset('assets/images/no_image/noImage.png') }}"
+                                                 alt="Property image">
                                         {% endif %}
                                     </div>
                                     <div class="swiper-button-prev ssw-btn"><i class="fas fa-caret-left"></i></div>
@@ -179,31 +192,38 @@
                                 </div>
                                 <!-- inline-facts end -->
                                 <!-- inline-facts  -->
-                                <div class="inline-facts-wrap">
-                                    <div class="inline-facts">
-                                        <i class="fal fa-users"></i>
-                                        <h6>{% trans %}accommodation.label{% endtrans %}</h6>
-                                        <span>{{ property.accommodation }} {% trans %}guest.label{% endtrans %}</span>
+                                {% if property.accommodation %}
+                                    <div class="inline-facts-wrap">
+                                        <div class="inline-facts">
+                                            <i class="fal fa-users"></i>
+                                            <h6>{% trans %}accommodation.label{% endtrans %}</h6>
+                                            <span>{{ property.accommodation }} {% trans %}guest.label{% endtrans %}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                                 <!-- inline-facts end -->
                                 <!-- inline-facts -->
-                                <div class="inline-facts-wrap">
-                                    <div class="inline-facts">
-                                        <i class="fal fa-bed"></i>
-                                        <h6>{% trans %}bedrooms.label{% endtrans %}</h6>
-                                        <span>{{ property.bedrooms }} {% trans %}bedrooms.label{% endtrans %}</span>
+                                {% if  property.bedrooms %}
+                                    <div class="inline-facts-wrap">
+                                        <div class="inline-facts">
+                                            <i class="fal fa-bed"></i>
+                                            <h6>{% trans %}bedrooms.label{% endtrans %}</h6>
+                                            <span>{{ property.bedrooms }} {% trans %}bedrooms.label{% endtrans %}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
+
                                 <!-- inline-facts end -->
                                 <!-- inline-facts -->
-                                <div class="inline-facts-wrap">
-                                    <div class="inline-facts">
-                                        <i class="fal fa-bath"></i>
-                                        <h6>{% trans %}bathrooms.label{% endtrans %}</h6>
-                                        <span>{{ property.bathrooms }}</span>
+                                {% if property.bathrooms  %}
+                                    <div class="inline-facts-wrap">
+                                        <div class="inline-facts">
+                                            <i class="fal fa-bath"></i>
+                                            <h6>{% trans %}bathrooms.label{% endtrans %}</h6>
+                                            <span>{{ property.bathrooms }}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                                 <!-- inline-facts end -->
                             </div>
                             <div class="list-single-main-container fl-wrap">
@@ -228,30 +248,39 @@
                                         <div class="details-list">
                                             <ul>
                                                 <li><span>Ref-№:</span>{{ property.referenceNumber }}</li>
+                                                <li>
+                                                    <span>{% trans %}categories.label{% endtrans %}:</span>{{ property.category }}
+                                                </li>
+                                                <li>
+                                                    <span>{% trans %}type.label{% endtrans %}:</span>{{ property.types }}
+                                                </li>
                                                 <li><span>{% trans %}area.label{% endtrans %}:</span>{{ property.area }}
                                                     m2
                                                 </li>
-                                                <li>
-                                                    <span>{% trans %}yard.size.label{% endtrans %}:</span>{{ property.yardSize }}
-                                                    m2
-                                                </li>
-                                                <li>
-                                                    <span>{% trans %}garage.label{% endtrans %}:</span>{{ property.garage }}
-                                                    ({% trans %}cars.label{% endtrans %})
-                                                </li>
-                                                <li><span>Rooms:</span>8</li>
+                                                {% if property.yardSize %}
+                                                    <li>
+                                                        <span>{% trans %}yard.size.label{% endtrans %}:</span>{{ property.yardSize }}
+                                                        m2
+                                                    </li>
+                                                {% endif %}
+                                                {% if property.garage %}
+                                                    <li><span>{% trans %}garage.label{% endtrans %}:</span>
+                                                        {{ property.garage }} ({% trans %}cars.label{% endtrans %})
+                                                    </li>
+                                                {% endif %}
                                                 <li>
                                                     <span>{% trans %}bedrooms.label{% endtrans %}:</span>{{ property.bedrooms }}
                                                 </li>
                                                 <li>
                                                     <span>{% trans %}bathrooms.label{% endtrans %}:</span>{{ property.bathrooms }}
                                                 </li>
-                                                <li>
-                                                    <span>{% trans %}price.label{% endtrans %}:</span>$ {{ property.price }}
+                                                <li><span>{% trans %}price.label{% endtrans %}:</span>
+                                                    {{ render(controller('App\\Controller\\Main\\ListingController::convert',{
+                                                        'price': property.price,
+                                                        'code': app.request.defaultCurrencylocale
+                                                    })) }}
+                                                    {{ property.period? '/  '~ property.period:'' }}
                                                 </li>
-                                                <li>
-                                                    <span>{% trans %}type.label{% endtrans %}:</span>{{ property.types }}
-                                                    /{{ property.category }}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -271,24 +300,34 @@
                                                     <!--  rooms-item -->
                                                     <div class="rooms-item fl-wrap">
                                                         <div class="rooms-media">
-                                                            <img src="{{ asset('assets/images/properties/widgets/widget-'~room.slug~'/'~room.imageRoom) }}" alt="Room image">
+                                                            <img src="{{ asset('assets/images/properties/widgets/widget-'~room.slug~'/'~room.imageRoom) }}"
+                                                                 alt="Room image">
                                                             <div class="dynamic-gal more-photos-button color-bg"
-                                                                 data-dynamicPath="[{'src': 'images/all/10.jpg'}, {'src': 'images/all/2.jpg'},{'src': 'images/all/3.jpg'}]">
-                                                                <i class="fas fa-camera"></i> <span>3 {% trans %}photos.label{% endtrans %}</span></div>
+                                                                 data-dynamicPath="[{'src': '{{ asset('assets/images/properties/widgets/widget-'~room.slug~'/'~room.imageRoom) }}'}]">
+                                                                <i class="fas fa-camera"></i>
+                                                                <span>{% trans %}view.label{% endtrans %}</span>
+                                                            </div>
                                                         </div>
                                                         <div class="rooms-details">
                                                             <div class="rooms-details-header fl-wrap">
-                                                                <span class="rooms-area">{{ room.area }}<strong> /  m2</strong></span>
+                                                                {% if room.area %}
+                                                                    <span class="rooms-area">{{ room.area }}<strong> /  m2</strong></span>
+                                                                {% endif %}
                                                                 <h3>{{ room.translate(locale).title }}</h3>
-                                                                <h5>{% trans %}room.additional.label:{% endtrans %}: <span>{{ room.translate(locale).room }}</span></h5>
+                                                                <h5>{% trans %}room.additional.label{% endtrans %}:
+                                                                    <span>{{ room.translate(locale).room }}</span></h5>
                                                             </div>
                                                             <p>{{ room.translate(locale).details }}</p>
                                                             <div class="facilities-list fl-wrap">
-                                                                {%set amenities = room.propertyRoomsWidgetAmenities().getValues() %}
+                                                                {% set amenities = room.propertyRoomsWidgetAmenities().getValues() %}
                                                                 <ul>
                                                                     {% if amenities|length %}
                                                                         {% for amenity in  amenities %}
-                                                                            <li class="tolt" data-microtip-position="top" data-tooltip="{{ amenity.amenity.translate(locale).title }}"><i class="fal fa-snowflake"></i></li>
+                                                                            <li class="tolt"
+                                                                                data-microtip-position="top"
+                                                                                data-tooltip="{{ amenity.amenity.translate(locale).title }}">
+                                                                                <i class="fal fa-{{ amenity.amenity.icon }}"></i>
+                                                                            </li>
                                                                         {% endfor %}
                                                                     {% endif %}
                                                                 </ul>
@@ -313,32 +352,35 @@
                                         <div class="accordion">
                                             {% for key,plan in plans %}
                                                 {% if plan.published %}
-                                                    <a class="toggle {{ key == 0 ?'act-accordion': '' }}" href="#"> {{ plan.translate(locale).title }}
+                                                    <a class="toggle {{ key == 0 ?'act-accordion': '' }}"
+                                                       href="#"> {{ plan.translate(locale).title }}
                                                         <strong>{{ plan.area }} m2</strong> <span></span> </a>
                                                     <div class="accordion-inner {{ key == 0 ?'visible': '' }}">
-                                                        <img src="{{ asset('assets/images/properties/plans/plan-'~plan.slug~'/'~plan.imagePlan) }}" alt="Plan Image">
+                                                        <img src="{{ asset('assets/images/properties/plans/plan-'~plan.slug~'/'~plan.imagePlan) }}"
+                                                             alt="Plan Image">
                                                         <p>{{ plan.translate(locale).details }}</p>
                                                     </div>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
-                                {% endif %} 
+                                {% endif %}
                                 <!-- list-single-main-item end -->
                                 <!-- list-single-main-item -->
                                 {% if property.videoPresentation and property.video %}
-                                <div class="list-single-main-item fl-wrap" id="sec4">
-                                    <div class="list-single-main-item-title">
-                                        <h3>{% trans %}video.label{% endtrans %}</h3>
-                                    </div>
-                                    <div class="list-single-main-item_content fl-wrap">
-                                        <div class="video-box fl-wrap">
-                                            <img src="{{ asset('assets/images/all/7.jpg') }}" class="respimg" alt="">
-                                            <a class="video-box-btn image-popup color-bg"
-                                               href="https://vimeo.com/158059890"><i class="fas fa-play"></i></a>
+                                    <div class="list-single-main-item fl-wrap" id="sec4">
+                                        <div class="list-single-main-item-title">
+                                            <h3>{% trans %}video.label{% endtrans %}</h3>
+                                        </div>
+                                        <div class="list-single-main-item_content fl-wrap">
+                                            <div class="video-box fl-wrap">
+                                                <img src="{{ asset('assets/images/all/7.jpg') }}" class="respimg"
+                                                     alt="">
+                                                <a class="video-box-btn image-popup color-bg"
+                                                   href="https://vimeo.com/158059890"><i class="fas fa-play"></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 {% endif %}
                                 <!-- list-single-main-item end -->
                                 <!-- list-single-main-item -->
@@ -352,13 +394,16 @@
                                                 <ul class="fl-wrap filter-tags no-list-style ds-tg">
                                                     {% set amenities = property.propertyAmenities.getValues() %}
                                                     {% for amenity in  amenities %}
-                                                        <li>
-                                                            <input type="checkbox"  class="form-check-input" checked disabled>
-                                                            <label>{{ amenity.amenity.translate(locale).title }}</label>
-{#                                                            <a href="#">#}
-{#                                                                <i class="fal fa-dumbbell"></i> #}
-{#                                                                {{ amenity.amenity.translate(locale).title }}</a>#}
-                                                        </li>
+                                                        {% if amenity.checked %}
+                                                            <li>
+                                                                {#                                                            <input type="checkbox" class="form-check-input" checked #}
+                                                                {#                                                                   disabled> #}
+                                                                {#                                                            <label>{{ amenity.amenity.translate(locale).title }}</label> #}
+                                                                <a href="#">
+                                                                    <i class="fal fa-{{ amenity.amenity.icon }}"></i>
+                                                                    {{ amenity.amenity.translate(locale).title }}</a>
+                                                            </li>
+                                                        {% endif %}
                                                     {% endfor %}
                                                 </ul>
                                             </div>
@@ -377,23 +422,26 @@
                                             <div class="scrollContorl"></div>
                                         </div>
                                         <input id="pac-input" class="controls fl-wrap controls-mapwn" autocomplete="on"
-                                               type="text" placeholder="{% trans %}what.up.label{% endtrans %} " value="">
+                                               type="text" placeholder="{% trans %}what.up.label{% endtrans %} "
+                                               value="">
                                     </div>
                                 {% endif %}
                                 <!-- list-single-main-item end -->
                                 <!-- list-single-main-item -->
                                 <div class="list-single-main-item fl-wrap" id="sec6">
                                     {% set reviews = property.reviews.getValues %}
-
                                     <div class="list-single-main-item-title">
-                                        <h3>{% trans %}reviews.label{% endtrans %} <span>{{ reviewsFromAgent?reviewsFromAgent['count']:0 }}</span></h3>
+                                        <h3>{% trans %}reviews.label{% endtrans %}
+                                            <span>{{ reviewsFromProperty?reviewsFromProperty['count']:0 }}</span></h3>
                                     </div>
                                     <div class="list-single-main-item_content fl-wrap">
                                         <div class="reviews-comments-wrap fl-wrap">
                                             <div class="review-total">
-                                                <span class="review-number blue-bg">{{ reviewsFromAgent?reviewsFromAgent['stars-rating']:0 }}</span>
-                                                <div class="listing-rating card-popup-rainingvis" data-starrating2="{{ reviewsFromAgent?reviewsFromAgent['stars-rating']:0 }}">
-                                                    <span class="re_stars-title">{{ reviewsFromAgent?reviewsFromAgent['stars-title']:'' }}</span></div>
+                                                <span class="review-number blue-bg">{{ reviewsFromProperty?reviewsFromProperty['stars-rating']:0 }}</span>
+                                                <div class="listing-rating card-popup-rainingvis"
+                                                     data-starrating2="{{ reviewsFromProperty?reviewsFromProperty['stars-rating']:0 }}">
+                                                    <span class="re_stars-title">{{ reviewsFromProperty?reviewsFromProperty['stars-title']:'' }}</span>
+                                                </div>
                                             </div>
                                             <!-- reviews-comments-item -->
                                             {% for review in reviews %}
@@ -412,7 +460,9 @@
                                                     </div>
                                                     <div class="reviews-comments-item-text smpar">
 
-                                                        <h4> <a href="{{ path('main_profile_show',{'uuid':author.uuid}) }}">{{ author.firstName?author.firstName|capitalize:review.name|capitalize }} {{ author.lastName|capitalize }}</a></h4>
+                                                        <h4>
+                                                            <a href="{{ path('main_profile_show',{'uuid':author.uuid}) }}">{{ author.firstName?author.firstName|capitalize:review.name|capitalize }} {{ author.lastName|capitalize }}</a>
+                                                        </h4>
                                                         {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewsFromAuthor',{
                                                             'uuid':author.uuid,
                                                             'reviews':review
@@ -448,7 +498,8 @@
                                 <div class="profile-widget-header color-bg smpar fl-wrap">
                                     <div class="pwh_bg"></div>
                                     <div class="call-btn">
-                                        <a href="tel:123-456-7890" class="tolt color-bg"  data-microtip-position="right" data-tooltip="Call Now">
+                                        <a href="tel:123-456-7890" class="tolt color-bg" data-microtip-position="right"
+                                           data-tooltip="Call Now">
                                             <i class="fas fa-phone-alt"></i>
                                         </a>
                                     </div>
@@ -464,9 +515,13 @@
                                             {% endif %}
                                         </div>
                                         <div class="profile-widget-header-title">
-                                            <h4><a href="{{ path('main_profile_show',{'uuid': property.agent.uuid}) }}">{{ property.agent.firstName }} {{ property.agent.lastName }}</a></h4>
+                                            <h4>
+                                                <a href="{{ path('main_profile_show',{'uuid': property.agent.uuid}) }}">{{ property.agent.firstName }} {{ property.agent.lastName }}</a>
+                                            </h4>
                                             <div class="clearfix"></div>
-                                            <div class="pwh_counter"><span>{{ property.agent.properties|length }}</span>{% trans %}property.listing.label{% endtrans %}</div>
+                                            <div class="pwh_counter">
+                                                <span>{{ property.agent.properties|length }}</span>{% trans %}property.listing.label{% endtrans %}
+                                            </div>
                                             <div class="clearfix"></div>
                                             {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewAgent',{
                                                 'user':property.agent,
@@ -477,15 +532,20 @@
                                 <div class="profile-widget-content fl-wrap">
                                     <div class="contats-list fl-wrap">
                                         <ul class="no-list-style">
-                                            <li><span><i class="fal fa-phone"></i> {% trans %}phone.label{% endtrans %} :</span> <a
+                                            <li><span><i class="fal fa-phone"></i> {% trans %}phone.label{% endtrans %} :</span>
+                                                <a
                                                         href="#">{{ property.agent.phone }}</a></li>
-                                            <li><span><i class="fal fa-envelope"></i> Email :</span> <a href="#">{{ property.agent.email }}</a></li>
+                                            <li><span><i class="fal fa-envelope"></i> Email :</span> <a
+                                                        href="#">{{ property.agent.email }}</a></li>
                                         </ul>
                                     </div>
                                     <div class="profile-widget-footer fl-wrap">
-                                        <a href="{{ path('main_profile_show',{'uuid':property.agent.uuid}) }}" target="_blank" class="btn float-btn color-bg small-btn">{% trans %}view.profile.label{% endtrans %}</a>
+                                        <a href="{{ path('main_profile_show',{'uuid':property.agent.uuid}) }}"
+                                           target="_blank"
+                                           class="btn float-btn color-bg small-btn">{% trans %}view.profile.label{% endtrans %}</a>
                                         <a href="#sec-contact" class="custom-scroll-link tolt"
-                                           data-microtip-position="left" data-tooltip="{% trans %}viewing.property.label{% endtrans %}"><i
+                                           data-microtip-position="left"
+                                           data-tooltip="{% trans %}viewing.property.label{% endtrans %}"><i
                                                     class="fal fa-paper-plane"></i></a>
                                     </div>
                                 </div>
@@ -588,7 +648,7 @@
                                         <label for="trm">Loan Term (Years) </label>
                                         <div class="price-rage-item fl-wrap">
                                             <input type="text" id="trm" name="trm" class="price-range" data-min="0"
-                                                   data-max="5" data-step="1" value="0" data-prefix="Y">
+                                                   data-max="25" data-step="1" value="0" data-prefix="Y">
                                         </div>
                                         <div class="clearfix"></div>
                                         <button type="button" id="sbt" class="color2-bg">Calculate</button>

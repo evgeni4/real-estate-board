@@ -14,14 +14,15 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Routing\RouterInterface;
+
 class ReviewsService implements ReviewsServiceInterface
 {
     public function __construct(
-        public ReviewsRepository     $reviewsRepository,
-        public TranslatorInterface   $translator,
-        public UserServiceInterface  $userService,
-        public FlashBagInterface     $flash,
-        public RouterInterface       $router
+        public ReviewsRepository    $reviewsRepository,
+        public TranslatorInterface  $translator,
+        public UserServiceInterface $userService,
+        public FlashBagInterface    $flash,
+        public RouterInterface      $router
     )
     {
     }
@@ -31,7 +32,7 @@ class ReviewsService implements ReviewsServiceInterface
         $author = $this->userService->currentUser();
         $reviews->setAuthor($author);
         $reviews->setUser($user);
-        $this->checkUserAndAuthor($user,$author,$reviews);
+        $this->checkUserAndAuthor($user, $author, $reviews);
         return true;
     }
 
@@ -47,6 +48,36 @@ class ReviewsService implements ReviewsServiceInterface
     {
         $reviews = [];
         $ratings = $this->reviewsRepository->reviewsFromUser($user);
+        if ($ratings) {
+            $rating = floatval($ratings['rating']);
+            $grade = (
+            ($rating <= 1.99) ? 1 :
+                (($rating <= 2.99) ? 2 :
+                    (($rating <= 3.99) ? 3 :
+                        (($rating <= 4.99) ? 4 : 5)))
+            );
+            $review = floatval($ratings['rating']);
+            $rating = (
+            ($review <= 1.99) ? $this->translator->trans('very.bad.label') :
+                (($review <= 2.99) ? $this->translator->trans('fair.label') :
+                    (($review <= 3.99) ? $this->translator->trans('average.label') :
+                        (($review <= 4.99) ? $this->translator->trans('good.label') : $this->translator->trans('excellent.label'))))
+            );
+            $reviews['stars-rating'] = $grade;
+            $reviews['stars-title'] = $rating;
+            $reviews['count'] = intval($ratings['count']);
+        }
+
+        return $reviews;
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function getReviewsFromProperty($property): ?array
+    {
+        $reviews = [];
+        $ratings = $this->reviewsRepository->reviewsFromProperty($property);
         if ($ratings) {
             $rating = floatval($ratings['rating']);
             $grade = (
@@ -101,13 +132,13 @@ class ReviewsService implements ReviewsServiceInterface
      * @param $reviews
      * @return Response|null
      */
-    private function checkUserAndAuthor(User $user,$author,$reviews): ?bool
+    private function checkUserAndAuthor(User $user, $author, $reviews): ?bool
     {
 
         if (null == $author || $author->getFirstName() == null || $author->getLastName() == null) {
             $this->flash->add('warning', $this->translator->trans('complete.your.profile.label'));
             return false;
-         }
+        }
         if ($author->getId() == $user->getId()) {
             $this->flash->add('warning', $this->translator->trans('cannot.comments.your.profile.label'));
             return false;

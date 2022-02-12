@@ -12,7 +12,7 @@ use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 #[ORM\Table(name: '`properties`')]
-class Property implements TranslatableInterface
+class Property  implements TranslatableInterface
 {
     use TranslatableTrait;
 
@@ -50,7 +50,7 @@ class Property implements TranslatableInterface
     private ?User $agent;
 
     #[ORM\ManyToOne(targetEntity: Type::class, inversedBy: 'properties')]
-    private ?Type $types;
+    private ?Type $types = null;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'properties')]
     private ?Category $category;
@@ -108,11 +108,18 @@ class Property implements TranslatableInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $googleMapStatus;
 
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Reviews::class, cascade: ['persist','remove'] ,orphanRemoval: true)]
+    private $reviews;
+
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $floors;
+
     #[ORM\Column(type: 'integer', nullable: true)]
     private $viewed;
 
-    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Reviews::class)]
-    private $reviews;
+    #[ORM\ManyToOne(targetEntity: PriceType::class, inversedBy: 'properties')]
+    private $period;
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -135,7 +142,7 @@ class Property implements TranslatableInterface
         return $this->price;
     }
 
-    public function setPrice(string $price): self
+    public function setPrice(?string $price): self
     {
         $this->price = $price;
 
@@ -147,7 +154,7 @@ class Property implements TranslatableInterface
         return $this->published;
     }
 
-    public function setPublished(bool $published): self
+    public function setPublished(?bool $published): self
     {
         $this->published = $published;
 
@@ -159,7 +166,7 @@ class Property implements TranslatableInterface
         return $this->area;
     }
 
-    public function setArea(float $area): self
+    public function setArea(?float $area): self
     {
         $this->area = $area;
 
@@ -171,7 +178,7 @@ class Property implements TranslatableInterface
         return $this->bedrooms;
     }
 
-    public function setBedrooms(int $bedrooms): self
+    public function setBedrooms(?int $bedrooms): self
     {
         $this->bedrooms = $bedrooms;
 
@@ -183,7 +190,7 @@ class Property implements TranslatableInterface
         return $this->bathrooms;
     }
 
-    public function setBathrooms(int $bathrooms): self
+    public function setBathrooms(?int $bathrooms): self
     {
         $this->bathrooms = $bathrooms;
 
@@ -267,7 +274,7 @@ class Property implements TranslatableInterface
         return $this->latitude;
     }
 
-    public function setLatitude(string $latitude): self
+    public function setLatitude(?string $latitude): self
     {
         $this->latitude = $latitude;
 
@@ -279,7 +286,7 @@ class Property implements TranslatableInterface
         return $this->longitude;
     }
 
-    public function setLongitude(string $longitude): self
+    public function setLongitude(?string $longitude): self
     {
         $this->longitude = $longitude;
 
@@ -291,7 +298,7 @@ class Property implements TranslatableInterface
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
 
@@ -562,17 +569,6 @@ class Property implements TranslatableInterface
         return $this;
     }
 
-    public function getViewed(): ?int
-    {
-        return $this->viewed;
-    }
-
-    public function setViewed(?int $viewed): self
-    {
-        $this->viewed = $viewed;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Reviews[]
@@ -600,6 +596,41 @@ class Property implements TranslatableInterface
                 $review->setProperty(null);
             }
         }
+
+        return $this;
+    }
+    public function getFloors(): ?int
+    {
+        return $this->floors;
+    }
+
+    public function setFloors(?int $floors): self
+    {
+        $this->floors = $floors;
+
+        return $this;
+    }
+
+    public function getViewed(): ?int
+    {
+        return $this->viewed;
+    }
+
+    public function setViewed(?int $viewed): self
+    {
+        $this->viewed = $viewed;
+
+        return $this;
+    }
+
+    public function getPeriod(): ?PriceType
+    {
+        return $this->period;
+    }
+
+    public function setPeriod(?PriceType $period): self
+    {
+        $this->period = $period;
 
         return $this;
     }

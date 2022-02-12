@@ -12,6 +12,7 @@
                         <th>#ID</th>
                         <th>{% trans %}amenities.label{% endtrans %}</th>
                         <th>{% trans %}action.label{% endtrans %}</th>
+                        <th>{% trans %}icon.label{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -20,6 +21,7 @@
                         <tr>
                             <td>{{ amenities.id }}</td>
                             <td>{{amenities.translate(locale).title}}</td>
+                            <td>{{amenities.icon}}</td>
                             <td>
                                 <a href="{{ path('admin_amenities_edit',{'uuid':amenities.uuid}) }}">
                                     <button class="btn btn-primary"><i class="fa fa-pen"></i></button>
