@@ -35,13 +35,9 @@ class HomeController extends AbstractController
             $settings->translate($request->getLocale())->getMetaKeywords(),
             $settings->translate($request->getLocale())->getMetaDescription()
         );
-        $propertiesSale = $this->propertyService->findForRentAllProperties('sale');
-        $propertiesRent = $this->propertyService->findForRentAllProperties('rent');
-        $properties = $this->propertyService->findForRentAllProperties();
+        $properties = $this->propertyService->findAllProperties();
         return $this->render('main/home/index.html.twig',
             [
-                'propertiesRent' => $propertiesRent,
-                'propertiesSale' => $propertiesSale,
                 'properties' => $properties
             ]
         );

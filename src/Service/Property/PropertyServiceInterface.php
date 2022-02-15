@@ -30,5 +30,4 @@ interface PropertyServiceInterface
 
     public function findOneByRoomWidgetAmenities($widget, $id): ?PropertyRoomsWidgetAmenities;
 
-    public function findForRentAllProperties(string $param = null): ?array;
 }

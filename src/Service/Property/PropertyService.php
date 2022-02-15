@@ -90,16 +90,4 @@ class PropertyService implements PropertyServiceInterface
         return $this->propertyRoomsWidgetAmenitiesRepository->findOneBy(['roomsWidget' => $widget, 'amenity' => $id]);
     }
 
-    public function findForRentAllProperties(string $param = null): ?array
-    {
-        $type = null;
-        foreach ($this->typesRepository->findAll() as $item) {
-            $pos = str_contains($item->translate('en')->getTitle(), $param);
-            if ($pos) {
-                $type = $item;
-                break;
-            }
-        }
-        return $this->propertyRepository->findBy(['types' => $type]);
-    }
 }
