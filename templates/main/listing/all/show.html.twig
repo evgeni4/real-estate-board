@@ -362,7 +362,7 @@
                                             {% else %}
                                                 <i class="fas fa-user" style="font-size: 20px;"></i>
                                             {% endif %}
-                                            <span>{{ property.agent.firstName }}</span></a>
+                                            <span>{{ property.agent.firstName }} {{ property.agent.lastName }}</span></a>
                                         {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewAgent',{
                                             'user':property.agent,
                                         })) }}
@@ -382,7 +382,6 @@
             <!-- pagination end-->
             <div class="small-footer fl-wrap">
                 <div class="copyright"> © {{ 'now'|date('Y') }} . All rights reserved.</div>
-                <a class="custom-to-top color-bg custom-scroll-link" href="#main"><i class="fas fa-caret-up"></i></a>
             </div>
         </div>
         <!-- col-list-wrap end -->

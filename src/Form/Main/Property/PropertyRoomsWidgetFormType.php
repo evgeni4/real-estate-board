@@ -38,7 +38,7 @@ class PropertyRoomsWidgetFormType extends AbstractType
                         'title' => [
                             'field_type' => TextType::class,
                             'label_html' => true,
-                            'row_attr' => ['class' => 'col-sm-6'],
+                            'row_attr' => ['class' => ' '],
                             'label' => $this->translator->trans('room.title.label') . ' <span class="dec-icon"><i  class="fal fa-layer-group"></i></span>',
                             'attr' => [
                                 'placeholder' => $this->translator->trans('room.title.placeholder.label')
@@ -47,7 +47,7 @@ class PropertyRoomsWidgetFormType extends AbstractType
                         'room' => [
                             'field_type' => TextType::class,
                             'label_html' => true,
-                            'row_attr' => ['class' => 'col-sm-6'],
+                            'row_attr' => ['class' => ' '],
                             'label' => $this->translator->trans('room.additional.label') . ' <span class="dec-icon"><i class="fal fa-layer-plus"></i></span>',
                             'attr' => [
                                 'placeholder' => $this->translator->trans('room.additional.placeholder.label')
@@ -55,7 +55,7 @@ class PropertyRoomsWidgetFormType extends AbstractType
                         ],
                         'details' => [
                             'field_type' => TextareaType::class,
-                            'row_attr' => ['class' => 'col-sm-12'],
+                            'row_attr' => ['class' => ' '],
                             'label' => $this->translator->trans('room.details.label'),
                             'attr' => [
                                 'placeholder' => $this->translator->trans('room.details.placeholder.label'),
@@ -67,22 +67,11 @@ class PropertyRoomsWidgetFormType extends AbstractType
                         ],
                     ]
                 ])
-            ->add('amenityRoom', EntityType::class, [
-                'class' => Amenities::class,
-                'label_html' => true,
-                'mapped' => false,
-                'label' => '<label >' . $this->translator->trans('amenities.label') . '</label>',
-                'row_attr' => ['class' => 'col-sm-6 fl-wrap filter-tags no-list-style ds-tg'],
-                'required' => false,
-                'multiple' => true,
-                'expanded' => true,
-
-            ])
             ->add('area', IntegerType::class,
                 [
                     'required' => false,
                     'label_html' => true,
-                    'row_attr' => ['class' => 'col-sm-4'],
+
                     'label' => $this->translator->trans('plan.area.label') . '<span class="dec-icon"><i  class="far fa-ruler-horizontal"></i></span>',
                     'attr' => [
                         'placeholder' => $this->translator->trans('plan.area.placeholder.label')
@@ -93,7 +82,7 @@ class PropertyRoomsWidgetFormType extends AbstractType
                     'required' => false,
                     'mapped' => false,
                     'label_html' => true,
-                    'row_attr' => ['class' => 'col-sm-4 center-block  listsearch-input-item fl-wrap fuzone', 'style' => 'width: 350px;height: 200px'],
+                    'row_attr' => ['class' => '  center-block  listsearch-input-item fl-wrap fuzone', 'style' => 'width: 350px;height: 200px'],
                     'label' => '<div class="fu-text">
                             <span><i class="far fa-cloud-upload-alt"></i>' . $this->translator->trans('drop.files.label') . '</span>
                             <div class="photoUpload-files fl-wrap"></div>
@@ -113,7 +102,18 @@ class PropertyRoomsWidgetFormType extends AbstractType
                     'label_html' => true,
                     'label' => '<span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span>',
 
-                ]);
+                ])
+            ->add('amenityRoom', EntityType::class, [
+                'class' => Amenities::class,
+                'label_html' => true,
+                'mapped' => false,
+                'label' => '<label >' . $this->translator->trans('amenities.label') . '</label>',
+                'row_attr' => ['class' => ' fl-wrap filter-tags no-list-style ds-tg'],
+                'required' => false,
+                'multiple' => true,
+                'expanded' => true,
+
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

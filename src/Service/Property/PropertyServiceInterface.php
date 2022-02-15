@@ -5,6 +5,7 @@ namespace App\Service\Property;
 use App\Entity\Amenities;
 use App\Entity\Property;
 use App\Entity\PropertyAmenities;
+use App\Entity\PropertyRoomsWidgetAmenities;
 use App\Entity\User;
 
 interface PropertyServiceInterface
@@ -24,4 +25,10 @@ interface PropertyServiceInterface
     public function findAllProperties(): ?array;
 
     public function findOneByProductAmenities(Property $property, $id): ?PropertyAmenities;
+
+    public function amenityFromProperty(Property $property): array;
+
+    public function findOneByRoomWidgetAmenities($widget, $id): ?PropertyRoomsWidgetAmenities;
+
+    public function findForRentAllProperties(string $param = null): ?array;
 }

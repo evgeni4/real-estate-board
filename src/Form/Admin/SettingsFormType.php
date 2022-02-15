@@ -5,6 +5,7 @@ namespace App\Form\Admin;
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use App\Entity\Settings;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -51,7 +52,33 @@ class SettingsFormType extends AbstractType
                         ],
                     ]
                 ]
-            );
+            )
+            ->add('hostName',TextType::class,[
+                'required'=>false,
+                'label'=>false
+            ])
+            ->add('userName',TextType::class,[
+                'required'=>false,
+                'label'=>false
+            ])
+            ->add('password',TextType::class,[
+                'required'=>false,
+                'label'=>false
+            ])
+            ->add('port',TextType::class,[
+                'required'=>false,
+                'label'=>false
+            ])
+            ->add('logo', FileType::class,
+                [
+                    'required' => false,
+                    'attr' => ['class' => 'upload', 'accept' => 'image/*'],
+                    'label' => false,
+                    'mapped' => false,
+                    'multiple' => false
+                ]
+            )
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

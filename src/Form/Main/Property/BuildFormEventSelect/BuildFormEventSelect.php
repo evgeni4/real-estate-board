@@ -18,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BuildFormEventSelect
 {
-    public function __construct(public TranslatorInterface $translator)
+    public function __construct(public TranslatorInterface $translator, )
     {
     }
 
@@ -186,4 +186,5 @@ class BuildFormEventSelect
 //             }
 //         );
     }
+
 }

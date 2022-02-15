@@ -37,6 +37,7 @@ class PropertyFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $amenities = $options['data']->getPropertyAmenities()->getValues();
+        $widgets = $options['data']->getPropertyRoomsWidgets()->getValues();
         $builder
             ->add('translations', TranslationsType::class,
                 [
@@ -63,7 +64,7 @@ class PropertyFormType extends AbstractType
                         'description' => [
                             'field_type' => TextareaType::class,
                             'label_html' => true,
-                            'attr' => ['class' => 'form-control', 'placeholder' => $this->translator->trans('description.text.label')],
+                            'attr' => ['class' => ' ', 'placeholder' => $this->translator->trans('description.text.label')],
                             'label' => $this->translator->trans('description.text.label'),
                             'constraints' => [
                                 new NotBlank()
@@ -271,8 +272,9 @@ class PropertyFormType extends AbstractType
                 [
                     'entry_type' => PropertyRoomsWidgetFormType::class,
                     'required' => false,
+                    'label' => false,
                     'entry_options' => [
-                        'label' => '',
+                        'label' => false,
 
                     ],
                     'prototype' => true,
@@ -296,7 +298,7 @@ class PropertyFormType extends AbstractType
                 [
                     'required' => false,
                     'attr' => [
-                        'placeholder' => 'Youtube ' . $this->translator->trans('or.label') . ' Vimeo',
+                        'placeholder' => 'https://www.youtube.com/embed/"code"',
                     ],
                     'label_html' => true,
                     'label' => 'Video Youtube: <span class="dec-icon"><i class="fab fa-youtube"></i></span>',

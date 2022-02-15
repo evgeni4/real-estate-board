@@ -30,7 +30,7 @@ class PropertyPlanFormType extends AbstractType
                         'title' => [
                             'field_type' => TextType::class,
                             'label_html'=>true,
-                            'row_attr'=>['class'=>'col-sm-12'],
+                            'row_attr'=>['class'=>''],
                             'label' => $this->translator->trans('plan.title.label').'<span class="dec-icon"><i class="far fa-ruler-horizontal"></i></span>',
                             'attr' => [
                                 'placeholder' =>$this->translator->trans('plan.title.placeholder.label')
@@ -38,7 +38,7 @@ class PropertyPlanFormType extends AbstractType
                         ],
                         'details' => [
                             'field_type' => TextareaType::class,
-                            'row_attr'=>['class'=>'col-sm-12'],
+                            'row_attr'=>['class'=>''],
                             'label' =>$this->translator->trans('plan.details.label'),
                             'attr'=>[
                                 'placeholder'=>$this->translator->trans('plan.details.placeholder.label'),
@@ -54,7 +54,7 @@ class PropertyPlanFormType extends AbstractType
                 [
                     'required' => false,
                     'label_html' => true,
-                    'row_attr'=>['class'=>'col-sm-6'],
+                    'row_attr'=>['class'=>''],
                     'label' =>  $this->translator->trans('plan.area.label').'<span class="dec-icon"><i  class="far fa-ruler-horizontal"></i></span>',
                     'attr' => [
                         'placeholder' => $this->translator->trans('plan.area.placeholder.label')
@@ -65,7 +65,7 @@ class PropertyPlanFormType extends AbstractType
                     'required'=>false,
                     'label_html'=>true,
                     'mapped'=>false,
-                    'row_attr'=>['class'=>'col-sm-6 center-block  listsearch-input-item fl-wrap fuzone','style'=>'width: 350px;height: 200px'],
+                    'row_attr'=>['class'=>' center-block  listsearch-input-item fl-wrap fuzone','style'=>'width: 350px;height: 200px'],
                     'label'=> '<div class="fu-text">
                             <span><i class="far fa-cloud-upload-alt"></i>'.$this->translator->trans('drop.files.label').'</span>
                             <div class="photoUpload-files fl-wrap"></div>

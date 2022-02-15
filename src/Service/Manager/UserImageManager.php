@@ -93,11 +93,12 @@ class UserImageManager
             'newFolder' => $userCoverDir,
             'newFileName' => sprintf('%s_%s.jpeg', $fileNameId, 'big')
         ];
-         $imageBig = $this->imageResizer->resizeImageAndSave($uploadsCoverTempDir, $tempImageCoverFileName, $imageBigParam);;
+        $imageBig = $this->imageResizer->resizeImageAndSave($uploadsCoverTempDir, $tempImageCoverFileName, $imageBigParam);
         $userCovers = new UserCovers();
         $userCovers->setCover($imageBig);
         return $userCovers;
     }
+
     public function removeCoverFromUser(UserCovers $userCover, string $userImageDir)
     {
         $cover = $userImageDir . '/' . $userCover->getCover();
@@ -105,5 +106,19 @@ class UserImageManager
         $user = $userCover->getUserCover();
         $user->removeCover($userCover);
         $this->entityManager->flush();
+    }
+
+    public function saveImageLogo(string $tempImageFileName, $dirImage): string
+    {
+        $uploadedTempDir = $this->container->getParameter('logo_image_temp_dir');
+        $this->systemWorker->createFolderIfNotExist($dirImage);
+        $fileNameId = uniqid();
+        $imageBigParam = [
+            'width' =>200,
+            'height' => null,
+            'newFolder' => $dirImage,
+            'newFileName' => sprintf('%s_%s.png', $fileNameId, 'big')
+        ];
+        return $this->imageResizer->resizeImageAndSave($uploadedTempDir, $tempImageFileName, $imageBigParam);
     }
 }

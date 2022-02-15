@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Settings;
+use App\Form\Admin\Handler\SettingsFormHandler;
 use App\Form\Admin\SettingsFormType;
 use App\Service\Admin\Settings\SettingsServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +17,10 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class SystemSettings extends AbstractController
 {
     public function __construct(
-        private TranslatorInterface $translator,
-        private Breadcrumbs $breadcrumbs,
-        private SettingsServiceInterface $settingsService
+        private TranslatorInterface      $translator,
+        private Breadcrumbs              $breadcrumbs,
+        private SettingsServiceInterface $settingsService,
+        private SettingsFormHandler      $settingsFormHandler
     )
     {
     }
@@ -34,6 +36,7 @@ class SystemSettings extends AbstractController
             ]
         );
     }
+
     #[Route('/new', name: 'admin_settings_new')]
     public function new(Request $request): Response
     {
@@ -53,7 +56,7 @@ class SystemSettings extends AbstractController
 
 
     #[Route('/{id}/edit', name: 'admin_settings_edit')]
-    public function edit(Settings $settings,Request $request): Response
+    public function edit(Settings $settings, Request $request): Response
     {
         $this->breadcrumbs->addRouteItem("Dashboard", 'admin_dashboard');
         $this->breadcrumbs->addRouteItem($this->translator->trans('settings.label'), 'admin_settings_show');;
@@ -61,10 +64,11 @@ class SystemSettings extends AbstractController
         $form = $this->createForm(SettingsFormType::class, $settings);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $settings = $this->settingsFormHandler->processEditForm($settings, $form);
             $this->addFlash('success', $this->translator->trans('settings.changed.label'));
             $this->settingsService->update($settings);
-            return $this->redirectToRoute('admin_settings_show');
+            return $this->redirectToRoute('admin_settings_edit',['id'=>$settings->getId()]);
         }
-        return $this->render('admin/pages/settings/new.html.twig', ['form' => $form->createView()]);
+        return $this->renderForm('admin/pages/settings/new.html.twig', ['form' => $form,'settings'=>$settings]);
     }
 }

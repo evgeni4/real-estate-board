@@ -13,8 +13,15 @@ back.label: Back
 action.label: Action
 published.label: Published
 by.label: By
+all.label: All
+search.key.label: Address , Street , State...
 date.label: Date
 save.label: Save
+advanced.search.label: Advanced search
+search.label: Search
+for.sale.label: For Sale
+for.rent.label: For Rent
+view.all.properties.label: View All Properties
 #end default
 language.currency.heading: Language / Currency
 language.heading: Language
@@ -73,7 +80,10 @@ get.in.touch.label: Get in touch
 contacts.label: Contacts
 errors.form.label: Error, fields are incorrectly filled!
 
-
+home.page.title.label: Real Estate Searching Platform
+home.page.title.h2.label: Find The House of Your Dream
+home.page.slogan.label: Using Our Platform
+more.search.options.label: Need more search options
 #end user register fields
 wishlist.compare.heading: Your Wishlist / Compare
 wishlist.label: Wishlist
@@ -177,6 +187,8 @@ featured.properties.label: Featured properties
 your.location.label: Your location
 enable.scrollinglabel: Enable Scrolling
 property.disable.label: Ad updated successfully!
+popular.ads.label: Popular ads
+browse.hot.offers.label: Browse Hot Offers
 #end messages
 #admin fields messages
 view.site.label: Go to the site

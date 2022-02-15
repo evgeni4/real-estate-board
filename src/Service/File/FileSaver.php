@@ -60,7 +60,7 @@ class FileSaver
         $this->fileSystemWorker->createFolderIfNotExist($uploadTempDir);
         try {
             $uploadedFile->move($uploadTempDir, $fileName);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return null;
         }
 
@@ -76,7 +76,7 @@ class FileSaver
         $this->fileSystemWorker->createFolderIfNotExist($uploadWidgetTempDir);
         try {
             $uploadedFile->move($uploadWidgetTempDir, $fileName);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return null;
         }
 
@@ -92,10 +92,25 @@ class FileSaver
         $this->fileSystemWorker->createFolderIfNotExist($uploadWidgetTempDir);
         try {
             $uploadedFile->move($uploadWidgetTempDir, $fileName);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return null;
         }
 
+        return $fileName;
+    }
+
+    public function saveLogoUploadedFileIntoTemp(UploadedFile $uploadedFile)
+    {
+        $uploadedTempDir = $this->serviceContainer->getParameter('logo_image_temp_dir');
+        $originalFileName = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $saveFileName = $this->slugger->slug($originalFileName);
+        $fileName = sprintf('%s-%s.%s', $saveFileName, uniqid(), $uploadedFile->guessExtension());
+        $this->fileSystemWorker->createFolderIfNotExist($uploadedTempDir);
+        try {
+            $uploadedFile->move($uploadedTempDir,$fileName);
+        }catch (\Exception $exception){
+            return null;
+        }
         return $fileName;
     }
 

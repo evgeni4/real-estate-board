@@ -287,7 +287,7 @@
                                 </div>
                                 <!-- list-single-main-item end -->
                                 <!--   list-single-main-item -->
-                                {% if property.roomWidgetStatus and property.propertyRoomsWidgets %}
+                                {% if property.roomWidgetStatus and property.propertyRoomsWidgets|length %}
                                     {% set rooms = property.propertyRoomsWidgets %}
                                     <div class="list-single-main-item fl-wrap" id="sec3">
                                         <div class="list-single-main-item-title fl-wrap">
@@ -343,7 +343,7 @@
                                 {% endif %}
                                 <!-- list-single-main-item end -->
                                 <!-- list-single-main-item -->
-                                {% if property.propertyPlanStatus and property.propertyPlans %}
+                                {% if property.propertyPlans|length and property.propertyPlanStatus   %}
                                     {% set plans = property.propertyPlans %}
                                     <div class="list-single-main-item fl-wrap">
                                         <div class="list-single-main-item-title">
@@ -374,10 +374,8 @@
                                         </div>
                                         <div class="list-single-main-item_content fl-wrap">
                                             <div class="video-box fl-wrap">
-                                                <img src="{{ asset('assets/images/all/7.jpg') }}" class="respimg"
-                                                     alt="">
-                                                <a class="video-box-btn image-popup color-bg"
-                                                   href="https://vimeo.com/158059890"><i class="fas fa-play"></i></a>
+                                                <iframe width="100%" height="350" src="https://www.youtube.com/embed/{{ property.video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
                                             </div>
                                         </div>
                                     </div>
@@ -497,12 +495,6 @@
                             <div class="profile-widget">
                                 <div class="profile-widget-header color-bg smpar fl-wrap">
                                     <div class="pwh_bg"></div>
-                                    <div class="call-btn">
-                                        <a href="tel:123-456-7890" class="tolt color-bg" data-microtip-position="right"
-                                           data-tooltip="Call Now">
-                                            <i class="fas fa-phone-alt"></i>
-                                        </a>
-                                    </div>
                                     <div class="profile-widget-card">
                                         {% set avatars =  property.agent.userImages().getValues() %}
                                         <div class="profile-widget-image">
@@ -520,7 +512,7 @@
                                             </h4>
                                             <div class="clearfix"></div>
                                             <div class="pwh_counter">
-                                                <span>{{ property.agent.properties|length }}</span>{% trans %}property.listing.label{% endtrans %}
+                                                {% trans %}property.listing.label{% endtrans %} <span>{{ property.agent.properties|length }}</span>
                                             </div>
                                             <div class="clearfix"></div>
                                             {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewAgent',{
@@ -665,64 +657,51 @@
                         </div>
                         <!--box-widget end -->
                         <!--box-widget-->
-                        <div class="box-widget fl-wrap">
-                            <div class="box-widget-title fl-wrap">Propertie Documents</div>
-                            <div class="box-widget-content fl-wrap">
-                                <div class="bwc_download-list">
-                                    <a href="listing-single3.html#" download><span><i
-                                                    class="fal fa-file-pdf"></i></span>Property Presentation</a>
-                                    <a href="listing-single3.html#" download><span><i
-                                                    class="fal fa-file-word"></i></span>Energetic Certificate</a>
-                                    <a href="listing-single3.html#" download><span><i
-                                                    class="fal fa-file-pdf"></i></span>Property Plans</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--box-widget end -->
-                        <!--box-widget-->
-                        <div class="box-widget fl-wrap">
-                            <div class="box-widget-fixed-init fl-wrap" id="sec-contact">
-                                <div class="box-widget-title fl-wrap box-widget-title-color color-bg">Contact Property
-                                </div>
-                                <div class="box-widget-content fl-wrap">
-                                    <div class="custom-form">
-                                        <form method="post" name="contact-property-form">
-                                            <label>Your name* <span class="dec-icon"><i class="fas fa-user"></i></span></label>
-                                            <input name="phone" type="text" onClick="this.select()" value="">
-                                            <label>Your phone * <span class="dec-icon"><i
-                                                            class="fas fa-phone"></i></span></label>
-                                            <input name="phone" type="text" onClick="this.select()" value="">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <label>Date <span class="dec-icon"><i
-                                                                    class="fas fa-calendar-check"></i></span></label>
-                                                    <div class="date-container fl-wrap">
-                                                        <input type="text" placeholder=""
-                                                               style="padding: 16px 5px 16px 60px;"
-                                                               name="datepicker-here" value=""/>
+                        {% if property.contactFormStatus %}
+                            <div class="box-widget fl-wrap">
+                                <div class="box-widget-fixed-init fl-wrap" id="sec-contact">
+                                    <div class="box-widget-title fl-wrap box-widget-title-color color-bg">Contact Property
+                                    </div>
+                                    <div class="box-widget-content fl-wrap">
+                                        <div class="custom-form">
+                                            <form method="post" name="contact-property-form">
+                                                <label>Your name* <span class="dec-icon"><i class="fas fa-user"></i></span></label>
+                                                <input name="phone" type="text" onClick="this.select()" value="">
+                                                <label>Your phone * <span class="dec-icon"><i
+                                                                class="fas fa-phone"></i></span></label>
+                                                <input name="phone" type="text" onClick="this.select()" value="">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>Date <span class="dec-icon"><i
+                                                                        class="fas fa-calendar-check"></i></span></label>
+                                                        <div class="date-container fl-wrap">
+                                                            <input type="text" placeholder=""
+                                                                   style="padding: 16px 5px 16px 60px;"
+                                                                   name="datepicker-here" value=""/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Time </label>
+                                                        <select data-placeholder="9 AM"
+                                                                class="chosen-select on-radius no-search-select">
+                                                            <option>9 AM</option>
+                                                            <option>10 AM</option>
+                                                            <option>11 AM</option>
+                                                            <option>12 AM</option>
+                                                            <option>13 PM</option>
+                                                            <option>14 PM</option>
+                                                            <option>15 PM</option>
+                                                            <option>16 PM</option>
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <label>Time </label>
-                                                    <select data-placeholder="9 AM"
-                                                            class="chosen-select on-radius no-search-select">
-                                                        <option>9 AM</option>
-                                                        <option>10 AM</option>
-                                                        <option>11 AM</option>
-                                                        <option>12 AM</option>
-                                                        <option>13 PM</option>
-                                                        <option>14 PM</option>
-                                                        <option>15 PM</option>
-                                                        <option>16 PM</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn float-btn color-bg fw-btn"> Send</button>
-                                        </form>
+                                                <button type="submit" class="btn float-btn color-bg fw-btn"> Send</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
                         <!--box-widget end -->
                     </div>
                     <!--  sidebar end-->

@@ -11,6 +11,8 @@ parameters:
     uploads_dir: '%kernel.project_dir%/public/assets/images'
     uploads_temp_dir: '%uploads_dir%/temp'
     user_image_dir: '%uploads_dir%/avatar'
+    logo_image_temp_dir: '%uploads_dir%/temp/logo'
+    logo_image_dir: '%uploads_dir%/logo'
     currencies: 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'
     uploads_property_temp_dir: '%uploads_dir%/temp/property'
     uploads_property: '%uploads_dir%/properties/property'

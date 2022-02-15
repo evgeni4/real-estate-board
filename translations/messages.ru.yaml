@@ -13,8 +13,15 @@ back.label: Назад
 action.label: Действие
 published.label: Опубликовано
 by.label: От
+all.label: Все
+search.key.label: Адрес, улица, город...
 date.label: Дата
 save.label: Сохранить
+advanced.search.label: Расширенный поиск
+search.label: Поиск
+for.sale.label: Продается
+for.rent.label: Аренда
+view.all.properties.label: Посмотреть все объявления
 
 #end default
 language.currency.heading: Язык / Валюта
@@ -73,9 +80,12 @@ agent.contacts.label: Контакты агента
 get.in.touch.label: Связаться
 contacts.label: Контакты
 errors.form.label: Ошибка, поля некорректно заполнены!
-
-
-
+home.page.title.label: Платформа поиска недвижимости
+home.page.title.h2.label: Найдите дом своей мечты
+home.page.slogan.label: Используя нашу платформу
+more.search.options.label: Нужно больше параметров поиска
+popular.ads.label: Популярные объявления
+browse.hot.offers.label: Просмотрите горячие предложения
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Service\Manager;
 
+use App\Entity\Settings;
 use App\Entity\User;
 use App\Entity\UserImage;
 use App\Service\User\UserServiceInterface;
@@ -39,7 +40,11 @@ class UserManager
         $user->addUserImage($userImage);
         return $user;
     }
-
+    public function getLogoImageDir($dirImage): string
+    {
+        $userImageDir = $this->container->getParameter('logo_image_dir');
+        return sprintf('%s-%s', $userImageDir, $dirImage);
+    }
     public function updateUserImageCover(User $user, string $tempImageCoverFileName = null): User
     {
         $uploadsTempDir = $this->container->getParameter('uploads_temp_dir');
@@ -51,5 +56,18 @@ class UserManager
         $userImageCover->setUserCover($user);
         $user->addCover($userImageCover);
         return $user;
+    }
+
+    public function saveLogoImage(Settings $settings, string $tempImageFileName,$dirImage):Settings
+    {
+        $uploadedTempDir = $this->container->getParameter('logo_image_temp_dir');
+        if (!$tempImageFileName){
+            return $settings;
+        }
+        $logoDir = $this->getLogoImageDir($dirImage);
+        $logoImage = $this->userImageManager->saveImageLogo($tempImageFileName,$logoDir);
+        $settings->setLogo($logoImage);
+        $settings->setLogoPath($dirImage);
+        return $settings;
     }
 }

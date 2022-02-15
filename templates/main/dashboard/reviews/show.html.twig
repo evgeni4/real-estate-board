@@ -10,39 +10,46 @@
         </div>
         <div class="dasboard-widget-box fl-wrap">
             <!-- reviews-comments-item -->
-            {% for comment in comments %}
-                <div class="reviews-comments-item">
-                    <div class="review-comments-avatar">
-                        {% set avatars =  comment.author.userImages().getValues() %}
-                        {% if avatars|length %}
-                            {% set avatar = avatars[0] %}
-                            <img src="{{ asset('assets/images/avatar-'~comment.author.id~'/'~avatar.fileNameMiddle) }}" alt="Avatar">
-                        {% else %}
-                            <img src="{{ asset('assets/no_image.jpeg') }}" alt="Avatar">
-                        {% endif %}
-                    </div>
-                    <div class="reviews-comments-item-text smpar">
-                        <div class="box-widget-menu-btn smact"><i class="far fa-ellipsis-h"></i></div>
-                        <div class="show-more-snopt-tooltip bxwt">
-                            <a href="#"> <i class="fas fa-reply"></i> Reply</a>
-                            <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a>
+            {% if comments|length %}
+                {% for comment in comments %}
+                    <div class="reviews-comments-item">
+                        <div class="review-comments-avatar">
+                            {% set avatars =  comment.author.userImages().getValues() %}
+                            {% if avatars|length %}
+                                {% set avatar = avatars[0] %}
+                                <img src="{{ asset('assets/images/avatar-'~comment.author.id~'/'~avatar.fileNameMiddle) }}" alt="Avatar">
+                            {% else %}
+                                <img src="{{ asset('assets/images/no_image/noImage.png') }}" alt="Avatar">
+                            {% endif %}
                         </div>
-                        <h4><a href="#">{{ comment.author.firstName|capitalize}} {{ comment.author.lastName|capitalize}} <span>For Luxury Family Home </span></a></h4>
-                        {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewsFromAuthor',{
-                            'uuid':comment.author.uuid,
-                            'reviews':comment
-                        })) }}
-                        <div class="clearfix"></div>
-                        <p> {{ comment.text}}</p>
-                        <div class="reviews-comments-item-date">
+                        <div class="reviews-comments-item-text smpar">
+                            <div class="box-widget-menu-btn smact"><i class="far fa-ellipsis-h"></i></div>
+                            <div class="show-more-snopt-tooltip bxwt">
+                                <a href="#"> <i class="fas fa-reply"></i> Reply</a>
+                                <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a>
+                            </div>
+                            <h4><a href="#">{{ comment.author.firstName|capitalize}} {{ comment.author.lastName|capitalize}} <span>For Luxury Family Home </span></a></h4>
+                            {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewsFromAuthor',{
+                                'uuid':comment.author.uuid,
+                                'reviews':comment
+                            })) }}
+                            <div class="clearfix"></div>
+                            <p> {{ comment.text}}</p>
+                            <div class="reviews-comments-item-date">
                             <span class="reviews-comments-item-date-item">
                                 <i class="far fa-calendar-check"></i>
                                 {{ comment.createdAt|date('d-m-Y') }}
                             </span>
-                            <a href="#" class="rate-review"><i class="fal fa-thumbs-up"></i>  Helpful Review  <span>6</span> </a></div>
+                                <a href="#" class="rate-review"><i class="fal fa-thumbs-up"></i>  Helpful Review  <span>6</span> </a></div>
+                        </div>
                     </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-sm-12" style="color: #3270FC; font-size: 25px">
+                    <i class="fas fa-kiss-beam"></i>
                 </div>
-            {% endfor %}
+            {% endif %}
+
             <!--reviews-comments-item end-->
         </div>
         <!-- pagination-->

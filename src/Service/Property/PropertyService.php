@@ -5,20 +5,22 @@ namespace App\Service\Property;
 use App\Entity\Amenities;
 use App\Entity\Property;
 use App\Entity\PropertyAmenities;
-use App\Entity\PropertyViewed;
-use App\Entity\User;
+use App\Entity\PropertyRoomsWidgetAmenities;
+use App\Repository\CategoryRepository;
 use App\Repository\PropertyAmenitiesRepository;
 use App\Repository\PropertyRepository;
-use App\Repository\PropertyViewedRepository;
+use App\Repository\PropertyRoomsWidgetAmenitiesRepository;
+use App\Repository\TypeRepository;
 use App\Service\User\UserServiceInterface;
-use Doctrine\ORM\NonUniqueResultException;
 
 class PropertyService implements PropertyServiceInterface
 {
     public function __construct(
-        private PropertyRepository          $propertyRepository,
-        private UserServiceInterface        $userService,
-        private PropertyAmenitiesRepository $propertyAmenitiesRepository
+        private PropertyRepository                     $propertyRepository,
+        private UserServiceInterface                   $userService,
+        private PropertyAmenitiesRepository            $propertyAmenitiesRepository,
+        private PropertyRoomsWidgetAmenitiesRepository $propertyRoomsWidgetAmenitiesRepository,
+        private TypeRepository                         $typesRepository
     )
     {
     }
@@ -46,7 +48,7 @@ class PropertyService implements PropertyServiceInterface
     public function findAllByAgentListing(): ?array
     {
         $user = $this->userService->currentUser();
-        return $this->propertyRepository->findBy(['agent'=>$user]);
+        return $this->propertyRepository->findBy(['agent' => $user], ['id' => 'desc']);
     }
 
     public function similarProperties(Property $property): ?array
@@ -65,8 +67,39 @@ class PropertyService implements PropertyServiceInterface
         return true;
     }
 
-    public function findOneByProductAmenities(Property $property,$id): ?PropertyAmenities
+    public function findOneByProductAmenities(Property $property, $id): ?PropertyAmenities
     {
-        return $this->propertyAmenitiesRepository->findOneBy(['property'=>$property,'amenity'=>$id]);
+        return $this->propertyAmenitiesRepository->findOneBy(['property' => $property, 'amenity' => $id]);
+    }
+
+    public function amenityFromProperty(Property $property): array
+    {
+        $a = [];
+        foreach ($property->getPropertyRoomsWidgets()->getValues() as $item) {
+            $a[$item->getId()] = [];
+            foreach ($item->getPropertyRoomsWidgetAmenities()->getValues() as $value) {
+                $a[$item->getId()][] = $value->getChecked();
+            }
+        }
+
+        return $a;
+    }
+
+    public function findOneByRoomWidgetAmenities($widget, $id): ?PropertyRoomsWidgetAmenities
+    {
+        return $this->propertyRoomsWidgetAmenitiesRepository->findOneBy(['roomsWidget' => $widget, 'amenity' => $id]);
+    }
+
+    public function findForRentAllProperties(string $param = null): ?array
+    {
+        $type = null;
+        foreach ($this->typesRepository->findAll() as $item) {
+            $pos = str_contains($item->translate('en')->getTitle(), $param);
+            if ($pos) {
+                $type = $item;
+                break;
+            }
+        }
+        return $this->propertyRepository->findBy(['types' => $type]);
     }
 }

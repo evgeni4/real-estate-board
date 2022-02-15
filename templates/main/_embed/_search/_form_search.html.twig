@@ -1,0 +1,37 @@
+{{ form_start(form) }}
+<div class="header-search-wrapper novis_search">
+    <div class="header-serach-menu">
+        <div class="custom-switcher fl-wrap">
+            <div class="fieldset fl-wrap">
+                                {{ form_row(form.type) }}
+{#                <fieldset class="form-group">#}
+{#                    <div id="search_type">#}
+{#                        <div class="form-check">#}
+{#                            <input type="radio" name="duration-1"  id="buy_sw" class="tariff-toggle" checked>#}
+{#                            <label for="buy_sw">{% trans %}for.sale.label{% endtrans %}</label>#}
+{#                        </div>#}
+{#                        <div class="form-check">#}
+{#                            <input type="radio" name="duration-1" class="tariff-toggle"  id="rent_sw">#}
+{#                            <label for="rent_sw" class="lss_lb">{% trans %}for.rent.label{% endtrans %}</label>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </fieldset>#}
+                <span class="switch color-bg"></span>
+            </div>
+        </div>
+    </div>
+    <div class="custom-form">
+        {{ form_row(form.keywords) }}
+        <label>{% trans %}categories.label{% endtrans %}</label>
+        {{ form_row(form.category) }}
+        <label style="margin-top:10px;">Price Range</label>
+        <div class="price-rage-item fl-wrap">
+            {{ form_row(form.price) }}
+            {#            <input type="text" class="price-range" data-min="100" data-max="100000" name="" data-step="1" #}
+            {#                   value="1" data-prefix="€"> #}
+        </div>
+        <button type="submit" class="btn float-btn color-bg"><i
+                    class="fal fa-search"></i> {% trans %}search.label{% endtrans %} </button>
+    </div>
+</div>
+{{ form_end(form) }}

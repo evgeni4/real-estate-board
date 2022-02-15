@@ -179,4 +179,22 @@ class PropertyManagerHelper
         $this->entityManager->flush();
     }
 
+    public function updateCheckedPropertyWidgetAmenity(PropertyRoomsWidget $widget,$id,Property $property): bool
+    {
+        $data = $this->propertyService->findOneByRoomWidgetAmenities($widget,$id);
+
+        if ($data != null && $data->getChecked() == 0) {
+            $data->setChecked(true);
+            $widget->addPropertyRoomsWidgetAmenity($data);
+            $property->addPropertyRoomsWidget($widget);
+            return true;
+        }elseif ($data != null && $data->getChecked() == 1) {
+            $data->setChecked(false);
+            $widget->addPropertyRoomsWidgetAmenity($data);
+            $property->addPropertyRoomsWidget($widget);
+            return true;
+        }
+        return true;
+    }
+
 }

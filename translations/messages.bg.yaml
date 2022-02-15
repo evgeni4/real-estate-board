@@ -13,9 +13,15 @@ back.label: Обратно
 action.label: Действие
 published.label: Публикувано
 by.label: От
+all.label: Всичко
+search.key.label: Адрес, улица, град...
 date.label: Дата
 save.label: Запази
-
+advanced.search.label: Разширено търсене
+search.label: Търсене
+for.sale.label: Продава
+for.rent.label: Под наем
+view.all.properties.label: Вижте всички имоти
 #end default
 language.currency.heading: Език / Валута
 language.heading: Език
@@ -73,9 +79,12 @@ agent.contacts.label: Контакти на агента
 get.in.touch.label: Свържете се
 contacts.label: Контакти
 errors.form.label: Грешка, полетата са попълнени неправилно!
-
-
-
+home.page.title.label: Платформа за търсене на недвижими имоти
+home.page.title.h2.label: Намерете къщата на вашата мечта
+home.page.slogan.label: Използване на нашата платформа
+more.search.options.label: Нуждаете се от повече опции за търсене
+popular.ads.label: Популярни имоти
+browse.hot.offers.label: Разгледайте горещи оферти
 #end user fields
 wishlist.compare.heading: Вашият списък с желания / Сравнете
 wishlist.label: Списък с желания

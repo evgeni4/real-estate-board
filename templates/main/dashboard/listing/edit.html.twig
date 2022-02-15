@@ -2,7 +2,6 @@
 {% extends 'main/base_dashboard.html.twig' %}
 {% block body %}
     {% set locale  = app.request.locale %}
-    {{ property.id }}
     {{ form_start(form) }}
     {{ form_errors(form) }}
     <div class="dasboard-wrapper fl-wrap no-pag">
@@ -119,8 +118,10 @@
                         {% set images = property.propertyImages().getValues() %}
                         {% if images|length %}
                             {% for image in images %}
-                                <img src="{{ asset('assets/images/properties/property-'~image.slug~'/'~image.imageSm) }}" alt="Property image">
-                                <a href="{{ path('main_image_listing_delete',{'id': image.id}) }}" style="color: #3270FC;"><i class="fas fa-trash"></i></a>
+                                <img src="{{ asset('assets/images/properties/property-'~image.slug~'/'~image.imageSm) }}"
+                                     alt="Property image">
+                                <a href="{{ path('main_image_listing_delete',{'id': image.id}) }}"
+                                   style="color: #3270FC;"><i class="fas fa-trash"></i></a>
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -157,7 +158,7 @@
                     <ul class="fl-wrap filter-tags no-list-style ds-tg">
 
                         {% set amenities = property.propertyAmenities().getValues() %}
-                            {% for  key,amenity in form.amenity %}
+                        {% for  key,amenity in form.amenity %}
                             <li>
                                 {{ form_errors(amenity) }}
                                 {{ form_row(amenity,{'attr':{'onclick':'deleteAmenity('~ key~')','data-id': property.id, }}) }}
@@ -182,34 +183,87 @@
             <div class="custom-form add_room-item-wrap ">
                 <div id="fields-list" class="add_room-container fl-wrap"
                      data-prototype="{{ form_widget(form.propertyRoomsWidgets.vars.prototype)|e }}"
-                     data-widget-tags="{{ '<div  class="row widget-row"></div>'|e }}"
+                     data-widget-tags="{{ '<div class="add_room-item fl-wrap"></div>'|e }}"
                      data-widget-counter="{{ form.propertyRoomsWidgets|length }}">
-                    {% for key,room in form.propertyRoomsWidgets %}
-                        {% set widget = property.propertyRoomsWidgets.getValues()[key] %}
-                        <a  href="{{ path('main_delete_widget',{'id':widget.id}) }}" class="remove-tag remove-btn-up tolt" data-microtip-position="left" data-tooltip="Remove Room"><i class="fal fa-times-circle"></i></a>
-                         {{ form_errors(room) }}
-                         {{ form_row(room) }}
-                        {% if widget.imageRoom %}
-                            <div class="row ddd">
-                                <div class="col-sm-12">
-                                    <div class="rooms-media">
-                                        <img  src="{{ asset('assets/images/properties/widgets/widget-'~widget.slug~'/'~widget.imageRoom) }}"
-                                              alt="Room image">
-                                        <div class="dynamic-gal more-photos-button color-bg"
-                                             data-dynamicPath="[{'src': '{{ asset('assets/images/properties/widgets/widget-'~widget.slug~'/'~widget.imageRoom) }}'}]">
-                                            <i class="fas fa-camera"></i>
-                                            <span>{% trans %}view.label{% endtrans %}</span>
-                                        </div>
-                                    </div>
+                    {% for room in form.propertyRoomsWidgets %}
+                        {% set widget = room.vars.value %}
+                        <a href="{{ path('main_delete_widget',{'id':widget.id}) }}" class="remove-btn-up tolt"
+                           data-microtip-position="left" data-tooltip="Remove Room"><i class="fal fa-times-circle"></i></a>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{ a2lixTranslations.partialTranslations(room.translations, ['title'],{'attr':{'class':'col-sm-12 dd'}}) }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ a2lixTranslations.partialTranslations(room.translations, ['room']) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="listsearch-input-item">
+                                    {{ a2lixTranslations.partialTranslations(room.translations, ['details']) }}
                                 </div>
                             </div>
-                        {% endif %}
+                            <div class="col-sm-6"><br><br>
+                                <label>Room Details</label>
+                                <div class="listsearch-input-item">
+                                    {{ form_row(room.imageRoom) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {{ form_row(room.published) }}
+
+                            <div class="col-sm-6">
+                                <div class="listsearch-input-item fl-wrap">
+                                    {{ form_row(room.area) }}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="listsearch-input-item fl-wrap">
+                                    {% if widget.imageRoom %}
+                                        <div class="row ddd">
+                                            <div class="col-sm-12">
+                                                <div class="rooms-media">
+                                                    <img src="{{ asset('assets/images/properties/widgets/widget-'~widget.slug~'/'~widget.imageRoom) }}"
+                                                         alt="Room image">
+                                                    <div class="dynamic-gal more-photos-button color-bg"
+                                                         data-dynamicPath="[{'src': '{{ asset('assets/images/properties/widgets/widget-'~widget.slug~'/'~widget.imageRoom) }}'}]">
+                                                        <i class="fas fa-camera"></i>
+                                                        <span>{% trans %}view.label{% endtrans %}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <label>{% trans %}amenities.label{% endtrans %}: </label>
+                        <div class=" add-list-tags fl-wrap">
+                            <!-- Checkboxes -->
+                            <ul class="fl-wrap filter-tags no-list-style ds-tg">
+                                {% set amenitiesCheck = propertyArrayAmenity[widget.id] %}
+                                {% for key,amenity in room.amenityRoom %}
+                                    <li>
+                                        {% if key in amenitiesCheck|keys %}
+                                            {{ form_row(amenity,{'attr':{'class':'amenity_'~key,'checked': amenitiesCheck[key]==true?true:false,
+                                                'onclick':'checkAmenity('~ key~','~amenity.vars.id~')','data-property':property.id,'data-widget': widget.id
+                                            }}) }}
+                                        {% else %}
+                                            {{ form_row(amenity) }}
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <!-- Checkboxes end -->
+                        </div>
                     {% endfor %}
                 </div>
-                <button   type="button" class="add-room-item add-field"
-                          data-list-selector="#attachment-fields-list">{% trans %}add.label{% endtrans %}<i class="fal fa-plus"></i>
+                <button type="button" class="add-room-item add-field"
+                        data-list-selector="#attachment-fields-list">{% trans %}add.label{% endtrans %}<i
+                            class="fal fa-plus"></i>
                 </button>
-
             </div>
         </div>
         <!-- dasboard-widget-box  end-->
@@ -226,108 +280,133 @@
             <div class="custom-form add_room-item-wrap">
                 <div id="fields-list-plan" class="add_room-container fl-wrap"
                      data-prototype="{{ form_widget(form.propertyPlans.vars.prototype)|e }}"
-                     data-widget-tags="{{ '<div  class="row widget-row"></div>'|e }}"
+                     data-widget-tags="{{ '<div class="add_room-item fl-wrap"></div>'|e }}"
                      data-widget-counter="{{ form.propertyPlans|length }}">
                     {% for key,plan in form.propertyPlans %}
-                        {% set room = property.propertyPlans.getValues()[key] %}
-                        <a  href="{{ path('main_delete_plan',{'id':room.id}) }}" class="remove-tag remove-btn-up tolt" data-microtip-position="left" data-tooltip="Remove Plan"><i class="fal fa-times-circle"></i></a>
-                        {{ form_errors(plan) }}
-                        {{ form_row(plan) }}<br>
-                        {% if room.imagePlan %}
-                            <div class="row ddd">
-                                <div class="col-sm-12">
-                                    <div class="rooms-media">
-                                        <img  src="{{ asset('assets/images/properties/plans/plan-'~room.slug~'/'~room.imagePlan) }}"
-                                              alt="Room image">
-                                        <div class="dynamic-gal more-photos-button color-bg"
-                                             data-dynamicPath="[{'src': '{{ asset('assets/images/properties/plans/plan-'~room.slug~'/'~room.imagePlan) }}'}]">
-                                            <i class="fas fa-camera"></i>
-                                            <span>{% trans %}view.label{% endtrans %}</span>
+                    {% set room = property.propertyPlans.getValues()[key] %}
+                    <a href="{{ path('main_delete_plan',{'id':room.id}) }}" class="remove-tag remove-btn-up tolt"
+                       data-microtip-position="left" data-tooltip="Remove Plan"><i class="fal fa-times-circle"></i></a>
+                    {{ form_errors(plan) }}
+                    {#                        {{ a2lixTranslations.partialTranslations(room.translations, ['details']) }} #}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{ a2lixTranslations.partialTranslations(plan.translations, ['title']) }}
+                            <div class="listsearch-input-item">
+                                {{ form_row(plan.area) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            {{ a2lixTranslations.partialTranslations(plan.translations, ['details']) }}
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {% if room.imagePlan %}
+                                <div class="row ddd">
+                                    <div class="col-sm-12">
+                                        <div class="rooms-media">
+                                            <img src="{{ asset('assets/images/properties/plans/plan-'~room.slug~'/'~room.imagePlan) }}"
+                                                 alt="Room image">
+                                            <div class="dynamic-gal more-photos-button color-bg"
+                                                 data-dynamicPath="[{'src': '{{ asset('assets/images/properties/plans/plan-'~room.slug~'/'~room.imagePlan) }}'}]">
+                                                <i class="fas fa-camera"></i>
+                                                <span>{% trans %}view.label{% endtrans %}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <button   type="button" class="add-room-item add-field-plan"
-                          data-list-selector="#attachment-fields-list">{% trans %}add.label{% endtrans %}<i class="fal fa-plus"></i>
-                </button>
-            </div>
-        </div>
-        <!-- dasboard-widget-box  end-->
-        <!-- dasboard-widget-title -->
-        <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec7">
-            <h5><i class="fas fa-sliders-h"></i>{% trans %}content.widget.label{% endtrans %}</h5>
-        </div>
-        <!-- dasboard-widget-title end -->
-        <!-- dasboard-widget-box  -->
-        <div class="dasboard-widget-box   fl-wrap">
-            <div class="custom-form">
-                <div class="row">
-                    <!-- content-widget-switcher -->
-                    <div class="col-md-6">
-                        <div class="content-widget-switcher fl-wrap">
-                            <span class="content-widget-switcher-title">{% trans %}video.presentation.label{% endtrans %}</span>
-                            <div class="onoffswitch">
-                                {{ form_row(form.videoPresentation) }}
-                            </div>
-                            <div class="content-widget-switcher-item fl-wrap">
-                                {{ form_row(form.video) }}
-                            </div>
+                            {% endif %}
                         </div>
-                    </div>
-                    <!-- content-widget-switcher end-->
-                    <!-- content-widget-switcher -->
-                    <div class="col-md-6">
-                        {#                        <div class="content-widget-switcher fl-wrap">#}
-                        {#                            <span class="content-widget-switcher-title">Mortgage Calculator</span>#}
-                        {#                            <div class="onoffswitch">#}
-                        {#                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"#}
-                        {#                                       id="myonoffswitchmc423" checked>#}
-                        {#                                <label class="onoffswitch-label" for="myonoffswitchmc423">#}
-                        {#                                    <span class="onoffswitch-inner"></span>#}
-                        {#                                    <span class="onoffswitch-switch"></span>#}
-                        {#                                </label>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
-                        <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
-                            <span class="content-widget-switcher-title">{% trans %}google.map.label{% endtrans %}</span>
-                            <div class="onoffswitch">
-                                {{ form_row(form.googleMapStatus) }}
+                        <div class="col-sm-6">
+                            <div class="listsearch-input-item fl-wrap">
+                                {{ form_row(plan.imagePlan) }}
                             </div>
-                        </div>
-                        <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
-                            <span class="content-widget-switcher-title">{% trans %}contact.form.label{% endtrans %}</span>
-                            <div class="onoffswitch">
-                                {{ form_row(form.contactFormStatus) }}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- content-widget-switcher end-->
-                </div>
-            </div>
-        </div>
-        <!-- dasboard-widget-box  end-->
-        <!-- dasboard-widget-box-->
-        <div class="dasboard-widget-box   fl-wrap">
-            <div class="custom-form">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
-                            <span class="content-widget-switcher-title">{% trans %}published.label{% endtrans %}</span>
-                            <div class="onoffswitch">
-                                {{ form_row(form.published) }}
-                            </div>
+                            {{ form_row(plan.published) }}
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
+            <button type="button" class="add-room-item add-field-plan"
+                    data-list-selector="#attachment-fields-list">{% trans %}add.label{% endtrans %}<i
+                        class="fal fa-plus"></i>
+            </button>
         </div>
-        <!-- dasboard-widget-box  end-->
+    </div>
+    <!-- dasboard-widget-box  end-->
+    <!-- dasboard-widget-title -->
+    <div class="dasboard-widget-title dwb-mar fl-wrap" id="sec7">
+        <h5><i class="fas fa-sliders-h"></i>{% trans %}content.widget.label{% endtrans %}</h5>
+    </div>
+    <!-- dasboard-widget-title end -->
+    <!-- dasboard-widget-box  -->
+    <div class="dasboard-widget-box   fl-wrap">
         <div class="custom-form">
-            <button type="submit" class="btn  color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button>
+            <div class="row">
+                <!-- content-widget-switcher -->
+                <div class="col-md-6">
+                    <div class="content-widget-switcher fl-wrap">
+                        <span class="content-widget-switcher-title">{% trans %}video.presentation.label{% endtrans %}</span>
+                        <div class="onoffswitch">
+                            {{ form_row(form.videoPresentation) }}
+                        </div>
+                        <div class="content-widget-switcher-item fl-wrap">
+                            {{ form_row(form.video) }}
+                        </div>
+                    </div>
+                </div>
+                <!-- content-widget-switcher end-->
+                <!-- content-widget-switcher -->
+                <div class="col-md-6">
+                    {#                        <div class="content-widget-switcher fl-wrap"> #}
+                    {#                            <span class="content-widget-switcher-title">Mortgage Calculator</span> #}
+                    {#                            <div class="onoffswitch"> #}
+                    {#                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" #}
+                    {#                                       id="myonoffswitchmc423" checked> #}
+                    {#                                <label class="onoffswitch-label" for="myonoffswitchmc423"> #}
+                    {#                                    <span class="onoffswitch-inner"></span> #}
+                    {#                                    <span class="onoffswitch-switch"></span> #}
+                    {#                                </label> #}
+                    {#                            </div> #}
+                    {#                        </div> #}
+                    <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
+                        <span class="content-widget-switcher-title">{% trans %}google.map.label{% endtrans %}</span>
+                        <div class="onoffswitch">
+                            {{ form_row(form.googleMapStatus) }}
+                        </div>
+                    </div>
+                    <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
+                        <span class="content-widget-switcher-title">{% trans %}contact.form.label{% endtrans %}</span>
+                        <div class="onoffswitch">
+                            {{ form_row(form.contactFormStatus) }}
+                        </div>
+                    </div>
+                </div>
+                <!-- content-widget-switcher end-->
+            </div>
         </div>
+    </div>
+    <!-- dasboard-widget-box  end-->
+    <!-- dasboard-widget-box-->
+    <div class="dasboard-widget-box   fl-wrap">
+        <div class="custom-form">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="content-widget-switcher fl-wrap" style="margin-top: 20px">
+                        <span class="content-widget-switcher-title">{% trans %}published.label{% endtrans %}</span>
+                        <div class="onoffswitch">
+                            {{ form_row(form.published) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- dasboard-widget-box  end-->
+    <div class="custom-form">
+        <button type="submit" class="btn  color-bg float-btn">{% trans %}save.changes.label{% endtrans %}</button>
+    </div>
     </div>
 
     <div class="limit-box fl-wrap"></div>

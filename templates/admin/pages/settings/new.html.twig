@@ -1,12 +1,82 @@
 {% extends 'admin/layout/layout_main.html.twig' %}
 {% block title_detailed %}{% endblock %}
 {% block body %}
+    <style>
+        .trashDel {
+            position: relative;
+        }
+
+        .delete {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        label {
+            font-weight: bold;
+        }
+        .vich-image img{
+            width: 150px;
+        }
+    </style>
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 {{ form_start(form) }}
-                <div class="mb-3">
-                    {{ form_row(form.translations) }}
+                <div class="tabset">
+                    <input type="radio" name="tabset" id="tab1" aria-controls="general" checked>
+                    <label for="tab1">{% trans %}General{% endtrans %}</label>
+                    <input type="radio" name="tabset" id="tab2" aria-controls="mail-smtp">
+                    <label for="tab2">Mail SMTP</label>
+                    <input type="radio" name="tabset" id="tab3" aria-controls="image">
+                    <label for="tab3">{% trans %}Logo{% endtrans %}</label>
+                    <div class="tab-panels">
+                        <section id="general" class="tab-panel">
+                            <h4>{% trans %}General{% endtrans %}</h4>
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    {{ form_row(form.translations) }}
+                                </div>
+                            </div>
+                        </section>
+                        <section id="mail-smtp" class="tab-panel">
+                            <h4>Mail SMTP</h4>
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <label for="">SMTP Hostname</label>
+                                    {{ form_row(form.hostName) }}
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <label for="">SMTP Username</label>
+                                    {{ form_row(form.userName) }}
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <label for="">SMTP Password</label>
+                                    {{ form_row(form.password) }}
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <label for="">SMTP Port</label>
+                                    {{ form_row(form.port) }}
+                                </div>
+                            </div>
+                        </section>
+                        <section id="image" class="tab-panel">
+                            <h4>{% trans %}Logo{% endtrans %}</h4>
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <label for="">Logo</label>
+                                    {{ form_row(form.logo) }}
+                                </div>
+                                <img style="width: 250px;" src="{{ asset('assets/images/logo-'~settings.logoPath~'/'~settings.logo) }}" alt="Logo">
+                            </div>
+                        </section>
+                    </div>
+
                 </div>
                 <button type="submit" class="btn btn-primary">{% trans %}send.label{% endtrans %}</button>
                 {{ form_end(form) }}

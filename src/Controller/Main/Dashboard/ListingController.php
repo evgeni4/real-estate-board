@@ -11,6 +11,7 @@ use App\Entity\PropertyRoomsWidget;
 use App\Form\Main\Handler\PropertyFormHandler;
 use App\Form\Main\Property\PropertyFormType;
 use App\Repository\PropertyAmenitiesRepository;
+use App\Service\Admin\Settings\SettingsServiceInterface;
 use App\Service\Manager\PropertyManager\PropertyManager;
 use App\Service\Manager\PropertyManager\PropertyManagerHelper;
 use App\Service\Property\PropertyServiceInterface;
@@ -33,15 +34,25 @@ class ListingController extends AbstractController
         private TranslatorInterface      $translator,
         private SeoServiceInterface      $seoService,
         private PropertyFormHandler      $propertyFormHandler,
-        private PropertyServiceInterface $propertyService
+        private PropertyServiceInterface $propertyService,
+        public SettingsServiceInterface $settingsService,
     )
     {
     }
 
     #[Route('/show', name: 'main_show_listing')]
-    public function show(): Response
+    public function show(Request $request): Response
     {
-        $this->seoService->seo('', '', '', '', '', '');
+        $locale = $request->getLocale();
+        $settings = $this->settingsService->findOneRecord();
+        $this->seoService->seo(
+            $settings->translate($locale)->getSiteName().'|'.$this->translator->trans('all.properties.label'),
+            $settings->translate($locale)->getMetaKeywords(),
+            $settings->translate($locale)->getMetaDescription(),
+            $this->translator->trans('all.properties.label'),
+            $settings->translate($locale)->getMetaDescription(),
+            $settings->translate($locale)->getSiteName(),
+        );
         $this->breadcrumbs->addItem($this->translator->trans('all.properties.label'));
         $properties = $this->propertyService->findAllByAgentListing();
         return $this->render('main/dashboard/listing/show.html.twig');
@@ -61,6 +72,16 @@ class ListingController extends AbstractController
     public function add(Request $request): Response
     {
         //dd(abs( crc32( uniqid() ) ));
+        $locale = $request->getLocale();
+        $settings = $this->settingsService->findOneRecord();
+        $this->seoService->seo(
+            $settings->translate($locale)->getSiteName().'|'.$this->translator->trans('add.listing.label'),
+            $settings->translate($locale)->getMetaKeywords(),
+            $settings->translate($locale)->getMetaDescription(),
+            $this->translator->trans('add.listing.label'),
+            $settings->translate($locale)->getMetaDescription(),
+            $settings->translate($locale)->getSiteName(),
+        );
         $this->breadcrumbs->addItem($this->translator->trans('add.listing.label'));
         $property = new Property();
         $form = $this->createForm(PropertyFormType::class, $property);
@@ -79,8 +100,12 @@ class ListingController extends AbstractController
     #[Route('/edit/{uuid}', name: 'main_edit_listing')]
     public function edit(Request $request, Property $property): Response
     {
+        $settings = $this->settingsService->findOneRecord();
+        $this->seoService->seoProperty($property, $request->getLocale());
         $form = $this->createForm(PropertyFormType::class, $property);
         $form->handleRequest($request);
+        $propertyArrayAmenity = $this->propertyService->amenityFromProperty($property);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $property = $this->propertyFormHandler->processUpdatePropertyForm($property, $form, $request);
             $this->addFlash('success', $this->translator->trans('update.listing.message.label'));
@@ -90,11 +115,12 @@ class ListingController extends AbstractController
             [
                 'form' => $form->createView(),
                 'property' => $property,
+                'propertyArrayAmenity' => $propertyArrayAmenity,
             ]);
     }
 
     #[Route('/disable/{uuid}', name: 'main_disable_listing')]
-    public function disable( Property $property,Request $request): Response
+    public function disable(Property $property, Request $request): Response
     {
         if ($property) {
             $property = $property->getPublished() ? $property->setPublished(false) : $property->setPublished(true);
@@ -116,32 +142,43 @@ class ListingController extends AbstractController
     }
 
     #[Route('/amenity/{ids}/{id}', name: 'main_amenity_show_hide')]
-    public function amenity($ids,Property $property ,Request $request, PropertyManagerHelper $propertyManagerHelper, EntityManagerInterface $entityManager): Response
+    public function amenity($ids, Property $property, Request $request, PropertyManagerHelper $propertyManagerHelper, EntityManagerInterface $entityManager): Response
     {
 
-        if ($request->isXmlHttpRequest()){
-            $propertyManagerHelper->updateCheckedPropertyAmenity($ids,$property);
+        if ($request->isXmlHttpRequest()) {
+            $propertyManagerHelper->updateCheckedPropertyAmenity($ids, $property);
             $entityManager->flush();
         }
-        return new JsonResponse(['message'=>'ok',200]);
+        return new JsonResponse(['message' => 'ok', 200]);
     }
 
     #[Route('/delete-widget/{id}', name: 'main_delete_widget')]
-     public function deleteWidget(PropertyRoomsWidget $propertyRoomsWidget,PropertyManagerHelper $propertyManagerHelper): Response
-     {
-         $property = $propertyRoomsWidget->getProperty();
-         $propertyWidgetImageDir = $propertyManagerHelper->getPropertyWidgetImageDir($propertyRoomsWidget->getSlug());
-         $propertyManagerHelper->removeImageFromPropertyWidget($propertyRoomsWidget,$propertyWidgetImageDir);
-         $this->addFlash('success', $this->translator->trans('image.listing.delete.label'));
-         return $this->redirectToRoute('main_edit_listing', ['uuid' => $property->getUuid()]);
-     }
+    public function deleteWidget(PropertyRoomsWidget $propertyRoomsWidget, PropertyManagerHelper $propertyManagerHelper): Response
+    {
+        $property = $propertyRoomsWidget->getProperty();
+        $propertyWidgetImageDir = $propertyManagerHelper->getPropertyWidgetImageDir($propertyRoomsWidget->getSlug());
+        $propertyManagerHelper->removeImageFromPropertyWidget($propertyRoomsWidget, $propertyWidgetImageDir);
+        $this->addFlash('success', $this->translator->trans('image.listing.delete.label'));
+        return $this->redirectToRoute('main_edit_listing', ['uuid' => $property->getUuid()]);
+    }
+
     #[Route('/delete-plan/{id}', name: 'main_delete_plan')]
-          public function plan(PropertyPlan $propertyPlan,PropertyManagerHelper $propertyManagerHelper): Response
-          {
-              $property = $propertyPlan->getPropertyPlan();
-              $propertyPlanImageDir = $propertyManagerHelper->getPropertyPlanImageDir($propertyPlan->getSlug());
-              $propertyManagerHelper->removePropertyPlan($propertyPlan, $property,$propertyPlanImageDir);
-              $this->addFlash('success', $this->translator->trans('image.listing.delete.label'));
-              return $this->redirectToRoute('main_edit_listing', ['uuid' => $property->getUuid()]);
-          }
+    public function plan(PropertyPlan $propertyPlan, PropertyManagerHelper $propertyManagerHelper): Response
+    {
+        $property = $propertyPlan->getPropertyPlan();
+        $propertyPlanImageDir = $propertyManagerHelper->getPropertyPlanImageDir($propertyPlan->getSlug());
+        $propertyManagerHelper->removePropertyPlan($propertyPlan, $property, $propertyPlanImageDir);
+        $this->addFlash('success', $this->translator->trans('image.listing.delete.label'));
+        return $this->redirectToRoute('main_edit_listing', ['uuid' => $property->getUuid()]);
+    }
+
+    #[Route('/widget-amenity/{widget}/{id}/{property}', name: 'main_widget_amenity_show_hide')]
+    public function widgetAmenity(PropertyRoomsWidget $widget, $id, Property $property, Request $request, PropertyManagerHelper $propertyManagerHelper, EntityManagerInterface $entityManager): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $propertyManagerHelper->updateCheckedPropertyWidgetAmenity($widget, $id,$property);
+            $entityManager->flush();
+        }
+        return new JsonResponse(['message' => 'ok', 200]);
+    }
 }

@@ -16,7 +16,7 @@ class SeoService implements SeoServiceInterface
 
     }
 
-    public function seo(string $pageTitle = null, string $keywords = null, string $description = null, string $ogTitle = null, string $ogDescription = null, string $ogSiteName = null): void
+    public function seo(string $pageTitle , string $keywords = null, string $description = null, string $ogTitle = null, string $ogDescription = null, string $ogSiteName = null): void
     {
 
          $this->seo->setTitle($pageTitle)
@@ -32,9 +32,9 @@ class SeoService implements SeoServiceInterface
         $settings = $this->settingsService->findOneRecord();
         $this->seo->setTitle($param->translate($locale)->getTitle())
             ->addMeta('name', 'keywords', $param->translate($locale)->getKeywords())
-            ->addMeta('name', 'description', substr($param->translate($locale)->getDescription(),0,25))
+            ->addMeta('name', 'description', substr($param->translate($locale)->getDescription(),0,100))
             ->addMeta('property', 'og:title', $param->translate($locale)->getTitle())
-            ->addMeta('property', 'og:description', substr($param->translate($locale)->getDescription(),0,25))
+            ->addMeta('property', 'og:description', substr($param->translate($locale)->getDescription(),0,100))
             ->addMeta('property', 'og:site_name', $settings->translate($locale)->getSiteName());
     }
 }

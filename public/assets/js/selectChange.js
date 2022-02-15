@@ -56,8 +56,29 @@ $(document).ready(function () {
 
 function deleteAmenity(id) {
     let property = parseInt($('#property_form_amenity_' + id).attr("data-id"))
+    console.log(property)
     $.ajax({
         url: "/dashboard/listing/amenity/" + id + '/' + property,
+        type: "GET",
+        dataType: 'json',
+        cache: false,
+        success: function (response) {
+
+        },
+        error: function (xhr, desc, err) {
+
+        },
+    });
+}
+
+function checkAmenity(id, ids) {
+
+    let widget = parseInt($('#' + ids.id).attr("data-widget"))
+    let property = parseInt($('#' + ids.id).attr("data-property"))
+    console.log(widget)
+
+    $.ajax({
+        url: "/dashboard/listing/widget-amenity/" + widget + '/' + id + '/' + property,
         type: "GET",
         dataType: 'json',
         cache: false,
