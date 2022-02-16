@@ -7,7 +7,50 @@
 /*-------------Fonts---------------------------------------*/
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800;900&display=swap');
 /*-------------General Style---------------------------------------*/
-
+.display{
+	display: none;
+}
+.form-groups{
+	width:250px;  /*as you want*/
+	position:relative;
+	padding:0px;
+	margin:0px;
+}
+ul.suggestions{
+	top: 0;
+	margin-top: 70px;
+	width:100%;
+	padding: 0;
+	position: absolute;
+	z-index: 999999;
+	border:0px solid #3270FC;
+}
+/* if you want style so that's why i use "li a" also */
+ul.suggestions li,
+ul.suggestions li a{
+	background-color:#fff;
+	color:#000;
+	font-size:12px;
+	font-weight:normal;
+	padding:0 10px;
+	margin:0px;
+	text-align: left;
+	line-height:25px; /* according to your requirement */
+	display:block;
+	cursor:pointer;
+}
+ul.suggestions li:hover,
+ul.suggestions li a:hover{
+	background-color:#3270FC;
+	color:#FFFFFF;
+}
+ul.suggestions li:hover .suggested_input{
+	background-color:#FAFFBD;
+	border:1px solid #3C8DBC;
+}
+.suggested_input:hover ul.suggestions{
+	display:block;
+}
 .widget-row{
 	position: relative;
 }
@@ -1332,6 +1375,36 @@ nav li ul a:before , nav li ul a:after {
     width: 100%;
     padding: 15px 20px 15px 60px;
     border-radius: 4px;
+	color: #7d93b2;
+	font-size:12px;
+	-webkit-appearance: none;
+	outline:none;
+	overflow:hidden;
+	z-index:1;
+	font-weight: 400;
+}
+.listsearch-input-item input[type="number"]{
+	float: left;
+	border: 1px solid #e5e7f2;
+	background: #F5F7FB;
+	width: 100%;
+	padding: 15px 20px 15px 20px;
+	border-radius: 4px;
+	color: #7d93b2;
+	font-size:12px;
+	-webkit-appearance: none;
+	outline:none;
+	overflow:hidden;
+	z-index:1;
+	font-weight: 400;
+}
+.listsearch-input-item input[type="search"]{
+	float: left;
+	border: 1px solid #e5e7f2;
+	background: #F5F7FB;
+	width: 100%;
+	padding: 15px 20px 15px 20px;
+	border-radius: 4px;
 	color: #7d93b2;
 	font-size:12px;
 	-webkit-appearance: none;

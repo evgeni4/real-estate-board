@@ -5,6 +5,7 @@ namespace App\Controller\Main;
 use App\Entity\Property;
 use App\Entity\Reviews;
 use App\Form\Main\Handler\PropertyFormHandler;
+use App\Form\Main\Search\SearchAdvancedType;
 use App\Form\Main\User\ReviewsUserFormType;
 use App\Service\Admin\Settings\SettingsServiceInterface;
 use App\Service\Currency\CurrencyServiceInterface;
@@ -34,13 +35,16 @@ class ListingController extends AbstractController
     }
 
     #[Route('/all', name: 'main_listing_all')]
-    public function allProperty(EntityManagerInterface $entityManager): Response
+    public function allProperty(Request $request): Response
     {
-
         $properties = $this->propertyService->findAllProperties();
+        if ($request->get('search_advanced')){
+             $properties = $this->propertyService->findSearchResultProperties($request->get('search_advanced'));
+           // dd($properties);
+        }
         return $this->render('main/listing/all/show.html.twig',
             [
-                'properties' => $properties
+                'properties' => $properties,
             ]);
     }
 

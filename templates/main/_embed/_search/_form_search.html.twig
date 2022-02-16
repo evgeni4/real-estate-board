@@ -3,7 +3,7 @@
     <div class="header-serach-menu">
         <div class="custom-switcher fl-wrap">
             <div class="fieldset fl-wrap">
-                                {{ form_row(form.type) }}
+                 {{ form_row(form.type) }}
 {#                <fieldset class="form-group">#}
 {#                    <div id="search_type">#}
 {#                        <div class="form-check">#}
@@ -21,14 +21,15 @@
         </div>
     </div>
     <div class="custom-form">
-        {{ form_row(form.keywords) }}
-        <label>{% trans %}categories.label{% endtrans %}</label>
+        <div class="form-groups">
+            {{ form_row(form.keywords) }}
+            <label>{% trans %}categories.label{% endtrans %}</label>
+            <ul class="suggestions" id="entitiesNavSm"></ul>
+        </div>
         {{ form_row(form.category) }}
         <label style="margin-top:10px;">Price Range</label>
         <div class="price-rage-item fl-wrap">
             {{ form_row(form.price) }}
-            {#            <input type="text" class="price-range" data-min="100" data-max="100000" name="" data-step="1" #}
-            {#                   value="1" data-prefix="€"> #}
         </div>
         <button type="submit" class="btn float-btn color-bg"><i
                     class="fal fa-search"></i> {% trans %}search.label{% endtrans %} </button>

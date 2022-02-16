@@ -1,0 +1,122 @@
+{{ form_start(formAdvanced) }}
+<div class="top-search-content">
+    <div class="top-search-dec color-bg"><i class="far fa-sliders-h"></i></div>
+    <div class="top-search-content-title">{% trans %}search.label{% endtrans %}:</div>
+    <div class="close_sb-filter"><i class="fal fa-times"></i></div>
+    <div class="custom-form fl-wrap">
+        <div class="row">
+            <!-- listsearch-input-item -->
+            <div class="col-sm-3 form-groups">
+
+                  {{ form_row(formAdvanced.keywords) }}
+                    <ul class="suggestions " id="entitiesNav"></ul>
+
+            </div>
+            <!-- listsearch-input-item -->
+            <!-- listsearch-input-item -->
+            <div class="col-sm-2">
+                <div class="listsearch-input-item">
+                    {{ form_row(formAdvanced.type) }}
+                </div>
+            </div>
+            <!-- listsearch-input-item -->
+            <!-- listsearch-input-item -->
+            <div class="col-sm-2">
+                <div class="listsearch-input-item">
+{#                    {{ form_row(formAdvanced.period) }}#}
+                </div>
+            </div>
+            <!-- listsearch-input-item -->
+            <!-- listsearch-input-item -->
+            <div class="col-sm-2">
+                <div class="listsearch-input-item">
+                    {{ form_row(formAdvanced.category) }}
+                </div>
+            </div>
+            <!-- listsearch-input-item -->
+            <!-- listsearch-input-item -->
+            <div class="col-sm-3">
+                <div class="listsearch-input-item">
+                    <div class="price-rage-item fl-wrap">
+                        <span class="pr_title">{% trans %}price.label{% endtrans %}:</span>
+                        {{ form_row(formAdvanced.price) }}
+                    </div>
+                </div>
+            </div>
+            <!-- listsearch-input-item -->
+        </div>
+    </div>
+    <div class="more-opt_btn mor-opt-btn_act">{% trans %}advanced.search.label{% endtrans %}<span><i class="fas fa-caret-down"></i></span>
+    </div>
+    <!-- more-search-opt-wrap -->
+    <div class="more-search-opt-wrap more-hidden_wrap">
+        <div class="msotw_title fl-wrap"><i class="far fa-sliders-h"></i>{% trans %}advanced.search.label{% endtrans %}</div>
+        <div class="close_msotw"><i class="fal fa-times"></i></div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <!-- listsearch-input-item -->
+            <div class="col-sm-2">
+                <div class="listsearch-input-item">
+                    <label>{% trans %}bedrooms.label{% endtrans %}</label>
+                    {{ form_row(formAdvanced.bedrooms) }}
+                </div>
+            </div>
+            <!-- listsearch-input-item end-->
+            <!-- listsearch-input-item -->
+            <div class="col-sm-2">
+                <div class="listsearch-input-item">
+                    <label>{% trans %}bathrooms.label{% endtrans %}</label>
+                    {{ form_row(formAdvanced.bathrooms) }}
+                </div>
+            </div>
+            <!-- listsearch-input-item end-->
+            <!-- listsearch-input-item -->
+            <div class="col-sm-2">
+                <div class="listsearch-input-item">
+                    <label>{% trans %}floors.label{% endtrans %}</label>
+                    {{ form_row(formAdvanced.floors) }}
+                </div>
+            </div>
+            <!-- listsearch-input-item end-->
+            <!-- listsearch-input-item -->
+            <div class="col-sm-2">
+                <div class="listsearch-input-item ">
+                    <label>Ref№</label>
+                    {{ form_row(formAdvanced.referenceNumber) }}
+                </div>
+            </div>
+            <!-- listsearch-input-item end-->
+            <!-- listsearch-input-item -->
+            <div class="col-sm-4">
+                <div class="listsearch-input-item">
+                    <label>{% trans %}area.label{% endtrans %} m2</label>
+                    <div class="price-rage-item pr-it-nopad fl-wrap">
+                        {{ form_row(formAdvanced.area) }}
+                    </div>
+                </div>
+            </div>
+            <!-- listsearch-input-item -->
+        </div>
+        <div class="clearfix"></div>
+        <!-- listsearch-input-item-->
+        <div class="listsearch-input-item clact">
+            <label>{% trans %}amenities.label{% endtrans %}</label>
+            <div class=" fl-wrap filter-tags">
+                <ul class="no-list-style">
+                    {{ form_row(formAdvanced.amenity) }}
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+        <!-- listsearch-input-item end-->
+        <div class="msotw_footer">
+            {{ form_row(formAdvanced.search) }}
+{#            <button type="submit" class=""><i class="fal fa-search"></i> {% trans %}search.label{% endtrans %} </button>#}
+            <div class="reset-form reset-btn">
+                <a href="{{ path('main_listing_all') }}"><i class="far fa-sync-alt"></i> Reset Filters</a>
+            </div>
+        </div>
+    </div>
+    <!-- more-search-opt-wrap end -->
+</div>
+{{ form_end(formAdvanced) }}

@@ -4,6 +4,7 @@ namespace App\Form\Main\Search;
 
 use App\Entity\Category;
 use App\Entity\Type;
+use App\Service\Property\PropertyServiceInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -14,12 +15,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SearchType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator,private PropertyServiceInterface $propertyService)
     {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $price = $this->propertyService->minMaxNumber();
         $builder
             ->add('type', EntityType::class,
                 [
@@ -61,10 +63,10 @@ class SearchType extends AbstractType
                     'required' => false,
                     'label' => false,
                     'attr' => [
-                        'class' => 'price-range',
-                        'data-min' => '100',
-                        'data-max' => '1000000',
-                        'data-step' => '1',
+                        'class' => 'price-range-double',
+                        'data-min' => $price['min'],
+                        'data-max' => $price['max'],
+                         'data-step' => '1000',
                         'data-prefix' => '€',
                     ]
                 ]);

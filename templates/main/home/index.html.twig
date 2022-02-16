@@ -44,23 +44,13 @@
                         <div class="main-search-input-item">
                             <select data-placeholder="All Categories" class="chosen-select">
                                 <option>All Cities</option>
-                                <option>New York</option>
-                                <option>London</option>
-                                <option>Paris</option>
-                                <option>Kiev</option>
-                                <option>Moscow</option>
-                                <option>Dubai</option>
-                                <option>Rome</option>
-                                <option>Beijing</option>
                             </select>
                         </div>
-                        <button class="main-search-button color-bg"
-                                onclick="window.location.href='listing.html'">  {% trans %}search.label{% endtrans %} <i
-                                    class="far fa-search"></i></button>
+                        <button type="submit" class="main-search-button color-bg" >  {% trans %}search.label{% endtrans %} <i class="far fa-search"></i></button>
                     </div>
                 </div>
-                <div class="hero-notifer hn_center fl-wrap">{% trans %}more.search.options.label{% endtrans %}? <a
-                            href="">{% trans %}advanced.search.label{% endtrans %}</a></div>
+                <div class="hero-notifer hn_center fl-wrap">{% trans %}more.search.options.label{% endtrans %}?
+                    <a href="{{ path('main_listing_all') }}">{% trans %}advanced.search.label{% endtrans %}</a></div>
                 <div class="scroll-down-wrap sdw_center">
                     <div class="mousey">
                         <div class="scroller"></div>

@@ -12,6 +12,7 @@ use App\Repository\PropertyRepository;
 use App\Repository\PropertyRoomsWidgetAmenitiesRepository;
 use App\Repository\TypeRepository;
 use App\Service\User\UserServiceInterface;
+use Doctrine\ORM\NonUniqueResultException;
 
 class PropertyService implements PropertyServiceInterface
 {
@@ -43,6 +44,12 @@ class PropertyService implements PropertyServiceInterface
     public function findAllProperties(): ?array
     {
         return $this->propertyRepository->findBy([], ['id' => 'desc']);
+    }
+
+    public function findSearchResultProperties(array $params): ?array
+    {
+        //dd($params);
+        return $this->propertyRepository->searchProperties($params);
     }
 
     public function findAllByAgentListing(): ?array
@@ -90,4 +97,16 @@ class PropertyService implements PropertyServiceInterface
         return $this->propertyRoomsWidgetAmenitiesRepository->findOneBy(['roomsWidget' => $widget, 'amenity' => $id]);
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function minMaxNumber(): array
+    {
+        return $this->propertyRepository->minMaxNumber();
+    }
+
+    public function searchKeywords(string $string): array
+    {
+        return $this->propertyRepository->searchKeywords($string);
+    }
 }

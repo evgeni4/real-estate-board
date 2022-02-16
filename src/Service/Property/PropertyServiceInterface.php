@@ -24,10 +24,14 @@ interface PropertyServiceInterface
 
     public function findAllProperties(): ?array;
 
+    public function findSearchResultProperties(array $params): ?array;
+
     public function findOneByProductAmenities(Property $property, $id): ?PropertyAmenities;
 
     public function amenityFromProperty(Property $property): array;
 
     public function findOneByRoomWidgetAmenities($widget, $id): ?PropertyRoomsWidgetAmenities;
 
+    public function minMaxNumber(): array;
+    public function searchKeywords(string $string): array;
 }
