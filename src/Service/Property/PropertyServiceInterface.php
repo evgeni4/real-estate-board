@@ -33,5 +33,8 @@ interface PropertyServiceInterface
     public function findOneByRoomWidgetAmenities($widget, $id): ?PropertyRoomsWidgetAmenities;
 
     public function minMaxNumber(): array;
+
     public function searchKeywords(string $string): array;
+
+    public function wishlistProperties(array $params): array;
 }

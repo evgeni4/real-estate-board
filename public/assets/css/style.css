@@ -719,6 +719,9 @@ blockquote p {
 	visibility:hidden;
 	opacity:0;
 }
+.clear-wishlist a{
+	color: #3270FC;
+}
 .widget-posts li:hover .clear-wishlist {
 	opacity:1;
 	visibility:visible;

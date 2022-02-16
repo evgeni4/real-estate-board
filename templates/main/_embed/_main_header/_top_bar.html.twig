@@ -31,8 +31,9 @@
     <!--  header-opt_btn end -->
     <!--  cart-btn   -->
     <div class="cart-btn  tolt show-header-modal" data-microtip-position="bottom"  data-tooltip="{% trans %}wishlist.compare.heading{% endtrans %}">
+        {% set wishlistCompares = app.session.get('wishlist')|length + app.session.get('compare')|length %}
         <i class="fal fa-bell"></i>
-        <span class="cart-btn_counter color-bg">5</span>
+        <span class="cart-btn_counter color-bg">{{ wishlistCompares }}</span>
     </div>
     <!--  cart-btn end -->
     <!--  login btn -->
@@ -132,73 +133,9 @@
     {{ render(controller('App\\Controller\\Main\\SearchController::search')) }}
     <!-- header-search-wrapper end  -->
     <!-- wishlist-wrap-->
+
     <div class="header-modal novis_wishlist tabs-act">
-        <ul class="tabs-menu fl-wrap no-list-style">
-            <li class="current"><a href="#tab-wish">  {% trans %}wishlist.label{% endtrans %} <span>- 3</span></a></li>
-            <li><a href="#tab-compare">  {% trans %}compare.label{% endtrans %} <span>- 2</span></a></li>
-        </ul>
-        <!--tabs -->
-        <div class="tabs-container">
-            <div class="tab">
-                <!--tab -->
-                <div id="tab-wish" class="tab-content first-tab">
-                    <!-- header-modal-container-->
-                    <div class="header-modal-container scrollbar-inner fl-wrap" data-simplebar>
-                        <!--widget-posts-->
-                        <div class="widget-posts  fl-wrap">
-                            <ul class="no-list-style">
-                                <li>
-                                    <div class="widget-posts-img"><a href="listing-single.html"><img src="{{ asset('assets/images/all/small/1.jpg') }}" alt=""></a>
-                                    </div>
-                                    <div class="widget-posts-descr">
-                                        <h4><a href="listing-single.html">Affordable Urban Room</a></h4>
-                                        <div class="geodir-category-location fl-wrap"><a href="listing3.html#"><i class="fas fa-map-marker-alt"></i> 40 Journal Square  , NJ, USA</a></div>
-                                        <div class="widget-posts-descr-price"><span>Price: </span> $ 1500 / per month</div>
-                                        <div class="clear-wishlist"><i class="fal fa-trash-alt"></i></div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- widget-posts end-->
-                    </div>
-                    <!-- header-modal-container end-->
-                    <div class="header-modal-top fl-wrap">
-                        <div class="clear_wishlist color-bg"><i class="fal fa-trash-alt"></i>{% trans %}clear.all.label{% endtrans %}</div>
-                    </div>
-                </div>
-                <!--tab end -->
-                <!--tab -->
-                <div class="tab">
-                    <div id="tab-compare" class="tab-content">
-                        <!-- header-modal-container-->
-                        <div class="header-modal-container scrollbar-inner fl-wrap" data-simplebar>
-                            <!--widget-posts-->
-                            <div class="widget-posts  fl-wrap">
-                                <ul class="no-list-style">
-                                    <li>
-                                        <div class="widget-posts-img"><a href="listing-single.html"><img src="{{ asset('assets/images/all/small/4.jpg') }}" alt=""></a>
-                                        </div>
-                                        <div class="widget-posts-descr">
-                                            <h4><a href="listing-single.html">Gorgeous house for sale</a></h4>
-                                            <div class="geodir-category-location fl-wrap"><a href="listing3.html#"><i class="fas fa-map-marker-alt"></i>  70 Bright St New York, USA </a></div>
-                                            <div class="widget-posts-descr-price"><span>Price: </span> $ 52.100</div>
-                                            <div class="clear-wishlist"><i class="fal fa-trash-alt"></i></div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- widget-posts end-->
-                        </div>
-                        <!-- header-modal-container end-->
-                        <div class="header-modal-top fl-wrap">
-                            <a class="clear_wishlist color-bg" href="compare.html"><i class="fal fa-random"></i> {% trans %}compare.label{% endtrans %}</a>
-                        </div>
-                    </div>
-                </div>
-                <!--tab end -->
-            </div>
-            <!--tabs end -->
-        </div>
+        {{ render(controller('App\\Controller\\Main\\WishlistCompareController::wishlistCompare')) }}
     </div>
     <!--wishlist-wrap end -->
     <!--header-opt-modal-->
@@ -208,5 +145,6 @@
         </div>
     </div>
     <!--header-opt-modal end -->
+    {{ include('main/_embed/_flash_message/_flash_message.html.twig') }}
 </header>
 <!-- header end  -->

@@ -97,6 +97,7 @@ class PropertyRepository extends ServiceEntityRepository
             ->setParameters(['id' => $property->getId(), 'type' => $property->getTypes(), 'category' => $property->getCategory()]);
         return $db->getQuery()->getResult();
     }
+
     public function searchKeywords($str)
     {
 
@@ -108,14 +109,15 @@ class PropertyRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+
     public function searchProperties(array $params)
     {
-         // dd($params);
+        // dd($params);
         $prices = explode(';', $params['price']);
         $area = explode(';', $params['area']);
         $qb = $this->createQueryBuilder('p');
         $qb->where('p.published=:published');
-        $qb->join('p.propertyAmenities',   'am');
+        $qb->join('p.propertyAmenities', 'am');
         $qb->setParameter('published', true);
         if (!empty($params['keyword'])) {
             $qb->join('p.translations', 't');
@@ -161,7 +163,7 @@ class PropertyRepository extends ServiceEntityRepository
             $qb->andWhere(
                 $qb->expr()->in('am.amenity', ':amenity'),
             );
-            $qb->setParameter('amenity', $params['amenity'],Connection::PARAM_INT_ARRAY);
+            $qb->setParameter('amenity', $params['amenity'], Connection::PARAM_INT_ARRAY);
         }
         $qb->groupBy('p.id');
         return $qb->getQuery()->getResult();
@@ -184,5 +186,15 @@ class PropertyRepository extends ServiceEntityRepository
                     'Max(p.area) as areaMax',
                 ]);
         return $db->getQuery()->getOneOrNullResult();
+    }
+
+    public function wishlistProperties(array $params)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->andWhere(
+            $qb->expr()->in('p.id', ':id'),
+        );
+        $qb->setParameter('id', $params, Connection::PARAM_INT_ARRAY);
+        return $qb->getQuery()->getResult();
     }
 }

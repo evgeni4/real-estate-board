@@ -127,12 +127,14 @@
                                                 <li><a href="#" class="cat-opt color-bg">{{ property.category }}</a>
                                                 </li>
                                             </ul>
-                                            <a href="#" class="geodir_save-btn tolt" data-microtip-position="left"
+                                            {% set wishlist = app.session.get('wishlist') %}
+                                            {% set compare = app.session.get('compare') %}
+                                            <a href="{{ path('main_listing_wishlist',{'uuid':property.uuid}) }}" class="geodir_save-btn tolt" data-microtip-position="left"
                                                data-tooltip="{% trans %}save.label{% endtrans %}"><span><i
-                                                            class="fal fa-heart"></i></span></a>
-                                            <a href="#" class="compare-btn tolt" data-microtip-position="left"
+                                                            class="fa{{ property.id in wishlist?'s':'l'}} fa-heart"></i></span></a>
+                                            <a href="{{ path('main_listing_compare',{'uuid':property.uuid}) }}" class="compare-btn tolt" data-microtip-position="left"
                                                data-tooltip="{% trans %}compare.label{% endtrans %}"><span><i
-                                                            class="fal fa-random"></i></span></a>
+                                                            class="fa{{ property.id in compare?'s':'l'}} fa-random"></i></span></a>
                                             <div class="geodir-category-listing_media-list">
                                                 <span><i class="fas fa-camera"></i> {{ images|length }}</span>
                                             </div>

@@ -109,4 +109,9 @@ class PropertyService implements PropertyServiceInterface
     {
         return $this->propertyRepository->searchKeywords($string);
     }
+
+    public function wishlistProperties(array $params): array
+    {
+       return $this->propertyRepository->wishlistProperties($params);
+    }
 }

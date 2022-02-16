@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
@@ -28,7 +29,8 @@ class ListingController extends AbstractController
         private SeoServiceInterface      $seoService,
         private PropertyServiceInterface $propertyService,
         private ReviewsServiceInterface  $reviewsService,
-        private CurrencyServiceInterface $currencyService
+        private CurrencyServiceInterface $currencyService,
+        private SessionInterface $session
 
     )
     {
@@ -38,10 +40,10 @@ class ListingController extends AbstractController
     public function allProperty(Request $request): Response
     {
         $properties = $this->propertyService->findAllProperties();
+
         if ($request->get('search_advanced')){
              $properties = $this->propertyService->findSearchResultProperties($request->get('search_advanced'));
-           // dd($properties);
-        }
+         }
         return $this->render('main/listing/all/show.html.twig',
             [
                 'properties' => $properties,

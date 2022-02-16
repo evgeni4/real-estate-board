@@ -195,8 +195,13 @@ agent.label: Агент
 your.location.label: Твое местонахождение
 enable.scrollinglabel: Включить прокрутку
 property.disable.label: Объявление обновлено успешно!
-
-
+wishlist.added.successfully.label: Недвижимость успешно добавлена в список любимые!
+wishlist.added.already.label : Недвижимость уже добавлена в список любимые!
+delete.successfully.label: Недвижимость успешно удалена из списка избранных!
+compare.added.successfully.label: Недвижимость успешно добавлена в список для сравнения!
+compare.added.already.label: Недвижимость уже добавлена в список для сравнения!
+delete.successfully.compare.label: Недвижимость успешно удалена из списка сравнения!
+list.empty.title: Список пуст!
 #end mes
 #admin fields messages
 view.site.label: Перейти на сайт

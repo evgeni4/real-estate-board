@@ -219,5 +219,11 @@ amenities.delete.label: Удобство е изтрито успешно!
 type.added.label: Типът е добавен успешно!
 type.edit.label: Типът е актуализиран успешно!
 type.delete.label: Типът е изтрит успешно!
-
+wishlist.added.successfully.label: Имотът е успешно добавен към списъка с предпочитани!
+wishlist.added.already.label : Имотът вече е добавен към списъка с предпочитани
+delete.successfully.label: Имотът е успешно изтрит от списъка с любими!
+compare.added.successfully.label: Имотът е успешно добавен към списъка за сравнение!
+compare.added.already.label: Имотът вече е добавен към списъка за сравнение!
+delete.successfully.compare.label: Имотът е успешно изтрит от списъка за сравнение!
+list.empty.title: Списъкът е празен!
 #end admin fields messages

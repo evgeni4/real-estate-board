@@ -1,0 +1,121 @@
+<ul class="tabs-menu fl-wrap no-list-style">
+    <li class="current"><a href="#tab-wish">  {% trans %}wishlist.label{% endtrans %} <span>- {{ wishlists|length }}</span></a></li>
+    <li><a href="#tab-compare">  {% trans %}compare.label{% endtrans %} <span>- {{ compares|length }}</span></a></li>
+</ul>
+<div class="tabs-container">
+    {% set locale = app.request.locale %}
+    <div class="tab">
+        <!--tab -->
+        <div id="tab-wish" class="tab-content first-tab">
+            <!-- header-modal-container-->
+            <div class="header-modal-container scrollbar-inner fl-wrap" data-simplebar>
+                <!--widget-posts-->
+                <div class="widget-posts  fl-wrap">
+                    <ul class="no-list-style">
+                        {% if wishlists|length %}
+                            {% for property in wishlists %}
+                                <li>
+                                    <div class="widget-posts-img">
+                                        {% set images = property.propertyImages().getValues() %}
+                                        <a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}">
+                                            {% if images|length %}
+                                                {% set image = images[0] %}
+                                                <img src="{{ asset('assets/images/properties/property-'~ image.slug ~'/'~ image.imageMd ) }}"
+                                                     alt="Property image">
+                                            {% else %}
+                                                <img src="{{ asset('assets/images/no_image/noImage.png') }}"
+                                                     alt="Property image">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="widget-posts-descr">
+                                        <h4><a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}">{{ property.translate(locale).title }}</a></h4>
+                                        <div class="geodir-category-location fl-wrap">
+                                            <a href="#"><i class="fas fa-map-marker-alt"></i> {{ property.address }}</a></div>
+                                        <div class="widget-posts-descr-price"><span>{% trans %}price.label{% endtrans %}: </span>
+                                            {{ render(controller('App\\Controller\\Main\\ListingController::convert',{
+                                                'price': property.price,
+                                                'code': app.request.defaultCurrencylocale
+                                            })) }} {{ property.period? '/  '~ property.period:'' }}
+                                        </div>
+                                        <div class="clear-wishlist"><a href="{{ path('main_listing_wishlist_delete',{'uuid':property.uuid}) }}"> <i class="fal fa-trash-alt"></i></a></div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+
+                    </ul>
+                </div>
+                <!-- widget-posts end-->
+            </div>
+            <!-- header-modal-container end-->
+            {% if wishlists|length %}
+            <div class="header-modal-top fl-wrap">
+                <div class="clear_wishlist color-bg">
+                    <a style="color: #ffffff;" href="{{ path('main_listing_wishlist_delete_all') }}"><i class="fal fa-trash-alt"></i>{% trans %}clear.all.label{% endtrans %}</a>
+                </div>
+            </div>
+            {% else %}
+                <div class="header-modal-top fl-wrap">
+                    <p style="text-align: center">{% trans %}list.empty.title{% endtrans %}</p>
+                </div>
+            {% endif %}
+        </div>
+        <!--tab end -->
+        <!--tab -->
+        <div class="tab">
+            <div id="tab-compare" class="tab-content">
+                <!-- header-modal-container-->
+                <div class="header-modal-container scrollbar-inner fl-wrap" data-simplebar>
+                    <!--widget-posts-->
+                    <div class="widget-posts  fl-wrap">
+                        <ul class="no-list-style">
+                            {% for property in compares %}
+                                <li>
+                                    <div class="widget-posts-img">
+                                        {% set images = property.propertyImages().getValues() %}
+                                        <a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}">
+                                            {% if images|length %}
+                                                {% set image = images[0] %}
+                                                <img src="{{ asset('assets/images/properties/property-'~ image.slug ~'/'~ image.imageMd ) }}"
+                                                     alt="Property image">
+                                            {% else %}
+                                                <img src="{{ asset('assets/images/no_image/noImage.png') }}"
+                                                     alt="Property image">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="widget-posts-descr">
+                                        <h4><a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}">{{ property.translate(locale).title }}</a></h4>
+                                        <div class="geodir-category-location fl-wrap">
+                                            <a href="#"><i class="fas fa-map-marker-alt"></i> {{ property.address }}</a></div>
+                                        <div class="widget-posts-descr-price"><span>{% trans %}price.label{% endtrans %}: </span>
+                                            {{ render(controller('App\\Controller\\Main\\ListingController::convert',{
+                                                'price': property.price,
+                                                'code': app.request.defaultCurrencylocale
+                                            })) }} {{ property.period? '/  '~ property.period:'' }}
+                                        </div>
+                                        <div class="clear-wishlist"><a href="{{ path('main_listing_compare_delete',{'uuid':property.uuid}) }}"> <i class="fal fa-trash-alt"></i></a></div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- widget-posts end-->
+                </div>
+                <!-- header-modal-container end-->
+                {% if compares|length %}
+                    <div class="header-modal-top fl-wrap">
+                        <a class="clear_wishlist color-bg" href="compare.html"><i class="fal fa-random"></i> {% trans %}compare.label{% endtrans %}</a>
+                    </div>
+                    {% else %}
+                <div class="header-modal-top fl-wrap">
+                    <p style="text-align: center">{% trans %}list.empty.title{% endtrans %}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <!--tab end -->
+    </div>
+    <!--tabs end -->
+</div>

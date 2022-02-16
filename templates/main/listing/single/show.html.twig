@@ -15,13 +15,19 @@
                     <a href="#sec15" class="custom-scroll-link"> <i class="fas fa-comment-alt"></i> Write a review</a>
                     <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a>
                 </div>
+                {% set wishlist = app.session.get('wishlist') %}
+                {% set compare = app.session.get('compare') %}
                 <a class="print-btn tolt" href="javascript:window.print()" data-microtip-position="bottom"
                    data-tooltip="{% trans %}print.label{% endtrans %}"><i class="fas fa-print"></i></a>
                 <a class="compare-top-btn tolt" data-microtip-position="bottom"
-                   data-tooltip="{% trans %}compare.label{% endtrans %}" href="#"><i
-                            class="fas fa-random"></i></a>
-                <div class="like-btn"><i class="fas fa-heart"></i>{% trans %}save.label{% endtrans %}</div>
+                   data-tooltip="{% trans %}compare.label{% endtrans %}" href="{{ path('main_listing_compare',{'uuid':property.uuid}) }}"><i
+                            class="fa{{ property.id in compare?'s':'l'}} fa-random"></i></a>
+
+                    <a href="{{ path('main_listing_wishlist',{'uuid':property.uuid}) }}" class="compare-top-btn tolt" data-microtip-position="left"
+                       data-tooltip="{% trans %}save.label{% endtrans %}"><span><i
+                                    class="fa{{ property.id in wishlist?'s':'l'}} fa-heart"></i></span></a>
             </div>
+
         </div>
         <div class="gray-bg small-padding fl-wrap">
             <div class="container">

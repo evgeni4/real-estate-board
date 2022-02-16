@@ -189,6 +189,13 @@ enable.scrollinglabel: Enable Scrolling
 property.disable.label: Ad updated successfully!
 popular.ads.label: Popular ads
 browse.hot.offers.label: Browse Hot Offers
+wishlist.added.successfully.label : The property has been successfully added to the list of favorites!
+wishlist.added.already.label: The property has already been added to the list of favorites!
+delete.successfully.label: The property has been successfully delete from the list of favorites!
+compare.added.successfully.label: The property has been successfully added to the list of compare!
+compare.added.already.label: The property has already been added to the list of compare!
+delete.successfully.compare.label: The property has been successfully delete from the list of compare!
+list.empty.title: The list is empty!
 #end messages
 #admin fields messages
 view.site.label: Go to the site
