@@ -35,10 +35,12 @@ class PropertyFormHandler
 
     public function processUpdatePropertyForm(Property $property,Form $form , Request $request): Property
     {
+        $date = new \DateTimeImmutable('now');
         $this->propertyManager->addPropertyImages($property, $form);
         $this->propertyManager->updatePropertyAmenity($property, $form);
         $this->propertyManager->updatePropertyWidget($property, $form,$request);
         $this->propertyManager->addPropertyPlan($property, $form,$request);
+        $property->setUpdateAt($date);
         $this->propertyService->edit($property);
         return $property;
     }

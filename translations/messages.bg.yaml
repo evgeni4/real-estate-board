@@ -118,6 +118,10 @@ plans.house.label: План за къща
 widgets.label: Widgets
 basic.information.label: Основна информация
 price.label: Цена
+price.low.high.label: Цена от ниска към висока
+price.high.low.label: Цена от висока към ниска
+price.range.label: Ценови диапазон
+sort.by.label: Сортиране по
 select.label: Изберете
 title.label: Заглавие
 title.property.label: Заглавие на вашия имот
@@ -141,6 +145,7 @@ size.accommodation.label: Размер за настаняване 5-12 ..
 yard.size.label: Размер на двора
 garage.label: Гараж
 floors.label: Етажи
+floor.label: Етаж
 number.cars.label: Брой автомобили
 description.text.label: Описание
 room.title.label: Заглавие на стаята
@@ -162,6 +167,11 @@ google.map.label: Google карта
 contact.form.label: Форма за контакти
 view.label: Преглед
 guest.label: Гост(и)
+option.label: Вариант(а)
+my.properties.label: Моите имоти
+looking.for.label: Какво търсиш?
+all.propertieslabel: Всички имоти
+results.label: Результати
 what.up.label: Какво има наблизо? Училища, фитнес зали...
 similar.properties.label: Подобни имоти
 featured.properties.label: Представени имоти
@@ -190,9 +200,14 @@ photos.label: снимки
 your.location.label: Твоето местоположение
 enable.scrollinglabel: Активиране на превъртане
 property.disable.label: Обявата е актуализирана успешно!
-
-
-
+your.compare.list.label: Вашият списък за сравнение
+check.form.label: Пожалуйста, проверьте все ли поля заполнены корректно!Моля, проверете дали всички полета са попълнени правилно!
+privacy.policy.label: Политика за поверителност
+terms.service.label: Условия за ползване
+contact.label: Контакти
+active.listings.label: Активни обяви
+your.statistic.label: Вашата статистика
+listing.iews.label: Общ преглед на моите обяви
 #end mes
 #admin fields messages
 view.site.label: Отидете на сайта

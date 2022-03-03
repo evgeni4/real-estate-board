@@ -22,7 +22,11 @@ class SettingsTranslation implements TranslationInterface
 
     #[ORM\Column(type: 'text')]
     private $metaDescription;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $privacyPolicy;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $termsOfService;
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,30 @@ class SettingsTranslation implements TranslationInterface
     public function setMetaDescription(string $metaDescription): self
     {
         $this->metaDescription = $metaDescription;
+
+        return $this;
+    }
+
+    public function getPrivacyPolicy(): ?string
+    {
+        return $this->privacyPolicy;
+    }
+
+    public function setPrivacyPolicy(?string $privacyPolicy): self
+    {
+        $this->privacyPolicy = $privacyPolicy;
+
+        return $this;
+    }
+
+    public function getTermsOfService(): ?string
+    {
+        return $this->termsOfService;
+    }
+
+    public function setTermsOfService(?string $termsOfService): self
+    {
+        $this->termsOfService = $termsOfService;
 
         return $this;
     }

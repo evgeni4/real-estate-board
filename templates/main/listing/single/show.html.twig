@@ -20,12 +20,14 @@
                 <a class="print-btn tolt" href="javascript:window.print()" data-microtip-position="bottom"
                    data-tooltip="{% trans %}print.label{% endtrans %}"><i class="fas fa-print"></i></a>
                 <a class="compare-top-btn tolt" data-microtip-position="bottom"
-                   data-tooltip="{% trans %}compare.label{% endtrans %}" href="{{ path('main_listing_compare',{'uuid':property.uuid}) }}"><i
-                            class="fa{{ property.id in compare?'s':'l'}} fa-random"></i></a>
+                   data-tooltip="{% trans %}compare.label{% endtrans %}"
+                   href="{{ path('main_listing_compare',{'uuid':property.uuid}) }}"><i
+                            class="fa{{ property.id in compare?'s':'l' }} fa-random"></i></a>
 
-                    <a href="{{ path('main_listing_wishlist',{'uuid':property.uuid}) }}" class="compare-top-btn tolt" data-microtip-position="left"
-                       data-tooltip="{% trans %}save.label{% endtrans %}"><span><i
-                                    class="fa{{ property.id in wishlist?'s':'l'}} fa-heart"></i></span></a>
+                <a href="{{ path('main_listing_wishlist',{'uuid':property.uuid}) }}" class="compare-top-btn tolt"
+                   data-microtip-position="left"
+                   data-tooltip="{% trans %}save.label{% endtrans %}"><span><i
+                                class="fa{{ property.id in wishlist?'s':'l' }} fa-heart"></i></span></a>
             </div>
 
         </div>
@@ -140,8 +142,8 @@
                                                     {% trans %}viewed.label{% endtrans %} -  {{ property.viewed }}
                                                 </span>
                                             </li>
-                                            <li><span class="bookmark-counter"><i class="fas fa-heart"></i> Bookmark -  24 </span>
-                                            </li>
+                                            {#                                            <li><span class="bookmark-counter"><i class="fas fa-heart"></i> Bookmark -  24 </span> #}
+                                            {#                                            </li> #}
                                         </ul>
                                     </div>
                                 </div>
@@ -221,7 +223,7 @@
 
                                 <!-- inline-facts end -->
                                 <!-- inline-facts -->
-                                {% if property.bathrooms  %}
+                                {% if property.bathrooms %}
                                     <div class="inline-facts-wrap">
                                         <div class="inline-facts">
                                             <i class="fal fa-bath"></i>
@@ -349,7 +351,7 @@
                                 {% endif %}
                                 <!-- list-single-main-item end -->
                                 <!-- list-single-main-item -->
-                                {% if property.propertyPlans|length and property.propertyPlanStatus   %}
+                                {% if property.propertyPlans|length and property.propertyPlanStatus %}
                                     {% set plans = property.propertyPlans %}
                                     <div class="list-single-main-item fl-wrap">
                                         <div class="list-single-main-item-title">
@@ -380,7 +382,11 @@
                                         </div>
                                         <div class="list-single-main-item_content fl-wrap">
                                             <div class="video-box fl-wrap">
-                                                <iframe width="100%" height="350" src="https://www.youtube.com/embed/{{ property.video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <iframe width="100%" height="350"
+                                                        src="https://www.youtube.com/embed/{{ property.video }}"
+                                                        title="YouTube video player" frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowfullscreen></iframe>
 
                                             </div>
                                         </div>
@@ -518,7 +524,8 @@
                                             </h4>
                                             <div class="clearfix"></div>
                                             <div class="pwh_counter">
-                                                {% trans %}property.listing.label{% endtrans %} <span>{{ property.agent.properties|length }}</span>
+                                                {% trans %}property.listing.label{% endtrans %}
+                                                <span>{{ property.agent.properties|length }}</span>
                                             </div>
                                             <div class="clearfix"></div>
                                             {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewAgent',{
@@ -552,74 +559,7 @@
                         <!--box-widget end -->
                         <!--box-widget-->
                         <div class="box-widget fl-wrap">
-                            <div class="box-widget-title fl-wrap">{% trans %}featured.properties.label{% endtrans %}</div>
-                            <div class="box-widget-content fl-wrap">
-                                <!--widget-posts-->
-                                <div class="widget-posts  fl-wrap">
-                                    <ul class="no-list-style">
-                                        <li>
-                                            <div class="widget-posts-img"><a href="listing-single.html"><img
-                                                            src="images/all/small/1.jpg" alt=""></a>
-                                            </div>
-                                            <div class="widget-posts-descr">
-                                                <h4><a href="listing-single.html">Affordable Urban Room</a></h4>
-                                                <div class="geodir-category-location fl-wrap"><a
-                                                            href="listing-single3.html#"><i
-                                                                class="fas fa-map-marker-alt"></i> 40 Journal Square ,
-                                                        NJ, USA</a></div>
-                                                <div class="widget-posts-descr-price"><span>Price: </span> $ 1500 / per
-                                                    month
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="widget-posts-img"><a href="listing-single.html"><img
-                                                            src="images/all/small/2.jpg" alt=""></a>
-                                            </div>
-                                            <div class="widget-posts-descr">
-                                                <h4><a href="listing-single.html">Family House</a></h4>
-                                                <div class="geodir-category-location fl-wrap"><a
-                                                            href="listing-single3.html#"><i
-                                                                class="fas fa-map-marker-alt"></i> 70 Bright St New
-                                                        York, USA </a></div>
-                                                <div class="widget-posts-descr-price"><span>Price: </span> $ 50000</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="widget-posts-img"><a href="listing-single.html"><img
-                                                            src="images/all/small/3.jpg" alt=""></a>
-                                            </div>
-                                            <div class="widget-posts-descr">
-                                                <h4><a href="listing-single.html">Apartment to Rent</a></h4>
-                                                <div class="geodir-category-location fl-wrap"><a
-                                                            href="listing-single3.html#"><i
-                                                                class="fas fa-map-marker-alt"></i>75 Prince St, NY, USA</a>
-                                                </div>
-                                                <div class="widget-posts-descr-price"><span>Price: </span> $100 / per
-                                                    night
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="widget-posts-img"><a href="listing-single.html"><img
-                                                            src="images/all/small/3.jpg" alt=""></a>
-                                            </div>
-                                            <div class="widget-posts-descr">
-                                                <h4><a href="listing-single.html">Apartment to Rent</a></h4>
-                                                <div class="geodir-category-location fl-wrap"><a
-                                                            href="listing-single3.html#"><i
-                                                                class="fas fa-map-marker-alt"></i>75 Prince St, NY, USA</a>
-                                                </div>
-                                                <div class="widget-posts-descr-price"><span>Price: </span> $100 / per
-                                                    night
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- widget-posts end-->
-                                <a href="listing.html" class="btn float-btn color-bg small-btn">View All Properties</a>
-                            </div>
+                            {{ render(controller('App\\Controller\\Main\\ListingController::featured',{'property':property})) }}
                         </div>
                         <!--box-widget end -->
                         <!--box-widget-->
@@ -666,12 +606,14 @@
                         {% if property.contactFormStatus %}
                             <div class="box-widget fl-wrap">
                                 <div class="box-widget-fixed-init fl-wrap" id="sec-contact">
-                                    <div class="box-widget-title fl-wrap box-widget-title-color color-bg">Contact Property
+                                    <div class="box-widget-title fl-wrap box-widget-title-color color-bg">Contact
+                                        Property
                                     </div>
                                     <div class="box-widget-content fl-wrap">
                                         <div class="custom-form">
                                             <form method="post" name="contact-property-form">
-                                                <label>Your name* <span class="dec-icon"><i class="fas fa-user"></i></span></label>
+                                                <label>Your name* <span class="dec-icon"><i
+                                                                class="fas fa-user"></i></span></label>
                                                 <input name="phone" type="text" onClick="this.select()" value="">
                                                 <label>Your phone * <span class="dec-icon"><i
                                                                 class="fas fa-phone"></i></span></label>
@@ -701,7 +643,8 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn float-btn color-bg fw-btn"> Send</button>
+                                                <button type="submit" class="btn float-btn color-bg fw-btn"> Send
+                                                </button>
                                             </form>
                                         </div>
                                     </div>

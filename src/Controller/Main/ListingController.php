@@ -2,8 +2,10 @@
 
 namespace App\Controller\Main;
 
+use App\Entity\Category;
 use App\Entity\Property;
 use App\Entity\Reviews;
+use App\Entity\Type;
 use App\Form\Main\Handler\PropertyFormHandler;
 use App\Form\Main\Search\SearchAdvancedType;
 use App\Form\Main\User\ReviewsUserFormType;
@@ -30,20 +32,49 @@ class ListingController extends AbstractController
         private PropertyServiceInterface $propertyService,
         private ReviewsServiceInterface  $reviewsService,
         private CurrencyServiceInterface $currencyService,
-        private SessionInterface $session
+        private SessionInterface         $session
 
     )
     {
     }
 
-    #[Route('/all', name: 'main_listing_all')]
+    #[Route('/filter', name: 'main_listing_all')]
     public function allProperty(Request $request): Response
     {
         $properties = $this->propertyService->findAllProperties();
+        if ($request->get('search_home')) {
+            $properties = $this->propertyService->findSearchResultProperties($request->get('search_home'));
+        }
+        if ($request->get('search')) {
+            $properties = $this->propertyService->findSearchResultProperties($request->get('search'));
+        }
+        if ($request->get('search_advanced')) {
+            $properties = $this->propertyService->findSearchResultProperties($request->get('search_advanced'));
+        }
 
-        if ($request->get('search_advanced')){
-             $properties = $this->propertyService->findSearchResultProperties($request->get('search_advanced'));
-         }
+        $this->seoService->seoProperty($properties ? $properties[0] : null, $request->getLocale());
+        return $this->render('main/listing/all/show.html.twig',
+            [
+                'properties' => $properties,
+            ]);
+    }
+
+    #[Route('/type/{uuid}', name: 'main_listing_by_type')]
+    public function byType(Type $type, Request $request): Response
+    {
+        $this->seoService->seoProperty($type, $request->getLocale());
+        $properties = $this->propertyService->findByTypesProperties($type);
+        return $this->render('main/listing/all/show.html.twig',
+            [
+                'properties' => $properties,
+            ]);
+    }
+
+    #[Route('/{uuid}', name: 'main_listing_by_category')]
+    public function byCategory(Category $category, Request $request): Response
+    {
+        $this->seoService->seoProperty($category, $request->getLocale());
+        $properties = $this->propertyService->findByCategoryProperties($category);
         return $this->render('main/listing/all/show.html.twig',
             [
                 'properties' => $properties,
@@ -61,6 +92,8 @@ class ListingController extends AbstractController
         $this->breadcrumbs->addRouteItem($property->getTypes(), 'app_home');
 
         $reviewsFromProperty = $this->reviewsService->getReviewsFromProperty($property);
+//        dd($this->reviewsService->getReviewsFromProperty($property));
+//        dd($this->propertyService->featuredProperty($property));
         $review = new Reviews();
         $form = $this->createForm(ReviewsUserFormType::class, $review);
         $form->handleRequest($request);
@@ -77,6 +110,15 @@ class ListingController extends AbstractController
             ]);
     }
 
+    public function featured($property): Response
+    {
+        $properties = $this->propertyService->featuredProperty($property);
+        return $this->render('main/listing/_embed/_listing.featured.html.twig',
+            [
+                'properties' => $properties
+            ]);
+    }
+
     public function renderListingItem($property): Response
     {
         $properties = $this->propertyService->similarProperties($property);
@@ -85,11 +127,13 @@ class ListingController extends AbstractController
                 'properties' => $properties
             ]);
     }
-     public function reviewsFromProperty(Property $property): Response
-     {
-         $reviewsFromProperty = $this->reviewsService->getReviewsFromProperty($property);
-         return $this->render('main/listing/_embed/_reviews_property.item.html.twig',['reviewsFromProperty' => $reviewsFromProperty,]);
-     }
+
+    public function reviewsFromProperty(Property $property): Response
+    {
+        $reviewsFromProperty = $this->reviewsService->getReviewsFromProperty($property);
+        return $this->render('main/listing/_embed/_reviews_property.item.html.twig', ['reviewsFromProperty' => $reviewsFromProperty,]);
+    }
+
     public function convert(float $price, string $code): Response
     {
         $price = $this->currencyService->convertor($price, $code);

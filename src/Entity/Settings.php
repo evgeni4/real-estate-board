@@ -34,6 +34,20 @@ class Settings implements TranslatableInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $logoPath;
 
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $coming;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $email;
+
+    #[ORM\Column(type: 'bigint', nullable: true)]
+    private $phone;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $address;
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,4 +124,53 @@ class Settings implements TranslatableInterface
 
         return $this;
     }
+
+    public function getComing(): ?\DateTimeInterface
+    {
+        return $this->coming;
+    }
+
+    public function setComing(?\DateTimeInterface $coming): self
+    {
+        $this->coming = $coming;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?int
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?int $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
 }

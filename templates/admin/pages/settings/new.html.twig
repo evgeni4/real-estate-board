@@ -1,4 +1,5 @@
 {% extends 'admin/layout/layout_main.html.twig' %}
+{% import "@A2lixTranslationForm/macros.html.twig" as a2lixTranslations %}
 {% block title_detailed %}{% endblock %}
 {% block body %}
     <style>
@@ -11,10 +12,12 @@
             right: 0;
             top: 0;
         }
+
         label {
             font-weight: bold;
         }
-        .vich-image img{
+
+        .vich-image img {
             width: 150px;
         }
     </style>
@@ -27,14 +30,29 @@
                     <label for="tab1">{% trans %}General{% endtrans %}</label>
                     <input type="radio" name="tabset" id="tab2" aria-controls="mail-smtp">
                     <label for="tab2">Mail SMTP</label>
-                    <input type="radio" name="tabset" id="tab3" aria-controls="image">
-                    <label for="tab3">{% trans %}Logo{% endtrans %}</label>
+                    <input type="radio" name="tabset" id="tab3" aria-controls="contact">
+                    <label for="tab3">{% trans %}contact.label{% endtrans %}</label>
+                    <input type="radio" name="tabset" id="tab4" aria-controls="terms">
+                    <label for="tab4">{% trans %}privacy.policy.label{% endtrans %} /  {% trans %}terms.service.label{% endtrans %}</label>
+                    <input type="radio" name="tabset" id="tab5" aria-controls="image">
+                    <label for="tab5">{% trans %}Logo{% endtrans %}</label>
                     <div class="tab-panels">
                         <section id="general" class="tab-panel">
                             <h4>{% trans %}General{% endtrans %}</h4>
                             <div class="row mb-4">
                                 <div class="col-lg-6">
-                                    {{ form_row(form.translations) }}
+                                    {{ a2lixTranslations.partialTranslations(form.translations, ['siteName']) }}
+                                    {{ a2lixTranslations.partialTranslations(form.translations, ['metaKeywords']) }}
+                                    {{ a2lixTranslations.partialTranslations(form.translations, ['metaDescription']) }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="dtpickerdemo" class= "col-sm-2 control-label">Disabled site now</label>
+                                    <div class='col-sm-4 input-group date' id='dtpickerdemo'>
+                                        {{ form_row(form.date) }}
+                                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -65,6 +83,29 @@
                                 </div>
                             </div>
                         </section>
+                        <section id="contact" class="tab-panel">
+                            <h4>{% trans %}contact.label{% endtrans %}</h4>
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    {{ form_row(form.address) }}
+                                </div>
+                                <div class="col-lg-6">
+                                    {{ form_row(form.phone) }}
+                                </div>
+                                <div class="col-lg-6">
+                                    {{ form_row(form.email) }}
+                                </div>
+                            </div>
+                        </section>
+                        <section id="terms" class="tab-panel">
+                            <h4>{% trans %}privacy.policy.label{% endtrans %} /  {% trans %}terms.service.label{% endtrans %}</h4>
+                            <div class="row mb-4">
+                                <div class="col-lg-12">
+                                    {{ a2lixTranslations.partialTranslations(form.translations, ['privacyPolicy']) }}
+                                    {{ a2lixTranslations.partialTranslations(form.translations, ['termsOfService']) }}
+                                </div>
+                            </div>
+                        </section>
                         <section id="image" class="tab-panel">
                             <h4>{% trans %}Logo{% endtrans %}</h4>
                             <div class="row mb-4">
@@ -72,7 +113,9 @@
                                     <label for="">Logo</label>
                                     {{ form_row(form.logo) }}
                                 </div>
-                                <img style="width: 250px;" src="{{ asset('assets/images/logo-'~settings.logoPath~'/'~settings.logo) }}" alt="Logo">
+                                <img style="width: 250px;"
+                                     src="{{ asset('assets/images/logo-'~settings.logoPath~'/'~settings.logo) }}"
+                                     alt="Logo">
                             </div>
                         </section>
                     </div>
@@ -83,6 +126,15 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class='col-lg-9'>
+
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}
 
 

@@ -17,13 +17,22 @@ class SettingsFormHandler extends AbstractController
     {
     }
 
+    /**
+     * @throws \Exception
+     */
     public function processEditForm(Settings $settings, Form $form): Settings
     {
+
         $newLogo = $form['logo']->getData();
         $dirImage = $settings->getLogoPath() ? $settings->getLogoPath() : uniqid();
         if ($newLogo != null) {
             $tempImageFileName = $newLogo ? $this->fileSaver->saveLogoUploadedFileIntoTemp($newLogo) : null;
             $this->settingsManager->saveLogoImage($settings, $tempImageFileName,$dirImage);
+        }
+        if ($form['date']->getData()){
+            $interval=$form['date']->getData();
+            $date = new \DateTime($interval);
+            $settings->setComing($date);
         }
         return $settings;
     }

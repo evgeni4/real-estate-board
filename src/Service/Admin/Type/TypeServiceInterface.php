@@ -22,4 +22,12 @@ interface TypeServiceInterface
     public function deletePeriod(PriceType $priceType): ?bool;
 
     public function allPeriod(): ?array;
+
+    public function buildMenu(): ?array;
+
+    public function showMenu(): void;
+
+    public function buildMenuTypeProperty(): ?array;
+
+    public function showMenuTypeProperty(): void;
 }

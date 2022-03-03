@@ -19,10 +19,9 @@ class SearchController extends AbstractController
     #[Route('/search', name: 'ajax_search', methods: 'GET')]
     public function searchAction(Request $request,): Response
     {
-        if ($request->isXmlHttpRequest()) {
+        if ($request->query->get('q')) {
             $keyword = $request->query->get('q');
             $entities = $this->propertyService->searchKeywords($keyword);
-
             if (!$entities) {
                 $result['entities']['error'] = 'foo.no_records';
             } else {

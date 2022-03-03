@@ -106,7 +106,7 @@
                 <!-- header-modal-container end-->
                 {% if compares|length %}
                     <div class="header-modal-top fl-wrap">
-                        <a class="clear_wishlist color-bg" href="compare.html"><i class="fal fa-random"></i> {% trans %}compare.label{% endtrans %}</a>
+                        <a class="clear_wishlist color-bg" href="{{ path('main_compare') }}"><i class="fal fa-random"></i> {% trans %}compare.label{% endtrans %}</a>
                     </div>
                     {% else %}
                 <div class="header-modal-top fl-wrap">

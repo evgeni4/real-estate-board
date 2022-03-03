@@ -3,6 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block body %}
+    {% set locale = app.request.locale %}
     <div class="dasboard-wrapper fl-wrap">
         <div class="dasboard-widget-title fl-wrap">
             <h5><i class="fal fa-comments-alt"></i></h5>
@@ -23,12 +24,14 @@
                             {% endif %}
                         </div>
                         <div class="reviews-comments-item-text smpar">
-                            <div class="box-widget-menu-btn smact"><i class="far fa-ellipsis-h"></i></div>
+{#                            <div class="box-widget-menu-btn smact"><i class="far fa-ellipsis-h"></i></div>#}
                             <div class="show-more-snopt-tooltip bxwt">
                                 <a href="#"> <i class="fas fa-reply"></i> Reply</a>
                                 <a href="#"> <i class="fas fa-exclamation-triangle"></i> Report </a>
                             </div>
-                            <h4><a href="#">{{ comment.author.firstName|capitalize}} {{ comment.author.lastName|capitalize}} <span>For Luxury Family Home </span></a></h4>
+                            <h4><a href="#">{{ comment.author.firstName|capitalize}} {{ comment.author.lastName|capitalize}}
+                                    <a href="{{comment.property? path('main_listing_single',{'uuid':comment.property.uuid}):false }}" target="_blank">  <span>{{comment.property? comment.property.translate(locale).title:false}} </span></a>
+                                </a></h4>
                             {{ render(controller('App\\Controller\\Main\\AgentProfileController::reviewsFromAuthor',{
                                 'uuid':comment.author.uuid,
                                 'reviews':comment
@@ -40,7 +43,8 @@
                                 <i class="far fa-calendar-check"></i>
                                 {{ comment.createdAt|date('d-m-Y') }}
                             </span>
-                                <a href="#" class="rate-review"><i class="fal fa-thumbs-up"></i>  Helpful Review  <span>6</span> </a></div>
+{#                                <a href="#" class="rate-review"><i class="fal fa-thumbs-up"></i>  Helpful Review  <span>6</span> </a>#}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}

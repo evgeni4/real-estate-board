@@ -57,10 +57,11 @@ class ReviewsRepository extends ServiceEntityRepository
             $this->_em->persist($reviews);
             $this->_em->flush();
             return true;
-        }catch (OptimisticLockException $exception){
+        } catch (OptimisticLockException $exception) {
             return false;
         }
     }
+
     /**
      * @throws NonUniqueResultException
      */
@@ -93,5 +94,19 @@ class ReviewsRepository extends ServiceEntityRepository
             ->groupBy('r.property')
             ->setParameter('property', $property);
         return $qd->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function getLastReviewsFromProperty(User $user, Property $property)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->where('r.property = :property')
+            ->andWhere('r.user = :user')
+            ->orderBy('r.id','DESC')
+            ->setMaxResults(1)
+            ->setParameters(['property' => $property, 'user' => $user]);
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

@@ -15,6 +15,7 @@ use App\Service\Admin\Settings\SettingsServiceInterface;
 use App\Service\Manager\PropertyManager\PropertyManager;
 use App\Service\Manager\PropertyManager\PropertyManagerHelper;
 use App\Service\Property\PropertyServiceInterface;
+use App\Service\Reviews\ReviewsServiceInterface;
 use App\Service\Seo\SeoServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,7 +56,13 @@ class ListingController extends AbstractController
         );
         $this->breadcrumbs->addItem($this->translator->trans('all.properties.label'));
         $properties = $this->propertyService->findAllByAgentListing();
-        return $this->render('main/dashboard/listing/show.html.twig');
+
+
+        return $this->render('main/dashboard/listing/show.html.twig',
+            [
+                'properties' => $properties,
+
+            ]);
     }
 
 
@@ -90,10 +97,12 @@ class ListingController extends AbstractController
             $property = $this->propertyFormHandler->processAddPropertyForm($property, $form, $request);
             $this->addFlash('success', $this->translator->trans('add.listing.message.label'));
             return $this->redirectToRoute('main_add_listing');
+        }elseif($form->isSubmitted() && !$form->isValid()){
+            $this->addFlash('info',$this->translator->trans('check.form.label'));
         }
-        return $this->render('main/dashboard/listing/new.html.twig',
+        return $this->renderForm('main/dashboard/listing/new.html.twig',
             [
-                'form' => $form->createView()
+                'form' => $form
             ]);
     }
 

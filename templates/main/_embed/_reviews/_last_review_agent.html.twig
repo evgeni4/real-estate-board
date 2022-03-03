@@ -1,0 +1,19 @@
+<a href="" class="gcf-company">
+    {% if reviews %}
+        {% set avatars =  reviews.author.userImages().getValues() %}
+        {% if avatars|length %}
+            {% set avatar = avatars[0] %}
+            <img src="{{ asset('assets/images/avatar-'~reviews.author.id~'/'~avatar.fileNameMiddle) }}"
+                 alt="">
+        {% else %}
+            <i class="fas fa-user"
+               style="font-size: 20px;"></i>
+        {% endif %}
+        <span>{{ reviews.author.firstName|capitalize }} {{ reviews.author.lastName|capitalize }}</span>
+    {% endif %}
+</a>
+<div class="listing-rating card-popup-rainingvis tolt"
+     data-microtip-position="top" data-tooltip="{{starsRating? starsRating['stars-title']:0 }}"
+     data-starrating2="{{ starsRating?starsRating['stars-rating']:'' }}">
+
+</div>

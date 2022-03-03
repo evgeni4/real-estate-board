@@ -23,7 +23,13 @@ class RegistrationController extends AbstractController
 {
 
 
-    public function __construct(public TranslatorInterface $translator, public SeoServiceInterface     $seoService, public SettingsServiceInterface  $settingsService,private EmailVerifier $emailVerifier, private UserServiceInterface $userService)
+    public function __construct(
+        private TranslatorInterface $translator,
+        private SeoServiceInterface     $seoService,
+        private SettingsServiceInterface  $settingsService,
+        private EmailVerifier $emailVerifier,
+        private UserServiceInterface $userService,
+    )
     {}
 
     #[Route('/register', name: 'app_register')]
@@ -49,7 +55,7 @@ class RegistrationController extends AbstractController
 
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('robot@real-estate-board.eu', 'Robot'))
+                    ->from(new Address('robot@realestate.eu', 'Robot'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('main/registration/confirmation_email.html.twig')
@@ -87,6 +93,6 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
         $this->addFlash('success', 'Your email address has been verified.');
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_login');
     }
 }

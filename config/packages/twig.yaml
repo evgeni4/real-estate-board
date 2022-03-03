@@ -1,4 +1,6 @@
 twig:
+    globals:
+        systemService: '@App\Service\Admin\Settings\SettingsServiceInterface'
     default_path: '%kernel.project_dir%/templates'
     form_themes:
         - bootstrap_4_layout.html.twig

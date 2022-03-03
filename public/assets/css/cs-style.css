@@ -399,14 +399,16 @@ p {
 	margin:0 auto;
 	position:relative;
 }
-.cs-countdown-item {
+.cs-countdown-item,.box-count {
 	float:left;
 	width:25%;
 	color:#fff;
 	position:relative;
 	z-index:2;
 }
-.cs-countdown-item:before {
+.cs-countdown-item:before,
+.box-count:before
+{
 	content:'';
 	position:absolute;
 	bottom:10px;
@@ -415,10 +417,21 @@ p {
 	height:2px;
 	background: #fff;
 }
+.box-count{
+	position: relative;
+}
+.box-count .text{
+	position: absolute;
+	bottom: 0;
+	margin-left: -20px;
+	left: 50%;
+	right: 50%;
+	text-transform: uppercase;
+}
 .cs-countdown-item.no-dec:before{
 	display:none;
 }
-.cs-countdown-item span {
+.cs-countdown-item span,.box-count .number {
 	font-size:74px;
 	font-weight:700;
 }

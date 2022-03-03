@@ -3,9 +3,12 @@
 namespace App\Controller\Main;
 
 use App\Entity\Property;
+use App\Service\Admin\Settings\SettingsServiceInterface;
 use App\Service\Property\PropertyServiceInterface;
+use App\Service\Seo\SeoServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,10 +21,32 @@ class WishlistCompareController extends AbstractController
         private PropertyServiceInterface $propertyService,
         private SessionInterface         $session,
         private TranslatorInterface      $translator,
+        private SeoServiceInterface      $seoService,
+        public SettingsServiceInterface $settingsService,
     )
     {
     }
-
+ #[Route('/listing/compare', name: 'main_compare')]
+     public function compare(Request $request): Response
+     {
+         $settings = $this->settingsService->findOneRecord();
+         $this->seoService->seo(
+             $settings->translate($request->getLocale())->getSiteName(),
+             $settings->translate($request->getLocale())->getMetaKeywords(),
+             $settings->translate($request->getLocale())->getMetaDescription(),
+             $settings->translate($request->getLocale())->getSiteName(),
+             $settings->translate($request->getLocale())->getMetaKeywords(),
+             $settings->translate($request->getLocale())->getMetaDescription()
+         );
+         $compares = [];
+         if ($this->session->get('compare')) {
+             $compares = $this->propertyService->wishlistProperties($this->session->get('compare'));
+         }
+         return $this->render('main/listing/compare/compare.html.twig',
+             [
+                 'compares' => $compares
+             ]);
+     }
     #[Route('/add/wishlist/{uuid}', name: 'main_listing_wishlist')]
     public function addWishlistAction(Property $property): RedirectResponse
     {

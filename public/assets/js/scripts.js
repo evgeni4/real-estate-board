@@ -534,8 +534,22 @@ initIsotope();
         $(".modal_main").addClass("vis_mr");
         $("html, body").addClass("hid-body");
     });
+
     $('.close-reg , .reg-overlay').on("click", function () {
         modal.hide();
+        terms.hide();
+    });
+    var terms = {};
+    terms.hide = function () {
+        $('.terms , .reg-overlay').fadeOut(200);
+        $("html, body").removeClass("hid-body");
+        $(".modal_main").removeClass("vis_mr");
+    };
+    $('.modal-terms').on("click", function (e) {
+        e.preventDefault();
+        $('.terms , .reg-overlay').fadeIn(200);
+        $(".modal_main").addClass("vis_mr");
+        $("html, body").addClass("hid-body");
     });
     function csselem() {
         $(".map-container.column-map").css({
@@ -648,7 +662,7 @@ initIsotope();
         parentEl: $(".date-container"),
         singleDatePicker: true,
         locale: {
-            cancelLabel: 'Clear'
+            cancelLabel: 'Clear',
         }
     });
     $('input[name="datepicker-here-time"]').daterangepicker({

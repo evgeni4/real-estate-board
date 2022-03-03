@@ -89,9 +89,8 @@ ul.suggestions li:hover .suggested_input{
 }
 .notification p {
 	color:#fff;
-	text-align:left;
 	padding-bottom:0;
-	text-align: center;
+	text-align: center!important;
 }
 .notification p a {
 	color: #fff;
@@ -104,6 +103,11 @@ ul.suggestions li:hover .suggested_input{
 }
 .notification.warning{
 	background:#EA4D37;
+}
+.notification.info{
+	background:#3270FC;
+	opacity: .8;
+	text-align: center;
 }
 .notification-close {
 	position:absolute;
@@ -1881,6 +1885,20 @@ nav li ul a:before , nav li ul a:after {
 	-webkit-transform: translate3d(0,0,0);
 	background:rgba(37,44,65,.7);
 }
+.main-modal-wrap , .reg-overlay,
+.main-register-wrap , .reg-overlay
+{
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index:1000;
+	overflow: auto;
+	display:none;
+	-webkit-transform: translate3d(0,0,0);
+	background:rgba(37,44,65,.7);
+}
 .visnav-overlay {
 	display: block;
 }
@@ -1894,7 +1912,7 @@ nav li ul a:before , nav li ul a:after {
 .hid-body {
     overflow:hidden;
 }
-.main-register-holder {
+.main-register-holder, main-modal-holder {
 	max-width:850px;
 	margin:150px auto 50px;
 	position:relative;
@@ -1906,8 +1924,37 @@ nav li ul a:before , nav li ul a:after {
 	position:relative;
 	z-index:5;
 }
+.main-modal-wrapper {
+	margin-bottom:50px;
+}
 .main-register-wrapper {
 	margin-bottom:50px;
+}
+.main-modal {
+	width:100%;
+	height: 500px;
+	overflow-y: scroll;
+	position:relative;
+	padding:10px;
+    background: #fff;
+	border-radius: 6px;
+	margin-top: -70px;
+}
+.main-modal::-webkit-scrollbar {
+	width: 5px;
+	background: #3270FC;
+}
+.modal-head h2{
+	margin-top: 20px;
+	color: #144273;
+	font-size: 26px;
+	font-weight: 600;
+	padding-top: 5px;
+	text-align: center;
+}
+.main-modal .modal-content{
+	text-align: left;
+	padding: 10px;
 }
 .main-register {
 	float:right;
@@ -2031,7 +2078,7 @@ nav li ul a:before , nav li ul a:after {
 	margin-top:6px;
 	float:right;
 }
-.lost_password a  , .main-register-holder .filter-tags{
+.lost_password a  , .main-register-holder .filter-tags, .main-modal-holder{
 	float:left;
     color: #7d93b2;
 	font-size:12px;

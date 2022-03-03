@@ -13,6 +13,7 @@
         <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
         <link type="text/css" rel="stylesheet" href="{{ asset('assets/css/color.css') }}">
+
         <!--=============== favicons ===============-->
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 {#        {{ encore_entry_link_tags('app') }}#}
@@ -51,9 +52,9 @@
     <!--secondary-nav -->
     <div class="secondary-nav">
         <ul>
-            <li><a href="dashboard-add-listing.html" class="tolt" data-microtip-position="left"  data-tooltip="Sell Property"><i class="fal fa-truck-couch"></i> </a></li>
-            <li><a href="listing.html" class="tolt" data-microtip-position="left"  data-tooltip="Buy Property"> <i class="fal fa-shopping-bag"></i></a></li>
-            <li><a href="compare.html" class="tolt" data-microtip-position="left"  data-tooltip="Your Compare"><i class="fal fa-exchange"></i></a></li>
+            <li><a href="{{ path('main_show_listing') }}" class="tolt" data-microtip-position="left"  data-tooltip="{% trans %}my.properties.label{% endtrans %}"><i class="fal fa-truck-couch"></i> </a></li>
+             <li><a href="{{ path('main_compare') }}" class="tolt" data-microtip-position="left"  data-tooltip="{% trans %}compare.label{% endtrans %}"><i class="fal fa-exchange"></i></a></li>
+
         </ul>
         <div class="progress-indicator">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +102,7 @@
             $('#flash-message').hide().fadeOut()
         },5000);
     </script>
-    {#    {{ encore_entry_script_tags('app') }}#}
+{#        {{ encore_entry_script_tags('app') }}#}
 {% endblock %}
 </body>
 </html>

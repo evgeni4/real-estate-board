@@ -1,5 +1,6 @@
 <div class="dashboard-title fl-wrap">
-    <div class="dashboard-title-item"><span>{{ wo_render_breadcrumbs() }}</span></div>
+    <div class="dashboard-title-item"><span>{{ wo_render_breadcrumbs() }}</span>
+    </div>
     <div class="dashbard-menu-header">
         <div class="dashbard-menu-avatar fl-wrap">
             {% set avatars = app.user.userImages().getValues() %}
@@ -18,8 +19,8 @@
         <div   class="tfp-btn"><span>Your Tariff Plan : </span> <strong>Extended</strong></div>
         <div class="tfp-det">
             <p>You Are on <a href="#">Extended</a> . Use link bellow to view details or upgrade. </p>
-            <a href="dashboard.html#" class="tfp-det-btn color-bg">Details</a>
+            <a href="#" class="tfp-det-btn color-bg">Details</a>
         </div>
     </div>
-    <!--Tariff Plan menu end-->
+
 </div>

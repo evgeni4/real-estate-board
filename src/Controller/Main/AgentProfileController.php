@@ -86,10 +86,21 @@ class AgentProfileController extends AbstractController
 
     public function reviewAgent($user): Response
     {
-        $starsRating  = $this->reviewsService->getReviewsFromUser($user);
-        return $this->render('main/_embed/_reviews/_review_agent.html.twig',['starsRating'=>$starsRating]);
+        $starsRating = $this->reviewsService->getReviewsFromUser($user);
+        return $this->render('main/_embed/_reviews/_review_agent.html.twig', ['starsRating' => $starsRating]);
     }
 
+    public function lastCommentFomAgent($user, $property): Response
+    {
+        $reviews = $this->reviewsService->getLastReviewsFromUser($user,$property);
+         $starsRating =$reviews? $this->reviewsService->ratingFromAuthor($reviews):null;
+        return $this->render('main/_embed/_reviews/_last_review_agent.html.twig',
+            [
+               'reviews' => $reviews,
+                'starsRating' => $starsRating
+            ]
+        );
+    }
 
 
 }

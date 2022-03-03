@@ -2,6 +2,7 @@
 
 namespace App\Service\Reviews;
 
+use App\Entity\Property;
 use App\Entity\Reviews;
 use App\Entity\User;
 use App\Repository\ReviewsRepository;
@@ -107,6 +108,7 @@ class ReviewsService implements ReviewsServiceInterface
      */
     public function ratingFromAuthor(Reviews $reviews): ?array
     {
+
         $reviewsByAuthor = [];
         $review = $reviews->getRating();
         $grade = (
@@ -146,5 +148,14 @@ class ReviewsService implements ReviewsServiceInterface
         $this->reviewsRepository->insert($reviews);
         $this->flash->add('success', $this->translator->trans('review.added.label'));
         return true;
+    }
+
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function getLastReviewsFromUser(User $user, Property $property): ?Reviews
+    {
+        return $this->reviewsRepository->getLastReviewsFromProperty($user, $property);
     }
 }

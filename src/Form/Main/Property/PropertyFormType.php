@@ -149,7 +149,12 @@ class PropertyFormType extends AbstractType
                     'label_html' => true,
                     'label' => $this->translator->trans('area.label') . ' <span class="dec-icon"><i class="far fa-sort-size-down-alt"></i></span>',
                     'attr' => [
-                        'placeholder' => $this->translator->trans('house.area.label')
+                        'placeholder' => $this->translator->trans('area.label')
+                    ],
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => '',
+                        ]),
                     ],
                 ])
             ->add('bedrooms', IntegerType::class,

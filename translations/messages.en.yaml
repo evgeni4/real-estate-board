@@ -68,6 +68,11 @@ very.bad.label: Very Bad
 fair.label: Fair
 average.label: Average
 good.label: Good
+option.label: Option
+results.label: Results
+my.properties.label: My properties
+looking.for.label: What are you looking for?
+all.propertieslabel: All properties
 excellent.label: Excellent
 viewed.label: Viewed
 verified.label: Verified
@@ -116,6 +121,10 @@ plans.house.label: House Plans
 widgets.label: Widgets
 basic.information.label: Basic Information
 price.label: Price
+price.low.high.label: Price low to high
+price.high.low.label: Price high to low
+price.range.label: Price range
+sort.by.label: Sort by
 select.label: Select
 title.label: Title
 title.property.label: Title of your property
@@ -139,6 +148,7 @@ size.accommodation.label: Size accommodation 5-12 ..
 yard.size.label: Yard size
 garage.label: Garage
 floors.label: Floors
+floor.label: Floor
 number.cars.label: Number of cars
 description.text.label: Description
 country.label: Country
@@ -172,6 +182,11 @@ property.listing.label: Property Listing
 agent.label: Agent
 print.label: Print
 viewing.property.label: Viewing Property
+privacy.policy.label: Privacy Policy
+terms.service.label: Terms of service
+active.listings.label: Active Listings
+your.statistic.label: Your Statistic
+listing.iews.label: An overview of my ads
 #messages
 check.email.message.label: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
 check.email.message.sm.label: This link will expire in
@@ -196,6 +211,12 @@ compare.added.successfully.label: The property has been successfully added to th
 compare.added.already.label: The property has already been added to the list of compare!
 delete.successfully.compare.label: The property has been successfully delete from the list of compare!
 list.empty.title: The list is empty!
+your.compare.list.label: Your compare list
+check.form.label: Please check if all fields are filled in correctly!
+contact.label: Contacts
+
+
+
 #end messages
 #admin fields messages
 view.site.label: Go to the site

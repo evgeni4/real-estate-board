@@ -39,6 +39,12 @@ $(document).ready(function () {
         }
     });
 });
+function onClickAddSm(id){
+    let input = document.getElementById('search_keywords')
+    let entitiesNavSm = document.getElementById('entitiesNavSm')
+    input.value=document.getElementById('res_sm_'+id).getAttribute("value")
+    entitiesNavSm.classList.add('display')
+}
 $(document).ready(function () {
     $('#spinner').hide()
     var searchRequest = null;
@@ -87,9 +93,49 @@ function onClickAdd(id){
     input.value=document.getElementById('res_'+id).getAttribute("value")
     entitiesNav.classList.add('display')
 }
-function onClickAddSm(id){
-    let input = document.getElementById('search_keywords')
-    let entitiesNavSm = document.getElementById('entitiesNavSm')
+$(document).ready(function () {
+    var searchRequest = null;
+    $("#search_home_keywords").keyup(function () {
+        console.log('ok')
+        var minlength = 1;
+        var that = this;
+        var value = $(this).val();
+        var entitySelector = $("#entitiesNavHome").html('');
+        if (value.length >= minlength) {
+            if (searchRequest != null)
+                searchRequest.abort();
+            searchRequest = $.ajax({
+                type: "GET",
+                url: "/search",
+                data: {
+                    'q': value
+                },
+                dataType: "text",
+                success: function (msg) {
+                    //we need to check if the value is the same
+                    if (value == $(that).val()) {
+                        var result = JSON.parse(msg);
+                        $.each(result, function (key, arr) {
+                            $.each(arr, function (id, value) {
+                                if (key == 'entities') {
+                                    if (id != 'error') {
+                                        entitiesNavHome.classList.remove('display')
+                                        entitySelector.append('<li id="res_sm_'+id+'" value="' + value + '" onClick="onClickAddHome('+id+')"><a  data-title="' + value + '" class="list-group-item">' + value + '</a></li>');
+                                    } else {
+                                        entitySelector.append('<li class="errorLi">' + value + '</li>');
+                                    }
+                                }
+                            });
+                        });
+                    }
+                }
+            });
+        }
+    });
+});
+function onClickAddHome(id){
+    let input = document.getElementById('search_home_keywords')
+    let entitiesNavSm = document.getElementById('entitiesNavHome')
     input.value=document.getElementById('res_sm_'+id).getAttribute("value")
     entitiesNavSm.classList.add('display')
 }

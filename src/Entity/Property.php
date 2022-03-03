@@ -120,6 +120,12 @@ class Property  implements TranslatableInterface
 
     #[ORM\ManyToOne(targetEntity: PriceType::class, inversedBy: 'properties')]
     private $period;
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $updateAt;
+
+    #[ORM\Column(type: 'date', nullable: true)]
+    private $duration;
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
@@ -631,6 +637,30 @@ class Property  implements TranslatableInterface
     public function setPeriod(?PriceType $period): self
     {
         $this->period = $period;
+
+        return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeImmutable
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeImmutable $updateAt): self
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getDuration(): ?\DateTimeInterface
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?\DateTimeInterface $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }

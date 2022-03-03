@@ -45,9 +45,9 @@ class Builder
             ->setChildrenAttribute('class','nav-group-items');
              $userMenu['listings.label']->addChild('all.properties.label', ['route' => 'main_show_listing'])
               ->setExtra('icon', 'fal fa-th-list');
-             $userMenu['listings.label']->addChild('bookings.label', ['route' => 'main_dashboard'])
-              ->setExtra('icon', 'fal fa-calendar-check')
-              ->setExtra('count', '34');
+//             $userMenu['listings.label']->addChild('bookings.label', ['route' => 'main_dashboard'])
+//              ->setExtra('icon', 'fal fa-calendar-check')
+//              ->setExtra('count', '34');
              $userMenu['listings.label']->addChild('add.listing.label', ['route' => 'main_add_listing'])
               ->setExtra('icon', 'fal fa-file-plus');
 //        listings.label
@@ -62,7 +62,7 @@ class Builder
             ->setExtra('icon', 'fas fa-eye')
             ->setLinkAttributes(array('target' => '_blank'));
 //        Edit profile
-         $userMenu->addChild('messages.label', ['uri' => '#'])
+         $userMenu->addChild('messages.label', ['route' => 'main_messages'])
             ->setExtra('icon', 'fal fa-envelope')->setExtra('count', '5');
 //        Messages
 //        reviews
@@ -70,18 +70,19 @@ class Builder
         $userMenu->addChild('reviews.label', ['route' => 'main_reviews_show'])
             ->setExtra('icon', 'fal fa-comments-alt');
 //        reviews
-         $userMenu->addChild('agents.list.label', ['uri' => '#'])
-            ->setExtra('icon', 'fal fa-users');
+//         $userMenu->addChild('agents.list.label', ['uri' => '#'])
+//            ->setExtra('icon', 'fal fa-users');
 //        Messages
-        $userMenu->addChild('Submenu', ['uri' => '#'])
-        ->setExtra('icon', 'fal fa-plus')
-        ->setAttributes(['class'=>''])
-        ->setLinkAttribute('class', 'submenu-link')
-        ->setChildrenAttribute('class','nav-group-items');
-        $userMenu['Submenu']->addChild('Submenu 2', ['uri' => '#'])
-            ->setExtra('icon', 'fal fa-th-list')
-            ->setAttributes(['class', 'nav-item'])
-            ->setLinkAttribute('class', 'nav-link');
+//        $userMenu->addChild('Submenu', ['uri' => '#'])
+//        ->setExtra('icon', 'fal fa-plus')
+//        ->setAttributes(['class'=>''])
+//        ->setLinkAttribute('class', 'submenu-link')
+//        ->setChildrenAttribute('class','nav-group-items');
+//        $userMenu['Submenu']->addChild('Submenu 2', ['uri' => '#'])
+//            ->setExtra('icon', 'fal fa-th-list')
+//            ->setAttributes(['class', 'nav-item'])
+//            ->setLinkAttribute('class', 'nav-link')
+        ;
 //      Submenu
         return $userMenu;
     }

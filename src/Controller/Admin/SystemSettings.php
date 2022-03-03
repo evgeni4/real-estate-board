@@ -62,6 +62,7 @@ class SystemSettings extends AbstractController
         $this->breadcrumbs->addRouteItem($this->translator->trans('settings.label'), 'admin_settings_show');;
         $this->breadcrumbs->addItem($this->translator->trans('edit.label'));
         $form = $this->createForm(SettingsFormType::class, $settings);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $settings = $this->settingsFormHandler->processEditForm($settings, $form);

@@ -1,0 +1,8 @@
+fos_ck_editor:
+    configs:
+        my_config:
+            #uiColor: "#32473A"
+            language: en
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

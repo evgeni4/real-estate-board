@@ -54,11 +54,10 @@
                         </ul>
                     </div>
                     <div class="geodir-category-footer fl-wrap">
-                        <a href="agent-single.html" class="gcf-company"><img
-                                    src="images/avatar/2.jpg" alt=""><span>By Liza Rose</span></a>
-                        <div class="listing-rating card-popup-rainingvis tolt"
-                             data-microtip-position="top" data-tooltip="Good"
-                             data-starrating2="4"></div>
+                        {{ render(controller('App\\Controller\\Main\\AgentProfileController::lastCommentFomAgent',{
+                            'user': user,
+                            'property': property,
+                        })) }}
                     </div>
                 </div>
             </article>

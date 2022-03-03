@@ -19,7 +19,7 @@
         <!--=============== favicons ===============-->
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-        {{ encore_entry_link_tags('app') }}
+{#        {{ encore_entry_link_tags('app') }}#}
     {% endblock %}
 
 </head>
@@ -73,21 +73,22 @@
 {% block javascripts %}
 
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfDCV5hXiPamCIT8_vwGXuzimLQ9MF76g&language={{ app.request.locale }}&libraries=places"></script>
     <script src="{{ asset('assets/js/map-add.js') }}"></script>
-{#    <script src="{{ asset('assets/js/plugins-map.js') }}"></script>#}
+    {#    <script src="{{ asset('assets/js/plugins-map.js') }}"></script> #}
     <script src="{{ asset('assets/js/maps.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
     <script src="{{ asset('assets/js/fields.js') }}"></script>
     <script src="{{ asset('assets/js/selectChange.js') }}"></script>
+
 {#    {{ encore_entry_script_tags('app') }}#}
     <script>
         setTimeout(function () {
             $('#flash-message').hide().fadeOut()
-        },5000);
+        }, 5000);
     </script>
 {% endblock %}
 </body>

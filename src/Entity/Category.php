@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\Table(name: 'categories')]
@@ -19,7 +20,8 @@ class Category implements TranslatableInterface
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
+    #[ORM\Column(type: 'uuid', nullable: true)]
+    private $uuid;
     #[ORM\Column(type: 'boolean')]
     private ?bool $published = true;
 
@@ -28,6 +30,7 @@ class Category implements TranslatableInterface
 
     public function __construct()
     {
+        $this->uuid = Uuid::v4();
         $this->properties = new ArrayCollection();
     }
 
@@ -79,6 +82,18 @@ public function __toString(): string
                 $property->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid($uuid): self
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }

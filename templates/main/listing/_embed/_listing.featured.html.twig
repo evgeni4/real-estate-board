@@ -1,0 +1,42 @@
+{% if properties|length %}
+    {% set locale = app.request.locale %}
+    <div class="box-widget-title fl-wrap">{% trans %}featured.properties.label{% endtrans %}</div>
+    <div class="box-widget-content fl-wrap">
+        <!--widget-posts-->
+        <div class="widget-posts  fl-wrap">
+            <ul class="no-list-style">
+                {% for property in properties %}
+                    <li>
+                        <div class="widget-posts-img">
+                            {% set images = property.propertyImages.getValues() %}
+                            {% if images|length %}
+                                <a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}">
+                                    {% set image = images[0] %}
+                                    <img src="{{ asset('assets/images/properties/property-'~image.slug~'/'~image.imageMd) }}"
+                                         alt="Property image">
+                                </a>
+                            {% else %}
+                                <img src="{{ asset('assets/images/no_image/noImage.png') }}" alt="Property image">
+                            {% endif %}
+                        </div>
+                        <div class="widget-posts-descr">
+                            <h4><a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}">{{ property.translate(locale).title }}</a></h4>
+                            <div class="geodir-category-location fl-wrap">
+                                <a href="#"><i class="fas fa-map-marker-alt"></i>
+                                    {{ property.address }}</a>
+                            </div>
+                            <div class="widget-posts-descr-price">
+                                {{ render(controller('App\\Controller\\Main\\ListingController::convert',{
+                                    'price': property.price,
+                                    'code': app.request.defaultCurrencylocale
+                                })) }}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- widget-posts end-->
+        <a href="{{ path('main_listing_all') }}" class="btn float-btn color-bg small-btn">{% trans %}view.all.properties.label{% endtrans %}</a>
+    </div>
+{% endif %}

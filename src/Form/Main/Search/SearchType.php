@@ -11,11 +11,12 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SearchType extends AbstractType
 {
-    public function __construct(private TranslatorInterface $translator,private PropertyServiceInterface $propertyService)
+    public function __construct(private UrlGeneratorInterface $urlGenerator,private TranslatorInterface $translator,private PropertyServiceInterface $propertyService)
     {
     }
 
@@ -69,7 +70,10 @@ class SearchType extends AbstractType
                          'data-step' => '1000',
                         'data-prefix' => '€',
                     ]
-                ]);
+                ])
+            ->setMethod('get')
+            ->setAction($this->urlGenerator->generate('main_listing_all'))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

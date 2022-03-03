@@ -1,6 +1,5 @@
 {% extends 'main/base.html.twig' %}
 {% block title_detailed %}{% endblock %}
-
 {% block body %}
     {% set locale = app.request.locale %}
     <!-- content -->
@@ -8,13 +7,6 @@
         <!-- categoties-column -->
         <div class="categoties-column">
             <div class="categoties-column_container cat-list">
-                <ul>
-                    <li><a href="#" class="act-category"><i class="fal fa-city"></i><span>Apartments</span></a></li>
-                    <li><a href="#"><i class="fal fa-car-building"></i><span>Offices</span></a></li>
-                    <li><a href="#"><i class="fal fa-home"></i><span>House</span></a></li>
-                    <li><a href="#"><i class="fal fa-hotel"></i><span>Hotel</span></a></li>
-                    <li><a href="#"><i class="fal fa-warehouse-alt"></i><span>Villa</span></a></li>
-                </ul>
             </div>
             <div class="progress-indicator">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -56,34 +48,39 @@
                 <div class="container">
                     <!-- list-main-wrap-title-->
                     <div class="list-main-wrap-title">
-                        <h2>Results For : <span>New York </span><strong>8</strong></h2>
+                        <h2>Results : <span></span><strong>{{ properties|length }}</strong></h2>
                     </div>
                     <!-- list-main-wrap-title end-->
                     <!-- list-main-wrap-opt-->
                     <div class="list-main-wrap-opt">
                         <!-- price-opt-->
-                        <div class="price-opt">
-                            <span class="price-opt-title">Sort   by:</span>
-                            <div class="listsearch-input-item">
-                                <select data-placeholder="Popularity" class="chosen-select no-search-select">
-                                    <option>Popularity</option>
-                                    <option>Average rating</option>
-                                    <option>Price: low to high</option>
-                                    <option>Price: high to low</option>
-                                </select>
-                            </div>
-                        </div>
+{#                        {% if properties|length > 2 %}#}
+{#                            <div class="price-opt">#}
+{#                                <span class="price-opt-title">{% trans %}sort.by.label{% endtrans %}:</span>#}
+{#                                <div class="listsearch-input-item">#}
+
+{#                                        <select name="sort" onchange="this" data-placeholder="{% trans %}select.label{% endtrans %}" class="chosen-select no-search-select">#}
+{#                                            <option>{% trans %}select.label{% endtrans %}</option>#}
+{#                                            <option  value="asc">{% trans %}price.low.high.label{% endtrans %}</option>#}
+{#                                            <option value="desc">{% trans %}price.high.low.label{% endtrans %}</option>#}
+{#                                        </select>#}
+
+{#                                </div>#}
+{#                            </div>#}
+{#                        {% endif %}#}
                         <!-- price-opt end-->
                         <!-- price-opt-->
                         <div class="grid-opt">
-                            <ul class="no-list-style">
-                                <li class="grid-opt_act"><span class="fact-grid-opt tolt"
-                                                               data-microtip-position="bottom" data-tooltip="Grid View"><i
-                                                class="far fa-th"></i></span></li>
-                                <li class="grid-opt_act"><span class="one-col-grid tolt" data-microtip-position="bottom"
-                                                               data-tooltip="List View"><i
-                                                class="far fa-list"></i></span></li>
-                            </ul>
+                            {% if properties|length %}
+                                <ul class="no-list-style">
+                                    <li class="grid-opt_act"><span class="fact-grid-opt tolt"
+                                                                   data-microtip-position="bottom" data-tooltip="Grid View"><i
+                                                    class="far fa-th"></i></span></li>
+                                    <li class="grid-opt_act"><span class="one-col-grid tolt" data-microtip-position="bottom"
+                                                                   data-tooltip="List View"><i
+                                                    class="far fa-list"></i></span></li>
+                                </ul>
+                            {% endif %}
                         </div>
                         <!-- price-opt end-->
                     </div>

@@ -3,9 +3,11 @@
 namespace App\Service\Property;
 
 use App\Entity\Amenities;
+use App\Entity\Category;
 use App\Entity\Property;
 use App\Entity\PropertyAmenities;
 use App\Entity\PropertyRoomsWidgetAmenities;
+use App\Entity\Type;
 use App\Repository\CategoryRepository;
 use App\Repository\PropertyAmenitiesRepository;
 use App\Repository\PropertyRepository;
@@ -41,8 +43,11 @@ class PropertyService implements PropertyServiceInterface
         // TODO: Implement delete() method.
     }
 
-    public function findAllProperties(): ?array
+    public function findAllProperties(string $param = null): ?array
     {
+        if ($param != null) {
+            return $this->propertyRepository->findBy([], ['price' => $param]);
+        }
         return $this->propertyRepository->findBy([], ['id' => 'desc']);
     }
 
@@ -55,7 +60,24 @@ class PropertyService implements PropertyServiceInterface
     public function findAllByAgentListing(): ?array
     {
         $user = $this->userService->currentUser();
-        return $this->propertyRepository->findBy(['agent' => $user], ['id' => 'desc']);
+        return $this->propertyRepository->findAllByAgentListing($user);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findAllByAgentListingActive(): ?array
+    {
+        $user = $this->userService->currentUser();
+        return $this->propertyRepository->findAllByAgentListingActive($user);
+    }
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findAllByAgentListingViews(): ?int
+    {
+        $user = $this->userService->currentUser();
+        return $this->propertyRepository->findAllByAgentListingViews($user);
     }
 
     public function similarProperties(Property $property): ?array
@@ -112,6 +134,23 @@ class PropertyService implements PropertyServiceInterface
 
     public function wishlistProperties(array $params): array
     {
-       return $this->propertyRepository->wishlistProperties($params);
+        return $this->propertyRepository->wishlistProperties($params);
     }
+
+    public function findByTypesProperties(Type $type): ?array
+    {
+        return $this->propertyRepository->findByTypesProperties($type);
+    }
+
+    public function findByCategoryProperties(Category $category): ?array
+    {
+        return $this->propertyRepository->findByCategoryProperties($category);
+    }
+
+    public function featuredProperty(Property $property): array
+    {
+        return $this->propertyRepository->featured($property);
+    }
+
+
 }

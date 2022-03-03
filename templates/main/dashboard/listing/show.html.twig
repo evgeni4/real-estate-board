@@ -25,7 +25,68 @@
              <!-- dashboard-listings-wrap-->
              <div class="dashboard-listings-wrap fl-wrap">
                  <div id=" " class="row">
-                           {{ render(controller('App\\Controller\\Main\\Dashboard\\ListingController::template')) }}
+                     {% set locale = app.request.locale %}
+                     {% for property  in properties %}
+                         {#       {{ dump(property) }} #}
+                         <!-- dashboard-listings-item-->
+                         <div id="content" class="col-md-6">
+                             <div style="min-height: 240px" class="dashboard-listings-item fl-wrap {{ property.published?'':'item_content-disable' }}">
+                                 <div class="dashboard-listings-item_img">
+                                     <div class="bg-wrap">
+                                         {% set images = property.propertyImages.getValues() %}
+                                         {% if images|length %}
+                                             {% set image = images[0] %}
+                                             {{ image.imageSm }}
+                                             {{ image.slug }}
+                                             <div class="bg  "  data-bg="{{ asset('assets/images/properties/property-'~image.slug~'/'~image.imageMd ) }}"></div>
+                                         {% else %}
+                                             <div class="bg  " data-bg="{{ asset('assets/images/no_image/noImage.png' ) }}"></div>
+                                         {% endif %}
+                                     </div>
+                                     <div class="overlay"></div>
+                                     <a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}" target="_blank" class="color-bg">{% trans %}view.label{% endtrans %}</a>
+                                 </div>
+                                 <div class="dashboard-listings-item_content">
+                                     <div class="text-right ">
+                                         <a class="tolt" data-microtip-position="bottom-left"
+                                            data-tooltip="Status Active"><i class="fas fa-check checked"></i></a>
+
+                                     </div>
+                                     <h4><a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}" target="_blank">{{ property.translate(locale).title }} {{ property.types }}</a>
+                                     </h4>
+                                     <div class="geodir-category-location">
+                                         <a href="#"><i class="fas fa-map-marker-alt"></i>
+                                             <span> {{ property.address }}</span></a>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     {{ render(controller('App\\Controller\\Main\\ListingController::reviewsFromProperty',
+                                         { 'property':property })) }}
+                                     <div class="dashboard-listings-item_opt">
+                                         <span class="viewed-counter"><i class="fas fa-eye"></i> {% trans %}viewed.label{% endtrans %} -  {{ property.viewed?property.viewed:0 }} </span>
+                                         <ul >
+{#                                             crown-active#}
+                                             <li><a href="" class="tolt" data-microtip-position="top-left"
+                                                    data-tooltip="Update to Premium"><i class="fas fa-crown crown-active"></i></a></li>
+                                             <li class="">
+                                                 <a href="{{ path('main_edit_listing',{'uuid':property.uuid}) }}" class="tolt" data-microtip-position="top-left"
+                                                    data-tooltip="{% trans %}edit.label{% endtrans %}"><i class="far fa-edit"></i></a></li>
+                                             <li>
+                                                 <a href="{{ path('main_disable_listing',{'uuid':property.uuid}) }}" class="tolt" data-microtip-position="top-left"
+                                                    data-tooltip="{% trans %}disable.label{% endtrans %}">
+                                                     <i class="far fa-{{ property.published?'eye':'eye-slash' }}"></i></a></li>
+                                             <li><a href="#" class="tolt" data-microtip-position="top-left"
+                                                    data-tooltip="{% trans %}delete.label{% endtrans %}"><i class="far fa-trash-alt"></i></a></li>
+                                         </ul>
+                                         <div class="duration-wrap">
+                                             {{ property.createdAt|date('d-m-Y') }} - {{ property.duration|date('d-m-Y') }}
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <!-- dashboard-listings-item end-->
+                     {% endfor %}
+{#                           {{ render(controller('App\\Controller\\Main\\Dashboard\\ListingController::template')) }}#}
                  </div>
              </div>
              <!-- dashboard-listings-wrap end-->

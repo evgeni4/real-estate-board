@@ -1,0 +1,82 @@
+{% extends 'main/base.html.twig' %}
+{% block title_detailed %}{% endblock %}
+
+{% block body %}
+    {% set locale = app.request.locale %}
+    <!-- content -->
+    <div class="content">
+        <!--  section  -->
+        <section class="parallax-section single-par color-bg">
+            <div class="container">
+                <div class="section-title center-align big-title">
+                    <h2><span>{% trans %}your.compare.list.label{% endtrans %}</span></h2>
+                    <h4></h4>
+                </div>
+            </div>
+            <div class="pwh_bg"></div>
+            <div class="mrb_pin vis_mr mrb_pin3 "></div>
+            <div class="mrb_pin vis_mr mrb_pin4 "></div>
+        </section>
+        <!--  section  end-->
+        <!-- section -->
+        <section class="gray-bg small-padding ">
+            <div class="container">
+                <div class="compare-container fl-wrap">
+                    <div class="compare-counter"><span>{{ compares|length }}</span> {% trans %}option.label{% endtrans %}</div>
+                    <div class="compare-header">
+                        <ul>
+                            <li>{% trans %}price.label{% endtrans %}</li>
+                            <li>{% trans %}bedrooms.label{% endtrans %}</li>
+                            <li>{% trans %}bathrooms.label{% endtrans %}</li>
+                            <li>{% trans %}garage.label{% endtrans %}</li>
+                            <li>{% trans %}area.label{% endtrans %}</li>
+                            <li>{% trans %}floors.label{% endtrans %} / {% trans %}floor.label{% endtrans %}</li>
+                        </ul>
+                    </div>
+                    <div class="compare-slider fl-wrap">
+                        <!-- slick-slide-item -->
+                        {% for property in compares %}
+                            <div class="slick-slide-item">
+                                <div class="compare-column">
+                                    <div class="compare-link fl-wrap">
+                                        <div class="compare-link-meia fl-wrap">
+                                            {% set images = property.propertyImages().getValues() %}
+                                            {% if images|length %}
+                                                {% set image = images[0] %}
+                                                <div class="bg par-elem "  data-bg="{{ asset('assets/images/properties/property-'~ image.slug ~'/'~ image.imageMd ) }}"></div>
+                                            {% else %}
+                                                <div class="bg par-elem "  data-bg="{{ asset('assets/images/no_image/noImage.png') }}"></div>
+                                            {% endif %}
+                                            <div class="remove-compare color-bg">
+                                                <a style="color: #FFFFFF" href="{{ path('main_listing_compare_delete',{'uuid':property.uuid}) }}">
+                                                <i class="fal fa-times"></i></a></div>
+                                        </div>
+                                        <h4><a href="{{ path('main_listing_single',{'uuid':property.uuid}) }}">{{ property.translate(locale).title }} / {{ property.types }}</a></h4>
+                                    </div>
+                                    <div class="compare-content">
+                                        <ul>
+                                            <li>
+                                                {{ render(controller('App\\Controller\\Main\\ListingController::convert',{
+                                                    'price': property.price,
+                                                    'code': app.request.defaultCurrencylocale
+                                                })) }}
+                                            </li>
+                                            <li>{{ property.bedrooms?property.bedrooms:'-' }}</li>
+                                            <li>{{ property.bathrooms?property.bathrooms:'-' }}</li>
+                                            <li>{{ property.garage?property.garage :'-' }}</li>
+                                            <li>{{ property.area?property.area:'-' }}</li>
+                                            <li>{{ property.floors?property.floors:'-' }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <!-- slick-slide-item end-->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- section end-->
+    </div>
+    <!-- content end -->
+{% endblock %}

@@ -6,6 +6,7 @@ use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use App\Entity\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +24,18 @@ class TypeFormType extends AbstractType
                 'fields'=>[
                     'title'=>[
                         'field_type'=>TextType::class,
+                        'constraints'=>[
+                            new NotBlank()
+                        ]
+                    ],
+                    'keywords'=>[
+                        'field_type'=>TextType::class,
+                        'constraints'=>[
+                            new NotBlank()
+                        ]
+                    ],
+                    'description'=>[
+                        'field_type'=>TextareaType::class,
                         'constraints'=>[
                             new NotBlank()
                         ]

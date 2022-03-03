@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Property;
+use App\Entity\Type;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Connection;
@@ -105,24 +107,28 @@ class PropertyRepository extends ServiceEntityRepository
             ->addSelect('pTrans')
             ->join('p.translations', 'pTrans')
             ->where('pTrans.title LIKE :title')
+            ->orwhere('p.price LIKE :price')
             ->setParameter("title", '%' . $str . '%')
+            ->setParameter("price", '%' . $str . '%')
             ->getQuery()
             ->execute();
     }
 
     public function searchProperties(array $params)
     {
-        // dd($params);
-        $prices = explode(';', $params['price']);
-        $area = explode(';', $params['area']);
+        if (array_key_exists('area', $params)) {
+            $area = explode(';', $params['area']);
+        }
+        if (array_key_exists('price', $params)) {
+            $prices = explode(';', $params['price']);
+        }
         $qb = $this->createQueryBuilder('p');
         $qb->where('p.published=:published');
-        $qb->join('p.propertyAmenities', 'am');
         $qb->setParameter('published', true);
-        if (!empty($params['keyword'])) {
+        if (!empty($params['keywords'])) {
             $qb->join('p.translations', 't');
-            $qb->andWhere('t.title  LIKE :type');
-            $qb->setParameter('keyword', (int)$params['keyword']);
+            $qb->andWhere('t.title  LIKE :keyword');
+            $qb->setParameter('keyword', $params['keywords']);
         }
         if (!empty($params['type'])) {
             $qb->andWhere('p.types  =:type');
@@ -159,13 +165,14 @@ class PropertyRepository extends ServiceEntityRepository
             $qb->setParameter('areaMax', (int)$area[1]);
         }
         if (array_key_exists('amenity', $params)) {
-
+            $qb->join('p.propertyAmenities', 'am');
             $qb->andWhere(
                 $qb->expr()->in('am.amenity', ':amenity'),
             );
             $qb->setParameter('amenity', $params['amenity'], Connection::PARAM_INT_ARRAY);
         }
         $qb->groupBy('p.id');
+
         return $qb->getQuery()->getResult();
     }
 
@@ -196,5 +203,76 @@ class PropertyRepository extends ServiceEntityRepository
         );
         $qb->setParameter('id', $params, Connection::PARAM_INT_ARRAY);
         return $qb->getQuery()->getResult();
+    }
+
+    public function findByTypesProperties(Type $type)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.types = :type')
+            ->setParameter('type', $type);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByCategoryProperties(Category $category)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.category = :category')
+            ->setParameter('category', $category);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function featured(Property $property)
+    {
+
+        $db = $this->createQueryBuilder('p')
+            ->innerJoin('p.reviews', 'r')
+            ->where('p.types = :type')
+            ->andWhere('p.id != :property')
+            ->setParameters(['type' => $property->getTypes(), 'property' => $property->getId()]);
+        return $db->getQuery()->getResult();
+    }
+
+    public function findAllByAgentListing(User $user)
+    {
+        $db = $this->createQueryBuilder('p');
+        $db->where('p.agent = :agent')
+            ->setParameters(['agent' => $user]);
+        return $db->getQuery()->getResult();
+    }
+
+    public function getAllByCreateAtProperty($date, $user)
+    {
+        $db = $this->createQueryBuilder('p')
+            ->select('count(p.agent)')
+            ->where('p.agent = :agent')
+            ->andWhere('p.createdAt BETWEEN :date AND :date2')
+            ->setParameter('date', $date[0])
+            ->setParameter('date2', $date[1])
+            ->setParameter('agent', $user);
+        return $db->getQuery()->getSingleScalarResult();
+    }
+
+
+    public function findAllByAgentListingActive(User $user)
+    {
+        $db = $this->createQueryBuilder('p');
+        $db
+            ->select('count(p.id)')
+            ->where('p.agent = :agent')
+             ->andWhere($db->expr()->isNotNull('p.duration'))
+            ->groupBy('p.agent')
+            ->setParameter('agent', $user);
+        return $db->getQuery()->getResult();
+    }
+
+    public function findAllByAgentListingViews(?User $user)
+    {
+        $db = $this->createQueryBuilder('p');
+        $db
+            ->select('sum(p.viewed)')
+            ->where('p.agent = :agent')
+            ->groupBy('p.agent')
+            ->setParameter('agent', $user);
+        return $db->getQuery()->getSingleScalarResult();
     }
 }

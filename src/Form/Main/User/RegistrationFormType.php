@@ -36,7 +36,7 @@ class RegistrationFormType extends AbstractType
                 'required'=>false,
                 'mapped' => false,
                 'label_html' => true,
-                'label'=>$this->translator->trans('agree.label').' <a href="listing3.html#" mb-checked="1" data-tip="">Privacy Policy</a>'.$this->translator->trans('and.label').' <a href="listing3.html#" mb-checked="1" data-tip="">Terms and Conditions</a>',
+                'label'=>$this->translator->trans('agree.label').' <a href="#" class="modal-open" mb-checked="1" data-tip="">'.$this->translator->trans('privacy.policy.label').'</a> '.$this->translator->trans('and.label').' <a href="#" class="modal-terms" mb-checked="1" data-tip="">'.$this->translator->trans('terms.service.label').'</a>',
                 'constraints' => [
                     new IsTrue([
                         'message' => $this->translator->trans('agree.message.label'),

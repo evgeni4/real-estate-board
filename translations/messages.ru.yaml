@@ -123,6 +123,10 @@ plans.house.label: План дома
 widgets.label: Виджеты
 basic.information.label: Основная информация
 price.label: Цена
+price.low.high.label: Цена от низкой к высокой
+price.high.low.label: Цена от высокой к низкой
+price.range.label: Ценовой диапазон
+sort.by.label: Сортировать по
 select.label: Выбирать
 title.label: Заголовок
 title.property.label: Название вашей недвижимости
@@ -146,6 +150,12 @@ size.accommodation.label: Размер размещения 5-12..
 yard.size.label: Размер двора
 garage.label: Гараж
 floors.label: Этажи
+floor.label: Этаж
+option.label: Вариант(а)
+results.label: Результаты
+my.properties.label: Мои объявлеия
+looking.for.label: Что вы ищете?
+all.propertieslabel: Все объявления
 number.cars.label: Количество автомобилей
 description.text.label: Описание
 country.label: Страна
@@ -202,6 +212,14 @@ compare.added.successfully.label: Недвижимость успешно доб
 compare.added.already.label: Недвижимость уже добавлена в список для сравнения!
 delete.successfully.compare.label: Недвижимость успешно удалена из списка сравнения!
 list.empty.title: Список пуст!
+your.compare.list.label: Ваш список сравнения
+check.form.label: Пожалуйста, проверьте все ли поля заполнены корректно!
+contact.label: Контакты
+privacy.policy.label: Политика конфиденциальности
+terms.service.label: Условия использования
+active.listings.label: Активные списки
+your.statistic.label: Ваша статистика
+listing.iews.label: Обзор моих объявлений
 #end mes
 #admin fields messages
 view.site.label: Перейти на сайт

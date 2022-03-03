@@ -17,7 +17,10 @@ class TypeTranslation implements TranslationInterface
     #[ORM\Column(type: 'string', length: 255)]
 
     private ?string $title;
-
+    #[ORM\Column(type: 'string', length: 255)]
+    protected ?string $keywords;
+    #[ORM\Column(type: 'text')]
+    protected ?string $description;
     public function getTitle(): ?string
     {
         return $this->title;
@@ -33,5 +36,29 @@ class TypeTranslation implements TranslationInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getKeywords(): ?string
+    {
+        return $this->keywords;
+    }
+
+    public function setKeywords(?string $keywords): self
+    {
+        $this->keywords = $keywords;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
     }
 }

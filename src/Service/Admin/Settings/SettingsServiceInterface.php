@@ -3,6 +3,7 @@
 namespace App\Service\Admin\Settings;
 
 use App\Entity\Settings;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 interface SettingsServiceInterface
 {
@@ -11,4 +12,6 @@ interface SettingsServiceInterface
     public function update(Settings $settings): bool;
 
     public function findOneRecord(): ?Settings;
+
+    public function checkComing():?bool;
 }

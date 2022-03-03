@@ -4,8 +4,12 @@ namespace App\Form\Admin;
 
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use App\Entity\Settings;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -50,6 +54,24 @@ class SettingsFormType extends AbstractType
                                 )
                             ],
                         ],
+                        'privacyPolicy' => [
+                            'field_type' => CKEditorType::class,
+                            'constraints' => [
+                                new NotBlank(),
+                                new Length(
+                                    ['min' => 5]
+                                )
+                            ],
+                        ],
+                        'termsOfService' => [
+                            'field_type' => CKEditorType::class,
+                            'constraints' => [
+                                new NotBlank(),
+                                new Length(
+                                    ['min' => 5]
+                                )
+                            ],
+                        ],
                     ]
                 ]
             )
@@ -76,6 +98,29 @@ class SettingsFormType extends AbstractType
                     'label' => false,
                     'mapped' => false,
                     'multiple' => false
+                ]
+            )
+            ->add('date',TextType::class,
+                [
+                    'required' => false,
+                    'mapped' => false,
+                    'label' => false,
+                    'attr' => ['placeholder'=>'Select date/time'],
+                ]
+            )
+            ->add('address',TextType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            ->add('email',TextType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            ->add('phone',IntegerType::class,
+                [
+                    'required' => false,
                 ]
             )
         ;
