@@ -41,7 +41,7 @@ class ListingController extends AbstractController
     #[Route('/filter', name: 'main_listing_all')]
     public function allProperty(Request $request): Response
     {
-        $properties = $this->propertyService->findAllProperties();
+        $properties = [];
         if ($request->get('search_home')) {
             $properties = $this->propertyService->findSearchResultProperties($request->get('search_home'));
         }
@@ -84,7 +84,9 @@ class ListingController extends AbstractController
     #[Route('/single/{uuid}', name: 'main_listing_single')]
     public function single(Property $property, Request $request): Response
     {
-
+        if (null == $property->getDuration()) {
+            return $this->redirectToRoute('app_home');
+        }
         $this->propertyService->viewed($request->getClientIp(), $property);
         $this->seoService->seoProperty($property, $request->getLocale());
         $this->breadcrumbs->addRouteItem("Home", 'app_home');
@@ -92,6 +94,7 @@ class ListingController extends AbstractController
         $this->breadcrumbs->addRouteItem($property->getTypes(), 'app_home');
 
         $reviewsFromProperty = $this->reviewsService->getReviewsFromProperty($property);
+        $properties = $this->propertyService->featuredProperty($property);
 //        dd($this->reviewsService->getReviewsFromProperty($property));
 //        dd($this->propertyService->featuredProperty($property));
         $review = new Reviews();

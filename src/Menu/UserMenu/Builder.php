@@ -62,8 +62,8 @@ class Builder
             ->setExtra('icon', 'fas fa-eye')
             ->setLinkAttributes(array('target' => '_blank'));
 //        Edit profile
-         $userMenu->addChild('messages.label', ['route' => 'main_messages'])
-            ->setExtra('icon', 'fal fa-envelope')->setExtra('count', '5');
+//         $userMenu->addChild('messages.label', ['route' => 'main_messages'])
+//            ->setExtra('icon', 'fal fa-envelope')->setExtra('count', '5');
 //        Messages
 //        reviews
 

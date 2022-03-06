@@ -563,93 +563,93 @@
                         </div>
                         <!--box-widget end -->
                         <!--box-widget-->
-                        <div class="box-widget fl-wrap hidden-section" style="margin-top: 30px">
-                            <div class="box-widget-content fl-wrap color-bg">
-                                <div class="color-form reset-action">
-                                    <div class="color-form-title fl-wrap">
-                                        <h4>Calculate Your Mortgage</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere
-                                            convallis purus non cursus. </p>
-                                    </div>
-                                    <form method="post" name="mortgage-form">
-                                        <div class="fl-wrap">
-                                            <label for="amt">Loan Amount </label>
-                                            <input id="amt" name="amt" type="text" placeholder="0" value="0">
-                                            <div class="use-current-price tolt" data-microtip-position="left"
-                                                 data-tooltip="Use current price"><i class="fal fa-tag"></i></div>
-                                        </div>
-                                        <label for="apr">Percentage rate</label>
-                                        <div class="price-rage-item fl-wrap">
-                                            <input type="text" id="apr" name="apr" class="price-range" data-min="0"
-                                                   data-max="100" data-step="1" value="0" data-prefix="%">
-                                        </div>
-                                        <label for="trm">Loan Term (Years) </label>
-                                        <div class="price-rage-item fl-wrap">
-                                            <input type="text" id="trm" name="trm" class="price-range" data-min="0"
-                                                   data-max="25" data-step="1" value="0" data-prefix="Y">
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <button type="button" id="sbt" class="color2-bg">Calculate</button>
-                                        <div class="reset-form reset-btn"><i class="far fa-sync-alt"></i> Reset Form
-                                        </div>
-                                        <div class="monterage-title fl-wrap">
-                                            <h5>Monthly payment:</h5>
-                                            <input type="text" id="pmt" name="mPmt" value="0">
-                                            <div class="monterage-title-item">$<span></span></div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+{#                        <div class="box-widget fl-wrap hidden-section" style="margin-top: 30px">#}
+{#                            <div class="box-widget-content fl-wrap color-bg">#}
+{#                                <div class="color-form reset-action">#}
+{#                                    <div class="color-form-title fl-wrap">#}
+{#                                        <h4>Calculate Your Mortgage</h4>#}
+{#                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere#}
+{#                                            convallis purus non cursus. </p>#}
+{#                                    </div>#}
+{#                                    <form method="post" name="mortgage-form">#}
+{#                                        <div class="fl-wrap">#}
+{#                                            <label for="amt">Loan Amount </label>#}
+{#                                            <input id="amt" name="amt" type="text" placeholder="0" value="0">#}
+{#                                            <div class="use-current-price tolt" data-microtip-position="left"#}
+{#                                                 data-tooltip="Use current price"><i class="fal fa-tag"></i></div>#}
+{#                                        </div>#}
+{#                                        <label for="apr">Percentage rate</label>#}
+{#                                        <div class="price-rage-item fl-wrap">#}
+{#                                            <input type="text" id="apr" name="apr" class="price-range" data-min="0"#}
+{#                                                   data-max="100" data-step="1" value="0" data-prefix="%">#}
+{#                                        </div>#}
+{#                                        <label for="trm">Loan Term (Years) </label>#}
+{#                                        <div class="price-rage-item fl-wrap">#}
+{#                                            <input type="text" id="trm" name="trm" class="price-range" data-min="0"#}
+{#                                                   data-max="25" data-step="1" value="0" data-prefix="Y">#}
+{#                                        </div>#}
+{#                                        <div class="clearfix"></div>#}
+{#                                        <button type="button" id="sbt" class="color2-bg">Calculate</button>#}
+{#                                        <div class="reset-form reset-btn"><i class="far fa-sync-alt"></i> Reset Form#}
+{#                                        </div>#}
+{#                                        <div class="monterage-title fl-wrap">#}
+{#                                            <h5>Monthly payment:</h5>#}
+{#                                            <input type="text" id="pmt" name="mPmt" value="0">#}
+{#                                            <div class="monterage-title-item">$<span></span></div>#}
+{#                                        </div>#}
+{#                                    </form>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
                         <!--box-widget end -->
                         <!--box-widget-->
                         {% if property.contactFormStatus %}
-                            <div class="box-widget fl-wrap">
-                                <div class="box-widget-fixed-init fl-wrap" id="sec-contact">
-                                    <div class="box-widget-title fl-wrap box-widget-title-color color-bg">Contact
-                                        Property
-                                    </div>
-                                    <div class="box-widget-content fl-wrap">
-                                        <div class="custom-form">
-                                            <form method="post" name="contact-property-form">
-                                                <label>Your name* <span class="dec-icon"><i
-                                                                class="fas fa-user"></i></span></label>
-                                                <input name="phone" type="text" onClick="this.select()" value="">
-                                                <label>Your phone * <span class="dec-icon"><i
-                                                                class="fas fa-phone"></i></span></label>
-                                                <input name="phone" type="text" onClick="this.select()" value="">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <label>Date <span class="dec-icon"><i
-                                                                        class="fas fa-calendar-check"></i></span></label>
-                                                        <div class="date-container fl-wrap">
-                                                            <input type="text" placeholder=""
-                                                                   style="padding: 16px 5px 16px 60px;"
-                                                                   name="datepicker-here" value=""/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label>Time </label>
-                                                        <select data-placeholder="9 AM"
-                                                                class="chosen-select on-radius no-search-select">
-                                                            <option>9 AM</option>
-                                                            <option>10 AM</option>
-                                                            <option>11 AM</option>
-                                                            <option>12 AM</option>
-                                                            <option>13 PM</option>
-                                                            <option>14 PM</option>
-                                                            <option>15 PM</option>
-                                                            <option>16 PM</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn float-btn color-bg fw-btn"> Send
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+{#                            <div class="box-widget fl-wrap">#}
+{#                                <div class="box-widget-fixed-init fl-wrap" id="sec-contact">#}
+{#                                    <div class="box-widget-title fl-wrap box-widget-title-color color-bg">Contact#}
+{#                                        Property#}
+{#                                    </div>#}
+{#                                    <div class="box-widget-content fl-wrap">#}
+{#                                        <div class="custom-form">#}
+{#                                            <form method="post" name="contact-property-form">#}
+{#                                                <label>Your name* <span class="dec-icon"><i#}
+{#                                                                class="fas fa-user"></i></span></label>#}
+{#                                                <input name="phone" type="text" onClick="this.select()" value="">#}
+{#                                                <label>Your phone * <span class="dec-icon"><i#}
+{#                                                                class="fas fa-phone"></i></span></label>#}
+{#                                                <input name="phone" type="text" onClick="this.select()" value="">#}
+{#                                                <div class="row">#}
+{#                                                    <div class="col-sm-6">#}
+{#                                                        <label>Date <span class="dec-icon"><i#}
+{#                                                                        class="fas fa-calendar-check"></i></span></label>#}
+{#                                                        <div class="date-container fl-wrap">#}
+{#                                                            <input type="text" placeholder=""#}
+{#                                                                   style="padding: 16px 5px 16px 60px;"#}
+{#                                                                   name="datepicker-here" value=""/>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{#                                                    <div class="col-sm-6">#}
+{#                                                        <label>Time </label>#}
+{#                                                        <select data-placeholder="9 AM"#}
+{#                                                                class="chosen-select on-radius no-search-select">#}
+{#                                                            <option>9 AM</option>#}
+{#                                                            <option>10 AM</option>#}
+{#                                                            <option>11 AM</option>#}
+{#                                                            <option>12 AM</option>#}
+{#                                                            <option>13 PM</option>#}
+{#                                                            <option>14 PM</option>#}
+{#                                                            <option>15 PM</option>#}
+{#                                                            <option>16 PM</option>#}
+{#                                                        </select>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                <button type="submit" class="btn float-btn color-bg fw-btn"> Send#}
+{#                                                </button>#}
+{#                                            </form>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
                         {% endif %}
                         <!--box-widget end -->
                     </div>

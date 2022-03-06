@@ -47,7 +47,8 @@ class DashboardController extends AbstractController
             $settings->translate($locale)->getSiteName(),
         );
         $this->breadcrumbs->addItem('Dashboard');
-        $chart = $this->chartService->chartBuilder();
+        $chart = $this->chartService->chartBuilderLine();
+
         $user = $this->userService->currentUser();
         $listingActive=$this->propertyService->findAllByAgentListingActive();
         $listingViews=$this->propertyService->findAllByAgentListingViews();
@@ -55,8 +56,10 @@ class DashboardController extends AbstractController
         if (empty($user->getFirstName()) || empty($user->getLastName()) || empty($user->getPhone())) {
             return $this->redirectToRoute('main_profile');
         }
+
         return $this->render('main/dashboard/index.html.twig', [
-            'chart' => $chart,
+            'months' =>$chart['months'],
+            'count' =>$chart['count'],
             'properties'=>$listingActive,
             'reviews'=>$reviews,
             'listingViews'=>$listingViews

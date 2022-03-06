@@ -100,9 +100,9 @@ class ListingController extends AbstractController
         }elseif($form->isSubmitted() && !$form->isValid()){
             $this->addFlash('info',$this->translator->trans('check.form.label'));
         }
-        return $this->renderForm('main/dashboard/listing/new.html.twig',
+        return $this->render('main/dashboard/listing/new.html.twig',
             [
-                'form' => $form
+                'form' => $form->createView()
             ]);
     }
 

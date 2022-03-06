@@ -124,6 +124,7 @@ class PropertyRepository extends ServiceEntityRepository
         }
         $qb = $this->createQueryBuilder('p');
         $qb->where('p.published=:published');
+        $qb->andWhere($qb->expr()->isNotNull('p.duration'));
         $qb->setParameter('published', true);
         if (!empty($params['keywords'])) {
             $qb->join('p.translations', 't');
@@ -207,9 +208,10 @@ class PropertyRepository extends ServiceEntityRepository
 
     public function findByTypesProperties(Type $type)
     {
-        $qb = $this->createQueryBuilder('p')
-            ->where('p.types = :type')
-            ->setParameter('type', $type);
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('p.types = :type');
+        $qb->andWhere($qb->expr()->isNotNull('p.duration'));
+        $qb->setParameter('type', $type);
         return $qb->getQuery()->getResult();
     }
 
@@ -223,12 +225,22 @@ class PropertyRepository extends ServiceEntityRepository
 
     public function featured(Property $property)
     {
-
+        $count = $this->createQueryBuilder('p')
+            ->select('COUNT(p)')
+            ->where('p.id != :id')
+            ->andWhere('p.types = :type')
+            ->andWhere('p.category = :category')
+            ->setParameters(['id' => $property, 'type' => $property->getTypes(), 'category' => $property->getCategory()])
+            ->getQuery()
+            ->getSingleScalarResult();
         $db = $this->createQueryBuilder('p')
-            ->innerJoin('p.reviews', 'r')
-            ->where('p.types = :type')
-            ->andWhere('p.id != :property')
-            ->setParameters(['type' => $property->getTypes(), 'property' => $property->getId()]);
+            ->where('p.id != :id')
+            ->andWhere('p.types = :type')
+            ->andWhere('p.category = :category')
+            ->setFirstResult(rand(0, $count - 1))
+            ->setMaxResults(9)
+            ->setParameters(['id' => $property, 'type' => $property->getTypes(), 'category' => $property->getCategory()]);
+
         return $db->getQuery()->getResult();
     }
 
@@ -259,7 +271,7 @@ class PropertyRepository extends ServiceEntityRepository
         $db
             ->select('count(p.id)')
             ->where('p.agent = :agent')
-             ->andWhere($db->expr()->isNotNull('p.duration'))
+            ->andWhere($db->expr()->isNotNull('p.duration'))
             ->groupBy('p.agent')
             ->setParameter('agent', $user);
         return $db->getQuery()->getResult();
@@ -275,4 +287,5 @@ class PropertyRepository extends ServiceEntityRepository
             ->setParameter('agent', $user);
         return $db->getQuery()->getSingleScalarResult();
     }
+
 }

@@ -45,9 +45,7 @@ class PropertyService implements PropertyServiceInterface
 
     public function findAllProperties(string $param = null): ?array
     {
-        if ($param != null) {
-            return $this->propertyRepository->findBy([], ['price' => $param]);
-        }
+
         return $this->propertyRepository->findBy([], ['id' => 'desc']);
     }
 
