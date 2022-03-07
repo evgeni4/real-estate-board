@@ -288,4 +288,13 @@ class PropertyRepository extends ServiceEntityRepository
         return $db->getQuery()->getSingleScalarResult();
     }
 
+    public function propertiesPremium()
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('p.published=:published');
+        $qb->andWhere($qb->expr()->isNotNull('p.duration'));
+        $qb->setParameter('published', true);
+        return $qb->getQuery()->getResult();
+    }
+
 }

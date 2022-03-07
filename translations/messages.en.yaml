@@ -114,6 +114,18 @@ location.label: Location
 media.label: Images
 details.label: Details
 description.label: Description
+price.per.month.label: Price per month
+pricingPlans.label: Our Pricing Plans
+scrollDown.label: Scroll Down To Discover
+simple.pricing.label: Simple pricing for everyone users
+listing.count.label: Listing count
+days.availability.label: Days availability
+recommended.label: Recommended
+per.month.label: Per month
+image.count.label: Number of images in ads
+imageCount.label: Images in ads
+unlimited.listings.label: Unlimited Listings
+listingCount.help.label: Leave the field blank to make it Unlimited!
 rooms.label: Rooms
 plans.label: Plans
 plan.label: Plan
@@ -222,6 +234,11 @@ contact.label: Contacts
 view.site.label: Go to the site
 system.label: System
 catalog.label: Catalog
+pricings.label: Pricing plans
+pricing.label: Pricing plan
+pricing_plans.added.label: Plan added successfully!
+pricing_plans.update.label: Plan updated successfully!
+pricing_plans.delete.label: Plan deleted successfully!
 properties.label: Properties
 categories.label: Categories
 type.label: Types

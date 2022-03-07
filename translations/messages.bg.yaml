@@ -111,6 +111,18 @@ location.label: Карта
 media.label: Изображения
 details.label: Подробности
 description.label: Описание
+price.per.month.label: Цена на месец
+pricingPlans.label: Нашите ценови планове
+scrollDown.label: Превъртете надолу, за да откриете
+simple.pricing.label: Опростено ценообразуване за всички потребители
+per.month.label: На месец
+listing.count.label: Брой обяви
+days.availability.label: Дни на наличност
+image.count.label: Брой изображения в обява
+imageCount.label: Изображения в обява
+unlimited.listings.label: Неограничен брой обяви
+listingCount.help.label: Оставете полето празно, за да го направите Неограничено!
+recommended.label: Препоръчва се
 rooms.label: Стаи
 plans.label: Планове
 plan.label: План
@@ -212,6 +224,11 @@ listing.iews.label: Общ преглед на моите обяви
 #admin fields messages
 view.site.label: Отидете на сайта
 system.label: Система
+pricings.label: Ценови планове
+pricing.label: Ценови план
+pricing_plans.added.label: Планът е добавен успешно!
+pricing_plans.update.label: Планът е актуализиран успешно!
+pricing_plans.delete.label: Планът е изтрит успешно!
 catalog.label: Каталог
 properties.label: Имоти
 categories.label: Категории

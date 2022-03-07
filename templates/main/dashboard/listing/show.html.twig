@@ -2,26 +2,26 @@
  {% block body %}
      <div class="dasboard-wrapper fl-wrap no-pag">
          <div class="dasboard-listing-box fl-wrap">
-             <div class="dasboard-opt sl-opt fl-wrap">
-                 <div class="dashboard-search-listing">
-                     <input type="text" onclick="this.select()" placeholder="Search" value="">
-                     <button type="submit"><i class="far fa-search"></i></button>
-                 </div>
-                 <!-- price-opt-->
-                 <div class="price-opt">
-                     <span class="price-opt-title">Sort   by:</span>
-                     <div class="listsearch-input-item">
-                         <select data-placeholder="Lastes" class="chosen-select no-search-select">
-                             <option>Lastes</option>
-                             <option>Oldes</option>
-                             <option>Average rating</option>
-                             <option>Name: A-Z</option>
-                             <option>Name: Z-A</option>
-                         </select>
-                     </div>
-                 </div>
-                 <!-- price-opt end-->
-             </div>
+{#             <div class="dasboard-opt sl-opt fl-wrap">#}
+{#                 <div class="dashboard-search-listing">#}
+{#                     <input type="text" onclick="this.select()" placeholder="Search" value="">#}
+{#                     <button type="submit"><i class="far fa-search"></i></button>#}
+{#                 </div>#}
+{#                 <!-- price-opt-->#}
+{#                 <div class="price-opt">#}
+{#                     <span class="price-opt-title">Sort   by:</span>#}
+{#                     <div class="listsearch-input-item">#}
+{#                         <select data-placeholder="Lastes" class="chosen-select no-search-select">#}
+{#                             <option>Lastes</option>#}
+{#                             <option>Oldes</option>#}
+{#                             <option>Average rating</option>#}
+{#                             <option>Name: A-Z</option>#}
+{#                             <option>Name: Z-A</option>#}
+{#                         </select>#}
+{#                     </div>#}
+{#                 </div>#}
+{#                 <!-- price-opt end-->#}
+{#             </div>#}
              <!-- dashboard-listings-wrap-->
              <div class="dashboard-listings-wrap fl-wrap">
                  <div id=" " class="row">
@@ -78,7 +78,8 @@
                                                     data-tooltip="{% trans %}delete.label{% endtrans %}"><i class="far fa-trash-alt"></i></a></li>
                                          </ul>
                                          <div class="duration-wrap">
-                                             {{ property.createdAt|date('d-m-Y') }} - {{ property.duration|date('d-m-Y') }}
+                                             {% set duration = property.duration %}
+                                             {{ property.createdAt|date('d-m-Y') }} - {{ duration?duration|date('d-m-Y'):'expired' }}
                                          </div>
                                      </div>
                                  </div>

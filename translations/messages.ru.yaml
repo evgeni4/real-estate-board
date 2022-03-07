@@ -86,8 +86,11 @@ home.page.slogan.label: Используя нашу платформу
 more.search.options.label: Нужно больше параметров поиска
 popular.ads.label: Популярные объявления
 browse.hot.offers.label: Просмотрите горячие предложения
-
-
+pricings.label: Тарифные планы
+pricing.label: Тарифный план
+pricing_plans.added.label: План успешно добавлен!
+pricing_plans.update.label: План успешно обновлен!
+pricing_plans.delete.label: План успешно удален!
 
 
 
@@ -116,6 +119,18 @@ location.label: Карта
 media.label: Изображения
 details.label: Подробности
 description.label: Описание
+price.per.month.label: Цена за месяц
+pricingPlans.label: Наши тарифные планы
+scrollDown.label: Прокрутите вниз, чтобы узнать
+simple.pricing.label: Простое ценообразование для всех пользователей
+listing.count.label: Количество объявлений
+days.availability.label: Дней доступности
+recommended.label: Рекомендуемый
+per.month.label: В месяц
+image.count.label: Количество изображений в объявлений
+imageCount.label: Изображений в объявлениях
+unlimited.listings.label: Неограниченные списки
+listingCount.help.label: Оставьте поле пустым чтоб сделать Неограниченным!
 rooms.label: Комнаты
 plans.label: Планы
 plan.label: План

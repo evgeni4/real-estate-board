@@ -142,4 +142,9 @@ class ListingController extends AbstractController
         $price = $this->currencyService->convertor($price, $code);
         return $this->render('main/listing/_embed/_convert.item.html.twig', ['price' => $price, 'code' => $code]);
     }
+    public function convertPricing(float $price, string $code): Response
+    {
+        $price = $this->currencyService->convertor($price, $code);
+        return $this->render('main/listing/_embed/_convert.pricing.html.twig', ['price' => $price, 'code' => $code]);
+    }
 }

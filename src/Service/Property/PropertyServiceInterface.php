@@ -28,7 +28,7 @@ interface PropertyServiceInterface
 
     public function viewed(string $ip, Property $property): ?bool;
 
-    public function findAllProperties(string $param=null): ?array;
+    public function findAllProperties(): ?array;
 
     public function findSearchResultProperties(array $params): ?array;
 

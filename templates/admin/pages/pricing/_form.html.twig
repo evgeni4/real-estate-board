@@ -1,0 +1,40 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="mb-3">
+        {{ form_row(form.translations) }}
+    </div>
+    <div class="col-sm-3 mb-3">
+        {{ form_row(form.price) }}
+    </div>
+    <div class="col-sm-3 mb-3">
+        <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ form_label(form.listingCount) }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                       <p style="font-size: 16px;color: indianred!important;font-weight: bold">{{ form_help(form.listingCount) }}</p>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        {{ form_label(form.listingCount) }}
+        <span><i class="bx bx-help-circle" style="cursor: pointer;color: indianred;font-weight: bold" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"></i>
+</span>
+        {{ form_widget(form.listingCount) }}
+    </div>
+    <div class="col-sm-2 mb-3">
+        {{ form_row(form.days) }}
+    </div>
+    <div class="col-sm-4 mb-3">
+        {{ form_row(form.countImage) }}
+    </div>
+    <div class="col-sm-4 mb-3">
+        {{ form_row(form.recommended) }}
+    </div>
+</div>
+{{ form_end(form) }}
+
+

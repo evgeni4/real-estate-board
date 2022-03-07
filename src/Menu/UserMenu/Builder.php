@@ -119,7 +119,8 @@ class Builder
 
         $adminMenu['catalog.label']->addChild('amenities.label', ['route' => 'admin_amenities_show'])
             ->setExtra('icon', 'fa fa-arrow-right');
-
+        $adminMenu->addChild('pricings.label', ['route' => 'admin_pricing_plans_show'])
+            ->setExtra('icon', 'bx bx-money');
 
 
         $adminMenu->addChild( 'system.label', ['uri' => '#'])

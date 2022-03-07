@@ -43,10 +43,10 @@ class PropertyService implements PropertyServiceInterface
         // TODO: Implement delete() method.
     }
 
-    public function findAllProperties(string $param = null): ?array
+    public function findAllProperties(): ?array
     {
-
-        return $this->propertyRepository->findBy([], ['id' => 'desc']);
+        $this->checkPropertyDuration();
+        return $this->propertyRepository->propertiesPremium();
     }
 
     public function findSearchResultProperties(array $params): ?array
@@ -148,6 +148,24 @@ class PropertyService implements PropertyServiceInterface
     public function featuredProperty(Property $property): array
     {
         return $this->propertyRepository->featured($property);
+    }
+
+    /**
+     * @return void
+     */
+    private function checkPropertyDuration(): void
+    {
+        $properties = $this->propertyRepository->propertiesPremium();
+        if ($properties) {
+            foreach ($properties as $property) {
+                $date = $property->getDuration()->format('d-m-Y');
+                $newDate = new \DateTime();
+                $newDate = $newDate->format('d-m-Y');
+                if (strtotime($newDate) > strtotime($date)) {
+                    $this->edit($property->setDuration(null));
+                }
+            }
+        }
     }
 
 
