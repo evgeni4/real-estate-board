@@ -118,6 +118,10 @@ price.per.month.label: Price per month
 pricingPlans.label: Our Pricing Plans
 scrollDown.label: Scroll Down To Discover
 simple.pricing.label: Simple pricing for everyone users
+pay.now.label.label: Pay
+your.tariff.plan: Your Tariff Plan
+you.are.label: You Are on
+you.are.description.label: Use link below to view details or upgrade
 listing.count.label: Listing count
 days.availability.label: Days availability
 recommended.label: Recommended
@@ -179,6 +183,9 @@ plan.title.label: Plan Title
 plan.title.placeholder.label: First Floor Plan
 plan.details.label: Plan Details
 plan.details.placeholder.label: Details
+valid.label: Valid
+max.count.image: Max count images
+max.count.properties: Max count properties
 plan.area.label: Area Optional info
 plan.area.placeholder.label: Example:' 286 m2
 content.widget.label: Content Widgets

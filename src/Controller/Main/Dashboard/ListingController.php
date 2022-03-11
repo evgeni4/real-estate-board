@@ -17,6 +17,7 @@ use App\Service\Manager\PropertyManager\PropertyManagerHelper;
 use App\Service\Property\PropertyServiceInterface;
 use App\Service\Reviews\ReviewsServiceInterface;
 use App\Service\Seo\SeoServiceInterface;
+use App\Service\User\UserServiceInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +37,8 @@ class ListingController extends AbstractController
         private SeoServiceInterface      $seoService,
         private PropertyFormHandler      $propertyFormHandler,
         private PropertyServiceInterface $propertyService,
-        public SettingsServiceInterface $settingsService,
+        public SettingsServiceInterface  $settingsService,
+        public UserServiceInterface      $userService,
     )
     {
     }
@@ -47,7 +49,7 @@ class ListingController extends AbstractController
         $locale = $request->getLocale();
         $settings = $this->settingsService->findOneRecord();
         $this->seoService->seo(
-            $settings->translate($locale)->getSiteName().'|'.$this->translator->trans('all.properties.label'),
+            $settings->translate($locale)->getSiteName() . '|' . $this->translator->trans('all.properties.label'),
             $settings->translate($locale)->getMetaKeywords(),
             $settings->translate($locale)->getMetaDescription(),
             $this->translator->trans('all.properties.label'),
@@ -56,7 +58,6 @@ class ListingController extends AbstractController
         );
         $this->breadcrumbs->addItem($this->translator->trans('all.properties.label'));
         $properties = $this->propertyService->findAllByAgentListing();
-
 
         return $this->render('main/dashboard/listing/show.html.twig',
             [
@@ -78,11 +79,21 @@ class ListingController extends AbstractController
     #[Route('/add', name: 'main_add_listing')]
     public function add(Request $request): Response
     {
-        //dd(abs( crc32( uniqid() ) ));
-        $locale = $request->getLocale();
+        $user = $this->userService->currentUser();
+        $tariffPlan = $this->userService->pricingPlanByUser();
+        if ($tariffPlan == null) {
+            return $this->redirectToRoute('main_show_pricing');
+        }
+        if (count($user->getProperties()) > $tariffPlan->getPricingPlan()->getListingCount()){
+            $this->addFlash('info', $this->translator->trans('max.count.properties') . ' ' . $tariffPlan->getPricingPlan()->getCountImage());
+
+            return $this->redirectToRoute('main_show_pricing');
+        }
+            //dd(abs( crc32( uniqid() ) ));
+            $locale = $request->getLocale();
         $settings = $this->settingsService->findOneRecord();
         $this->seoService->seo(
-            $settings->translate($locale)->getSiteName().'|'.$this->translator->trans('add.listing.label'),
+            $settings->translate($locale)->getSiteName() . '|' . $this->translator->trans('add.listing.label'),
             $settings->translate($locale)->getMetaKeywords(),
             $settings->translate($locale)->getMetaDescription(),
             $this->translator->trans('add.listing.label'),
@@ -94,11 +105,15 @@ class ListingController extends AbstractController
         $form = $this->createForm(PropertyFormType::class, $property);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $property = $this->propertyFormHandler->processAddPropertyForm($property, $form, $request);
+            if (count($form->get('images')->getData()) > $tariffPlan->getPricingPlan()->getCountImage()) {
+                $this->addFlash('info', $this->translator->trans('max.count.image') . ' ' . $tariffPlan->getPricingPlan()->getCountImage());
+                return $this->redirectToRoute('main_add_listing');
+            }
+            $property = $this->propertyFormHandler->processAddPropertyForm($property, $form, $request, $tariffPlan);
             $this->addFlash('success', $this->translator->trans('add.listing.message.label'));
             return $this->redirectToRoute('main_add_listing');
-        }elseif($form->isSubmitted() && !$form->isValid()){
-            $this->addFlash('info',$this->translator->trans('check.form.label'));
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('info', $this->translator->trans('check.form.label'));
         }
         return $this->render('main/dashboard/listing/new.html.twig',
             [
@@ -109,6 +124,10 @@ class ListingController extends AbstractController
     #[Route('/edit/{uuid}', name: 'main_edit_listing')]
     public function edit(Request $request, Property $property): Response
     {
+        $tariffPlan = $this->userService->pricingPlanByUser();
+        if ($tariffPlan == null) {
+            return $this->redirectToRoute('main_show_pricing');
+        }
         $settings = $this->settingsService->findOneRecord();
         $this->seoService->seoProperty($property, $request->getLocale());
         $form = $this->createForm(PropertyFormType::class, $property);
@@ -185,7 +204,7 @@ class ListingController extends AbstractController
     public function widgetAmenity(PropertyRoomsWidget $widget, $id, Property $property, Request $request, PropertyManagerHelper $propertyManagerHelper, EntityManagerInterface $entityManager): Response
     {
         if ($request->isXmlHttpRequest()) {
-            $propertyManagerHelper->updateCheckedPropertyWidgetAmenity($widget, $id,$property);
+            $propertyManagerHelper->updateCheckedPropertyWidgetAmenity($widget, $id, $property);
             $entityManager->flush();
         }
         return new JsonResponse(['message' => 'ok', 200]);

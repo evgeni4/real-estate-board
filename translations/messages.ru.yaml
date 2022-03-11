@@ -123,6 +123,13 @@ price.per.month.label: Цена за месяц
 pricingPlans.label: Наши тарифные планы
 scrollDown.label: Прокрутите вниз, чтобы узнать
 simple.pricing.label: Простое ценообразование для всех пользователей
+pay.now.label.label: Оплатить
+your.tariff.plan: Ваш тарифный план
+you.are.label: Вы находитесь на
+you.are.description.label: Используйте ссылку ниже, чтобы просмотреть подробности или обновить
+valid.label: Действующий
+max.count.image: Максимальное количество изображений
+max.count.properties: Максимальное количества объявлений -
 listing.count.label: Количество объявлений
 days.availability.label: Дней доступности
 recommended.label: Рекомендуемый

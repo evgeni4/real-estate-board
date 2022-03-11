@@ -4,6 +4,7 @@ namespace App\Service\User;
 
 use App\Entity\Phone;
 use App\Entity\User;
+use App\Entity\UserPricingPlan;
 
 interface UserServiceInterface
 {
@@ -17,8 +18,10 @@ interface UserServiceInterface
 
     public function resetPassword(User $user): ?bool;
 
-    public function PasswordHasher(User $user,$plainPassword  ): void;
+    public function PasswordHasher(User $user, $plainPassword): void;
 
-    public function findById($uuid ):?User;
+    public function findById($uuid): ?User;
+
+    public function pricingPlanByUser(): ?UserPricingPlan;
 
 }

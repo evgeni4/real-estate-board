@@ -5,6 +5,7 @@ namespace App\Form\Main\Handler;
 use App\Entity\Amenities;
 use App\Entity\Property;
 use App\Entity\PropertyAmenities;
+use App\Entity\UserPricingPlan;
 use App\Service\Manager\PropertyManager\PropertyManager;
 use App\Service\Property\PropertyServiceInterface;
 use App\Service\User\UserServiceInterface;
@@ -21,10 +22,12 @@ class PropertyFormHandler
     {
     }
 
-    public function processAddPropertyForm(Property $property, Form $form, Request $request): Property
+    public function processAddPropertyForm(Property $property, Form $form, Request $request,UserPricingPlan $tariffPlan): Property
     {
+        $date = new \DateTime();
         $user = $this->userService->currentUser();
         $property->setAgent($user);
+        $property->setDuration($date->modify("+".$tariffPlan->getPricingPlan()->getDays()." days"));
         $this->propertyManager->addPropertyImages($property, $form);
         $this->propertyManager->addPropertyAmenity($property, $form);
         $this->propertyManager->addPropertyWidget($property, $form,$request);

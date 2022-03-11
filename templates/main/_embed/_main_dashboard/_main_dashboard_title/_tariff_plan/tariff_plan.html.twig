@@ -1,0 +1,13 @@
+<div class="tfp-det-container">
+    {% set locale = app.request.locale %}
+    {% if tariffPlan %}
+        <div   class="tfp-btn"><span>{% trans  %}your.tariff.plan{% endtrans %} : </span>
+            <strong>{{ tariffPlan.pricingPlan.translate(locale).title }}</strong>
+            <span>{% trans  %}valid.label{% endtrans %}:{{ tariffPlan.validDate|date('d-m-Y') }}</span>
+        </div>
+        <div class="tfp-det">
+            <p>{% trans  %}you.are.label{% endtrans %} <a href="#">{{ tariffPlan.pricingPlan.translate(locale).title }}</a> . {% trans  %}you.are.description.label{% endtrans %}. </p>
+            <a href="{{ path('main_show_pricing') }}" class="tfp-det-btn color-bg">{% trans  %}plan.details.placeholder.label{% endtrans %}</a>
+        </div>
+    {% endif %}
+</div>

@@ -115,6 +115,7 @@ price.per.month.label: Цена на месец
 pricingPlans.label: Нашите ценови планове
 scrollDown.label: Превъртете надолу, за да откриете
 simple.pricing.label: Опростено ценообразуване за всички потребители
+pay.now.label.label: Плати
 per.month.label: На месец
 listing.count.label: Брой обяви
 days.availability.label: Дни на наличност
@@ -229,6 +230,12 @@ pricing.label: Ценови план
 pricing_plans.added.label: Планът е добавен успешно!
 pricing_plans.update.label: Планът е актуализиран успешно!
 pricing_plans.delete.label: Планът е изтрит успешно!
+your.tariff.plan: Вашият тарифен план
+you.are.label: Вие сте на
+you.are.description.label: Използвайте връзката по-долу, за да видите подробности или да смените
+valid.label: Валиден
+max.count.image: Максимален брой изображения
+max.count.properties: Максимален брой обяви
 catalog.label: Каталог
 properties.label: Имоти
 categories.label: Категории

@@ -1,0 +1,75 @@
+{% extends 'main/base_dashboard.html.twig' %}
+{% block body %}
+    {% set locale = app.request.locale %}
+    <div class="dasboard-wrapper fl-wrap">
+        <div class="dasboard-widget-title fl-wrap">
+            <h5><i class="fal fa-comments-alt"></i></h5>
+            <a href="dashboard-review.html#" class="mark-btn  tolt" data-microtip-position="bottom"
+               data-tooltip="Mark all as read"><i class="far fa-comment-alt-check"></i> </a>
+        </div>
+        <div class="dasboard-widget-box fl-wrap">
+            <!-- pricing-column -->
+            <form action="" method="POST">
+                <div class="pricing-column fl-wrap">
+                    <div class="pricing-header">
+                        {% set locale = app.request.locale %}
+                        <h3>{{ plan.translate(locale).title }}</h3>
+                        <div class="price-num price-item fl-wrap">
+                            <div class="price-num-item">
+                                {{ render(controller('App\\Controller\\Main\\ListingController::convertPricing',{
+                                    'price': plan.price,
+                                    'code': app.request.defaultCurrencylocale
+                                })) }}
+                            </div>
+                            <div class="price-num-desc"><span
+                                        class="mouth-cont">{% trans %}per.month.label{% endtrans %}</span>
+                            </div>
+                        </div>
+                        <p>{{ plan.translate(locale).description }}</p>
+                    </div>
+                    {% if plan.recommended %}
+                        <div class="recomm-price color-bg">
+                            {% trans %}recommended.label{% endtrans %}
+                        </div>
+                    {% endif %}
+                    <div class="pricing-content fl-wrap">
+                        <ul class="no-list-style">
+                            <li>
+                                {% if plan.listingCount is null %}
+                                    {% trans %}unlimited.listings.label{% endtrans %}
+                                {% else %}
+                                    {% trans %}listings.label{% endtrans %} -  {{ plan.listingCount }}
+                                {% endif %}
+                            </li>
+                            <li>{% trans %}days.availability.label{% endtrans %} - {{ plan.days }} </li>
+                            <li>{% trans %}imageCount.label{% endtrans %} - {{ plan.countImage }}</li>
+                        </ul>
+                        <div class="custom-form" style="width: 100%!important;">
+                            <button type="submit" class="log_btn color-bg"
+                                    style="width: 100%!important;">{% trans %}pay.now.label.label{% endtrans %} {{ plan.price|format_currency('eur', {fraction_digit: 2}) }}</button>
+                        </div>
+                    </div>
+                </div>
+                {% if  plan.price > 0 %}
+                    <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ stripe_public_key }}"
+                            {#                                  data-amount="{{ plan.price * 100 }}" #}
+                            data-name="{{ plan.translate(locale).title }}"
+                            data-description="Pay now €{{ plan.price }}"
+                            {#                                  data-image="/img/documentation/checkout/marketplace.png" #}
+                            data-locale="auto">
+                    </script>
+                    <script>
+                        // Hide default stripe button, be careful there if you
+                        // have more than 1 button of that class
+                        document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                    </script>
+                {% endif %}
+            </form>
+            <!-- pricing-column end -->
+        </div>
+    </div>
+{% endblock %}
+
+

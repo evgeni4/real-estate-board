@@ -92,6 +92,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'agent', targetEntity: Property::class, cascade: ['persist','remove'] ,orphanRemoval: true)]
     private $properties;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserPricingPlan::class)]
+    private $userPricingPlans;
 
     public function __construct()
     {
@@ -102,6 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->reviews = new ArrayCollection();
         $this->authorReview = new ArrayCollection();
         $this->properties = new ArrayCollection();
+        $this->userPricingPlans = new ArrayCollection();
     }
 
 
@@ -487,6 +490,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($property->getAgent() === $this) {
                 $property->setAgent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserPricingPlan>
+     */
+    public function getUserPricingPlans(): Collection
+    {
+        return $this->userPricingPlans;
+    }
+
+    public function addUserPricingPlan(UserPricingPlan $userPricingPlan): self
+    {
+        if (!$this->userPricingPlans->contains($userPricingPlan)) {
+            $this->userPricingPlans[] = $userPricingPlan;
+            $userPricingPlan->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserPricingPlan(UserPricingPlan $userPricingPlan): self
+    {
+        if ($this->userPricingPlans->removeElement($userPricingPlan)) {
+            // set the owning side to null (unless already changed)
+            if ($userPricingPlan->getUser() === $this) {
+                $userPricingPlan->setUser(null);
             }
         }
 

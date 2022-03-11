@@ -77,6 +77,11 @@ class PricingPlanFormType extends AbstractType
                     'required'=>false,
                     'label'=>$this->translator->trans('recommended.label')
                 ])
+            ->add('published',CheckboxType::class,
+                [
+                    'required'=>false,
+                    'label'=>$this->translator->trans('published.label')
+                ])
             ->add('save', SubmitType::class, [
                 'label' => 'send.label'
             ]);

@@ -56,7 +56,6 @@ class DashboardController extends AbstractController
         if (empty($user->getFirstName()) || empty($user->getLastName()) || empty($user->getPhone())) {
             return $this->redirectToRoute('main_profile');
         }
-
         return $this->render('main/dashboard/index.html.twig', [
             'months' =>$chart['months'],
             'count' =>$chart['count'],
@@ -65,4 +64,13 @@ class DashboardController extends AbstractController
             'listingViews'=>$listingViews
         ]);
     }
+        public function checkUserPlan(): Response
+        {
+            $tariffPlan = $this->userService->pricingPlanByUser();
+            return $this->render('main/_embed/_main_dashboard/_main_dashboard_title/_tariff_plan/tariff_plan.html.twig',
+                [
+                    'tariffPlan'=>$tariffPlan
+                ]
+            );
+        }
 }

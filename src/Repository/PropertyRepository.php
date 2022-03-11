@@ -237,7 +237,7 @@ class PropertyRepository extends ServiceEntityRepository
             ->where('p.id != :id')
             ->andWhere('p.types = :type')
             ->andWhere('p.category = :category')
-            ->setFirstResult(rand(0, $count - 1))
+            ->setFirstResult(rand(0, $count))
             ->setMaxResults(9)
             ->setParameters(['id' => $property, 'type' => $property->getTypes(), 'category' => $property->getCategory()]);
 

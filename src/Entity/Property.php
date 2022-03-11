@@ -26,7 +26,7 @@ class Property  implements TranslatableInterface
     private ?string $price;
 
     #[ORM\Column(type: 'boolean')]
-    private ?bool $published = false;
+    private ?bool $published = true;
 
     #[ORM\Column(type: 'float', nullable: true)]
     private ?float $area;

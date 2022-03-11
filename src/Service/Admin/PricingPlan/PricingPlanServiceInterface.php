@@ -13,4 +13,6 @@ interface PricingPlanServiceInterface
     public function delete(PricingPlan $plan): ?bool;
 
     public function findAll(): ?array;
+
+    public function findActivePlans(): ?array;
 }

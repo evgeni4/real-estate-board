@@ -69,6 +69,9 @@ class Builder
 
         $userMenu->addChild('reviews.label', ['route' => 'main_reviews_show'])
             ->setExtra('icon', 'fal fa-comments-alt');
+
+        $userMenu->addChild('pricings.label', ['route' => 'main_show_pricing'])
+            ->setExtra('icon', 'fal fa-money-bill-alt');
 //        reviews
 //         $userMenu->addChild('agents.list.label', ['uri' => '#'])
 //            ->setExtra('icon', 'fal fa-users');

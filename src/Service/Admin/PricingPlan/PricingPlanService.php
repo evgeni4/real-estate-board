@@ -30,4 +30,9 @@ class PricingPlanService implements PricingPlanServiceInterface
     {
         return  $this->planRepository->findAll();
     }
+
+    public function findActivePlans(): ?array
+    {
+        return  $this->planRepository->findBy(['published'=>true]);
+    }
 }

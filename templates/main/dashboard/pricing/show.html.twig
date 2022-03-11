@@ -1,83 +1,57 @@
-{% extends 'main/base.html.twig' %}
- {% block body %}
-     <!-- content -->
-     <div class="content">
-         <!--  section  -->
-         <section class="hidden-section single-par2  " data-scrollax-parent="true">
-             <div class="bg-wrap bg-parallax-wrap-gradien">
-                 <div class="bg par-elem "  data-bg="{{ asset('assets/images/bg/4.jpg') }}" data-scrollax="properties: { translateY: '30%' }"></div>
-             </div>
-             <div class="container">
-                 <div class="section-title center-align big-title">
-                     <h2><span>{% trans  %}pricingPlans.label{% endtrans %}</span></h2>
-                  </div>
-                 <div class="scroll-down-wrap">
-                     <div class="mousey">
-                         <div class="scroller"></div>
-                     </div>
-                     <span>{% trans  %}scrollDown.label{% endtrans %}</span>
-                 </div>
-             </div>
-         </section>
-         <!--  section  end-->
-         <!-- breadcrumbs-->
-         <div class="breadcrumbs fw-breadcrumbs sp-brd fl-wrap">
-
+{% extends 'main/base_dashboard.html.twig' %}
+{% block body %}
+    {% set locale = app.request.locale %}
+    <div class="dasboard-wrapper fl-wrap">
+        <div class="dasboard-widget-title fl-wrap">
+            <h5><i class="fal fa-money-bill-alt"></i></h5>
          </div>
-         <!-- breadcrumbs end -->
-         <!-- section -->
-         <section class="gray-bg small-padding ">
-             <div class="container">
-                 <div class="pricing-switcher-header text-center">{% trans  %}simple.pricing.label{% endtrans %}</div>
-                 <br><br><br><br>
-                 <div class="clearfix mb-5"></div>
-                 <div class="row mt-5">
-                     {% for key,plan in plans %}
-                         {% set locale = app.request.locale %}
-                         {% set count = key+1 %}
-                         <!-- pricing-column -->
-                         <div class="col-md-3">
-                             <div class="pricing-column fl-wrap">
-                                 <div class="pricing-header">
-                                     <h3><span>{{ count }}.</span>{{ plan.translate(locale).title }}</h3>
-                                     <div class="price-num price-item fl-wrap">
-                                         <div class="price-num-item">
-                                             {{ render(controller('App\\Controller\\Main\\ListingController::convertPricing',{
-                                                 'price': plan.price,
-                                                 'code': app.request.defaultCurrencylocale
-                                             })) }}
-                                         </div>
-                                         <div class="price-num-desc"><span class="mouth-cont">{% trans  %}per.month.label{% endtrans %}</span></div>
-                                     </div>
-                                     <p>{{ plan.translate(locale).description }}</p>
-                                 </div>
-                                 {% if plan.recommended %}
-                                     <div class="recomm-price color-bg">
-                                         {% trans  %}recommended.label{% endtrans %}
-                                     </div>
-                                 {% endif %}
-                                 <div class="pricing-content fl-wrap">
-                                     <ul class="no-list-style">
-                                         <li>
-                                             {% if plan.listingCount is null%}
-                                                 {% trans  %}unlimited.listings.label{% endtrans %}
-                                             {% else %}
-                                                 {% trans  %}listings.label{% endtrans %} -  {{ plan.listingCount}}
-                                             {% endif %}
-                                         </li>
-                                         <li>{% trans  %}days.availability.label{% endtrans %} - {{ plan.days}} </li>
-                                         <li>{% trans  %}imageCount.label{% endtrans %} - {{ plan.countImage}}</li>
-                                     </ul>
-                                     <a href="pricing.html#" class="price-link color-bg fl-wrap">{% trans  %}select.label{% endtrans %} {{ plan.translate(locale).title }}</a>
-                                 </div>
-                             </div>
-                         </div>
-                         <!-- pricing-column end -->
-                     {% endfor %}
-                 </div>
-             </div>
-         </section>
-         <!-- section end-->
-     </div>
-     <!-- content end -->
- {% endblock %}
+        <div class="dasboard-widget-box fl-wrap ">
+           <div class="row">
+               {% for key,plan in plans %}
+                   {% set locale = app.request.locale %}
+                   {% set count = key+1 %}
+                   <!-- pricing-column -->
+                   <div class="col-md-6 mb-5">
+                       <div class="pricing-column fl-wrap">
+                           <div class="pricing-header">
+                               <h3><span>{{ count }}.</span>{{ plan.translate(locale).title }}</h3>
+                               <div class="price-num price-item fl-wrap">
+                                   <div class="price-num-item">
+                                       {{ render(controller('App\\Controller\\Main\\ListingController::convertPricing',{
+                                           'price': plan.price,
+                                           'code': app.request.defaultCurrencylocale
+                                       })) }}
+                                   </div>
+                                   <div class="price-num-desc"><span
+                                               class="mouth-cont">{% trans %}per.month.label{% endtrans %}</span>
+                                   </div>
+                               </div>
+                               <p>{{ plan.translate(locale).description }}</p>
+                           </div>
+                           {% if plan.recommended %}
+                               <div class="recomm-price color-bg">
+                                   {% trans %}recommended.label{% endtrans %}
+                               </div>
+                           {% endif %}
+                           <div class="pricing-content fl-wrap">
+                               <ul class="no-list-style">
+                                   <li>
+                                       {% if plan.listingCount is null %}
+                                           {% trans %}unlimited.listings.label{% endtrans %}
+                                       {% else %}
+                                           {% trans %}listings.label{% endtrans %} -  {{ plan.listingCount }}
+                                       {% endif %}
+                                   </li>
+                                   <li>{% trans %}days.availability.label{% endtrans %} - {{ plan.days }} </li>
+                                   <li>{% trans %}imageCount.label{% endtrans %} - {{ plan.countImage }}</li>
+                               </ul>
+                               <a href="{{ path('main_plan_pricing_buy',{'uuid':plan.uuid}) }}" class="price-link color-bg fl-wrap">{% trans %}select.label{% endtrans %} {{ plan.translate(locale).title }}</a>
+                           </div>
+                       </div>
+                   </div>
+                   <!-- pricing-column end -->
+               {% endfor %}
+           </div>
+        </div>
+    </div>
+{% endblock %}

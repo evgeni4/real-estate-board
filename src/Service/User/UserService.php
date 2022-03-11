@@ -3,9 +3,12 @@
 namespace App\Service\User;
 
 use App\Entity\User;
+use App\Entity\UserPricingPlan;
 use App\Exception\Security\EmptyUserPlainPassword;
 use App\Repository\ResetPasswordRequestRepository;
+use App\Repository\UserPricingPlanRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -16,6 +19,7 @@ class UserService implements UserServiceInterface
         private UserRepository                 $userRepository,
         private UserPasswordHasherInterface    $userPasswordHasher,
         private ResetPasswordRequestRepository $passwordRequestRepository,
+        private UserPricingPlanRepository $userPricingPlanRepository
     )
     {
     }
@@ -75,4 +79,12 @@ class UserService implements UserServiceInterface
         return $this->userRepository->findOneBy(['uuid' => $uuid]);
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function pricingPlanByUser(): ?UserPricingPlan
+    {
+        $user = $this->currentUser();
+        return $this->userPricingPlanRepository->findOneByUserPlan($user);
+    }
 }

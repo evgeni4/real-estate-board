@@ -21,7 +21,7 @@ class PricingPlanRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return PricingPlan[] Returns an array of PricingPlan objects
+    //  * @return PricingPlanController[] Returns an array of PricingPlanController objects
     //  */
     /*
     public function findByExampleField($value)
@@ -38,7 +38,7 @@ class PricingPlanRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?PricingPlan
+    public function findOneBySomeField($value): ?PricingPlanController
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

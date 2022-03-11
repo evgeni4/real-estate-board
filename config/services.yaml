@@ -20,6 +20,8 @@ parameters:
     uploads_widget_property: '%uploads_dir%/properties/widgets/widget'
     uploads_property_plan_temp_dir: '%uploads_dir%/temp/property/plan'
     uploads_plan_property: '%uploads_dir%/properties/plans/plan'
+    stripe_secret_key: sk_test_mtN1VNsFAX1UehiyS8VTYdij
+    stripe_public_key: pk_test_iIczhUVzKPAtVepamOHMWG5u
 services:
     app.menu_builder:
         class: App\Menu\UserMenu\Builder

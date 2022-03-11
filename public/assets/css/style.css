@@ -10,6 +10,10 @@
 .display{
 	display: none;
 }
+.block-disabled{
+    pointer-events: none;
+    opacity: 0.4;
+}
 .form-groups{
 	width:250px;  /*as you want*/
 	position:relative;
