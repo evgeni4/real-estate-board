@@ -7,6 +7,7 @@ use App\Service\Admin\Settings\SettingsServiceInterface;
 use App\Service\Admin\Type\TypeServiceInterface;
 use App\Service\Property\PropertyServiceInterface;
 use App\Service\Seo\SeoServiceInterface;
+use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,7 @@ class HomeController extends AbstractController
         public SeoServiceInterface      $seoService,
         public SettingsServiceInterface $settingsService,
         public PropertyServiceInterface $propertyService,
+        private UserServiceInterface $userService
 
     )
     {
@@ -38,22 +40,25 @@ class HomeController extends AbstractController
             $settings->translate($request->getLocale())->getMetaDescription()
         );
         $properties = $this->propertyService->findAllProperties();
+        $this->propertyService->checkDurationProperty();
 //        if ($this->settingsService->checkComing()){
 //            $date = explode('-',$settings->getComing()->format('Y-m-d-H-i'));
 //            return $this->render('main/coming/coming.html.twig', ['settings' => $settings, 'date' => $date]);
 //        }
-       $date = explode('-',$settings->getComing()->format('Y-m-d-H-i'));
+      // $date = explode('-',$settings->getComing()->format('Y-m-d-H-i'));
        $form=$this->createForm(SearchHomeType::class);
-        return $this->settingsService->checkComing() ?  $this->render('main/home/index.html.twig',
+        return  $this->render('main/home/index.html.twig',
             [
                 'properties' => $properties,
                 'form'=>$form->createView()
             ]
-        ): $this->render('main/coming/coming.html.twig', ['settings' => $settings, 'date' => $date]);
+        );
     }
 
     public function templateTopBar(): Response
     {
+        $this->userService->checkPlanByUser();
+        $this->propertyService->checkDurationProperty();
         $settings = $this->settingsService->findOneRecord();
         return $this->render('main/_embed/_main_header/_top_bar.html.twig',
             [

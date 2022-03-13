@@ -29,11 +29,11 @@ class SettingsFormHandler extends AbstractController
             $tempImageFileName = $newLogo ? $this->fileSaver->saveLogoUploadedFileIntoTemp($newLogo) : null;
             $this->settingsManager->saveLogoImage($settings, $tempImageFileName,$dirImage);
         }
-        if ($form['date']->getData()){
-            $interval=$form['date']->getData();
-            $date = new \DateTime($interval);
-            $settings->setComing($date);
-        }
+//        if ($form['date']->getData()){
+//            $interval=$form['date']->getData();
+//            $date = new \DateTime($interval);
+//            $settings->setComing($date);
+//        }
         return $settings;
     }
 }

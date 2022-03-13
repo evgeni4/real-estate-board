@@ -13,5 +13,7 @@ interface SettingsServiceInterface
 
     public function findOneRecord(): ?Settings;
 
-    public function checkComing():?bool;
+    public function checkComing(): ?bool;
+
+    public function closeSite(): bool|RedirectResponse;
 }

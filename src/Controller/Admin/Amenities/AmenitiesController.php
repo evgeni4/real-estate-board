@@ -79,6 +79,6 @@ class AmenitiesController extends AbstractController
     {
         $this->amenitiesService->delete($amenities);
         $this->addFlash('success', $this->translator->trans('amenities.delete.label'));
-        return $this->redirect($_SERVER['HTTP_REFERER']);
+        return $this->redirectToRoute('admin_amenities_show');
     }
 }

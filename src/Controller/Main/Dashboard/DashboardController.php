@@ -59,13 +59,15 @@ class DashboardController extends AbstractController
         return $this->render('main/dashboard/index.html.twig', [
             'months' =>$chart['months'],
             'count' =>$chart['count'],
-            'properties'=>$listingActive,
+            'properties'=>$listingActive['count'],
             'reviews'=>$reviews,
             'listingViews'=>$listingViews
         ]);
     }
         public function checkUserPlan(): Response
         {
+            $this->userService->checkPlanByUser();
+            $this->propertyService->checkDurationProperty();
             $tariffPlan = $this->userService->pricingPlanByUser();
             return $this->render('main/_embed/_main_dashboard/_main_dashboard_title/_tariff_plan/tariff_plan.html.twig',
                 [

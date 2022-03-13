@@ -15,6 +15,7 @@ use App\Service\Property\PropertyServiceInterface;
 use App\Service\Reviews\ReviewsServiceInterface;
 use App\Service\Seo\SeoServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,9 @@ class ListingController extends AbstractController
         private PropertyServiceInterface $propertyService,
         private ReviewsServiceInterface  $reviewsService,
         private CurrencyServiceInterface $currencyService,
-        private SessionInterface         $session
+        private SessionInterface         $session,
+        private PaginatorInterface $paginator,
+        private SettingsServiceInterface $settingsService
 
     )
     {
@@ -41,6 +44,7 @@ class ListingController extends AbstractController
     #[Route('/filter', name: 'main_listing_all')]
     public function allProperty(Request $request): Response
     {
+        $settings = $this->settingsService->findOneRecord();
         $properties = [];
         if ($request->get('search_home')) {
             $properties = $this->propertyService->findSearchResultProperties($request->get('search_home'));
@@ -53,28 +57,35 @@ class ListingController extends AbstractController
         }
 
         $this->seoService->seoProperty($properties ? $properties[0] : null, $request->getLocale());
+        $query= $this->paginator->paginate($properties, $request->query->getInt('page', 1), $settings->getAdsPerPage());
         return $this->render('main/listing/all/show.html.twig',
             [
-                'properties' => $properties,
+                'properties' => $query,
             ]);
     }
 
     #[Route('/type/{uuid}', name: 'main_listing_by_type')]
     public function byType(Type $type, Request $request): Response
     {
+        $this->settingsService->closeSite();
+        $settings = $this->settingsService->findOneRecord();
         $this->seoService->seoProperty($type, $request->getLocale());
-        $properties = $this->propertyService->findByTypesProperties($type);
+        $query   = $this->propertyService->findByTypesProperties($type);
+        $properties= $this->paginator->paginate($query, $request->query->getInt('page', 1), $settings->getAdsPerPage());
         return $this->render('main/listing/all/show.html.twig',
             [
                 'properties' => $properties,
             ]);
     }
 
-    #[Route('/{uuid}', name: 'main_listing_by_category')]
+    #[Route('/category/{uuid}', name: 'main_listing_by_category')]
     public function byCategory(Category $category, Request $request): Response
     {
+
+        $settings = $this->settingsService->findOneRecord();
         $this->seoService->seoProperty($category, $request->getLocale());
-        $properties = $this->propertyService->findByCategoryProperties($category);
+        $query = $this->propertyService->findByCategoryProperties($category);
+        $properties= $this->paginator->paginate($query, $request->query->getInt('page', 1), $settings->getAdsPerPage());
         return $this->render('main/listing/all/show.html.twig',
             [
                 'properties' => $properties,

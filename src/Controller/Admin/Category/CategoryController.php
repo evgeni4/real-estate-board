@@ -76,7 +76,7 @@ class CategoryController extends AbstractController
         );
     }
 
-    #[Route('/delete/{id}', name: 'admin_category_delete')]
+    #[Route('/delete/{id}', name: 'admin_categories_delete')]
     public function delete(Request $request, Category $category): Response
     {
         $this->categoryService->remove($category);

@@ -16,9 +16,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SettingsFormType extends AbstractType
 {
+    public function __construct(private TranslatorInterface $translator)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -75,21 +80,21 @@ class SettingsFormType extends AbstractType
                     ]
                 ]
             )
-            ->add('hostName',TextType::class,[
-                'required'=>false,
-                'label'=>false
+            ->add('hostName', TextType::class, [
+                'required' => false,
+                'label' => false
             ])
-            ->add('userName',TextType::class,[
-                'required'=>false,
-                'label'=>false
+            ->add('userName', TextType::class, [
+                'required' => false,
+                'label' => false
             ])
-            ->add('password',TextType::class,[
-                'required'=>false,
-                'label'=>false
+            ->add('password', TextType::class, [
+                'required' => false,
+                'label' => false
             ])
-            ->add('port',TextType::class,[
-                'required'=>false,
-                'label'=>false
+            ->add('port', TextType::class, [
+                'required' => false,
+                'label' => false
             ])
             ->add('logo', FileType::class,
                 [
@@ -100,30 +105,36 @@ class SettingsFormType extends AbstractType
                     'multiple' => false
                 ]
             )
-            ->add('date',TextType::class,
-                [
-                    'required' => false,
-                    'mapped' => false,
-                    'label' => false,
-                    'attr' => ['placeholder'=>'Select date/time'],
-                ]
-            )
-            ->add('address',TextType::class,
-                [
-                    'required' => false,
-                ]
-            )
-            ->add('email',TextType::class,
+//            ->add('date', TextType::class,
+//                [
+//                    'required' => false,
+//                    'mapped' => false,
+//                    'label' => false,
+//                    'attr' => ['placeholder' => 'Select date/time'],
+//                ]
+//            )
+            ->add('address', TextType::class,
                 [
                     'required' => false,
                 ]
             )
-            ->add('phone',IntegerType::class,
+            ->add('email', TextType::class,
                 [
                     'required' => false,
                 ]
             )
-        ;
+            ->add('phone', IntegerType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            ->add('adsPerPage', IntegerType::class,
+                [
+                    'required' => false,
+                    'attr'=>['min'=>2],
+                    'label' => $this->translator->trans('ads.per.page.label')
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

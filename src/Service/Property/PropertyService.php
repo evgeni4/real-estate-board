@@ -69,6 +69,7 @@ class PropertyService implements PropertyServiceInterface
         $user = $this->userService->currentUser();
         return $this->propertyRepository->findAllByAgentListingActive($user);
     }
+
     /**
      * @throws NonUniqueResultException
      */
@@ -169,4 +170,17 @@ class PropertyService implements PropertyServiceInterface
     }
 
 
+    public function checkDurationProperty(): void
+    {
+        $properties = $this->findAllProperties();
+        if ($properties) {
+            foreach ($properties as $property) {
+                $currentDate = new \DateTime();
+                $duration = $property->getDuration();
+                if (strtotime($currentDate->format('d-m-Y')) >= strtotime($duration->format('d-m-Y'))) {
+                   $this->edit($property->setDuration(null));
+                }
+            }
+        }
+    }
 }

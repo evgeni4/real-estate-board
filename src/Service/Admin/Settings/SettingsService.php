@@ -5,18 +5,22 @@ namespace App\Service\Admin\Settings;
 use App\Entity\Settings;
 use App\Repository\SettingsRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
-
+use Symfony\Component\HttpFoundation\RedirectResponse;
 class SettingsService implements SettingsServiceInterface
 {
+    private UrlGeneratorInterface $urlGenerator;
+    private SettingsRepository $settingsRepository;
+
     public function __construct(
-        private SettingsRepository $settingsRepository,
-        private UrlGeneratorInterface $urlGenerator
+       SettingsRepository    $settingsRepository,
+       UrlGeneratorInterface $urlGenerator
     )
     {
+        $this->settingsRepository=$settingsRepository;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function add(Settings $settings): bool
@@ -49,8 +53,18 @@ class SettingsService implements SettingsServiceInterface
         if (strtotime($newDate) > strtotime($date)) {
             return true;
         }
-        return null;
+        return false;
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function closeSite(): bool|RedirectResponse
+    {
+        if (!$this->checkComing()) {
+            return new RedirectResponse('/');
+        }
+        return false;
+    }
 
 }

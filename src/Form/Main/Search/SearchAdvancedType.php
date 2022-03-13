@@ -16,11 +16,17 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SearchAdvancedType extends AbstractType
 {
-    public function __construct(public BuildFormEventAdvancedSearch $advancedSearch, private TranslatorInterface $translator, private PropertyServiceInterface $propertyService)
+    public function __construct(
+        public BuildFormEventAdvancedSearch $advancedSearch,
+        private TranslatorInterface $translator,
+        private PropertyServiceInterface $propertyService,
+        private UrlGeneratorInterface $urlGenerator,
+    )
     {
     }
 
@@ -145,6 +151,7 @@ class SearchAdvancedType extends AbstractType
                     'class'=>'btn small-btn float-btn color-bg'
                 ]
             ])
+            ->setAction($this->urlGenerator->generate('main_listing_all'))
         ->setMethod('GET');
 //       $this->advancedSearch->builder($builder);
     }

@@ -87,4 +87,18 @@ class UserService implements UserServiceInterface
         $user = $this->currentUser();
         return $this->userPricingPlanRepository->findOneByUserPlan($user);
     }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function checkPlanByUser(): void
+    {
+        $plan = $this->pricingPlanByUser();
+        $currentDate = new \DateTime();
+        if ($plan){
+            if (strtotime($currentDate->format('d-m-Y')) >= strtotime($plan->getValidDate()->format('d-m-Y'))) {
+                $this->userPricingPlanRepository->update($plan->setValidDate(null));
+            }
+        }
+    }
 }

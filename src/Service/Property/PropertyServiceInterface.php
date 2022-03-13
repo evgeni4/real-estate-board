@@ -44,10 +44,12 @@ interface PropertyServiceInterface
 
     public function wishlistProperties(array $params): array;
 
-    public function findByTypesProperties(Type $type):?array;
+    public function findByTypesProperties(Type $type): ?array;
 
-    public function findByCategoryProperties(Category $category):?array;
+    public function findByCategoryProperties(Category $category): ?array;
 
     public function featuredProperty(Property $property): array;
+
+    public function checkDurationProperty(): void;
 
 }

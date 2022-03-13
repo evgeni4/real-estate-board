@@ -24,4 +24,6 @@ interface UserServiceInterface
 
     public function pricingPlanByUser(): ?UserPricingPlan;
 
+    public function checkPlanByUser(): void;
+
 }

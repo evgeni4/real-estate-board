@@ -11,7 +11,7 @@
                     <div class="dashboard-stats fl-wrap">
                         <i class="fal fa-map-marked"></i>
                         <h4>{% trans %}active.listings.label{% endtrans %}</h4>
-                        <div class="dashboard-stats-count">{{ properties?properties|length:0 }}</div>
+                        <div class="dashboard-stats-count">{{ properties?properties:0 }}</div>
                     </div>
                 </div>
                 <!-- dashboard-stats end -->
@@ -38,115 +38,42 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="dashboard-widget-title fl-wrap">{% trans %}your.statistic.label{% endtrans %}</div>
                 <div class="dasboard-content fl-wrap">
                     <!-- chart-wra-->
                     <div class="chart-wrap   fl-wrap">
-                        <canvas id="myChart" width="400" height="300"></canvas>
+                        <canvas id="myChart" width="auto" height="auto"></canvas>
                     </div>
                     <!--chart-wrap end-->
                 </div>
             </div>
-            <div class="col-md-4">
-                <!--box-widget-->
-                <div class="dasboard-widget fl-wrap">
-                    <div class="dasboard-widget-title fl-wrap">
-                        <h5><i class="fas fa-comment-alt"></i>Last Messages</h5>
-                    </div>
-                    <div class="chat-contacts fl-wrap">
-                        <!-- chat-contacts-item-->
-                        <a class="chat-contacts-item" href="dashboard.html#">
-                            <div class="dashboard-message-avatar">
-                                <img src="images/avatar/2.jpg" alt="">
-                                <div class="message-counter">2</div>
-                            </div>
-                            <div class="chat-contacts-item-text">
-                                <h4>Mark Rose</h4>
-                                <span>27 Dec 2018 </span>
-                                <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed,
-                                    ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed
-                                    dolor.</p>
-                            </div>
-                        </a>
-                        <!-- chat-contacts-item -->
-                        <!-- chat-contacts-item-->
-                        <a class="chat-contacts-item" href="dashboard.html#">
-                            <div class="dashboard-message-avatar">
-                                <img src="images/avatar/1.jpg" alt="">
-                                <div class="message-counter">1</div>
-                            </div>
-                            <div class="chat-contacts-item-text">
-                                <h4>Adam Koncy</h4>
-                                <span>27 Dec 2018 </span>
-                                <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed,
-                                    ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed
-                                    dolor.</p>
-                            </div>
-                        </a>
-                        <!-- chat-contacts-item -->
-                        <!-- chat-contacts-item-->
-                        <a class="chat-contacts-item chat-contacts-item_active" href="dashboard.html#">
-                            <div class="dashboard-message-avatar">
-                                <img src="images/avatar/3.jpg" alt="">
-                                <div class="message-counter">3</div>
-                            </div>
-                            <div class="chat-contacts-item-text">
-                                <h4>Andy Smith</h4>
-                                <span>27 Dec 2018 </span>
-                                <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed,
-                                    ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed
-                                    dolor.</p>
-                            </div>
-                        </a>
-                        <!-- chat-contacts-item -->
-                        <!-- chat-contacts-item-->
-                        <a class="chat-contacts-item" href="dashboard.html#">
-                            <div class="dashboard-message-avatar">
-                                <img src="images/avatar/5.jpg" alt="">
-                                <div class="message-counter">4</div>
-                            </div>
-                            <div class="chat-contacts-item-text">
-                                <h4>Joe Frick</h4>
-                                <span>27 Dec 2018 </span>
-                                <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed,
-                                    ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed
-                                    dolor.</p>
-                            </div>
-                        </a>
-                        <!-- chat-contacts-item -->
-                        <!-- chat-contacts-item-->
-                        <a class="chat-contacts-item" href="dashboard.html#">
-                            <div class="dashboard-message-avatar">
-                                <img src="images/avatar/4.jpg" alt="">
-                            </div>
-                            <div class="chat-contacts-item-text">
-                                <h4>Alise Goovy</h4>
-                                <span>27 Dec 2018 </span>
-                                <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed,
-                                    ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed
-                                    dolor.</p>
-                            </div>
-                        </a>
-                        <!-- chat-contacts-item -->
-                        <!-- chat-contacts-item-->
-                        <a class="chat-contacts-item" href="dashboard.html#">
-                            <div class="dashboard-message-avatar">
-                                <img src="images/avatar/6.jpg" alt="">
-                            </div>
-                            <div class="chat-contacts-item-text">
-                                <h4>Cristiano Olando</h4>
-                                <span>27 Dec 2018 </span>
-                                <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed,
-                                    ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed
-                                    dolor.</p>
-                            </div>
-                        </a>
-                        <!-- chat-contacts-item -->
-                    </div>
-                </div>
-                <!--box-widget end -->
-            </div>
+{#            <div class="col-md-4">#}
+{#                <!--box-widget-->#}
+{#                <div class="dasboard-widget fl-wrap">#}
+{#                    <div class="dasboard-widget-title fl-wrap">#}
+{#                        <h5><i class="fas fa-comment-alt"></i>Last Messages</h5>#}
+{#                    </div>#}
+{#                    <div class="chat-contacts fl-wrap">#}
+{#                        <!-- chat-contacts-item-->#}
+{#                        <a class="chat-contacts-item" href="dashboard.html#">#}
+{#                            <div class="dashboard-message-avatar">#}
+{#                                <img src="images/avatar/2.jpg" alt="">#}
+{#                                <div class="message-counter">2</div>#}
+{#                            </div>#}
+{#                            <div class="chat-contacts-item-text">#}
+{#                                <h4>Mark Rose</h4>#}
+{#                                <span>27 Dec 2018 </span>#}
+{#                                <p>Vivamus lobortis vel nibh nec maximus. Donec dolor erat, rutrum ut feugiat sed,#}
+{#                                    ornare vitae nunc. Donec massa nisl, bibendum id ultrices sed, accumsan sed#}
+{#                                    dolor.</p>#}
+{#                            </div>#}
+{#                        </a>#}
+{#                        <!-- chat-contacts-item --> #}
+{#                    </div>#}
+{#                </div>#}
+{#                <!--box-widget end -->#}
+{#            </div>#}
         </div>
     </div>
     <script>

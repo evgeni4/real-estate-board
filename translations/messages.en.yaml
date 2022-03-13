@@ -186,6 +186,7 @@ plan.details.placeholder.label: Details
 valid.label: Valid
 max.count.image: Max count images
 max.count.properties: Max count properties
+ads.per.page.label: Ads per page
 plan.area.label: Area Optional info
 plan.area.placeholder.label: Example:' 286 m2
 content.widget.label: Content Widgets

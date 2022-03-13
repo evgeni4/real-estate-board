@@ -24,13 +24,13 @@ class Amenities implements TranslatableInterface
     #[ORM\Column(type: 'boolean')]
     private ?bool $published = true;
 
-    #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyAmenities::class,cascade: ['persist','remove'])]
+    #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyAmenities::class)]
     private $propertyAmenities;
 
-    #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyRoomsWidget::class,cascade: ['persist','remove'])]
+    #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyRoomsWidget::class)]
     private $propertyRoomsWidgets;
 
-    #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyRoomsWidgetAmenities::class,cascade: ['persist','remove'])]
+    #[ORM\OneToMany(mappedBy: 'amenity', targetEntity: PropertyRoomsWidgetAmenities::class)]
     private $propertyRoomsWidgetAmenities;
 
     #[ORM\Column(type: 'string', length: 255)]

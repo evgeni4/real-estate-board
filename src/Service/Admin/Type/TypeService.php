@@ -107,7 +107,7 @@ class TypeService implements TypeServiceInterface
     public function showMenuTypeProperty(): void
     {
         foreach ($this->buildMenuTypeProperty() as $item) {
-            $link = "<a href='/listings/".$item['id']."'>" . $item['title'] . "</a>";
+            $link = "<a href='/listings/category/".$item['id']."'>" . $item['title'] . "</a>";
             echo "<li>$link</li>";
         }
     }

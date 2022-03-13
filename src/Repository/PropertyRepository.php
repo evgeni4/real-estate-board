@@ -269,12 +269,12 @@ class PropertyRepository extends ServiceEntityRepository
     {
         $db = $this->createQueryBuilder('p');
         $db
-            ->select('count(p.id)')
+            ->select('count(p.id) as count')
             ->where('p.agent = :agent')
             ->andWhere($db->expr()->isNotNull('p.duration'))
             ->groupBy('p.agent')
             ->setParameter('agent', $user);
-        return $db->getQuery()->getResult();
+        return $db->getQuery()->getOneOrNullResult();
     }
 
     public function findAllByAgentListingViews(?User $user)

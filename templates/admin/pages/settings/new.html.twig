@@ -45,16 +45,14 @@
                                     {{ a2lixTranslations.partialTranslations(form.translations, ['metaKeywords']) }}
                                     {{ a2lixTranslations.partialTranslations(form.translations, ['metaDescription']) }}
                                 </div>
-                                <div class="form-group">
-                                    <label for="dtpickerdemo" class= "col-sm-2 control-label">Disabled site now</label>
-                                    <div class='col-sm-4 input-group date' id='dtpickerdemo'>
-                                        {{ form_row(form.date) }}
-                                        <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                                    </div>
+                                <div class="col-lg-3">
+                                    {{ form_row(form.adsPerPage) }}
                                 </div>
-                            </div>
+{#                                <div class="col-lg-6">#}
+{#                                    <label for="dtpickerdemo" class= " control-label">Disabled site now</label>#}
+{#                                        {{ form_row(form.date) }}#}
+{#                                    </div>#}
+{#                                </div>#}
                         </section>
                         <section id="mail-smtp" class="tab-panel">
                             <h4>Mail SMTP</h4>

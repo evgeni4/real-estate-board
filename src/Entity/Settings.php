@@ -46,6 +46,9 @@ class Settings implements TranslatableInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $address;
 
+    #[ORM\Column(type: 'integer')]
+    private ?int $adsPerPage = 2;
+
 
 
     public function getId(): ?int
@@ -169,6 +172,18 @@ class Settings implements TranslatableInterface
     public function setAddress(?string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getAdsPerPage(): ?int
+    {
+        return $this->adsPerPage;
+    }
+
+    public function setAdsPerPage(int $adsPerPage): self
+    {
+        $this->adsPerPage = $adsPerPage;
 
         return $this;
     }
